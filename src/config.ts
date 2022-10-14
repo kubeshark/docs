@@ -49,14 +49,15 @@ export const SIDEBAR: Sidebar = {
 	en: {
 		'Getting Started': [
 			{ text: 'Introduction', link: 'en/introduction' },
-			{ text: 'Anatomy of Kubeshark', link: 'en/page-2' },
-			{ text: 'Install the CLI', link: 'en/page-3' },
-      { text: 'Deploy the Agent', link: 'en/page-3' },
+			{ text: 'Anatomy of Kubeshark', link: 'en/anatomy' },
+			{ text: 'Install', link: 'en/install' },
+      { text: 'Deploy', link: 'en/deploy' },
+      { text: 'Clean Up', link: 'en/clean' },
 		],
     'Basics': [
 			{ text: 'Network Sniffing', link: 'en/page-2' },
 			{ text: 'Querying', link: 'en/page-2' },
-			{ text: 'eBPF Tracer', link: 'en/page-3' },
+			{ text: 'Kernel Tracing', link: 'en/page-3' },
       { text: 'Validation', link: 'en/page-3' },
       { text: 'Service Map', link: 'en/page-3' },
       { text: 'Redaction', link: 'en/page-3' },
