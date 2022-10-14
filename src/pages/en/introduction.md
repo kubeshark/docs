@@ -4,7 +4,21 @@ description: Docs intro
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Welcome to Astro!**
+**Discover what's beneath the tip of the iceberg!**
+
+**Kubeshark** is a simple-yet-powerful API traffic viewer for Kubernetes enabling you to view all API communication between microservices across multiple protocols to help your debug and troubleshoot regressions.
+
+**Kubeshark** offers a real-time view of all HTTP requests, REST and gRPC API calls, as well as Kafka, AMQP (activeMQ / RabbitMQ), and Redis.
+
+## Install Kubeshark
+
+Install **Mizu** in your terminal:
+
+### Mac (Intel)
+
+```shell
+curl -Lo mizu github.com/up9inc/mizu/releases/latest/download/mizu_darwin_amd64 && chmod 755 mizu 
+```
 
 This is the `docs` starter template. It contains all of the features that you need to build a Markdown-powered documentation site, including:
 

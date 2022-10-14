@@ -1,6 +1,6 @@
 export const SITE = {
-	title: 'Documentation',
-	description: 'Your website description.',
+	title: 'Kubeshark',
+	description: 'Kubernetes deep visibility.',
 	defaultLanguage: 'en_US',
 };
 
@@ -47,11 +47,25 @@ export type Sidebar = Record<
 >;
 export const SIDEBAR: Sidebar = {
 	en: {
-		'Section Header': [
+		'Getting Started': [
 			{ text: 'Introduction', link: 'en/introduction' },
-			{ text: 'Page 2', link: 'en/page-2' },
-			{ text: 'Page 3', link: 'en/page-3' },
+			{ text: 'Anatomy of Kubeshark', link: 'en/page-2' },
+			{ text: 'Install the CLI', link: 'en/page-3' },
+      { text: 'Deploy the Agent', link: 'en/page-3' },
 		],
-		'Another Section': [{ text: 'Page 4', link: 'en/page-4' }],
+    'Basics': [
+			{ text: 'Network Sniffing', link: 'en/page-2' },
+			{ text: 'Querying', link: 'en/page-2' },
+			{ text: 'eBPF Tracer', link: 'en/page-3' },
+      { text: 'Validation', link: 'en/page-3' },
+      { text: 'Service Map', link: 'en/page-3' },
+      { text: 'Redaction', link: 'en/page-3' },
+		],
+    'Advanced': [
+			{ text: 'Installing plugins', link: 'en/page-2' },
+			{ text: 'Developing plugins', link: 'en/page-2' },
+      { text: 'Hooks reference', link: 'en/page-2' },
+      { text: 'Integrations', link: 'en/page-2' },
+		],
 	},
 };

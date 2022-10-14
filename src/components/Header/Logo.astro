@@ -1,5 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 135.46666 135.46666">
-  <defs
+---
+type Props = {
+	size: number;
+};
+const { size } = Astro.props as Props;
+---
+
+<svg
+	class="logo"
+	width={size}
+	height={size}
+	viewBox="0 0 135.46666 135.46666"
+	fill="none"
+	xmlns="http://www.w3.org/2000/svg"
+>
+
+<defs
      id="defs2" />
   <g
      transform="translate(-34.320237,-77.320239)"
@@ -330,4 +345,6 @@
          id="g1054" />
     </g>
   </g>
+
+
 </svg>
