@@ -14,3 +14,26 @@ Run the command below deploy Kubeshark Agent into your Kubernetes cluster.
 ```shell
 kubeshark deploy
 ```
+
+## Select Pods
+
+To monitor a specific pod:
+
+```shell
+kubeshark deploy catalogue-b87b45784-sxc8q
+```
+
+Regex match to pods:
+
+```shell
+kubeshark deploy "(catalo*|front-end*)"
+```
+
+## Specify The Namespace
+
+By default, Kubeshark is deployed into the `default` namespace.
+To specify a different namespace:
+
+```
+kubeshark deploy -n sock-shop
+```

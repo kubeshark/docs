@@ -9,7 +9,8 @@ Kubeshark consists of three separate programs; **CLI**, **Hub** and **Worker**.
 ## CLI
 
 It's a binary distribution of the client that communicates with your cluster through K8s API.
-Which you're going to use it to deploy the **hub**.
+Which you're going to use it to deploy the **hub**. This is the program which you need to [install](/en/install)
+into your local machine.
 
 ## Hub
 
