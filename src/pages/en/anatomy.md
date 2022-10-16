@@ -2,6 +2,7 @@
 title: Anatomy of Kubeshark
 description: Anatomy of Kubeshark
 layout: ../../layouts/MainLayout.astro
+mascot: Bookworm
 ---
 
 Kubeshark consists of three separate programs; **CLI**, **Hub** and **Worker**.

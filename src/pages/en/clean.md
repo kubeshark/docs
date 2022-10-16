@@ -2,6 +2,8 @@
 title: Clean Up
 description: Clean Up
 layout: ../../layouts/MainLayout.astro
+mascot: Holiday
+mascotSize: 110
 ---
 
 To clean up a Kubeshark deployment from your cluster, simply run:

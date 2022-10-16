@@ -2,6 +2,7 @@
 title: Install
 description: Install
 layout: ../../layouts/MainLayout.astro
+mascot: Recipe
 ---
 
 Kubeshark CLI is distributed accross many package managers. Select the package manager that suits you.

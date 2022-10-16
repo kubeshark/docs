@@ -1,0 +1,27 @@
+---
+import type { Frontmatter } from '../../config';
+import MascotHello from './Hello.astro';
+import MascotBookworm from './Bookworm.astro';
+import MascotRecipe from './Recipe.astro';
+import MascotLove from './Love.astro';
+import MascotCute from './Cute.astro';
+import MascotHoliday from './Holiday.astro';
+
+type Props = {
+  frontmatter: Frontmatter;
+	size: number;
+  position: string;
+  float: string;
+  margin: number;
+};
+const { frontmatter, size, position, float, margin } = Astro.props as Props;
+---
+
+<a href={`/${frontmatter.lang ?? "en"}/mascot`}>
+  {frontmatter.mascot === "Hello" && <MascotHello size={size} position={position} float={float} margin={margin} />}
+  {frontmatter.mascot === "Bookworm" && <MascotBookworm size={size} position={position} float={float} margin={margin} />}
+  {frontmatter.mascot === "Recipe" && <MascotRecipe size={size} position={position} float={float} margin={margin} />}
+  {frontmatter.mascot === "Love" && <MascotLove size={size} position={position} float={float} margin={margin} />}
+  {frontmatter.mascot === "Cute" && <MascotCute size={size} position={position} float={float} margin={margin} />}
+  {frontmatter.mascot === "Holiday" && <MascotHoliday size={size} position={position} float={float} margin={margin} />}
+</a>

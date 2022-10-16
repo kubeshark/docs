@@ -2,6 +2,7 @@
 title: Introduction
 description: Docs intro
 layout: ../../layouts/MainLayout.astro
+mascot: Hello
 ---
 
 **Discover what's beneath the tip of the iceberg!**

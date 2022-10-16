@@ -2,6 +2,7 @@
 title: Deploy
 description: Deploy
 layout: ../../layouts/MainLayout.astro
+mascot: Cute
 ---
 
 Once you have the Kubeshark CLI installed on your system.
