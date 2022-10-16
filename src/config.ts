@@ -51,10 +51,10 @@ export const SIDEBAR: Sidebar = {
 	en: {
 		'Getting Started': [
 			{ text: 'Introduction', link: 'en/introduction' },
-			{ text: 'Anatomy of Kubeshark', link: 'en/anatomy' },
+			{ text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
 			{ text: 'Install', link: 'en/install' },
       { text: 'Deploy', link: 'en/deploy' },
-      { text: 'Clean Up', link: 'en/clean' },
+      { text: 'Clean Up', link: 'en/clean_up' },
 		],
     'Basics': [
 			{ text: 'Network Sniffing', link: 'en/page-2' },
