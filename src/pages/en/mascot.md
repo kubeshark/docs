@@ -18,4 +18,4 @@ He is definitely **not** the *Left Shark* from that Katy Perry video:
   allowfullscreen>
 </iframe>
 
-[Go back.](#)
+<a onclick="history.back();" style="cursor: pointer">Go back.</a>
