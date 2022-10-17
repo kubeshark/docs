@@ -6,6 +6,7 @@ import MascotRecipe from './Recipe.astro';
 import MascotLove from './Love.astro';
 import MascotCute from './Cute.astro';
 import MascotHoliday from './Holiday.astro';
+import MascotSilly from './Silly.astro';
 
 type Props = {
   frontmatter: Frontmatter;
@@ -24,4 +25,5 @@ const { frontmatter, size, position, float, margin } = Astro.props as Props;
   {frontmatter.mascot === "Love" && <MascotLove size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Cute" && <MascotCute size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Holiday" && <MascotHoliday size={size} position={position} float={float} margin={margin} />}
+  {frontmatter.mascot === "Silly" && <MascotSilly size={size} position={position} float={float} margin={margin} />}
 </a>

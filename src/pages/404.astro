@@ -1,0 +1,116 @@
+---
+import WhiteShark from '../components/Header/WhiteShark.astro';
+---
+
+<html dir={'ltr'} lang={'en-us'} class="initial">
+	<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:400,300,500,700,900,800,600">
+		<title>
+			404
+		</title>
+
+    <style>
+      body {
+        font-family: 'Work Sans', sans-serif;
+        background: #326de6;
+        color: #fff;
+        text-align: center;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      h1 {
+        position: absolute;
+        left: 50%;
+        top: 20%;
+        transform: translate(-50%, -50%) rotateZ(20deg);
+        font-size: 200px;
+        font-weight: 800;
+        text-shadow: rgb(16, 43, 99) 1px 1px,
+        rgb(17, 45, 102) 2px 2px,
+        rgb(18, 46, 105) 3px 3px,
+        rgb(18, 48, 108) 4px 4px,
+        rgb(19, 49, 111) 5px 5px,
+        rgb(20, 51, 115) 6px 6px,
+        rgb(21, 52, 118) 7px 7px,
+        rgb(22, 54, 121) 8px 8px,
+        rgb(23, 56, 124) 9px 9px,
+        rgb(23, 57, 127) 10px 10px,
+        rgb(24, 59, 131) 11px 11px,
+        rgb(25, 61, 134) 12px 12px,
+        rgb(26, 62, 137) 13px 13px,
+        rgb(27, 64, 140) 14px 14px,
+        rgb(28, 66, 144) 15px 15px,
+        rgb(29, 67, 147) 16px 16px,
+        rgb(29, 69, 150) 17px 17px,
+        rgb(30, 71, 154) 18px 18px,
+        rgb(31, 72, 157) 19px 19px,
+        rgb(32, 74, 160) 20px 20px,
+        rgb(33, 76, 164) 21px 21px,
+        rgb(34, 77, 167) 22px 22px,
+        rgb(35, 79, 170) 23px 23px,
+        rgb(35, 81, 174) 24px 24px,
+        rgb(36, 82, 177) 25px 25px,
+        rgb(37, 84, 181) 26px 26px,
+        rgb(38, 86, 184) 27px 27px,
+        rgb(39, 88, 188) 28px 28px,
+        rgb(40, 89, 191) 29px 29px,
+        rgb(41, 91, 195) 30px 30px,
+        rgb(42, 93, 198) 31px 31px,
+        rgb(43, 95, 202) 32px 32px,
+        rgb(44, 96, 205) 33px 33px,
+        rgb(44, 98, 209) 34px 34px,
+        rgb(45, 100, 212) 35px 35px,
+        rgb(46, 102, 216) 36px 36px,
+        rgb(47, 104, 219) 37px 37px,
+        rgb(48, 105, 223) 38px 38px,
+        rgb(49, 107, 226) 39px 39px,
+        rgb(50, 109, 230) 40px 40px;
+      }
+
+      h1::after {
+        display: block;
+        content: 'Sorry, but the page you were trying to view does not exist!\a\a Click anywhere to go back.';
+        white-space: pre;
+        transform: translate(10%, 120%) rotateZ(-20deg);
+        font: 600 21px/1.8 'Work Sans', sans-serif;
+        text-shadow: rgb(16, 43, 99) 1px 1px,
+          rgb(16, 43, 99) 2px 2px,
+          rgb(16, 43, 99) 3px 3px,
+          rgb(16, 43, 99) 4px 4px,
+          rgb(16, 43, 99) 5px 5px,
+          rgb(16, 43, 99) 6px 6px;
+      }
+
+      h2 {
+        position: absolute;
+        left: 75%;
+        top: 80%;
+        transform: translate(-50%, -50%);
+        font-size: 200px;
+        font-weight: 800;
+      }
+		</style>
+	</head>
+
+	<body>
+		<main>
+      <h1>404</h1>
+      <h2>Kubeshark</h2>
+      <WhiteShark size={1000} style={{position: "absolute", left: "0%", top: "60%", transform: "rotateZ(15deg)"}} />
+		</main>
+
+    <script>
+      function clickBody() {
+        if (history.length > 2) {
+          history.back()
+        } else {
+          window.location.replace("/")
+        }
+      }
+      document.body.addEventListener("click", clickBody)
+    </script>
+	</body>
+</html>
