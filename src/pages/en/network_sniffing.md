@@ -28,6 +28,10 @@ Also, it can recognize [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_do
 [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/)
 and [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/).
 
+Kubeshark automatically detects
+and includes any [Envoy Proxy](https://www.envoyproxy.io/) to its list of TCP packet capture sources.
+Envoy Proxy is widely used by the service meshes.
+
 ## eBPF Based Packet Capture
 
 eBPF Based Packet Capture sniffs the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using

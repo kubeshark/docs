@@ -31,3 +31,9 @@ since then.
 Kubeshark can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using
 eBPF **without actually doing decryption**. In fact, it hooks into entry and exit points in certain functions inside the
 [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
+
+Kubeshark can recognize the service meshes like [Istio](https://istio.io/) or [Linkerd](https://linkerd.io/)
+that's installed in your Kubernetes cluster.
+Service meshes use [Envoy Proxy](https://www.envoyproxy.io/) under the hood to encrypt the traffic.
+Therefore Kubeshark automatically detects
+and includes any Envoy Proxy to its list of TCP packet capture sources.
