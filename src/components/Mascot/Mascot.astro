@@ -16,9 +16,19 @@ type Props = {
   margin: number;
 };
 const { frontmatter, size, position, float, margin } = Astro.props as Props;
+
+const MASCOT_MESSAGES = {
+  "Hello": "Sharky is welcoming!",
+  "Bookworm": "Bookworm Sharky.",
+  "Recipe": "Sharky provides instructions.",
+  "Love": "Sharky loves you!",
+  "Cute": "Sharky is so happy!",
+  "Holiday": "Sharky is taking a break...",
+  "Silly": "Sharky did an oopsy!",
+}
 ---
 
-<a href={`/${frontmatter.lang ?? "en"}/mascot`}>
+<a href={`/${frontmatter.lang ?? "en"}/mascot`} title={MASCOT_MESSAGES[frontmatter.mascot]}>
   {frontmatter.mascot === "Hello" && <MascotHello size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Bookworm" && <MascotBookworm size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Recipe" && <MascotRecipe size={size} position={position} float={float} margin={margin} />}
