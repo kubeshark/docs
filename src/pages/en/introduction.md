@@ -7,7 +7,7 @@ mascot: Hello
 
 **Discover what's beneath the tip of the iceberg!**
 
-Kubeshark is an **observability and monitoring tool for** [**Kubernetes**](https://kubernetes.io/), enabling **dynamic analysis** of Microservices’ API traffic, detecting **anomalies** and **triggering functions** when certain patterns appear in runtime.
+Kubeshark is an **observability and monitoring tool for** [**Kubernetes**](https://kubernetes.io/), enabling **dynamic analysis** of the microservices, detecting **anomalies** and **triggering functions** when certain patterns appear in runtime.
 
 Think of Kubeshark as a **Kubernetes-aware** combination of [**Wireshark**](https://www.wireshark.org/), [**BPF Compiler Collection (BCC) tools**](https://github.com/iovisor/bcc) and beyond.
 

@@ -6,7 +6,7 @@ mascot: Cute
 ---
 
 Once you have the Kubeshark CLI installed on your system.
-Run the command below deploy Kubeshark Agent into your Kubernetes cluster.
+Run the command below to deploy Kubeshark Agent into your Kubernetes cluster.
 
 > Kubeshark images are hosted on Docker Hub. Make sure you have access to https://hub.docker.com/
 
