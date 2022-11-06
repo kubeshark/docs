@@ -29,7 +29,7 @@
 	--color-base-yellow: 41, 100%;
 
 	/*
-   * Color palettes are made using --color-base 
+   * Color palettes are made using --color-base
    * variables, along with a lightness value to
    * define different variants.
    *
@@ -59,7 +59,7 @@
 :root {
 	color-scheme: light;
 	--theme-accent: #326de6;
-	--theme-text-accent: #326de6;
+	--theme-text-accent: var(--theme-accent);
 	--theme-accent-opacity: 0.15;
 	--theme-divider: hsla(var(--color-gray-95), 1);
 	--theme-text: hsla(var(--color-gray-10), 1);
@@ -76,7 +76,7 @@
 	--theme-code-text: hsla(var(--color-gray-95), 1);
 	--theme-navbar-bg: hsla(var(--color-base-white), 100%, 1);
 	--theme-navbar-height: 6rem;
-	--theme-selection-color: #326de6;
+	--theme-selection-color: var(--theme-accent);
 	--theme-selection-bg: hsla(var(--color-blue), var(--theme-accent-opacity));
 }
 
@@ -88,8 +88,8 @@ body {
 :root.theme-dark {
 	color-scheme: dark;
 	--theme-accent-opacity: 0.15;
-	--theme-accent: #326de6;
-	--theme-text-accent: #326de6;
+	--theme-accent: var(--theme-accent);
+	--theme-text-accent: var(--theme-accent);
 	--theme-divider: hsla(var(--color-gray-10), 1);
 	--theme-text: hsla(var(--color-gray-90), 1);
 	--theme-text-light: hsla(var(--color-gray-80), 1);
@@ -103,7 +103,7 @@ body {
 	--theme-code-inline-text: hsla(var(--color-base-white), 100%, 1);
 	--theme-code-bg: hsla(var(--color-gray-5), 1);
 	--theme-code-text: hsla(var(--color-base-white), 100%, 1);
-	--theme-navbar-bg: hsla(215, 28%, 17%, 1);
+	--theme-navbar-bg: var(--theme-bg);
 	--theme-selection-color: hsla(var(--color-base-white), 100%, 1);
 	--theme-selection-bg: hsla(var(--color-purple), var(--theme-accent-opacity));
 
