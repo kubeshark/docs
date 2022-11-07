@@ -191,7 +191,7 @@ strong {
 code {
 	--border-radius: 3px;
 	--padding-block: 0.2rem;
-	--padding-inline: 0.33rem;
+	--padding-inline: 0rem;
 
 	font-family: var(--font-mono);
 	font-size: 0.85em;
