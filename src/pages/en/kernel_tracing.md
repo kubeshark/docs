@@ -18,6 +18,8 @@ kubeshark deploy --tls -n sock-shop
 Kubeshark supports the most commonly used encryption/decryption
 library [OpenSSL](https://www.openssl.org/) library and Go's custom implementation [crypto/tls](https://pkg.go.dev/crypto/tls) package.
 
+![TLS Traffic Example](/tls_traffic.png)
+
 > Note: By default the capturing unencrypted TLS traffic. Only `--tls` option enables it.
 
 ### OpenSSL
