@@ -9,11 +9,6 @@ Kubeshark CLI is distributed accross many package managers. Select the package m
 
 ### Homebrew
 
-~~~java https://stackoverflow.com/questions/4042434/converting-arrayliststring-to-string-in-java
-List<String> list = ..;
-String[] array = list.toArray(new String[0]);
-~~~
-
 ```shell
 brew install kubeshark
 ```
