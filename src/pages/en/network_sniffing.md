@@ -28,13 +28,18 @@ Also, it can recognize [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_do
 [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/)
 and [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/).
 
+### Service Meshes
+
 Kubeshark automatically detects
 and includes any [Envoy Proxy](https://www.envoyproxy.io/) to its list of TCP packet capture sources.
-Envoy Proxy is widely used by the service meshes.
+Envoy Proxy is widely used by the service meshes like Istio or Linkerd.
+
+Even though the service meshes known for encrypting the traffic between regional nodes, we capture
+the unencrypted traffic simply by detecting their network interfaces and without doing any kernel tracing.
 
 ## eBPF Based Packet Capture
 
-eBPF Based Packet Capture sniffs the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using
+eBPF based packet capture sniffs the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using
 eBPF **without actually doing decryption**. In fact, it hooks into entry and exit points in certain functions inside the
 [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
 
