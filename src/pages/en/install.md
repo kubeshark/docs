@@ -10,7 +10,7 @@ and CPU architecture and places inside your path:
 
 
 ```shell
-sh <(curl -s https://kubeshark.co/install)
+sh <(curl -Ls https://kubeshark.co/install)
 ```
 
 ## Deploy
