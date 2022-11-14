@@ -30,7 +30,7 @@ Written in Go, serves a [React](https://reactjs.org/) app which is used to displ
 on your web browser. It communicates with the [**workers**](#worker)
 through [WebSocket](https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API) connections.
 
-It's the software which you [deploy](/en/deploy) into your cluster using `kubeshark deploy` command.
+It's the software which you [deploy](/en/install#deploy) into your cluster using `kubeshark deploy` command.
 
 **Source code:** [`kubeshark/hub`](https://github.com/kubeshark/hub)
 

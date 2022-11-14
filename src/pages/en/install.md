@@ -2,55 +2,58 @@
 title: Install
 description: Install
 layout: ../../layouts/MainLayout.astro
-mascot: Recipe
+mascot: Cute
 ---
 
-Kubeshark CLI is distributed accross many package managers. Select the package manager that suits you.
+Install Kubeshark CLI using a shell script that simply downloads the right binary for your operating system
+and CPU architecture and places inside your path:
 
-### Homebrew
 
 ```shell
-brew install kubeshark
+sh <(curl -s https://kubeshark.co/install)
 ```
 
-### apt
+## Deploy
+
+Once you have the Kubeshark CLI installed on your system.
+Run the command below to deploy Kubeshark Agent into your Kubernetes cluster.
+
+> Kubeshark images are hosted on Docker Hub. Make sure you have access to https://hub.docker.com/
+
+> Make sure `kubeshark` executable in your `PATH`.
 
 ```shell
-apt install kubeshark
+kubeshark tap
 ```
 
-### yum
+### Select Pods
+
+To monitor a specific pod:
 
 ```shell
-yum install kubeshark
+kubeshark tap catalogue-b87b45784-sxc8q
 ```
 
-### apk
+Regex match to pods:
 
 ```shell
-apk add kubeshark
+kubeshark tap "(catalo*|front-end*)"
 ```
 
-### Snap
+### Specify The Namespace
 
-```shell
-snap install kubeshark
+By default, Kubeshark is deployed into the `default` namespace.
+To specify a different namespace:
+
+```
+kubeshark tap -n sock-shop
 ```
 
-### AppImage
+### To All Namespaces
 
-```shell
-appimage install kubeshark
+The default deployment strategy of Kubeshark waits for the new pods
+to be created. To simply deploy to all existing namespaces run:
+
 ```
-
-### Flatpak
-
-```shell
-flatpak install kubeshark
-```
-
-### Chocolatey
-
-```shell
-choco install kubeshark
+kubeshark tap -A
 ```
