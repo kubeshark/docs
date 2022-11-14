@@ -140,3 +140,7 @@ body {
   right: 0.75em;
   background-color: var(--theme-code-bg);
 }
+
+.code-extra button:hover {
+    opacity: 0.5;
+}
