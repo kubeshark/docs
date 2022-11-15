@@ -23,8 +23,8 @@ export type Frontmatter = {
 	dir?: 'ltr' | 'rtl';
 	ogLocale?: string;
 	lang?: string;
-  mascot?: string;
-  mascotSize: number;
+    mascot?: string;
+    mascotSize: number;
 };
 
 export const KNOWN_LANGUAGES = {
@@ -55,19 +55,19 @@ export const SIDEBAR: Sidebar = {
 			{ text: 'Install & Deploy', link: 'en/install' },
             { text: 'Clean Up', link: 'en/clean_up' },
 		],
-    'Basics': [
-			{ text: 'Network Sniffing', link: 'en/network_sniffing' },
-			{ text: 'Querying', link: 'en/querying' },
-			{ text: 'Kernel Tracing', link: 'en/kernel_tracing' },
+        'Features': [
+            { text: 'Network Sniffing', link: 'en/network_sniffing' },
+            { text: 'Querying', link: 'en/querying' },
+            { text: 'Kernel Tracing', link: 'en/kernel_tracing' },
             { text: 'Validation', link: 'en/validation' },
             { text: 'Service Map', link: 'en/service_map' },
             { text: 'Redaction', link: 'en/redaction' },
-		],
-    'Advanced': [
-			{ text: 'Installing plugins', link: 'en/installing_plugins' },
-			{ text: 'Developing plugins', link: 'en/developing_plugins' },
-            { text: 'Hooks reference', link: 'en/hooks_reference' },
-            { text: 'Integrations', link: 'en/integrations' },
-		],
+        ],
+        // 'Advanced': [
+        //     { text: 'Installing plugins', link: 'en/installing_plugins' },
+        //     { text: 'Developing plugins', link: 'en/developing_plugins' },
+        //     { text: 'Hooks reference', link: 'en/hooks_reference' },
+        //     { text: 'Integrations', link: 'en/integrations' },
+        // ],
 	},
 };
