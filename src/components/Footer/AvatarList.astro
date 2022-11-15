@@ -4,9 +4,8 @@ type Props = {
 	path: string;
 };
 const { path } = Astro.props as Props;
-const resolvedPath = `examples/docs/${path}`;
-const url = `https://api.github.com/repos/kubeshark/docs/commits?path=${resolvedPath}`;
-const commitsURL = `https://github.com/kubeshark/docs/commits/master/${resolvedPath}`;
+const url = `https://api.github.com/repos/kubeshark/docs/commits?path=${path}`;
+const commitsURL = `https://github.com/kubeshark/docs/commits/master/${path}`;
 
 type Commit = {
 	author: {
