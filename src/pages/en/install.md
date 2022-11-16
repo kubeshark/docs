@@ -5,9 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Install Kubeshark CLI using a shell script that simply downloads the right binary for your operating system
-and CPU architecture and places inside your path:
-
+Installing Kubeshark can't be easier. Either download it directly from [Kubeshark's Github repository](https://github.com/kubeshark/kubeshark) or use a shell script todownload the right binary for your operating system and CPU architecture:
 
 ```shell
 sh <(curl -Ls https://kubeshark.co/install)
@@ -15,32 +13,33 @@ sh <(curl -Ls https://kubeshark.co/install)
 
 ## Deploy
 
-Once you have the Kubeshark CLI installed on your system.
-Run the command below to deploy Kubeshark Agent into your Kubernetes cluster.
+Once you have the Kubeshark CLI installed on your system, run the command below to deploy the Kubeshark container into your Kubernetes cluster.
+
+```shell
+kubeshark tap
+```
+### Troubleshooting Installation
+If something doesn't work or simply to play it safe prior to installing, make sure that:
 
 > Kubeshark images are hosted on Docker Hub. Make sure you have access to https://hub.docker.com/
 
 > Make sure `kubeshark` executable in your `PATH`.
 
-```shell
-kubeshark tap
-```
-
 ### Select Pods
 
-To monitor a specific pod:
+#### Monitoring a Specific Pod:
 
 ```shell
 kubeshark tap catalogue-b87b45784-sxc8q
 ```
 
-Regex match to pods:
+#### Monitoring a Set of Pods Using Regex:
 
 ```shell
 kubeshark tap "(catalo*|front-end*)"
 ```
 
-### Specify The Namespace
+### Specify the Namespace
 
 By default, Kubeshark is deployed into the `default` namespace.
 To specify a different namespace:
@@ -49,7 +48,7 @@ To specify a different namespace:
 kubeshark tap -n sock-shop
 ```
 
-### To All Namespaces
+### Specify All Namespaces
 
 The default deployment strategy of Kubeshark waits for the new pods
 to be created. To simply deploy to all existing namespaces run:
