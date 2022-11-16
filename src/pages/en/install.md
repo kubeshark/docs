@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Installing Kubeshark can't be easier. Either download it directly from [Kubeshark's Github repository](https://github.com/kubeshark/kubeshark) or use a shell script todownload the right binary for your operating system and CPU architecture:
+Installing Kubeshark can't be any easier. Either choose the right binary, download and use directly from [Kubeshark's Github repository](https://github.com/kubeshark/kubeshark), or use a shell script to download the right binary for your operating system and CPU architecture:
 
 ```shell
 sh <(curl -Ls https://kubeshark.co/install)
