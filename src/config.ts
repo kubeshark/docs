@@ -34,7 +34,8 @@ export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
 
 export const GITHUB_EDIT_URL = `https://github.com/kubeshark/docs/tree/master`;
 
-export const COMMUNITY_INVITE_URL = `https://kubeshark.co/chat`;
+export const DISCORD_SERVER_INVITE = `https://discord.gg/2ABWCpDCjt`;
+export const SLACK_WORKSPACE_INVITE = `https://join.slack.com/t/mertyildiran/shared_invite/zt-1k3sybpq9-uAhFkuPJiJftKniqrGHGhg`;
 
 // See "Algolia" section of the README for more information.
 export const ALGOLIA = {
