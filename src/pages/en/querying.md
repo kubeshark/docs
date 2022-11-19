@@ -6,7 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 The Kubeshark filter syntax field applies filtering to your traffic viewer. For example, to only see HTTP responses starting with the number 4, enter `http and response.status == r"4.*"` and select Apply. Your traffic stream will look like this:
 
-![](https://getmizu.io/static/88603344c95a3af114d54593cd78ef9b/385f2/mizu-filter-applied.png)
+![](/filter-applied.png)
 
 You can also query by timestamp, integer and even queryable UI elements for convenience. A syntax cheatsheet is available next to the filter syntax field, see KFL Syntax Reference for more details.
 
@@ -14,7 +14,7 @@ You can also query by timestamp, integer and even queryable UI elements for conv
 
 When you hover over UI elements and they display a green plus sign, it means this element can be added to your query. Selecting an element with the green plus sign will add this element to the your filter. For example; selecting this queryable element:
 
-![](https://getmizu.io/static/3450089c3527338e3eab5a07881b779b/25cf9/filter-ui-example.png)
+![](/filter-ui-example.png)
 
 adds `response.status == 201` to your filter and only displays `HTTP 201` responses in the live traffic streaming.
 
@@ -22,7 +22,7 @@ adds `response.status == 201` to your filter and only displays `HTTP 201` respon
 
 Kubeshark has a built-in cheatsheet to guide for the filtering functionality:
 
-![](https://getmizu.io/static/e20905be9621b5ce4b91b6e8add97b33/be8a4/mizu-cheatsheet.png)
+![](/cheatsheet.png)
 
 ## KFL Syntax Reference
 

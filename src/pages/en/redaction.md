@@ -28,7 +28,7 @@ These fields will be redacted from:
 4. Response body
 5. Response headers
 
-> **Note:** This is true for all Mizu supported protocols - gRPC, Kafka, RabbitMQ, ActiveMQ, Redis
+> **Note:** This is true for all Kubeshark supported protocols - gRPC, Kafka, RabbitMQ, ActiveMQ, Redis
 
 ## Redact sensitive data using regular expressions
 
@@ -44,12 +44,12 @@ Use multiple `-r` to simultaneously filter multiple patterns:
 kubeshark tap catalo -r "redact this pattern" -r "and also this (.*) pattern"
 ```
 
-## Configure your Mizu Config File
+## Configure your Kubeshark Config File
 
 ### Changing the default list of keywords
 
 To remove or add keywords to the default list of redacted keywords,
-change the file and build the Mizu CLI with the altered file.
+change the file and build the Kubeshark CLI with the altered file.
 
 The variable `personallyIdentifiableDataFields` is defined
 in [this file](https://github.com/kubeshark/kubeshark/blob/main/tap/extensions/http/sensitive_data_cleaner.go)
