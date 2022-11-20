@@ -259,13 +259,11 @@ blockquote code {
 	background-color: var(--theme-bg);
 }
 
-@media (min-width: 37.75em) {
-	pre {
-		--padding-inline: 1.25rem;
-		border-radius: 8px;
-		margin-left: 0;
-		margin-right: 0;
-	}
+pre {
+	--padding-inline: 1.25rem;
+	border-radius: 8px;
+	margin-left: 0;
+	margin-right: 0;
 }
 
 blockquote {
