@@ -33,6 +33,6 @@ eBPF **without actually doing decryption**. In fact, it hooks into entry and exi
 Kubeshark can recognize service mesh solutions like [Istio](https://istio.io/) and [Linkerd](https://linkerd.io/)
 that are used in your Kubernetes cluster.
 
-Service meshe solutions use [Envoy Proxy](https://www.envoyproxy.io/) under the hood to encrypt the traffic.
+Service mesh solutions use [Envoy Proxy](https://www.envoyproxy.io/) under the hood to encrypt the traffic.
 Therefore Kubeshark automatically detects
 and includes any Envoy Proxy to its list of TCP packet capture sources.
