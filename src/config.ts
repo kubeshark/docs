@@ -39,9 +39,9 @@ export const SLACK_WORKSPACE_INVITE = `https://join.slack.com/t/kubeshark/shared
 
 // See "Algolia" section of the README for more information.
 export const ALGOLIA = {
-	indexName: 'XXXXXXXXXX',
-	appId: 'XXXXXXXXXX',
-	apiKey: 'XXXXXXXXXX',
+	indexName: process.env.ALGOLIA_INDEX_NAME,
+	appId: process.env.ALGOLIA_APP_ID,
+	apiKey: process.env.ALGOLIA_API_KEY,
 };
 
 export type Sidebar = Record<
