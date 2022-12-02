@@ -25,14 +25,15 @@ function readFiles(dirname, onFileContent, onError, onFinish) {
 				if (ctr === filenames.length) {
 					final = true;
 				}
-				onFileContent(fileContent, onFinish, final);
+
+				onFileContent(filename.replace(/\.[^/.]+$/, ""), fileContent, onFinish, final);
       });
     });
 
   });
 }
 
-function runFrontMatter(fileContent, onFinish, final) {
+function runFrontMatter(url, fileContent, onFinish, final) {
 	const { data, content, errors } = frontmatter(fileContent)
 
 	if (errors.length > 0) {
@@ -48,9 +49,17 @@ function runFrontMatter(fileContent, onFinish, final) {
 			text = text.replace(/\n/g, " ")
 			results.push(
 				{
+					"url": url,
+					"url_without_anchor": url,
+					"anchor": null,
+					"type": "content",
 					"title": data.title,
 					"description": data.description,
 					"content": text,
+					"hierarchy": {
+						"lvl0": "Pages",
+						"lvl1": data.title
+					},
 				}
 			)
 			if (final) onFinish();
