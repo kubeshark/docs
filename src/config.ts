@@ -35,7 +35,7 @@ export const KNOWN_LANGUAGE_CODES = Object.values(KNOWN_LANGUAGES);
 export const GITHUB_EDIT_URL = `https://github.com/kubeshark/docs/tree/master`;
 
 export const DISCORD_SERVER_INVITE = `https://discord.gg/WkvRGMUcx7`;
-export const SLACK_WORKSPACE_INVITE = `https://join.slack.com/t/kubeshark/shared_invite/zt-1k3sybpq9-uAhFkuPJiJftKniqrGHGhg`;
+export const SLACK_WORKSPACE_INVITE = `https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA`;
 
 // See "Algolia" section of the README for more information.
 export const ALGOLIA = {
