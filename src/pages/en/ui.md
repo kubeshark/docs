@@ -13,11 +13,11 @@ The Web UI is made out a [React](https://reactjs.org/) application and communica
 
 ![Targeted PODs](/targets.png)
 
-At the top of the screen in a blue top panel (section I), Kubeshark lists an up-to-date list of Pods that are being tapped.
+At the top of the screen in a blue top panel, Kubeshark lists an up-to-date list of Pods that are being tapped.
 
 ## The Query Box
 
-The query box (section A) is used to enter the Kubeshark Filter Syntax statement. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated.
+The query box is used to enter the Kubeshark Filter Syntax statement. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated.
 
 The Kubeshark filter syntax field (aka Query Box) applies filtering to your traffic viewer. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
 
@@ -37,11 +37,15 @@ When you hover over UI elements and they display a green plus sign, it means thi
 
 ## The Web UI URL
 
-The Web UI URL (section J) will include the query in the URL. This is helpful if you'd like to bookmark or store the query for further use.
+Once you run a query, the query gets added to the Web UI URL. This is helpful if you'd like to bookmark or store the query for further use.
+
+![Web UI URL](/web-ui-url.png)
 
 ## Streaming Traffic Entries Panel
 
-The left panel shows the streaming traffic entries captured by the **Workers** and transmitted in real time through the **Hub** to the Web UI. Each entry includes mostely meta data like: protocol, response code, method, source and destination IPs and Pods (section B).
+The left panel shows the streaming traffic entries captured by the **Workers** and transmitted in real time through the **Hub** to the Web UI. Each entry includes mostely meta data like: protocol, response code, method, source and destination IPs and Pods.
+
+![Streaming Traffic Entry](/entry.png)
 
 Streaming will continue until either:
 - The user selected to stop streaming
@@ -63,9 +67,11 @@ Scrolling up indicates you'd like to view historical traffic entries and therefo
 
 When streaming is stopped it doesn't mean traffic capture is stopped. Traffic capture continues and stored, until Kubeshark is stopped. 
 
+![](/stop-streaming.png)
+
 #### Continue Streaming
 
-To continue viewing streaming traffic, press the down arrow at the bottom of the right panel (section H), or the play button at the top of the right panel.
+To continue viewing streaming traffic, press the down arrow at the bottom of the right panel, or the play button at the top of the right panel.
 
 ## The Traffic Entry Panel
 
@@ -73,7 +79,7 @@ The right panel shows the complete information related to a selected captured tr
 
 ### TCP stream Information
 
-Captured traffic entry belongs to a TCP stream. A TCP stream can include one or more request-response pairs. The TCP stream block (section F) includes information about the TCP stream in which the captured traffic entry belongs to. Information includes the request-response pair index, the Node, the Worker and the name of the TCP stream.
+Captured traffic entry belongs to a TCP stream. A TCP stream can include one or more request-response pairs. The TCP stream block includes information about the TCP stream in which the captured traffic entry belongs to. Information includes the request-response pair index, the Node, the Worker and the name of the TCP stream.
 
 ### Traffic Entry Meta Data and Payload
 

@@ -7,11 +7,17 @@ mascot: Hello
 
 Kubeshark stores complete TCP streams that include all of the request-response pairs that were included in a communication between two endpoints from when a connection was established until the connection was closed.
 
-### TCP Stream Operations
+## Export to PCAP
 
-With TCP streams, Kubeshark enables replaying the TCP streams, exporting them to PCAP and viewing their request-response pairs.
+Use the PCAP button to export the TCP stream content to a PCAP file.
 
-#### TCP Stream Information
+## Replay
+
+Use the Replay button to replay the TCP stream. Replaying a TCP stream opens a connection to the server using the server IP and port, and sends only the requests packets. 
+
+![TCP stream Replay](/tcp-replay.png)
+
+## Information
 
 The TCP stream information includes the following properties:
 
@@ -24,7 +30,7 @@ C - TCP Stream (file) name
 D - Request Response Pair Index
 E - Node IP
 
-#### TCP Stream Filter: Request Response Pairs 
+## Request Response Pairs 
 
 When filtering by TCP stream, you can see the request-response pairs that belong to the TCP stream.
 
