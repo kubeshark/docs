@@ -1,46 +1,49 @@
 ---
-title: Network Sniffing
-description: Network Sniffing
+title: Traffic Sniffing
+description: Traffic Sniffing
 layout: ../../layouts/MainLayout.astro
 ---
 
-Kubeshark can sniff both encrypted and unencrypted traffic in your cluster using
-various methods and APIs built into [Linux kernel](https://www.kernel.org/).
+Kubeshark can sniff both encrypted and unencrypted traffic in your cluster using various methods and APIs built into [Linux kernel](https://www.kernel.org/).
 
 ## Direct Packet Capture
 
-Direct packet capture sniffs the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol)
-traffic in your cluster using [libpcap](https://www.tcpdump.org/),
-[AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and
-[PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/) and
-records it into a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file.
-The TCP packets that are stored in the PCAP file being dissected on demand
-upon [querying](/en/querying) for the folowwing application layer protocols:
+Kubeshark's [Worker](/en/worker) uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) traffic in your cluster using [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). The TCP packets that are stored in a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file and the packets are dissected on demand when a [query](/en/querying) is received. The **Worker** works at the Kubernetes Node level.
 
-- [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
-- [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
-- [HTTP/2](https://datatracker.ietf.org/doc/html/rfc7540)
-- [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html)
-- [Apache Kafka](https://kafka.apache.org/protocol)
-- [Redis](https://redis.io/topics/protocol)
+The **Worker** dissects the TCP traffic on demand when a [query](/en/querying) is received with support for popular application layer protocols like: [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html) and [GraphQL](https://graphql.org/learn/serving-over-http/). 
 
-Also, it can recognize [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html),
-[GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/)
-and [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/).
+NOTE: Read the [Protocl Support](/en/protocols) section for a complete list of supported protocols.
 
-### Service Meshes
+## The TAP Command
 
-Kubeshark automatically detects
-and includes any [Envoy Proxy](https://www.envoyproxy.io/) to its list of TCP packet capture sources.
-Envoy Proxy is widely used by the service meshes like Istio.
+The TAP command of the CLI instructs Kubeshark to deploy the **Hub** and start tapping based on the [Scope](/en/scope) rules.
 
-Even though the service meshes known for encrypting the traffic between regional nodes, we capture
-the unencrypted traffic simply by detecting their network interfaces and without doing any kernel tracing.
+TAP docuemnetation can change. To see the most up-to-date TAP documentation run:
 
-## eBPF Based Packet Capture
+```shell
+kubeshark tap -h
+```
 
-eBPF based packet capture sniffs the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using
-eBPF **without actually doing decryption**. In fact, it hooks into entry and exit points in certain functions inside the
-[OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
+```shell
+Usage:
+  kubeshark tap [POD REGEX] [flags]
 
-See [Kernel Tracing](/en/kernel_tracing) for more info.
+Flags:
+  -A, --all-namespaces               Tap all namespaces.
+  -r, --docker-registry string       The Docker registry that's hosting the images. (default "docker.io/kubeshark")
+  -t, --docker-tag string            The tag of the Docker images that are going to be pulled. (default "latest")
+      --dry-run                      Preview of all pods matching the regex, without tapping them.
+  -h, --help                         help for tap
+      --max-entries-db-size string   Override the default max entries db size. (default "200MB")
+  -n, --namespaces strings           Namespaces selector.
+      --proxy-host string            Provide a custom host for the proxy/port-forward. (default "127.0.0.1")
+      --proxy-port-front uint16      Provide a custom port for the front-end proxy/port-forward. (default 8899)
+      --proxy-port-hub uint16        Provide a custom port for the Hub proxy/port-forward. (default 8898)
+      --service-mesh                 Capture the encrypted traffic if the cluster is configured with a service mesh and with mTLS. (default true)
+      --tls                          Capture the traffic that's encrypted with OpenSSL or Go crypto/tls libraries. (default true)
+
+Global Flags:
+      --config-path string   Override config file path using --config-path (default "/Users/alongir/.kubeshark/config.yaml")
+  -d, --debug                Enable debug mode.
+      --set strings          Override values using --set
+```
