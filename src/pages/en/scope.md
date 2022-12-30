@@ -2,7 +2,7 @@
 title: Scope of Traffic Capture
 description: How to scope the traffic capture 
 layout: ../../layouts/MainLayout.astro
-mascot: Cute
+mascot: 
 ---
 
 While capturing all traffic is possible, it is a storage and CPU intensive operations. Kubeshark enables you to describe the scope of traffic capture with support for namespaces and PODs.

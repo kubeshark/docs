@@ -1,8 +1,8 @@
 ---
 title: Install
-description: Install
+description: kubeshark tap -n sock-shop "(catalo*|front-end*)"
 layout: ../../layouts/MainLayout.astro
-mascot: Cute
+mascot: Hello
 ---
 
 Installing Kubeshark is easy. We recomand choosing the right binary to download directly from [Kubeshark's Github repository](https://github.com/kubeshark/kubeshark/releases/). 

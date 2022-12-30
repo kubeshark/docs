@@ -2,7 +2,7 @@
 title: Protocol Support
 description: Docs intro
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
+mascot: 
 ---
 
 Kubeshark can sniff parts or all TCP traffic in your cluster, record it into a PCAP file and dissect the following application layer protocols:

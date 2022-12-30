@@ -1,6 +1,6 @@
 ---
 title: Instant Distributed Visibility
-description: Docs intro
+description: Kubeshark, not only saves you time, it gives you access to all traffic whereever it happens and whenever it happens 
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---

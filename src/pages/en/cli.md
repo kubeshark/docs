@@ -1,8 +1,8 @@
 ---
 title: Kubeshark CLI
-description: The CLI
+description: The CLI communicates with the Kubernetes API to deploy and control the other software componenets in the cluster
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
+mascot: 
 ---
 
 The **CLI** (Command Line Interface) is a binary distribution of the Kubeshark client and it is written in [Go](https://go.dev/) language. 

@@ -2,7 +2,7 @@
 title: Sniffing Encrypted Traffic
 description: ncrypted Traffic
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
+mascot: 
 ---
 
 In certain situations, Kubeshark can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using eBPF **without actually doing decryption**. It hooks into entry and exit points in certain functions inside the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
