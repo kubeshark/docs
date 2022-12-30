@@ -1,11 +1,11 @@
 ---
 title: Scope of Traffic Capture
-description: How to scope the traffic capture 
+description: Kubeshark enables you to describe the scope of traffic capture with support for namespaces and PODs
 layout: ../../layouts/MainLayout.astro
-mascot: 
+mascot:
 ---
 
-While capturing all traffic is possible, it is a storage and CPU intensive operations. Kubeshark enables you to describe the scope of traffic capture with support for namespaces and PODs.
+While capturing all traffic is possible, it is a storage and CPU intensive operation. **Kubeshark** enables you to describe the scope of traffic capture with support for namespaces and PODs.
 
 ### Pods selection
 
@@ -20,8 +20,8 @@ kubeshark tap catalogue-b87b45784-sxc8q
 You can use a regular expression to indicate several pod names as well as dynamicly changing names.
 
 In the example below using the regex `(catalo*|front-end*)` will catch the following three pods:
-* catalogue-868cc5ffd6-p9njn 
-* catalogue-db-669d5dbf48-8hnrl  
+* catalogue-868cc5ffd6-p9njn
+* catalogue-db-669d5dbf48-8hnrl
 * front-end-6db57bf84f-7kss9
 
 ```shell
@@ -30,12 +30,9 @@ kubeshark tap "(catalo*|front-end*)"
 
 ![PODS](/pods.png)
 
-
-
-
 ### Namespaces
 
-By default, Kubeshark is deployed into the `default` namespace.
+By default, **Kubeshark** is deployed into the `default` namespace.
 To specify a different namespace:
 
 ```
@@ -44,7 +41,7 @@ kubeshark tap -n sock-shop
 
 ### Specify All Namespaces
 
-The default deployment strategy of Kubeshark waits for the new pods
+The default deployment strategy of **Kubeshark** waits for the new pods
 to be created. To simply deploy to all existing namespaces run:
 
 ```

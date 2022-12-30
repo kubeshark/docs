@@ -59,15 +59,15 @@ export const SIDEBAR: Sidebar = {
         'Features': [
             { text: 'Web UI', link: 'en/ui' },
             { text: 'CLI', link: 'en/cli' },
+			{ text: 'Service Map', link: 'en/service_map' },
             { text: 'Traffic Sniffing', link: 'en/network_sniffing' },
             { text: 'Encryption', link: 'en/encryption' },
             { text: 'Pods & Namespaces', link: 'en/scope' },
-            { text: 'Query Language', link: 'en/querying' },
+            { text: 'Filter Language', link: 'en/querying' },
 			{ text: 'Protocol Support', link: 'en/protocols' },
 			{ text: 'PCAP', link: 'en/pcap' },
 			{ text: 'TCP streams', link: 'en/tcp' },
-			{ text: 'Historical Traffic', link: 'en/history' },
-			{ text: 'Service Map', link: 'en/service_map' },
+			{ text: 'Historic Traffic', link: 'en/history' },
 			{ text: 'Clean Up', link: 'en/clean_up' },
         ],
 		'Advanced': [
@@ -75,7 +75,7 @@ export const SIDEBAR: Sidebar = {
 			{ text: 'Permissions', link: 'en/permissions' },
 			{ text: 'Service Mesh', link: 'en/service_mesh' },
 			{ text: 'Troubleshooting', link: 'en/troubleshooting' },
-			{ text: 'Helm chart', link: 'en/TBD' },
+		//	{ text: 'Helm chart', link: 'en/TBD' },
 		],
         // 'Advanced': [
         //     { text: 'Installing plugins', link: 'en/installing_plugins' },

@@ -5,12 +5,11 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-Kubeshark reads configuration elements both from the CLI and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml` or at a diffrent location speciied as a CLI flag: `--configpath string`.
-
+**Kubeshark** reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml` or at a diffrent location speciied as a CLI flag: `--configpath string`.
 
 ## The Config Command
 
-The `config` command generates Kubeshark config file with default values.
+The `config` command generates a ​**​Kubeshark​**​ config file with default values.
 
 ```shell
 Usage:
@@ -30,7 +29,7 @@ Global Flags:
 
 #### Private Docker Registry
 
-Use when you'd like Kubeshark to pull it's images from a local Docker respository. This is useful in an Enterprise envrionment, where images are built  and hosted locally.
+Use when you'd like **Kubeshark** to pull it's images from a local Docker repository. This is useful in an Enterprise environment, where images are built and hosted locally.
 
 ```shell
 tap:
@@ -40,11 +39,11 @@ tap:
         imagepullpolicy: Always
 ```
 
-CLI Alternative: `-r, --docker-registry string       The Docker registry that's hosting the images. (default "docker.io/kubeshark")`
+**CLI** Alternative: `-r, --docker-registry string       The Docker registry that's hosting the images. (default "docker.io/kubeshark")`
 
 ### Web UI IP and Accessibility
 
-For security reasons, the default address of the proxy host for the Web UI is set to 127.0.0.1 that allows opening only local connections.
+For security reasons, the default address of the proxy host for the **Web UI** is set to 127.0.0.1 that allows opening only local connections.
 
 ```shell
 tap:
@@ -52,12 +51,12 @@ tap:
         host: 127.0.0.1
 ```
 
-Consider changing this address to 0.0.0.0 or any other publically accessible IP, to allow public address. Keep in mind that WebUI access isn't encrypted or authenticated.
+Consider changing this address to 0.0.0.0 or any other publicly accessible IP, to allow public address. Keep in mind that **Web UI** access isn't encrypted or authenticated.
 
 
 ### Worker Storage Limit
 
-Kubeshark **Workers** store the captured traffic locally at the Node level with no limit other than the limit of the volumes attached to the Nodes.
+**Kubeshark** **Workers** store the captured traffic locally at the Node level with no limit other than the limit of the volumes attached to the Nodes. Use the following configuration to set the limit of the storage used by the **Workers**.
 
 ```shell
 tap:
@@ -67,7 +66,7 @@ tap:
 
 ### Kubeshark Resource Assignment Limits
 
-Use to change the amount of resources assigned to Kubeshark.
+Use to change the amount of resources assigned to **Kubeshark**.
 
 ```shell
 tap:
@@ -86,7 +85,7 @@ tap:
 
 ### Run Kubeshark Headless
 
-By default, Kubeshark opens the Web UI. If you are running Kubeshark on a headless machine and you'd like NOT to open the Web UI, set `headless` to true.
+By default, **Kubeshark** opens the **Web UI**. If you are running **Kubeshark** on a headless machine and you'd like NOT to open the **Web UI**, set `headless` to true.
 
 ```shell
 headless: false
@@ -94,7 +93,7 @@ headless: false
 
 ### Public IP and Headless
 
-This is a very popular option that enables running Kubeshark on a puvlic IP and without opening the Web UI.
+This is a very popular option that enables running **Kubeshark** on a public IP and without opening the **Web UI**.
 
 ```shell
 tap:
@@ -103,5 +102,5 @@ tap:
 headless: true
 ```
 
-Now you can use web browser to view Kubeshark running on a remote server.
+You can now access  **Kubeshark** **Web UI** from a remote server.
 

@@ -1,11 +1,11 @@
 ---
 title: TCP streams
-description: Docs intro
+description: Kubeshark stores complete TCP streams that include all of the request-response pairs that were included in a communication between two endpoints from when a connection was established until the connection was closed.
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
+mascot: 
 ---
 
-Kubeshark stores complete TCP streams that include all of the request-response pairs that were included in a communication between two endpoints from when a connection was established until the connection was closed.
+**Kubeshark** stores complete TCP streams that include all of the request-response pairs that were included in a communication between two endpoints from when a connection was established until the connection was closed.
 
 ## Export to PCAP
 
@@ -24,10 +24,15 @@ The TCP stream information includes the following properties:
 ![TCP Stream](/tcp-stream.png)
 
 Where:
+
 A - Worker IP
+
 B - Worker Port
+
 C - TCP Stream (file) name
+
 D - Request Response Pair Index
+
 E - Node IP
 
 ## Request Response Pairs 

@@ -1,11 +1,11 @@
 ---
-title: Historical Traffic Snapshot 
-description: Docs intro
+title: Historic Traffic Snapshot 
+description: With theoretically unlimited storage, Kubeshark can retain the captured traffic over a long period of time, enabling Kubeshark to present an historical traffic snapshot.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-With theoretically unlimited storage, Kubeshark can retain the captured traffic over a long period of time, enabling Kubeshark to present an historical traffic snapshot.
+**Kubeshark** can retain the captured traffic over a long period of time, enabling **Kubeshark** to present a historic traffic snapshot.
 
 The example below presents traffic captured between two timestamps:
 

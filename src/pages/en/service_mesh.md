@@ -5,9 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: 
 ---
 
-Kubeshark automatically detects and includes any [Envoy Proxy](https://www.envoyproxy.io/) to its list of TCP packet capture sources.
+**Kubeshark** can recognize service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/) and other service mesh solutions that use [Envoy Proxy](https://www.envoyproxy.io/) under the hood.
 
-Envoy Proxy is widely used by service meshe solutions like Istio.
-
-Even though the service meshes known for encrypting the traffic between regional nodes, we capture
+Even though the service meshe solutions known for encrypting the traffic between regional nodes, we capture
 the unencrypted traffic simply by detecting their network interfaces and without doing any kernel tracing.

@@ -1,24 +1,24 @@
 ---
 title: Traffic Sniffing
-description: Traffic Sniffing
+description: Kubeshark can sniff both encrypted and unencrypted traffic in your cluster using various methods and APIs built into the Linux kernel
 layout: ../../layouts/MainLayout.astro
 ---
 
-Kubeshark can sniff both encrypted and unencrypted traffic in your cluster using various methods and APIs built into [Linux kernel](https://www.kernel.org/).
+**Kubeshark** can sniff both encrypted and unencrypted traffic in your cluster using various methods and APIs built into [Linux kernel](https://www.kernel.org/).
 
 ## Direct Packet Capture
 
-Kubeshark's [Worker](/en/worker) uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) traffic in your cluster using [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). The TCP packets that are stored in a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file and the packets are dissected on demand when a [query](/en/querying) is received. The **Worker** works at the Kubernetes Node level.
+**Kubeshark**'s [Worker](/en/worker) uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) traffic in your cluster using [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). The TCP packets that are stored in a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file and the packets are dissected on demand when a [query](/en/querying) is received. The **Worker** works at the Kubernetes Node level.
 
 The **Worker** dissects the TCP traffic on demand when a [query](/en/querying) is received with support for popular application layer protocols like: [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html) and [GraphQL](https://graphql.org/learn/serving-over-http/). 
 
-NOTE: Read the [Protocl Support](/en/protocols) section for a complete list of supported protocols.
+NOTE: Read the [Protocol Support](/en/protocols) section for a complete list of supported protocols.
 
 ## The TAP Command
 
 The TAP command of the CLI instructs Kubeshark to deploy the **Hub** and start tapping based on the [Scope](/en/scope) rules.
 
-TAP docuemnetation can change. To see the most up-to-date TAP documentation run:
+TAP documentation can change. To see the most up-to-date TAP documentation run:
 
 ```shell
 kubeshark tap -h

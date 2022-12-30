@@ -1,11 +1,11 @@
 ---
 title: Protocol Support
-description: Docs intro
+description: ​Dissection of Application Layer Protocols 
 layout: ../../layouts/MainLayout.astro
-mascot: 
+mascot:
 ---
 
-Kubeshark can sniff parts or all TCP traffic in your cluster, record it into a PCAP file and dissect the following application layer protocols:
+​**​Kubeshark​**​ can sniff parts or all TCP traffic in your cluster, record it into a PCAP file and dissect the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
@@ -19,3 +19,7 @@ Kubeshark can sniff parts or all TCP traffic in your cluster, record it into a P
 Kubeshark presents the protocol name on the left side of the traffic entry box.
 
 ![Protocols](/protocols.png)
+
+### Additional Protocols
+
+We plan to constantly add additional protocol support. If you'd like us to prioritize support for a certain protocol (e.g. DNS), please open a Github feature request [here](https://github.com/kubeshark/kubeshark/issues).
