@@ -95,7 +95,7 @@ because the catalogue service latency was 2 ms, and the value must be less than 
 
 ## Conclusion
 
-When a pod is targetted with `--traffic-validation-file`, all requests and
+When a pod is targeted with `--traffic-validation-file`, all requests and
 responses are checked against the rules listed in the `enforce-policy.yaml` file,
 and errors are listed in the **Rules** tab of the Kubeshark UI.
 Engineers can customize their `enforce-policy.yaml` file,

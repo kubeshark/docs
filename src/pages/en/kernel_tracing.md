@@ -40,7 +40,7 @@ a good number of offsets to handle.
 
 We basically probe the [`crypto/tls.(*Conn).Read`](https://github.com/golang/go/blob/go1.17.6/src/crypto/tls/conn.go#L1263) and
 [`crypto/tls.(*Conn).Write`](https://github.com/golang/go/blob/go1.17.6/src/crypto/tls/conn.go#L1099) just like OpenSLL's `SSL_read` / `SSL_write` .
-In addition to that we dissamble the targetted Go binaries using Capstone to get the offsets of `ret` mnemonics.
+In addition to that we disassemble the targeted Go binaries using Capstone to get the offsets of `ret` mnemonics.
 Because `uretprobe` does not function properly in Go thanks to its unique ABI.
 
 Lastly, we keep track of the Goroutine ID by using some offsets that we learn by looking at the DWARF table.

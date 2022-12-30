@@ -14,7 +14,7 @@ kubeshark clean
 
 ## Only A Certain Namespace
 
-By default, Kubeshark the `clean` command removes the any Kubershark deployments
+By default, Kubeshark the `clean` command removes the any Kubeshark deployments
 cluster-wide. To clean up only a certain namespace:
 
 ```

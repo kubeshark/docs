@@ -15,7 +15,7 @@ traffic in your cluster using [libpcap](https://www.tcpdump.org/),
 [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/) and
 records it into a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file.
 The TCP packets that are stored in the PCAP file being dissected on demand
-upon [querying](/en/querying) for the folowwing application layer protocols:
+upon [querying](/en/querying) for the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
