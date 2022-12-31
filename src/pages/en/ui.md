@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 
-The **Web UI** is made out of a [React](https://reactjs.org/) application and communicates via a websocket with the **Hub**. The **Web UI** displays the captured traffic in a browser.
+The **Web UI** is made out of a [React](https://reactjs.org/) application and communicates via a websocket with the [Hub](/en/anatomy_of_kubeshark#hub). The **Web UI** displays the captured traffic in a browser.
 
 ![**Kubeshark** UI](/ui-full.png)
 
@@ -13,27 +13,33 @@ The **Web UI** is made out of a [React](https://reactjs.org/) application and co
 
 ![Targeted PODs](/targets.png)
 
-At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date list of Pods that are being tapped.
+At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date list of Pods that are being tapped. As **Kubeshark** follows dynamically started and stopped Pods, this list can change in real time.
 
-## The Query Box
+## Service Map
 
-The query box is used to enter the **Kubeshark** Filter Syntax (KFS) statements. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
+Accessible via the **Service Map** button, the [Service Map](/en/service_map) updates in real time and can analyze dependencies of a system-wide or a subset of traffic. 
+
+![Service Map Button](/service-map-button.png)
+
+## Query Box
+
+The query box is used to enter the [Kubeshark Filter Language (KFL)](/en/querying) statements. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
 
 ![Kubeshark UI](/ks-filter-applied.png)
 
-You can also query by timestamp, integer, and even queryable UI elements (below). A syntax cheatsheet is available next to the filter syntax field.
+You can also query by timestamp, integer, and even queryable UI elements (below). A syntax cheatsheet is available next to the query box.
 
-NOTE: Read the [Filter Syntax](/en/querying) section to learn more about **Kubeshark**'s Filter Syntax.
+> **NOTE:** Read the [Filter Language](/en/querying) section to learn more about **Kubeshark**'s Filter Language.
 
 ### Queryable UI Elements
 
-When you hover over UI elements and they display a green plus sign, it means this element can be added to your query. Selecting an element with the green plus sign will add this element to the Mizu Filter Syntax. Selecting this queryable element...
+When you hover over UI elements and they display a green plus sign, it means this element can be added to your query. Selecting an element with the green plus sign will add this element to the KFL in the query box. Selecting this queryable element...
 
 ![Filter UI example](/filter-ui-example.png)
 
-... adds response.status == 201 to your Mizu filter, and only displays HTTP 201 responses in the live traffic streaming.
+... adds response.status == 201 to your KFL statement, and only displays HTTP 201 responses in the live traffic streaming.
 
-## The Web UI URL
+## Web UI URL
 
 Once you run a query, the query gets added to the **Web UI** URL. This is helpful if you'd like to bookmark or store the query for further use.
 
@@ -77,7 +83,7 @@ To continue viewing streaming traffic, press the play button at the top of the r
 
 ![Continue Streaming](/play.png)
 
-## The Traffic Entry Panel
+## Traffic Entry Panel
 
 The right panel shows the complete information related to a selected captured traffic entry.
 
