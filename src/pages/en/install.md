@@ -2,10 +2,10 @@
 title: Install
 description: kubeshark tap -n sock-shop "(catalo*|front-end*)"
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
+mascot: Cute
 ---
 
-Installing **Kubeshark** is easy. We recommend choosing the right binary to download directly from [Kubeshark's Github repository](https://github.com/kubeshark/kubeshark/releases/).
+Installing **Kubeshark** is easy. We recommend choosing the right binary to download directly from [the latest release](https://github.com/kubeshark/kubeshark/releases/latest).
 
 Alternatively you can use a shell script to download the right binary for your operating system and CPU architecture:
 

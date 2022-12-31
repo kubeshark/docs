@@ -51,13 +51,17 @@ Streaming will continue until either:
 
 Here's an example for a query that will show the streaming traffic:
 
-`timestamp >= now()`
+```
+timestamp >= now()
+```
 
 The above query is the default query when the **Web UI** is opened.
 
-Here's an example for a query that will show the only historical traffic and not new traffic:
+Here's an example query that matches the HTTP traffic with response status code `500`:
 
-`timestamp <= now()`
+```
+http and response.status == 500
+```
 
 ### Stop
 

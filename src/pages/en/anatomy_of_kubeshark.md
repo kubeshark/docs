@@ -2,22 +2,18 @@
 title: Anatomy of Kubeshark
 description: With a distributed architecture that promises a very low CPU and network overheads and capable of processing significant amounts of traffic, Kubeshark is built to run on large scale production clusters.
 layout: ../../layouts/MainLayout.astro
-mascot: Cute
+mascot: Bookworm
 ---
 
 **Built to Run on Large Scale Production Clusters**
 
 With a distributed architecture that promises a very low CPU and network overheads and capable of processing significant amounts of traffic, **Kubeshark** is built to run on large scale production clusters.
 
-**Kubeshark** consists of four software components that work together harmoniously:
-- **CLI**
-- **Hub**
-- **Worker**
-- **Web UI**
-
 ![Anatomy of **Kubeshark**](/diagram.png)
 
-**NOTE:** Some of the protocols and integrations illustrated in the diagram (e.g. DNS, FTP) are not yet supported and represent future roadmap items. The [Protocols](/en/protocol) section includes the complete list of supported protocol implementations.
+> **NOTE:** Some of the protocols and integrations illustrated in the diagram (e.g. DNS, FTP) are not yet supported and represent future roadmap items. The [Protocols](/en/protocol) section includes the complete list of supported protocol implementations.
+
+**Kubeshark** consists of four software components that work together harmoniously:
 
 ## CLI
 
@@ -25,7 +21,9 @@ The **CLI** (Command Line Interface) is a binary distribution of the **Kubeshark
 
 The **CLI** communicates with the [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the **Hub** in the cluster.
 
-**NOTE:** Read more in the [CLI](/en/cli) section.
+**Source code:** [`kubeshark/kubeshark`](https://github.com/kubeshark/kubeshark)
+
+> **NOTE:** Read more in the [CLI](/en/cli) section.
 
 ## Hub
 
@@ -34,7 +32,7 @@ The **Hub** is a [Docker](https://www.docker.com/) image which is deployed into 
 - Receives the dissected traffic from the **Workers**
 - Serves the **Web UI**
 
-**Source code:** [`**Kubeshark**/hub`](https://github.com/**Kubeshark**/hub)
+**Source code:** [`kubeshark/hub`](https://github.com/kubeshark/hub)
 
 ## Worker
 
@@ -45,6 +43,8 @@ The **Worker** is a Docker image which is deployed into your cluster as a [Daemo
 **Kubeshark**'s [Worker](/en/worker) uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) traffic in your cluster using [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). The TCP packets that are stored in a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file and the packets are dissected on demand when a [query](/en/querying) is received. The **Worker** works at the Kubernetes Node level.
 
 The **Worker** dissects the TCP traffic on demand when a [query](/en/querying) is received with support for popular application layer protocols like: [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html) and [GraphQL](https://graphql.org/learn/serving-over-http/).
+
+**Source code:** [`kubeshark/worker`](https://github.com/kubeshark/worker)
 
 ### CPU Intensive Operations Distribution
 
@@ -60,12 +60,12 @@ CPU intensive operations of traffic dissection are distributed and occur on-dema
 
 To reduce potential network overhead, only a fraction of the traffic is sent over the network upon request.
 
-**Source code:** [`Kubeshark/worker`](https://github.com/Kubeshark/worker)
-
 ## The Web UI
 
 The **Web UI** is made out of a [React](https://reactjs.org/) application and communicates via a websocket with the **Hub**. The **Web UI** displays the captured traffic in a browser.
 
-**NOTE:** Read more in the [Web UI](/en/ui) section.
-
 ![Kubeshark UI](/kubeshark-ui.png)
+
+**Source code:** [`kubeshark/front`](https://github.com/kubeshark/front)
+
+> **NOTE:** Read more in the [Web UI](/en/ui) section.
