@@ -34,5 +34,7 @@ kubeshark tap --pcap <pcap-file-name.pcap.tar.gz>
 
 Running the above command will open a local browser window using **Kubeshark**'s **Web UI** to present the content of the PCAP file.
 
+**TIP:** You can view the service dependency map of a previously stored PCAP file
+
 
 

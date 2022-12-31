@@ -21,8 +21,8 @@ While anyone can `ssh` into a Pod, use `TCPdump` to capture traffic into a PCAP 
 
 ## All Traffic Wherever and Whenever It Happens
 
-Think of **Kubeshark** as automating the traffic capture process across all Pods and instantly presenting the dissected traffic in a Web UI (or PCAP).
+Think of **Kubeshark** as automating the traffic capture process across all Pods and instantly presenting the dissected traffic in a **Web UI** (or PCAP).
 
-**Kubeshark**, not only saves you time, it gives you access to all traffic wherever it happens and whenever it happens.
+**Kubeshark**, does not only save you time, it gives you access to all traffic wherever it happens and whenever it happens.
 
 This can be good news for API troubleshooting, monitoring and protection.

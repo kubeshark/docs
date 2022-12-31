@@ -13,3 +13,5 @@ The Service Map is quite sophisticated and updates as traffic is streaming in. I
 To view the **Service Map** click on the Service Map button in the upper right hand corner.
 
 ![Service Dependency Graph](/service-map-button.png)
+
+**TIP:** You can view the service dependency map of a previously stored PCAP file 

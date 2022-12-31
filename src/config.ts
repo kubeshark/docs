@@ -72,7 +72,7 @@ export const SIDEBAR: Sidebar = {
         ],
 		'Advanced': [
 			{ text: 'Configuration', link: 'en/config' },
-			{ text: 'Permissions', link: 'en/permissions' },
+			//{ text: 'Permissions', link: 'en/permissions' },
 			{ text: 'Service Mesh', link: 'en/service_mesh' },
 			{ text: 'Troubleshooting', link: 'en/troubleshooting' },
 		//	{ text: 'Helm chart', link: 'en/TBD' },
