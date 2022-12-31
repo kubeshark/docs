@@ -56,7 +56,7 @@ function removeDups(arr: Commit[]) {
 
 	for (let item of arr) {
 		const author = item.author;
-		if (!author || ignoredUsers.includes(author.login)) {
+		if (!author || !author.login || ignoredUsers.includes(author.login)) {
 			continue
 		}
 		// Deduplicate based on author.id
