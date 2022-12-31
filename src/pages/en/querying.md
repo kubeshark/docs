@@ -1,40 +1,44 @@
 ---
-title: Querying
-description: Querying
+title: Kubeshark Filter Language
+description: The Kubeshark Filter Language (KFL) field applies filtering to your traffic viewer
 layout: ../../layouts/MainLayout.astro
 ---
 
-The Kubeshark filter syntax field applies filtering to your traffic viewer. For example, to only see HTTP responses starting with the number 4, enter `http and response.status == r"4.*"` and select Apply. Your traffic stream will look like this:
+The **Kubeshark** Filter Language (KFL) field applies filtering to your traffic viewer. For example, to only see HTTP responses starting with the number 4, enter `http and response.status == r"4.*"` and select Apply. Your traffic stream will look like this:
 
-![](/filter-applied.png)
+![Filter example](/filter-applied.png)
 
-You can also query by timestamp, integer and even queryable UI elements for convenience. A syntax cheatsheet is available next to the filter syntax field, see KFL Syntax Reference for more details.
+You can also query by timestamp, integer and even queryable UI elements for convenience. A syntax cheatsheet is available next to the filter language field.
 
 ## Queryable UI Elements
 
-When you hover over UI elements and they display a green plus sign, it means this element can be added to your query. Selecting an element with the green plus sign will add this element to the your filter. For example; selecting this queryable element:
+When you hover over UI elements and they display a green plus sign, it means this element can be added to your query. Selecting an element with a green plus sign will add this element to the query. For example, selecting this queryable element:
 
-![](/filter-ui-example.png)
+![query](/filter-ui-example.png)
 
-adds `response.status == 201` to your filter and only displays `HTTP 201` responses in the live traffic streaming.
+adds `response.status == 201` to your query and only displays `HTTP 201` responses in the live traffic streaming.
 
-## Filtering Guide (Cheatsheet)
+## Filtering Language Guide (Cheatsheet)
 
-Kubeshark has a built-in cheatsheet to guide for the filtering functionality:
+**Kubeshark** has a built-in cheatsheet to guide for the filtering functionality.
 
-![](/cheatsheet.png)
+![KFL Cheatsheet](/cheatsheet.png)
 
-## KFL Syntax Reference
+The cheatsheet is available by pressing the button that is adjacent to the Apply button, right to the query field.
 
-Kubeshark Filter Language (KFL) is the language implemented inside Kubeshark server that enables the user to query the traffic logs efficiently and precisely.
+![KFL Cheatsheet button](/cheatsheet-button.png)
+
+## KFL Reference
+
+**Kubeshark** Filter Language (KFL) is the language implemented inside **Kubeshark** server that enables the user to query the traffic logs efficiently and precisely.
 
 ```python
 http and request.method == "GET" and request.path != "/example" and (request.query.a > 42 or request.headers["x"] == "y")
 ```
 
-The syntax as a whole evaluates into a boolean outcome, always. Such that the record which makes the boolean `true` is a record that matches the filter.
+The language as a whole evaluates into a boolean outcome, always. Such that the record which makes the boolean `true` is a record that matches the filter.
 
-There are certain helper methods that can do more than reducing into a boolean value.
+There are certain helper methods that can do more than reduce into a boolean value.
 
 ### Literals
 
@@ -74,7 +78,7 @@ The language supports the following operators:
 
 ### Helpers
 
-Helpers in BFL are method invocations that enables filtering capability which cannot be provided through the syntax. These are the available helpers in BFL:
+Helpers in KFL are method invocations that enable filtering capability which cannot be provided through the syntax. These are the available helpers in BFL:
 
 #### `startsWith(string)`
 
@@ -110,7 +114,7 @@ A decoding helper that decodes the given XML field if it's possible. It's used t
 
 A record altering helper that takes N number of `string` typed arguments. The arguments are dot-notation paths and it replaces the value on each matching path with `[REDACTED]` string.
 
-The `json()` and `xml()` helpers are supported inside the arguments of `redact` helper.
+The `json()` and `xml()` helpers are supported inside the arguments of the `redact` helper.
 
 #### `now() integer`
 
@@ -148,7 +152,7 @@ Returns the UNIX timestamp `integer` which is the equivalent of the time `intege
 
 ### Selectors
 
-Selectors in BFL are JSONPath(s) that refers to the path in a JSON document. In Basenine, every record is a JSON document. Any selector that does not match a path is evaluated to `false`.
+Selectors in BFL are JSONPath(s) that refer to the path in a JSON document. In Basenine, every record is a JSON document. Any selector that does not match a path is evaluated to `false`.
 
 Following are some selector examples:
 

@@ -50,20 +50,33 @@ export type Sidebar = Record<
 >;
 export const SIDEBAR: Sidebar = {
 	en: {
-		'Getting Started': [
+		'Preface': [
 			{ text: 'Introduction', link: 'en/introduction' },
+			{ text: 'Benefits', link: 'en/benefits' },
 			{ text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-			{ text: 'Install & Deploy', link: 'en/install' },
-            { text: 'Clean Up', link: 'en/clean_up' },
+			{ text: 'Install & Run', link: 'en/install' },
 		],
         'Features': [
-            { text: 'Network Sniffing', link: 'en/network_sniffing' },
-            { text: 'Querying', link: 'en/querying' },
-            { text: 'Kernel Tracing', link: 'en/kernel_tracing' },
-            { text: 'Validation', link: 'en/validation' },
-            { text: 'Service Map', link: 'en/service_map' },
-            { text: 'Redaction', link: 'en/redaction' },
+            { text: 'Web UI', link: 'en/ui' },
+            { text: 'CLI', link: 'en/cli' },
+			{ text: 'Service Map', link: 'en/service_map' },
+            { text: 'Traffic Sniffing', link: 'en/network_sniffing' },
+            { text: 'Encryption', link: 'en/encryption' },
+            { text: 'Pods & Namespaces', link: 'en/scope' },
+            { text: 'Filter Language', link: 'en/querying' },
+			{ text: 'Protocol Support', link: 'en/protocols' },
+			{ text: 'PCAP', link: 'en/pcap' },
+			{ text: 'TCP streams', link: 'en/tcp' },
+			{ text: 'Historic Traffic', link: 'en/history' },
+			{ text: 'Clean Up', link: 'en/clean_up' },
         ],
+		'Advanced': [
+			{ text: 'Configuration', link: 'en/config' },
+			//{ text: 'Permissions', link: 'en/permissions' },
+			{ text: 'Service Mesh', link: 'en/service_mesh' },
+			{ text: 'Troubleshooting', link: 'en/troubleshooting' },
+		//	{ text: 'Helm chart', link: 'en/TBD' },
+		],
         // 'Advanced': [
         //     { text: 'Installing plugins', link: 'en/installing_plugins' },
         //     { text: 'Developing plugins', link: 'en/developing_plugins' },

@@ -1,16 +1,17 @@
 ---
 title: Service Map
-description: Service Map
+description: Kubeshark offers a Service Dependency Graph to display your Kubernetes cluster.
 layout: ../../layouts/MainLayout.astro
 ---
 
-Kubeshark offers a **Service Dependency Graph** to display your Kubernetes cluster.
-
-Once you deployment is complete, Kubeshark CLI will open the UI at [http://localhost:8899](http://localhost:8899)
-Click the button named **Service Map** in the upper right hand corner to open the service dependency graph:
+**Kubeshark** offers a **Service Dependency Graph** to display your Kubernetes cluster.
 
 ![Service Dependency Graph](/service-dependency-graph.png)
 
-The graph displays your current pods and the relationships between them based on the network traffic.
-Click **Reset** to clear old capture information and rebuild the graph from incoming network capture
-or **Refresh** to update the graph.
+The Service Map is quite sophisticated and updates as traffic is streaming in. If you have a lot of traffic, the image can be jumpy. If you'd like to view the service dependencies of a traffic snapshot, simply pause the streaming.
+
+To view the **Service Map** click on the Service Map button in the upper right hand corner.
+
+![Service Dependency Graph](/service-map-button.png)
+
+**TIP:** You can view the service dependency map of a previously stored PCAP file 
