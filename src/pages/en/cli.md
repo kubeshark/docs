@@ -9,7 +9,7 @@ The **CLI** (Command Line Interface) is a binary distribution of the **Kubeshark
 
 To use the **CLI** you need to download it to your computer using one of the options described in the [installation](/en/install) section.
 
-The **CLI** communicates with the [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy of the [**Hub**](#hub) in the cluster.
+The **CLI** communicates directly with [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the right containers at the right place at the right time.
 
 **Source code:** [`kubeshark/kubeshark`](https://github.com/kubeshark/kubeshark)
 

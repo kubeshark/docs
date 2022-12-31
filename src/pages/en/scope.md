@@ -19,7 +19,7 @@ kubeshark tap catalogue-b87b45784-sxc8q
 
 You can use a regular expression to indicate several pod names as well as dynamicly changing names.
 
-In the example below using the regex `(catalo*|front-end*)` will catch the following three pods:
+In the example below using the regex `(catalo*|front-end*)` will catch the following three Pods:
 * catalogue-868cc5ffd6-p9njn
 * catalogue-db-669d5dbf48-8hnrl
 * front-end-6db57bf84f-7kss9
@@ -41,7 +41,7 @@ kubeshark tap -n sock-shop
 
 ### Specify All Namespaces
 
-The default deployment strategy of **Kubeshark** waits for the new pods
+The default deployment strategy of **Kubeshark** waits for the new Pods
 to be created. To simply deploy to all existing namespaces run:
 
 ```

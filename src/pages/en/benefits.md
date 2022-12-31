@@ -17,7 +17,7 @@ Compared to the older Monolith, huge portions of the codebase that represent the
 
 Due to Kuberentes’ distributed and dynamic nature, new protocols and service mesh technologies, tracking internal APIs is highly challenging, making it harder to troubleshoot and protect.
 
-While anyone can `ssh` into a Pod, use `TCPdump` to capture traffic into a PCAP file, use `kubectl cp` to copy the PCAP file to their machine and use Wireshark to view, Kubernetes makes it more challanging by distributing the traffic across hundreds of such pods that are dynamically started and stopped.
+While anyone can `ssh` into a Pod, use `TCPdump` to capture traffic into a PCAP file, use `kubectl cp` to copy the PCAP file to their machine and use Wireshark to view, Kubernetes makes it more challanging by distributing the traffic across hundreds of such Pods that are dynamically started and stopped.
 
 ## All Traffic Wherever and Whenever It Happens
 

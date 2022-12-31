@@ -5,7 +5,11 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Installing **Kubeshark** is easy. We recommend choosing the right binary to download directly from [the latest release](https://github.com/kubeshark/kubeshark/releases/latest).
+Getting started with **Kubeshark** is easy. You only need to download the [CLI](/en/cli) and run it. 
+
+The **CLI** communicates directly with [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the right containers at the right place at the right time.
+
+We recommend choosing the right binary to download directly from [the latest release](https://github.com/kubeshark/kubeshark/releases/latest).
 
 Alternatively you can use a shell script to download the right binary for your operating system and CPU architecture:
 
@@ -13,7 +17,7 @@ Alternatively you can use a shell script to download the right binary for your o
 sh <(curl -Ls https://kubeshark.co/install)
 ```
 
-**FUTURE:** We plan to enable installation through package managers like Homebrew and Apt
+> **FUTURE:** We plan to enable installation through package managers like Homebrew and Apt
 
 ## Run
 

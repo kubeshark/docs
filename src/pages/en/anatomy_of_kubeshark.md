@@ -44,21 +44,23 @@ The **Worker** is a Docker image which is deployed into your cluster as a [Daemo
 
 The **Worker** dissects the TCP traffic on demand when a [query](/en/querying) is received with support for popular application layer protocols like: [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html) and [GraphQL](https://graphql.org/learn/serving-over-http/).
 
-**Source code:** [`kubeshark/worker`](https://github.com/kubeshark/worker)
-
 ### CPU Intensive Operations Distribution
 
 CPU intensive operations of traffic dissection are distributed and occur on-demand by the **Workers** at the Node level.
 
 ### Distributed Storage
 
-**Workers** store the captured traffic locally at the Node level. **Kubeshark**'s configuration includes a default limit of 200MB that can be extended to any size permitted by the volumes attached to the nodes.
+**Kubeshark** uses a distributed PCAP-based storage system where each of the **Workers** store the captured traffic locally at the Node level. 
 
-**NOTE:** Read [here](/en/config#worker-storage-limit) how to extend the **Worker** storage limit.
+**Kubeshark**'s configuration includes an arbitrary limit that is set by default to 200MB. That limit can be extended to any size permitted by the volumes attached to the nodes.
+
+> **NOTE:** Read [here](/en/config#worker-storage-limit) how to extend the **Worker**'s storage limit.
 
 ### Low Network Overhead
 
 To reduce potential network overhead, only a fraction of the traffic is sent over the network upon request.
+
+**Source code:** [`kubeshark/worker`](https://github.com/kubeshark/worker)
 
 ## The Web UI
 

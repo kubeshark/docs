@@ -1,13 +1,13 @@
 ---
 title: Kubernetes Observability
-description: Kubeshark is an API Traffic Viewer for Kubernetes providing deep visibility and monitoring of all API traffic and payloads going in, out and across containers and pods inside a Kubernetes cluster.
+description: Kubeshark is an API Traffic Viewer for Kubernetes providing deep visibility and monitoring of all API traffic and payloads going in, out and across containers and Pods inside a Kubernetes cluster.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
 **Through Scalable & Secure Traffic Capture**
 
-**Kubeshark** is an API Traffic Viewer for [Kubernetes](https://kubernetes.io/) providing deep visibility and monitoring of all API traffic and payloads going in, out and across containers and pods inside a Kubernetes cluster.
+**Kubeshark** is an API Traffic Viewer for [Kubernetes](https://kubernetes.io/) providing deep visibility and monitoring of all API traffic and payloads going in, out and across containers and Pods inside a Kubernetes cluster.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
