@@ -4,7 +4,7 @@ description: Redaction
 layout: ../../layouts/MainLayout.astro
 ---
 
-The traffic captured by Kubeshark cloud contain sensitive information.
+The traffic captured by Kubeshark could contain sensitive information.
 Users can configure Kubeshark to hide certain keywords or pieces of data will appear as [REDACTED] in the UI.
 
 Kubeshark comes with out-of-the-box default values to be redacted
