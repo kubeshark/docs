@@ -1,5 +1,5 @@
 ---
-title: Configuraation
+title: Configuration
 description: Docs intro
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
@@ -29,7 +29,7 @@ Global Flags:
 
 #### Private Docker Registry
 
-Use when you'd like **Kubeshark** to pull it's images from a local Docker repository. This is useful in an Enterprise environment, where images are built and hosted locally.
+Use when you'd like **Kubeshark** to pull it    s images from a local Docker repository. This is useful in an Enterprise environment, where images are built and hosted locally.
 
 ```shell
 tap:
@@ -39,7 +39,10 @@ tap:
         imagepullpolicy: Always
 ```
 
-**CLI** Alternative: `-r, --docker-registry string       The Docker registry that's hosting the images. (default "docker.io/kubeshark")`
+Alternatively, use the shell config option:
+```shell
+kubeshark tap -A --docker-registry "docker.io/kubeshark"
+```
 
 ### Web UI IP and Accessibility
 
@@ -51,8 +54,12 @@ tap:
         host: 127.0.0.1
 ```
 
-Consider changing this address to 0.0.0.0 or any other publicly accessible IP, to allow public address. Keep in mind that **Web UI** access isn't encrypted or authenticated.
+Alternatively, use the shell config option:
+```shell
+kubeshark tap -A --proxy-host 0.0.0.0
+```
 
+Consider changing this address to 0.0.0.0 or any other publicly accessible IP, to allow public address. Keep in mind that **Web UI** access isn't encrypted or authenticated.
 
 ### Worker Storage Limit
 
@@ -63,6 +70,10 @@ tap:
     max-entries-db-size: 200MB
 ```
 
+Alternatively, use the shell config option:
+```shell
+kubeshark tap -A --storagelimit 2000MB
+```
 
 ### Kubeshark Resource Assignment Limits
 
@@ -88,7 +99,12 @@ tap:
 By default, **Kubeshark** opens the **Web UI**. If you are running **Kubeshark** on a headless machine and you'd like NOT to open the **Web UI**, set `headless` to true.
 
 ```shell
-headless: false
+headless: true
+```
+
+Alternatively, use the shell config option:
+```shell
+kubeshark tap -A --set headless=true
 ```
 
 ### Public IP and Headless
@@ -101,6 +117,9 @@ tap:
         host: 0.0.0.0
 headless: true
 ```
-
+Alternatively, use the shell config option:
+```shell
+kubeshark tap -A --proxy-host 0.0.0.0 --set headless=true
+```
 You can now access  **Kubeshark** **Web UI** from a remote server.
 
