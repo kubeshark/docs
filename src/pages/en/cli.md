@@ -36,7 +36,7 @@ Available Commands:
   version     Print version info
 
 Flags:
-      --config-path string   Override config file path using --config-path (default "/Users/alongir/.kubeshark/config.yaml")
+      --config-path string   Override config file path using --config-path (default "$HOME/.kubeshark/config.yaml")
   -d, --debug                Enable debug mode.
   -h, --help                 help for kubeshark
       --set strings          Override values using --set

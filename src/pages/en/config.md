@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-**Kubeshark** reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml` or at a diffrent location speciied as a CLI flag: `--configpath string`.
+**Kubeshark** reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml` or at a different location specified as a CLI flag: `--configpath string`.
 
 ## The Config Command
 
@@ -29,7 +29,7 @@ Global Flags:
 
 #### Private Docker Registry
 
-Use when you'd like **Kubeshark** to pull it    s images from a local Docker repository. This is useful in an Enterprise environment, where images are built and hosted locally.
+Use when you'd like **Kubeshark** to pull its images from a local Docker repository. This is useful in an Enterprise environment, where images are built and hosted locally.
 
 ```shell
 tap:

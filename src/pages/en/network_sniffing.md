@@ -44,7 +44,7 @@ Flags:
       --tls                          Capture the traffic that's encrypted with OpenSSL or Go crypto/tls libraries. (default true)
 
 Global Flags:
-      --config-path string   Override config file path using --config-path (default "/Users/alongir/.kubeshark/config.yaml")
+      --config-path string   Override config file path using --config-path (default "$HOME/.kubeshark/config.yaml")
   -d, --debug                Enable debug mode.
       --set strings          Override values using --set
 ```

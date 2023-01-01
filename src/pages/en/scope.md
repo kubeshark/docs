@@ -17,7 +17,7 @@ kubeshark tap catalogue-b87b45784-sxc8q
 
 #### Set of Pods Using a Regex:
 
-You can use a regular expression to indicate several pod names as well as dynamicly changing names.
+You can use a regular expression to indicate several pod names as well as dynamically changing names.
 
 In the example below using the regex `(catalo*|front-end*)` will catch the following three Pods:
 * catalogue-868cc5ffd6-p9njn

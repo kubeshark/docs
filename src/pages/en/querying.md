@@ -78,7 +78,7 @@ The language supports the following operators:
 
 ### Helpers
 
-Helpers in KFL are method invocations that enable filtering capability which cannot be provided through the syntax. These are the available helpers in BFL:
+Helpers in KFL are method invocations that enable filtering capability which cannot be provided through the syntax. These are the available helpers in KFL:
 
 #### `startsWith(string)`
 
@@ -152,7 +152,7 @@ Returns the UNIX timestamp `integer` which is the equivalent of the time `intege
 
 ### Selectors
 
-Selectors in BFL are JSONPath(s) that refer to the path in a JSON document. In Basenine, every record is a JSON document. Any selector that does not match a path is evaluated to `false`.
+Selectors in KFL are JSONPath(s) that refer to the path in a JSON document. In KFL, every record is a JSON document. Any selector that does not match a path is evaluated to `false`.
 
 Following are some selector examples:
 
