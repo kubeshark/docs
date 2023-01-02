@@ -27,7 +27,7 @@ Global Flags:
 
 ## Popular Configuration Elements
 
-#### Private Docker Registry
+### Private Docker Registry
 
 Use when you'd like **Kubeshark** to pull its images from a local Docker repository. This is useful in an Enterprise environment, where images are built and hosted locally.
 
