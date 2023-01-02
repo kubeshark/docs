@@ -11,7 +11,7 @@ With a distributed architecture that promises a very low CPU and network overhea
 
 ![Anatomy of **Kubeshark**](/diagram.png)
 
-> **NOTE:** Some of the protocols and integrations illustrated in the diagram (e.g. DNS, FTP) are not yet supported and represent future roadmap items. The [Protocols](/en/protocol) section includes the complete list of supported protocol implementations.
+> **NOTE:** Some of the protocols and integrations illustrated in the diagram (e.g. DNS, FTP) are not yet supported and represent future roadmap items. The [Protocols](/en/protocols) section includes the complete list of supported protocol implementations.
 
 **Kubeshark** consists of four software components that work together harmoniously:
 
