@@ -11,7 +11,7 @@ layout: ../../layouts/MainLayout.astro
 
 **Kubeshark**'s [Worker](/en/worker) uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) traffic in your cluster using [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). The TCP packets that are stored in a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file and the packets are dissected on demand when a [query](/en/querying) is received. The **Worker** works at the Kubernetes Node level.
 
-The **Worker** dissects the TCP traffic on demand when a [query](/en/querying) is received with support for popular application layer protocols like: [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html) and [GraphQL](https://graphql.org/learn/serving-over-http/). 
+The **Worker** dissects the TCP traffic on demand when a [query](/en/querying) is received with support for popular application layer protocols like: [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html) and [GraphQL](https://graphql.org/learn/serving-over-http/).
 
 NOTE: Read the [Protocol Support](/en/protocols) section for a complete list of supported protocols.
 
@@ -30,18 +30,19 @@ Usage:
   kubeshark tap [POD REGEX] [flags]
 
 Flags:
-  -A, --all-namespaces               Tap all namespaces.
-  -r, --docker-registry string       The Docker registry that's hosting the images. (default "docker.io/kubeshark")
-  -t, --docker-tag string            The tag of the Docker images that are going to be pulled. (default "latest")
-      --dry-run                      Preview of all pods matching the regex, without tapping them.
-  -h, --help                         help for tap
-      --max-entries-db-size string   Override the default max entries db size. (default "200MB")
-  -n, --namespaces strings           Namespaces selector.
-      --proxy-host string            Provide a custom host for the proxy/port-forward. (default "127.0.0.1")
-      --proxy-port-front uint16      Provide a custom port for the front-end proxy/port-forward. (default 8899)
-      --proxy-port-hub uint16        Provide a custom port for the Hub proxy/port-forward. (default 8898)
-      --service-mesh                 Capture the encrypted traffic if the cluster is configured with a service mesh and with mTLS. (default true)
-      --tls                          Capture the traffic that's encrypted with OpenSSL or Go crypto/tls libraries. (default true)
+  -A, --allnamespaces             Tap all namespaces.
+  -r, --docker-registry string    The Docker registry that's hosting the images. (default "docker.io/kubeshark")
+  -t, --docker-tag string         The tag of the Docker images that are going to be pulled. (default "latest")
+      --dryrun                    Preview of all pods matching the regex, without tapping them.
+  -h, --help                      help for tap
+  -n, --namespaces strings        Namespaces selector.
+  -p, --pcap string               Capture from a PCAP snapshot of Kubeshark (.tar.gz) using your Docker Daemon instead of Kubernetes.
+      --proxy-front-port uint16   Provide a custom port for the front-end proxy/port-forward. (default 8899)
+      --proxy-host string         Provide a custom host for the proxy/port-forward. (default "127.0.0.1")
+      --proxy-hub-port uint16     Provide a custom port for the Hub proxy/port-forward. (default 8898)
+      --servicemesh               Capture the encrypted traffic if the cluster is configured with a service mesh and with mTLS. (default true)
+      --storagelimit string       Override the default storage limit. (per node) (default "200MB")
+      --tls                       Capture the traffic that's encrypted with OpenSSL or Go crypto/tls libraries. (default true)
 
 Global Flags:
       --config-path string   Override config file path using --config-path (default "$HOME/.kubeshark/config.yaml")

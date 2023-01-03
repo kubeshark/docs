@@ -67,10 +67,11 @@ Consider changing this address to 0.0.0.0 or any other publicly accessible IP, t
 
 ```shell
 tap:
-    max-entries-db-size: 200MB
+    storagelimit: 200MB
 ```
 
 Alternatively, use the shell config option:
+
 ```shell
 kubeshark tap -A --storagelimit 2000MB
 ```
