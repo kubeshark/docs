@@ -7,7 +7,7 @@ mascot: Bookworm
 
 Kubernetes introduces a new internal network that is mostly used to carry Kubernetes-internal service-to-service API communication (aka Internal APIs or East-West APIs) as well as communication between internal services to external services. 
 
-Due to Kubernetes’ distributed and highly dynamic nature, tracking the service-to-service communication or the communication to the external service is highly challenging, making it harder to troubleshoot and protect.
+Due to Kubernetes’ distributed and highly dynamic nature, tracking service-to-service communication and communication to external service is highly challenging, making it harder to troubleshoot and protect.
 
 ![Unlimited Scalability](/internal-api.png)
 
