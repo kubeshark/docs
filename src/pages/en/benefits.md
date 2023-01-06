@@ -5,17 +5,11 @@ layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-Kubernetes enables unlimited horizontal scalability by enabling the distribution of the application's business logic across hundreds or even thousands of microservices.
+Kubernetes introduces a new internal network that is mostly used to carry Kubernetes-internal service-to-service API communication (aka Internal APIs or East-West APIs) as well as communication between internal services to external services. 
 
-## The New Internal API Layer
-
-Compared to the older Monolith, huge portions of the codebase that represent the public interfaces (aka public methods) are replaced by APIs in the Microservice Communication layer. The Microservice Communication layer has several names like Internal APIs or East-West APIs.
-
-**New internal API layer has exponentially more APIs, compared to external APIs.**
+Due to Kubernetes’ distributed and highly dynamic nature, tracking the service-to-service communication or the communication to the external service is highly challenging, making it harder to troubleshoot and protect.
 
 ![Unlimited Scalability](/internal-api.png)
-
-Due to Kubernetes’ distributed and dynamic nature, new protocols and service mesh technologies, tracking internal APIs is highly challenging, making it harder to troubleshoot and protect.
 
 While anyone can `ssh` into a Pod, use `TCPdump` to capture traffic into a PCAP file, use `kubectl cp` to copy the PCAP file to their machine and use Wireshark to view, Kubernetes makes it more challenging by distributing the traffic across hundreds of such Pods that are dynamically started and stopped.
 
