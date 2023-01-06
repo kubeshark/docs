@@ -58,7 +58,6 @@ export const SIDEBAR: Sidebar = {
     ],
     'Features': [
       { text: 'Web UI', link: 'en/ui' },
-      { text: 'CLI', link: 'en/cli' },
       { text: 'Service Map', link: 'en/service_map' },
       { text: 'Traffic Sniffing', link: 'en/network_sniffing' },
       { text: 'Encryption', link: 'en/encryption' },
