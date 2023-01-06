@@ -63,7 +63,6 @@ export const SIDEBAR: Sidebar = {
       { text: 'Encryption', link: 'en/encryption' },
       { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'Filter Language', link: 'en/querying' },
-      { text: 'Protocol Support', link: 'en/protocols' },
       { text: 'PCAP', link: 'en/pcap' },
       { text: 'TCP streams', link: 'en/tcp' },
       { text: 'Historic Traffic', link: 'en/history' },
