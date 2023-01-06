@@ -2,7 +2,6 @@
 title: Configuration
 description: Docs intro
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
 ---
 
 **Kubeshark** reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml` or at a different location specified as a CLI flag: `--configpath string`.

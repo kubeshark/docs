@@ -1,5 +1,5 @@
 ---
-title: Kubeshark's UI
+title: Web UI
 description: A Web UI to view all Kubernetes distributed traffic
 layout: ../../layouts/MainLayout.astro
 mascot:
@@ -17,7 +17,7 @@ At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date 
 
 ## Service Map
 
-Accessible via the **Service Map** button, the [Service Map](/en/service_map) updates in real time and can analyze dependencies of a system-wide or a subset of traffic. 
+Accessible via the **Service Map** button, the [Service Map](/en/service_map) updates in real time and can analyze dependencies of a system-wide or a subset of traffic.
 
 ![Service Map Button](/service-map-button.png)
 

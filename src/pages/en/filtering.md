@@ -1,14 +1,18 @@
 ---
-title: Kubeshark Filter Language
-description: The Kubeshark Filter Language (KFL) field applies filtering to your traffic viewer
+title: Filtering
+description: The filter input enables filtering results using Kubeshark Filter Language (KFL)
 layout: ../../layouts/MainLayout.astro
 ---
 
-The **Kubeshark** Filter Language (KFL) field applies filtering to your traffic viewer. For example, to only see HTTP responses starting with the number 4, enter `http and response.status == r"4.*"` and select Apply. Your traffic stream will look like this:
+The filter input enables filtering results using [**Kubeshark Filter Language (KFL)**](#kfl-reference) For example; to only see the items with HTTP client error responses (`400` – `499`), enter:
+
+```python
+http and response.status == r"4.*"
+```
+
+and click the **Apply** button. Your traffic stream will look like this:
 
 ![Filter example](/filter-applied.png)
-
-You can also query by timestamp, integer and even queryable UI elements for convenience. A syntax cheatsheet is available next to the filter language field.
 
 ## Queryable UI Elements
 
@@ -18,13 +22,13 @@ When you hover over UI elements and they display a green plus sign, it means thi
 
 adds `response.status == 201` to your query and only displays `HTTP 201` responses in the live traffic streaming.
 
-## Filtering Language Guide (Cheatsheet)
+## Filtering Guide (Cheatsheet)
 
 **Kubeshark** has a built-in cheatsheet to guide for the filtering functionality.
 
 ![KFL Cheatsheet](/cheatsheet.png)
 
-The cheatsheet is available by pressing the button that is adjacent to the Apply button, right to the query field.
+The cheatsheet is available by pressing the button that is adjacent to the **Apply** button, right to the filter input.
 
 ![KFL Cheatsheet button](/cheatsheet-button.png)
 

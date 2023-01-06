@@ -1,5 +1,5 @@
 ---
-title: Traffic Sniffing
+title: Network Sniffing
 description: Kubeshark can sniff both encrypted and unencrypted traffic in your cluster using various methods and APIs built into the Linux kernel
 layout: ../../layouts/MainLayout.astro
 ---

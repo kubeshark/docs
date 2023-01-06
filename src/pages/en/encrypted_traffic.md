@@ -1,5 +1,5 @@
 ---
-title: Sniffing Encrypted Traffic
+title: Tracing Encrypted Traffic
 description: In certain situations, Kubeshark can sniff the encrypted traffic (TLS) in your cluster using eBPF without actually doing decryption.
 layout: ../../layouts/MainLayout.astro
 mascot:
@@ -7,7 +7,7 @@ mascot:
 
 **Using eBPF to sniff encrypted traffic**
 
-In certain situations, Kubeshark can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using eBPF **without actually doing decryption**. It hooks into entry and exit points in certain functions inside the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
+Kubeshark can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using eBPF **without actually doing decryption**. It hooks into entry and exit points in certain functions inside the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
 
 Kubeshark offers tracing kernel-space and user-space functions using [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/) (Extended Berkeley Packet Filter). eBPF is an in-kernel virtual machine running programs passed from user space. It's first introduced into
 Linux kernel with version 4.4 and quite matured since then.

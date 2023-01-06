@@ -1,5 +1,5 @@
 ---
-title: Historic Traffic Snapshot 
+title: Historic Traffic Snapshot
 description: With theoretically unlimited storage, Kubeshark can retain the captured traffic over a long period of time, enabling Kubeshark to present an historical traffic snapshot.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
