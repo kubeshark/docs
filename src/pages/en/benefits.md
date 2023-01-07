@@ -2,10 +2,10 @@
 title: Instant Distributed Visibility
 description: Kubeshark, not only saves you time, it gives you access to all traffic wherever it happens and whenever it happens
 layout: ../../layouts/MainLayout.astro
-mascot: Bookworm
+mascot: Cute
 ---
 
-Kubernetes introduces a new internal network that is mostly used to carry Kubernetes-internal service-to-service API communication (aka Internal APIs or East-West APIs) as well as communication between internal services to external services. 
+Kubernetes introduces a new internal network layer that is mostly used to carry Kubernetes-internal service-to-service API communication (aka Internal APIs or East-West APIs), as well as communication between internal services to external services. 
 
 Due to Kubernetes’ distributed and highly dynamic nature, tracking service-to-service communication and communication to external service is highly challenging, making it harder to troubleshoot and protect.
 
@@ -15,7 +15,7 @@ While anyone can `ssh` into a Pod, use `TCPdump` to capture traffic into a PCAP 
 
 ## All Traffic Wherever and Whenever It Happens
 
-Think of **Kubeshark** as automating the traffic capture process across all Pods and instantly presenting the dissected traffic in a **Web UI** (or PCAP).
+Think of **Kubeshark** as automating the traffic capture process across all Pods and instantly presenting the dissected traffic in a **Web UI** or exporting the TCP streams to a PCAP file.
 
 **Kubeshark**, does not only save you time, it gives you access to all traffic wherever it happens and whenever it happens.
 
