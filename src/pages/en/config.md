@@ -60,6 +60,8 @@ kubeshark tap -A --proxy-host 0.0.0.0
 
 Consider changing this address to 0.0.0.0 or any other publicly accessible IP, to allow public address. Keep in mind that **Web UI** access isn't encrypted or authenticated.
 
+When you run **Kubeshark** on a remote server, make sure ports 8898-8899 are open for external connections.
+
 ### Worker Storage Limit
 
 **Kubeshark** **Workers** store the captured traffic locally at the Node level with no limit other than the limit of the volumes attached to the Nodes. Use the following configuration to set the limit of the storage used by the **Workers**.
@@ -123,3 +125,4 @@ kubeshark tap -A --proxy-host 0.0.0.0 --set headless=true
 ```
 You can now access  **Kubeshark** **Web UI** from a remote server.
 
+As stated above, when you run **Kubeshark** on a remote server, make sure ports 8898-8899 are open for external connections.
