@@ -18,7 +18,9 @@ capability of the captured traffic.
 
 ![PCAP Button](/PCAP-button.png)
 
-The PCAP export operation downloads a `tar.gz` file that includes the PCAP file and a file named: `name_resolution_history.json` that helps map dynamically changing IPs to service names.
+Clicking this button downloads a `.tar.gz` file that includes a PCAP file and a file named: `name_resolution_history.json` per node in the cluster. `name_resolution_history.json` file contains the historical changes in the mapping of IPs to pod or service names:
+
+![PCAP Snapshot](/pcap-snapshot.png)
 
 > **NOTE:** When dealing with a large amount of traffic, this operation can take a few seconds to complete.
 
