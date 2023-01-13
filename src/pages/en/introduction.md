@@ -21,6 +21,7 @@ Kubeshark can sniff parts or all TCP traffic in your cluster, record it into a P
 - [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html)
 - [Apache Kafka](https://kafka.apache.org/protocol)
 - [Redis](https://redis.io/topics/protocol)
+- [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
 
 Kubeshark recognizes [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html),
 [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/)
