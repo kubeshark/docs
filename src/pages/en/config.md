@@ -45,7 +45,7 @@ kubeshark tap -A --docker-registry "docker.io/kubeshark"
 
 ### Web UI IP and Accessibility
 
-For security reasons, the default address of the proxy host for the **Web UI** is set to 127.0.0.1 that allows opening only local connections.
+For security reasons, the default address of the proxy host for the **Web UI** is set to `127.0.0.1` that allows opening only local connections.
 
 ```shell
 tap:
@@ -58,9 +58,9 @@ Alternatively, use the shell config option:
 kubeshark tap -A --proxy-host 0.0.0.0
 ```
 
-Consider changing this address to 0.0.0.0 or any other publicly accessible IP, to allow public address. Keep in mind that **Web UI** access isn't encrypted or authenticated.
+Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that **Web UI** access isn't encrypted or authenticated.
 
-When you run **Kubeshark** on a remote server, make sure ports 8898-8899 are open for external connections.
+When you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
 
 ### Worker Storage Limit
 
@@ -125,4 +125,4 @@ kubeshark tap -A --proxy-host 0.0.0.0 --set headless=true
 ```
 You can now access  **Kubeshark** **Web UI** from a remote server.
 
-As stated above, when you run **Kubeshark** on a remote server, make sure ports 8898-8899 are open for external connections.
+As stated above, when you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
