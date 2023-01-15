@@ -22,6 +22,10 @@ Clicking this button downloads a `.tar.gz` file that includes a PCAP file and a 
 
 ![PCAP Snapshot](/pcap-snapshot.png)
 
+The example below shows how to export the past 72 hours TCP streams to a PCAP file: 
+
+![Historical Traffic](/history2.png)
+
 > **NOTE:** When dealing with a large amount of traffic, this operation can take a few seconds to complete.
 
 ## View the PCAP Snapshot

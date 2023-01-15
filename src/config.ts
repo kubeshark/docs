@@ -60,12 +60,13 @@ export const SIDEBAR: Sidebar = {
     'Features': [
       { text: 'Web UI', link: 'en/ui' },
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
+      { text: 'Service Map', link: 'en/service_map' },
       { text: 'Encrypted Traffic', link: 'en/encrypted_traffic' },
       { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'Filtering', link: 'en/filtering' },
-      { text: 'Service Map', link: 'en/service_map' },
       { text: 'PCAP Export/Import', link: 'en/pcap_export_import' },
       { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
+      { text: 'DNS', link: 'en/dns' },
     ],
     'Advanced': [
       { text: 'Configuration', link: 'en/config' },
