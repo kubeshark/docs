@@ -17,7 +17,19 @@ Alternatively you can use a shell script to download the right binary for your o
 sh <(curl -Ls https://kubeshark.co/install)
 ```
 
-> **FUTURE:** We plan to enable installation through package managers like Homebrew and Apt
+### Homebrew
+
+[Homebrew](https://brew.sh/) users can add **Kubeshark** formulae with:
+
+```shell
+brew tap kubeshark/kubeshark
+```
+
+and install **Kubeshark** CLI with:
+
+```shell
+brew install kubeshark
+```
 
 ## Run
 
@@ -33,7 +45,7 @@ kubeshark tap -A
 kubeshark tap -n sock-shop "(catalo*|front-end*)"
 ```
 
-For more options on how to use the CLI, refer to the [Scope](/en/scope) page.
+For more options on how to use the CLI, refer to the [Pods & Namespaces](/en/scope) page.
 
 Once you run the CLI, a browser window will open at **localhost:8899** by default.
 

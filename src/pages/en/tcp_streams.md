@@ -1,39 +1,40 @@
 ---
-title: TCP streams
-description: Kubeshark stores TCP streams that include all of the request-response pairs throughout the communication between client and server.
+title: TCP/UDP streams
+description: Kubeshark stores the dissected protocols' complete TCP and UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server. 
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** stores TCP streams that include all of the request-response pairs throughout the communication between client and server.
+**Kubeshark** stores the dissected protocols' complete TCP and UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server. 
+> NOTE: Captured TCP or UDP streams that do not belong to a dissected protocols are discarded. 
 
-## TCP Stream Section
+## TCP/UDP Stream Section
 
 ![TCP Stream](/tcp-stream.png)
 
 This section exposes some information:
 
-- The unique identifier of the TCP stream (internal to Kubeshark)
-- The index of the item in the TCP stream
+- The unique identifier of the TCP or UDP stream (internal to Kubeshark)
+- The index of the item in the TCP or UDP stream
 - The node name or IP.
 
 and buttons:
 
-- To open the [TCP Replay](#tcp-replay) prompt.
+- To open the [TCP or UDP Replay](#tcpudp-stream-replay) prompt.
 - PCAP download (The original PCAP file of this TCP stream)
 
-## TCP Replay
+## TCP/UDP Stream Replay
 
-Use the **Replay** button to replay a TCP stream. Replaying a TCP stream establishes a brand new TCP connection to the TCP server using the destination IP and port of the item. It only replays the payload of client packets.
+Use the **Replay** button to replay the TCP or UDP stream. Replaying a TCP or UDP stream establishes a brand new connection to the destination server using the destination IP and port of the item. It only replays the payload of client packets.
 
 ![TCP stream Replay](/tcp-replay.png)
 
-## The Items Belong To The Same TCP Stream
+## TCP/UDP Stream Traffic Entries
 
-When you select an item from the left-pane, all the other items that belong to the same TCP stream are marked with dashed borders:
+When you select a traffic entry from the left-pane, all the other traffic entries that belong to the same stream are marked with dashed borders:
 
 ![Request-Response](/req-res.png)
 
-To automatically build such a filter that matches to items from a specific TCP stream, use the green + button by the TCP stream identifier:
+To automatically build such a filter that matches to items from a specific TCP or UDP stream, use the green + button by the TCP or UDP stream identifier:
 
 ![TCP stream query](/stream-query.png)
 

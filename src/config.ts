@@ -52,7 +52,7 @@ export const SIDEBAR: Sidebar = {
   en: {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
-      { text: 'Benefits', link: 'en/benefits' },
+     // { text: 'Benefits', link: 'en/benefits' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
       { text: 'Install & Run', link: 'en/install' },
       { text: 'Clean Up', link: 'en/clean_up' },
@@ -65,7 +65,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Filtering', link: 'en/filtering' },
       { text: 'Service Map', link: 'en/service_map' },
       { text: 'PCAP Export/Import', link: 'en/pcap_export_import' },
-      { text: 'TCP Streams', link: 'en/tcp_streams' },
+      { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
     ],
     'Advanced': [
       { text: 'Configuration', link: 'en/config' },
