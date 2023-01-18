@@ -24,8 +24,12 @@ Use the **Service Map** in conjunction with a DNS KFL query `dns` to see all the
 
 ![DNS Service Map](/dns-map.png)
 
-### DNS Payload Replay
+### DNS Stress Test
 
-Use **Kubeshark** stores the UDP traffic stream that includes the DNS traffic, it can be used to replay the traffic at the server destination. 
+**Kubeshark** stores the UDP stream that includes the DNS traffic. The stream can be used to replay the traffic aimed at the server destination. 
+
+When used with the **load testing** option, it can be used to stress test your DNS provider (e.g. kube-dns) and see where it scales or congests.
 
 ![DNS Replay](/dns-replay.png)
+
+To activate the stress test, put any number in the **replay count** and select the **Replay the UDP streams concurrently. (load testing)** option.

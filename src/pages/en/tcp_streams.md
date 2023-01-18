@@ -28,6 +28,12 @@ Use the **Replay** button to replay the TCP or UDP stream. Replaying a TCP or UD
 
 ![TCP stream Replay](/tcp-replay.png)
 
+### Stress Testing
+
+**Kubeshark** provides an option to replay the TCP or UDP stream concurrently. This capability is intended to provide an easy way to stress test the target server. 
+
+To activate the stress test, put any number in the **replay count** and select the **Replay the TCP/UDP streams concurrently. (load testing)**.
+
 ## TCP/UDP Stream Traffic Entries
 
 When you select a traffic entry from the left-pane, all the other traffic entries that belong to the same stream are marked with dashed borders:

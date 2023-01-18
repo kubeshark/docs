@@ -10,7 +10,7 @@ The **Service Map** provides the following information in a visual graph:
 - Label identity for internal workloads and DNS identity for external workloads
 - Connectivity information including direction indicated by arrows
 - Connection protocol indicated by the arrow color
-- Connection density indicated by the number of requests per connections
+- Connection density indicated by the number of requests and the arrow thickness
 
 ![Service Dependency Graph](/service-dependency-graph.png)
 
@@ -22,9 +22,9 @@ The **Service Map** is quite sophisticated and can be used to support multiple u
 
 ### Focus on Specific Parts of the Cluster
 
-A busy cluster can generate a very dense **Service Map**. Focus on specific parts of your cluster by using the **Service Map** in conjunction with a [KFL query](/en/filtering) to reduce the scope of analysis to only a subset of your cluster's traffic.  
+A busy cluster can generate a very dense **Service Map**. **Kubeshark** enables you to focus on specific parts of your cluster by using it in conjunction with a [KFL query](/en/filtering) to reduce the scope of analysis to only a subset of your cluster's traffic.  
 
-For example, the following query will analyze the traffic going in to two pods and out of a third pod:
+For example, the following query will analyze the ingress traffic of two pods and the egress traffic of a third pod:
 
 ![Query a Subset of Traffic](/query-subset.png)
 

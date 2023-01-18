@@ -7,7 +7,7 @@ mascot: Hello
 
 **Through Scalable & Secure Traffic Capture**
 
-**Kubeshark** is an API Traffic Viewer for [Kubernetes](https://kubernetes.io/) providing deep visibility and monitoring of all API traffic and payloads going in, out and across containers and pods inside a Kubernetes cluster.
+**Kubeshark** is an API Traffic Viewer for [Kubernetes](https://kubernetes.io/) providing real-time, protocol-level visibility into Kubernetes’ internal network, capturing, dissecting and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
