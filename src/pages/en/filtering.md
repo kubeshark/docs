@@ -32,7 +32,7 @@ The cheatsheet is available by pressing the button that is adjacent to the **App
 
 ![KFL Cheatsheet button](/cheatsheet-button.png)
 
-## KFL Reference
+## KFL Syntax Reference
 
 **Kubeshark** Filter Language (KFL) is the language implemented inside **Kubeshark** server that enables the user to query the traffic logs efficiently and precisely.
 
