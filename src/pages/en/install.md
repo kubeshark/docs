@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Getting started with **Kubeshark** is easy. You only need to download the [CLI](/en/cli) and run it. 
+Getting started with **Kubeshark** is easy. You only need to download the [CLI](/en/anatomy_of_kubeshark#cli) and run it. 
 
 The **CLI** communicates directly with [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the right containers at the right place at the right time.
 

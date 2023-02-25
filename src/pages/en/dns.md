@@ -8,7 +8,7 @@ layout: ../../layouts/MainLayout.astro
 
 ### DNS Log
 
-Use **Kubeshark** to view a DNS log and export into a PCAP file. To view only DNS entries, use: `dns` in the [KFL](/en/filtering) query box. Use the [export to PCAP button](en/pcap_export_import#export-a-pcap-snapshot) to export the DNS traffic to a PCAP file.
+Use **Kubeshark** to view a DNS log and export into a PCAP file. To view only DNS entries, use: `dns` in the [KFL](/en/filtering) query box. Use the [export to PCAP button](/en/pcap_export_import) to export the DNS traffic to a PCAP file.
 
 ![DNS Log](/dns-log.png)
 
