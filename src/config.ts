@@ -74,7 +74,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
       //	{ text: 'Helm chart', link: 'en/TBD' },
-      { text: 'Scripting Reference', link: 'en/scripting_reference' },
+      { text: 'Hooks', link: 'en/hooks' },
+      { text: 'Scripting API Reference', link: 'en/scripting_reference' },
     ],
     // 'Advanced': [
     //     { text: 'Installing plugins', link: 'en/installing_plugins' },
