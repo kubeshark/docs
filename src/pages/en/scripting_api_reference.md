@@ -465,3 +465,36 @@ if (kfl.validate("http and response.status == 500")) {
   console.log("Gibberish!")
 }
 ```
+
+## Global Variables
+
+### `CONSTS`
+
+The global variable `CONSTS` holds all of the constants defined in the `scripting.consts` field of `$HOME/.kubeshark/config.yaml`
+or `kubeshark.yaml` in your current working directory.
+Printing this variable allows you to debug the availability of those constants in the runtime.
+
+##### Example:
+
+Suppose you have;
+
+```yaml
+scripting:
+    consts:
+      SLACK_AUTH_TOKEN: "foo"
+      SLACK_CHANNEL_ID: "bar"
+```
+
+in your `kubeshark.yaml`. Then the JavaScript code below;
+
+```js
+console.log(CONSTS);
+```
+
+would print;
+
+```
+SLACK_AUTH_TOKEN,SLACK_CHANNEL_ID
+```
+
+in to the console.
