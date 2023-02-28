@@ -52,12 +52,12 @@ export const SIDEBAR: Sidebar = {
   en: {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
-     // { text: 'Benefits', link: 'en/benefits' },
+      // { text: 'Benefits', link: 'en/benefits' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
       { text: 'Install & Run', link: 'en/install' },
       { text: 'Clean Up', link: 'en/clean_up' },
     ],
-    'Features': [
+    'Basics': [
       { text: 'Web UI', link: 'en/ui' },
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Service Map', link: 'en/service_map' },
@@ -68,20 +68,21 @@ export const SIDEBAR: Sidebar = {
       { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
       { text: 'DNS', link: 'en/dns' },
     ],
-    'Advanced': [
+    'Scripting': [
+      { text: 'Introduction', link: 'en/scripting_introduction' },
+      { text: 'JavaScript Editor', link: 'en/scripting_javascript_editor' },
+      { text: 'Job Scheduler', link: 'en/scripting_job_scheduler' },
+      { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
+      { text: 'Integrations', link: 'en/scripting_integrations' },
+      { text: 'Hooks Reference', link: 'en/scripting_hooks_reference' },
+      { text: 'Scripting API Reference', link: 'en/scripting_api_reference' },
+    ],
+    'Misc': [
       { text: 'Configuration', link: 'en/config' },
-      //{ text: 'Permissions', link: 'en/permissions' },
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
-      //	{ text: 'Helm chart', link: 'en/TBD' },
-      { text: 'Hooks', link: 'en/hooks' },
-      { text: 'Scripting API Reference', link: 'en/scripting_reference' },
+      // { text: 'Permissions', link: 'en/permissions' },
+      // { text: 'Helm chart', link: 'en/TBD' },
     ],
-    // 'Advanced': [
-    //     { text: 'Installing plugins', link: 'en/installing_plugins' },
-    //     { text: 'Developing plugins', link: 'en/developing_plugins' },
-    //     { text: 'Hooks reference', link: 'en/hooks_reference' },
-    //     { text: 'Integrations', link: 'en/integrations' },
-    // ],
   },
 };

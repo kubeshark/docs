@@ -1,5 +1,5 @@
 ---
-title: Hooks
+title: Hooks Reference
 description: The list of hooks in the scripting system of Kubeshark
 layout: ../../layouts/MainLayout.astro
 ---
