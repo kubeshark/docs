@@ -1,0 +1,94 @@
+---
+title: Script Development 
+description: Kubeshark scripting language is based on Javascript ES5. In addition to rich capabilities a modern programming language offers, it can trigger actions based on programable decisions and/or on a schedule. 
+layout: ../../layouts/MainLayout.astro
+---
+
+Scripting enables automation and allow maximum flexibility. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). In addition to rich capabilities a modern programming language offers, it can trigger actions based on programable decisions and/or on a schedule. 
+
+## The Scripts Folder
+**Kubeshark** reads the initial scripts from a local script folder using the **CLI**. The local scripts folder is indicated in the configuration file.
+```bash
+scripting:
+    source: "/path/to/scripts/folder/"
+```
+When started, the **CLI** will read all scripts from the local scripts folder. If the folder exists and is pre-populated with scripts, all of the scripts will be transmitted to **Hub** and executed inside the K8s cluster where **Kubeshark** is deployed.
+
+![Local Scripts Folder](/local-scripts-folder.png)
+
+## Monitoring the Scripts Folder 
+
+The **CLI** reads the scrips once, when started. It will **not** monitor the folder or address changes unless instructed by the `kubeshark scripts` command.
+
+
+**Kubeshark** provides the option to monitor the local scripting folder for changes and transmit these changes with immediate effect to the **Hub**. 
+
+Use the following command if you didn't provide a scripting folder in the configuration file and would like to transmit new script to the **Hub**:
+```bash
+kubeshark scripts --set scripting.source="/path/to/scripts/folder/"
+```
+Don't forget ot add the folder to **Kubeshark**'s configuration if you want the scripts in it to be transmitted to the **Hub** next time **Kubeshark** runs.
+
+## Develop in your IDE
+Develop the scripts locally in your favorite IDE (e.g. Visual Studio Code). You can further maintain the scripts in version control (e.g. GitHub) in the same way you'd do with any code you write. 
+
+## Online Script Editor
+
+**Kubeshark** provides the option to view and potentially make changes to the scripts currently running inside your K8s cluster and executed by the **Hub**. 
+
+You can also add new scripts or delete existing scripts to the **Hub**. Any changes you make will apply for as long **Kubeshark** is running. 
+
+![Scripting Editor](/script-editor.png)
+
+If you'd like script changes to be persistent, you's need to change the actual scripts in the local scripts folder where the **CLI** is running.
+
+One of the major benefits for editing scripts directly inside the **Hub** is the ability to do it from anywhere using the **WebUI**.
+
+To access the **WebUI**'s script editor and edit the scripts in the **Hub**, press the scrips button located at the top right corner.
+![Scripting Button](/scripting-button.png)
+
+## Environment Variables
+You can use the `consts` configuration directive to provide environment variables for your scripts to use.
+```bash
+scripting:
+    consts:
+      SLACK_AUTH_TOKEN: "xo..
+      SLACK_CHANNEL_ID: "C0..
+      WEBHOOK_URL: "https://webh..
+      INFLUXDB_URL: "https://us-e..
+      INFLUXDB_TOKEN: "_9r..
+      INFLUXDB_MEASUREMENT: "st..
+      INFLUXDB_ORGANIZATION: "a..
+      INFLUXDB_BUCKET: "al..
+    source: "/User..
+```
+## Global Scope
+When you'd like to set state that will be persistent across the script execution you can use variables that are defined outside of the functions.
+
+For example, the following function will calculate the number of packets and overall traffic processed per minute using an L4 network hook (onPacketCaptured), a few Javascript commands and a scheduled job.
+
+```bash
+var packetCount = 0;
+var totalKB = 0;
+
+function onPacketCaptured(info) {
+  packetCount++;
+  totalKB += info.length / 1000;
+}
+
+function logPacketCountTotalBytes() {
+  console.log("Captured packet count per minute:", packetCount);
+  packetCount = 0;
+  console.log("Total KB captured per minute:", totalKB);
+  totalKB = 0;
+}
+
+jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTotalBytes);
+
+```
+
+## Script Examples
+**Kubeshark** comes with numerous script examples representing certain use-cases as part of the **Web UI**. Use the Examples dropdown list to access the list of script examples.
+![Script Examples](/script-examples.png)
+
+> > Visit the [Scripting API Reference](/en/scripting_api_reference) page to read the complete list of helpers related to scripting.

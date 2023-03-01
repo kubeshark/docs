@@ -4,11 +4,23 @@ description: Job Scheduler
 layout: ../../layouts/MainLayout.astro
 ---
 
-Explain the job system, job modal with screenshots...
+Jobs are functions that are automated to run on a schedule. When functions don't depend on certain network behaviors, they can be automated to run on a schedule. 
 
-Explain why cron statements are prefered, refer to https://crontab.guru/
+As network hooks can be very expensive in terms of computing resources, it is recommended to attempt to run scripts as Jobs and use network hooks only when necessary.
 
-Note that; jobs are scheduled per node/worker. Job tag uniquely identifies a job.
-You can manually run jobs with `jobs.run` helper etc. Job modal can be used to run the jobs as well.
+**Kubeshark** uses a [crontab](https://crontab.guru/) mechanism to schedule Jobs at the node level. It furthers provides complete control over the scheduled Jobs via the **Web UI**.
 
-Also mention that, it's possible to start/stop the job scheduler.
+
+## The Jobs Dashboard
+The Jobs Dashboard enables complete control over schedule jobs enabling the following operations:
+- Stop a specific Jobs or all Jobs
+- Start / Re-start a specific Job or all Jobs
+- Delete a specific Job or all Jobs
+
+![Jobs Dashboard](/jobs-dashboard.png)
+
+## Running Jobs Programmatically
+
+While you can manually control the Jobs from the jobs dashboard, you can also control them programmatically from a script using the `jobs.run` helper.
+
+> Visit the [Scripting API Reference](/en/scripting_api_reference#jobs) page to read the complete list of helpers related to Jobs.

@@ -57,7 +57,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Install & Run', link: 'en/install' },
       { text: 'Clean Up', link: 'en/clean_up' },
     ],
-    'Basics': [
+    'Features': [
       { text: 'Web UI', link: 'en/ui' },
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Service Map', link: 'en/service_map' },
@@ -67,18 +67,35 @@ export const SIDEBAR: Sidebar = {
       { text: 'PCAP Export/Import', link: 'en/pcap_export_import' },
       { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
       { text: 'DNS', link: 'en/dns' },
+      { text: 'Configuration', link: 'en/config' },
     ],
-    'Scripting': [
-      { text: 'Introduction', link: 'en/scripting_introduction' },
-      { text: 'JavaScript Editor', link: 'en/scripting_javascript_editor' },
+    'Automation': [
+      { text: 'Introduction', link: 'en/automation_introduction' },
+      { text: 'Scripting', link: 'en/automation_scripting' },
+      { text: 'Network Hooks', link: 'en/network_hooks' },
       { text: 'Job Scheduler', link: 'en/scripting_job_scheduler' },
-      { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
-      { text: 'Integrations', link: 'en/scripting_integrations' },
-      { text: 'Hooks Reference', link: 'en/scripting_hooks_reference' },
-      { text: 'Scripting API Reference', link: 'en/scripting_api_reference' },
+      // { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
+      // { text: 'Integrations', link: 'en/scripting_integrations' },
+
+    ],
+    'Integrations': [
+      { text: 'Introduction', link: 'en/actions_introduction' },
+      { text: 'Console Log', link: 'en/integrations_console' },
+      { text: 'Slack Alerts', link: 'en/integrations_slack' }
+      // { text: 'InfluxDB Telemetry', link: 'en/TBD' },
+      // { text: 'Grafana Telemetry', link: 'en/TBD' },
+      // { text: 'Elastic Telemetry', link: 'en/TBD' },
+      // { text: 'AWS S3 Upload', link: 'en/TBD' },
+      // { text: 'Webhook Anything', link: 'en/TBD' },
+      // { text: 'Fail/Pass', link: 'en/TBD' },
+      // { text: 'File Operations', link: 'en/TBD' },
+    ],
+    'API Reference': [
+      { text: 'Scripting Helpers', link: 'en/scripting_api_reference' },
+      { text: 'Network Hooks', link: 'en/scripting_hooks_reference' },
+      { text: 'KFL', link: 'en/kfl_reference' },
     ],
     'Misc': [
-      { text: 'Configuration', link: 'en/config' },
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
       // { text: 'Permissions', link: 'en/permissions' },

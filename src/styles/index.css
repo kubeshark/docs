@@ -65,24 +65,24 @@ h2 {
 }
 
 :is(h4, h5, h6):not(:first-child) {
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 }
 
 h1 {
-	font-size: 3.25rem;
+	font-size: 2.25rem;
 	font-weight: 800;
 }
 
 h2 {
-	font-size: 2.5rem;
-}
-
-h3 {
 	font-size: 1.75rem;
 }
 
+h3 {
+	font-size: 1.5rem;
+}
+
 h4 {
-	font-size: 1.3rem;
+	font-size: 1.25rem;
 }
 
 h5 {
