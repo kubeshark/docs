@@ -72,27 +72,25 @@ export const SIDEBAR: Sidebar = {
     'Automation': [
       { text: 'Introduction', link: 'en/automation_introduction' },
       { text: 'Scripting', link: 'en/automation_scripting' },
-      { text: 'Network Hooks', link: 'en/network_hooks' },
-      { text: 'Job Scheduler', link: 'en/scripting_job_scheduler' },
+      { text: 'Hooks', link: 'en/automation_hooks' },
+      { text: 'Job Scheduler', link: 'en/automation_job_scheduler' }
       // { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
       // { text: 'Integrations', link: 'en/scripting_integrations' },
 
     ],
     'Integrations': [
-      { text: 'Introduction', link: 'en/actions_introduction' },
+      { text: 'Actions', link: 'en/integration_actions' },
       { text: 'Console Log', link: 'en/integrations_console' },
-      { text: 'Slack Alerts', link: 'en/integrations_slack' }
-      // { text: 'InfluxDB Telemetry', link: 'en/TBD' },
-      // { text: 'Grafana Telemetry', link: 'en/TBD' },
-      // { text: 'Elastic Telemetry', link: 'en/TBD' },
-      // { text: 'AWS S3 Upload', link: 'en/TBD' },
+      { text: 'Slack', link: 'en/integrations_slack' },
+      { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
+      { text: 'AWS S3', link: 'en/integration_aws_s3' }
       // { text: 'Webhook Anything', link: 'en/TBD' },
       // { text: 'Fail/Pass', link: 'en/TBD' },
       // { text: 'File Operations', link: 'en/TBD' },
     ],
     'API Reference': [
-      { text: 'Scripting Helpers', link: 'en/scripting_api_reference' },
-      { text: 'Network Hooks', link: 'en/scripting_hooks_reference' },
+      { text: 'Helpers', link: 'en/scripting_api_reference' },
+      //{ text: 'Network Hooks', link: 'en/scripting_hooks_reference' },
       { text: 'KFL', link: 'en/kfl_reference' },
     ],
     'Misc': [

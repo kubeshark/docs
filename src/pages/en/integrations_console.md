@@ -36,3 +36,4 @@ The following CLI command redirects the Console Log output to a file.
 ```bash
 kubeshark console 2> /tmp/log.txt
 ```
+YOu can run the `kubeshark console` command as many times as you'd like to process console logs and export to different external systems.

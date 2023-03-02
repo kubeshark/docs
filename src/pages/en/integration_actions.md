@@ -1,10 +1,10 @@
 ---
 title: Actionable Network Detection
-description: 
+description: Kubeshark uses scripting and hooks to trigger actions when certain network behaviors are detected. Actions can also be triggered as part of a scheduled job.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** uses scripting and network hooks to trigger specific actions when certain network behaviors are detected. Actions can also be triggered as part of a scheduled job.
+**Kubeshark** uses scripting and hooks to trigger specific actions when certain network behaviors are detected. Actions can also be triggered as part of a scheduled job.
 
 Each supported integration enables one or a few actions that can be triggered or scheduled.
 
@@ -19,12 +19,13 @@ You can send a message to Slack, to a console log or use a webhook to send anyth
 
 ## Forensics
 
-Forensics generation can be triggered programmatically using Network Hooks and/or Jobs.
+Forensics generation can be triggered programmatically using hooks and/or Jobs.
 
 The following forensic types are available:
 - PCAPs
 - Identity-IP resolution history
 - DNS log
+- User-generated files
 
 For example, if suspicious outbound traffic is detected, capture the past 3 hours of traffic in a certain namespace into a PCAP and upload to AWS S3.
 

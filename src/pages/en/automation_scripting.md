@@ -6,6 +6,26 @@ layout: ../../layouts/MainLayout.astro
 
 Scripting enables automation and allow maximum flexibility. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). In addition to rich capabilities a modern programming language offers, it can trigger actions based on programable decisions and/or on a schedule. 
 
+The following is an example of a script that logs the total captured packet and KB every minute.
+```bash
+var packetCount = 0;
+var totalKB = 0;
+
+function onPacketCaptured(info) {
+  packetCount++;
+  totalKB += info.length / 1000;
+}
+
+function logPacketCountTotalBytes() {
+  console.log("Captured packet count per minute:", packetCount);
+  packetCount = 0;
+  console.log("Total KB captured per minute:", totalKB);
+  totalKB = 0;
+}
+
+jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTotalBytes);
+```
+
 ## The Scripts Folder
 **Kubeshark** reads the initial scripts from a local script folder using the **CLI**. The local scripts folder is indicated in the configuration file.
 ```bash
@@ -91,4 +111,8 @@ jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTot
 **Kubeshark** comes with numerous script examples representing certain use-cases as part of the **Web UI**. Use the Examples dropdown list to access the list of script examples.
 ![Script Examples](/script-examples.png)
 
-> > Visit the [Scripting API Reference](/en/scripting_api_reference) page to read the complete list of helpers related to scripting.
+> Visit the [Scripting API Reference](/en/scripting_api_reference) page to read the complete list of helpers related to scripting.
+
+## Scripting Helpers
+**Kubeshark** provides helpers to enable easy access the the various integrations (e.g. Files, PCAPs, Alerts, Console log, Integrations, etc)
+> For a complete list of Helpers visit the [Scripting API Reference](en/scripting_api_reference) page 

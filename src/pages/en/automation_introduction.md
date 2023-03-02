@@ -19,10 +19,10 @@ Things you can automate with **Kubeshark**:
 ## Scripting
 Scripting enables automation and allow maximum flexibility. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). In addition to rich capabilities a modern programming language offers, it can trigger actions based on programable decisions and/or on a schedule. 
 
-## Network Hooks
+## Hooks
 **Kubeshark**, among other network hooks, provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected. 
 
-For example, the following function leverages the OSI L7 hook (onItemCaptured) will log every dissected protocol message to the console. 
+For example, the following function leverages the OSI L7 hook `onItemCaptured` and will log every dissected protocol message to the console. 
 ```bash
 function onItemCaptured(data) {
   console.log("Msg:",JSON.stringify(data));
@@ -30,6 +30,7 @@ function onItemCaptured(data) {
 ```
 
 ## Jobs Scheduler
+
 Jobs are functions that are automated to run on a schedule. When functions don't depend on certain network behaviors, they can be automated to run on a schedule. 
 
 For example, capture all DNS traffic once an hour and upload to an immutable datastore. 
