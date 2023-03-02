@@ -1,6 +1,6 @@
 ---
-title: Script Development 
-description: Kubeshark scripting language is based on Javascript ES5. In addition to rich capabilities a modern programming language offers, it can trigger actions based on programable decisions and/or on a schedule. 
+title: Script Development
+description: Kubeshark scripting language is based on Javascript ES5. In addition to rich capabilities a modern programming language offers, it can trigger actions based on programable decisions and/or on a schedule.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -41,7 +41,7 @@ When started, the **CLI** will read all scripts from the local scripts folder. I
 The **CLI** reads the scrips once, when started. It will **not** monitor the folder or address changes unless instructed by the `kubeshark scripts` command.
 
 
-**Kubeshark** provides the option to monitor the local scripting folder for changes and transmit these changes with immediate effect to the **Hub**. 
+**Kubeshark** provides the option to monitor the local scripting folder for changes and transmit these changes with immediate effect to the **Hub**.
 
 Use the following command if you didn't provide a scripting folder in the configuration file and would like to transmit new script to the **Hub**:
 ```bash
@@ -50,13 +50,13 @@ kubeshark scripts --set scripting.source="/path/to/scripts/folder/"
 Don't forget ot add the folder to **Kubeshark**'s configuration if you want the scripts in it to be transmitted to the **Hub** next time **Kubeshark** runs.
 
 ## Develop in your IDE
-Develop the scripts locally in your favorite IDE (e.g. Visual Studio Code). You can further maintain the scripts in version control (e.g. GitHub) in the same way you'd do with any code you write. 
+Develop the scripts locally in your favorite IDE (e.g. Visual Studio Code). You can further maintain the scripts in version control (e.g. GitHub) in the same way you'd do with any code you write.
 
 ## Online Script Editor
 
-**Kubeshark** provides the option to view and potentially make changes to the scripts currently running inside your K8s cluster and executed by the **Hub**. 
+**Kubeshark** provides the option to view and potentially make changes to the scripts currently running inside your K8s cluster and executed by the **Hub**.
 
-You can also add new scripts or delete existing scripts to the **Hub**. Any changes you make will apply for as long **Kubeshark** is running. 
+You can also add new scripts or delete existing scripts to the **Hub**. Any changes you make will apply for as long **Kubeshark** is running.
 
 ![Scripting Editor](/script-editor.png)
 
@@ -68,7 +68,9 @@ To access the **WebUI**'s script editor and edit the scripts in the **Hub**, pre
 ![Scripting Button](/scripting-button.png)
 
 ## Environment Variables
+
 You can use the `consts` configuration directive to provide environment variables for your scripts to use.
+
 ```bash
 scripting:
     consts:
@@ -104,15 +106,18 @@ function logPacketCountTotalBytes() {
 }
 
 jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTotalBytes);
-
 ```
 
 ## Script Examples
+
 **Kubeshark** comes with numerous script examples representing certain use-cases as part of the **Web UI**. Use the Examples dropdown list to access the list of script examples.
+
 ![Script Examples](/script-examples.png)
 
 > Visit the [Scripting API Reference](/en/scripting_api_reference) page to read the complete list of helpers related to scripting.
 
 ## Scripting Helpers
+
 **Kubeshark** provides helpers to enable easy access the the various integrations (e.g. Files, PCAPs, Alerts, Console log, Integrations, etc)
-> For a complete list of Helpers visit the [Scripting API Reference](en/scripting_api_reference) page 
+
+> For a complete list of Helpers visit the [Scripting API Reference](en/scripting_api_reference) page

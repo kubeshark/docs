@@ -1,15 +1,15 @@
 ---
 title: Upload Files to AWS S3
-description:  
+description: Upload Files to AWS S3
 layout: ../../layouts/MainLayout.astro
 ---
+
+
 **Kubeshark** enables you to generate files (e.g. PCAPs) and upload them to an immutable datastore (e.g. AWS S3).
 
 
 
-// create PCAP snapshot
-
-
+```js
 // Upload a PCAP Snapshot to an AWS S3 Bucket If Response Status Code is 500
 
 function onItemCaptured(data) {
@@ -50,4 +50,4 @@ function onItemCaptured(data) {
     file.delete(tarFile);
   }
 }
-
+```
