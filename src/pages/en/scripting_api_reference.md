@@ -145,7 +145,8 @@ function pushDataToInfluxDB() {
     "Example Measurement",
     env.INFLUXDB_ORGANIZATION,
     env.INFLUXDB_BUCKET,
-    data
+    data,
+    {"example":"tag"}
   );
 
   // Reset the data
