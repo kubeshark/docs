@@ -49,5 +49,7 @@ The following dashboard can be generated based on the metrics that are transmitt
 ![InfluxDB Dashboard](/influxdb-status-codes.png)
 
 Follow one of these resources to add your InfluxDB instance to Grafana:
-- https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-influxdb/
-- https://www.influxdata.com/blog/getting-started-influxdb-grafana/
+
+- [https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-influxdb/](https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-influxdb/)
+- [https://www.influxdata.com/blog/getting-started-influxdb-grafana/](https://www.influxdata.com/blog/getting-started-influxdb-grafana/)
+

@@ -88,10 +88,10 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Fail/Pass', link: 'en/TBD' },
       // { text: 'File Operations', link: 'en/TBD' },
     ],
-    'API Reference': [
-      { text: 'Helpers', link: 'en/scripting_api_reference' },
+    'References': [
+      { text: 'Scripting API Reference', link: 'en/scripting_api_reference' },
       //{ text: 'Network Hooks', link: 'en/scripting_hooks_reference' },
-      { text: 'KFL', link: 'en/kfl_reference' },
+      { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },
     ],
     'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },
