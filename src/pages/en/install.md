@@ -51,3 +51,21 @@ Once you run the CLI, a browser window will open at **localhost:8899** by defaul
 
 
 ![Kubeshark UI](/kubeshark-ui.png)
+
+## Clean Up
+
+To clean up a Kubeshark deployment from your cluster, simply run:
+
+```shell
+kubeshark clean
+```
+
+### Only A Certain Namespace
+
+By default, Kubeshark the `clean` command removes the any Kubeshark deployments
+cluster-wide. To clean up only a certain namespace:
+
+```
+kubeshark clean -n sock-shop
+```
+

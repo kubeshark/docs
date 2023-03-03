@@ -3,12 +3,7 @@ title: Automated Network Analysis
 description: Kubeshark's automation can seamlessly analyze vast amounts of data, and send only data of interest for further analysis by people or external systems.
 layout: ../../layouts/MainLayout.astro
 ---
-
-Data carried atop K8s network can significantly help Devops, SREs and security professional reduce the time-to-recover (MTTR) from an incident as well as reduce the number of incidents.
-
-As the amount of data carried over the network is massive, manual analysis is out of the question. Automation to the rescue.
-
-**Kubeshark**'s automation can seamlessly analyze vast amounts of data, and send only data of interest for further analysis by people or external systems.
+**Kubeshark**'s automation can seamlessly analyze vast amounts of data, and flag only data of interest for further analysis by people or external systems.
 
 Things you can automate with **Kubeshark**:
 - **Detection** of suspicious network behaviors

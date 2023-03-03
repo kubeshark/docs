@@ -3,6 +3,8 @@ title: Slack Alerts
 description:  
 layout: ../../layouts/MainLayout.astro
 ---
+> Use of this integration requires Pro license.
+
 Slack alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
 
 The following example reports to a Slack Channel whenever the response status code is 500.

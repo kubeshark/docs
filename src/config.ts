@@ -52,17 +52,17 @@ export const SIDEBAR: Sidebar = {
   en: {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
-      // { text: 'Benefits', link: 'en/benefits' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Install & Run', link: 'en/install' },
-      { text: 'Clean Up', link: 'en/clean_up' },
+      { text: 'Install & Run', link: 'en/install' }
+      // { text: 'Community Vs Pro', link: 'en/community_vs_pro' },
+      //{ text: 'Clean Up', link: 'en/clean_up' },
     ],
-    'Features': [
-      { text: 'Web UI', link: 'en/ui' },
+    'Traffic Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
-      { text: 'Service Map', link: 'en/service_map' },
       { text: 'Encrypted Traffic', link: 'en/encrypted_traffic' },
       { text: 'Pods & Namespaces', link: 'en/scope' },
+      { text: 'Web UI', link: 'en/ui' },
+      { text: 'Service Map', link: 'en/service_map' },
       { text: 'Filtering', link: 'en/filtering' },
       { text: 'PCAP Export/Import', link: 'en/pcap_export_import' },
       { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
@@ -83,8 +83,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Console Log', link: 'en/integrations_console' },
       { text: 'Slack', link: 'en/integrations_slack' },
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
-      { text: 'AWS S3', link: 'en/integration_aws_s3' }
-      // { text: 'Webhook Anything', link: 'en/TBD' },
+      { text: 'AWS S3', link: 'en/integration_aws_s3' },
+      { text: 'Webhook', link: 'en/integration_webhook' }
       // { text: 'Fail/Pass', link: 'en/TBD' },
       // { text: 'File Operations', link: 'en/TBD' },
     ],
