@@ -113,8 +113,8 @@ It's especially useful for **alerting** a group of developers about **an issue d
 function onItemCaptured(data) {
   if (data.response.status === 500)
     vendor.slack(
-      SLACK_AUTH_TOKEN,
-      SLACK_CHANNEL_ID,
+      env.SLACK_AUTH_TOKEN,
+      env.SLACK_CHANNEL_ID,
       "Server-side Error",
       JSON.stringify(data),
       "#ff0000"
@@ -140,11 +140,11 @@ function pushDataToInfluxDB() {
 
   // Push the data
   vendor.influxdb(
-    INFLUXDB_URL,
-    INFLUXDB_TOKEN,
+    env.INFLUXDB_URL,
+    env.INFLUXDB_TOKEN,
     "Example Measurement",
-    INFLUXDB_ORGANIZATION,
-    INFLUXDB_BUCKET,
+    env.INFLUXDB_ORGANIZATION,
+    env.INFLUXDB_BUCKET,
     data
   );
 
@@ -167,10 +167,10 @@ The S3 path of the file is set based on this pattern: `<NODE_NAME>_<NODE_IP>/<FI
 
 ```js
 vendor.s3.put(
-  AWS_REGION,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-  S3_BUCKET,
+  env.AWS_REGION,
+  env.AWS_ACCESS_KEY_ID,
+  env.AWS_SECRET_ACCESS_KEY,
+  env.S3_BUCKET,
   filePath
 );
 ```
@@ -187,10 +187,10 @@ It can be called through a job to do a periodic clean up.
 
 ```js
 vendor.s3.clear(
-  AWS_REGION,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-  S3_BUCKET
+  env.AWS_REGION,
+  env.AWS_ACCESS_KEY_ID,
+  env.AWS_SECRET_ACCESS_KEY,
+  env.S3_BUCKET
 );
 ```
 
@@ -466,11 +466,9 @@ if (kfl.validate("http and response.status == 500")) {
 }
 ```
 
-## Global Variables
+## Environment Variables
 
-### `CONSTS`
-
-The global variable `CONSTS` holds all of the constants defined in the `scripting.consts` field of `$HOME/.kubeshark/config.yaml`
+The global object `env` holds all of the constants defined in the `scripting.env` field of `$HOME/.kubeshark/config.yaml`
 or `kubeshark.yaml` in your current working directory.
 Printing this variable allows you to debug the availability of those constants in the runtime.
 
@@ -480,7 +478,7 @@ Suppose you have;
 
 ```yaml
 scripting:
-    consts:
+    env:
       SLACK_AUTH_TOKEN: "foo"
       SLACK_CHANNEL_ID: "bar"
 ```
@@ -488,13 +486,13 @@ scripting:
 in your `kubeshark.yaml`. Then the JavaScript code below;
 
 ```js
-console.log(CONSTS);
+console.log(JSON.stringify(env));
 ```
 
 would print;
 
 ```
-SLACK_AUTH_TOKEN,SLACK_CHANNEL_ID
+{"SLACK_AUTH_TOKEN":"foo","SLACK_CHANNEL_ID":"bar"}
 ```
 
 in to the console.

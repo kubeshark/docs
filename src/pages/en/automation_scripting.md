@@ -69,11 +69,11 @@ To access the **WebUI**'s script editor and edit the scripts in the **Hub**, pre
 
 ## Environment Variables
 
-You can use the `consts` configuration directive to provide environment variables for your scripts to use.
+You can use the `env` configuration directive to provide environment variables for your scripts to use.
 
 ```bash
 scripting:
-    consts:
+    env:
       SLACK_AUTH_TOKEN: "xo..
       SLACK_CHANNEL_ID: "C0..
       WEBHOOK_URL: "https://webh..

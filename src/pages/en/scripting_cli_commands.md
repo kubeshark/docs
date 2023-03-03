@@ -10,6 +10,6 @@ and config.yaml:
 
 ```yaml
 scripting:
-    consts: {}
+    env: {}
     source: "./scripts/"
 ```
