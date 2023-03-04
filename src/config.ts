@@ -81,10 +81,10 @@ export const SIDEBAR: Sidebar = {
     'Integrations': [
       { text: 'Actions', link: 'en/integration_actions' },
       { text: 'Console Log', link: 'en/integrations_console' },
-      { text: 'Slack', link: 'en/integrations_slack' },
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
-      { text: 'AWS S3', link: 'en/integration_aws_s3' },
-      { text: 'Webhook', link: 'en/integration_webhook' }
+      { text: 'Webhook', link: 'en/integration_webhook' },
+      { text: 'Slack', link: 'en/integrations_slack' },
+      { text: 'AWS S3', link: 'en/integration_aws_s3' }
       // { text: 'Fail/Pass', link: 'en/TBD' },
       // { text: 'File Operations', link: 'en/TBD' },
     ],

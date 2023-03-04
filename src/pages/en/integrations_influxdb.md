@@ -5,51 +5,116 @@ layout: ../../layouts/MainLayout.astro
 ---
 > Use of this integration requires Pro license.
 
-**Kubeshark** enables you can send metrics directly to any [InfluxDB](https://www.influxdata.com/) local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
+**Kubeshark** enables you to send metrics directly to any [InfluxDB](https://www.influxdata.com/) local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
 
+## Sending Identity-aware Latency Information
 
-The following example aggregates HTTP status codes and pushes them to InfluxDB every minute
+The following example uses the `onItemCaptured` hook to send latency and status-code data to an InfluxDB instance on every API call.
 
 ```bash
-var statusCodes = {};
-
 function onItemCaptured(data) {
-  if (data.protocol.name !== "http") return;
-
-  if (statusCodes.hasOwnProperty(data.response.status)) {
-    statusCodes[data.response.status]++;
-  } else {
-    statusCodes[data.response.status] = 1;
-  }
-}
-
-function pushStatusCodesToInfluxDB() {
-  console.log("Status Codes:", JSON.stringify(statusCodes))
-
+  if (data.protocol.name !== "http") return;  // ignore non-HTTP traffic
   vendor.influxdb(
-    INFLUXDB_URL,
-    INFLUXDB_TOKEN,
-    "Status Codes",
-    INFLUXDB_ORGANIZATION,
-    INFLUXDB_BUCKET,
-    statusCodes
-  );
+    env.INFLUXDB_URL,
+    env.INFLUXDB_TOKEN,
+    "PerformanceKPIs" ,                       // Measurement 
+    "my-org-name",                            // Organization
+    "my-bucket-name",                         // Bucket
+    { 
+      latency:  data.elapsedTime 
+      status:   data.response.status
+    },                                        // Key-Value Metrics
+    { 
+      service:  data.dst.name, 
+      path:     data.request.path 
+    }                                         // Key-Value Tags
+  ); 
 
-  statusCodes = {};
 }
-
-jobs.schedule("push-status-codes-to-influxdb", "0 */1 * * * *", pushStatusCodesToInfluxDB);
 ```
+The example assumes the key properties that are required to authenticate with your InfluxDB instance are stored in the configuration file as environment variables.
+
+Read the [Scripting API Reference](http://localhost:3000/en/scripting_api_reference#vendorinfluxdburl-string-token-string-measurement-string-organization-string-bucket-string-data-object-tags-object) to learn more about the InfluxDB helper.
+
+Read the [onItemCaptured](http://localhost:3000/en/automation_hooks#onitemcaptureddata-object)  hook section to learn more about data that becomes available when using this hook.
+
+## Practical Example
+
+Installing a local instance of InfluxDB is pretty straight forward and shouldn't take more than a few minutes.
+
+Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/install/) to install a local instance or go to  [InfluxData Website](https://www.influxdata.com/), the company behind InfluxDB to sign up and use a cloud-hosted version. 
+
+### Install a local Instance
+As an example, you can use the following command to install a local instance of InfluxDB on Mac OS and then start it:
+```bash
+brew update
+brew install influxdb
+influxd
+```
+### Retrieving the Required Properties
+To send a message to your InfluxDB instance you need the following properties:
+- InfluxDB URL
+- API Token
+- Organization
+- A bucket
+- Measurement
+- Metrics: Key-value set
+- Tags: Key-value set
+
+Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/get-started/setup/) to create the following:
+- API Token
+- Organization
+- A bucket
+
+The `InfluxDB URL` is simply the instance URL that can be copied from the browser once you log in to your instance.
+
+The other three properties (e.g. Measurement, Metrics, Tags) can be defined on the run.
+
+While you can created numerous metrics, queries and graphs, some properties are unlikely to change and therefore it is recommended to keep them in the **Kubeshark** configuration file under the environment variable section. 
+
+### API Call Latency Query and a Graph
+
+This query presents a latency graph for each API call including the service name and path of each data point.
+
+```bash
+from(bucket: "Metrics")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "PerformanceKPIs")
+  |> filter(fn: (r) => r["_field"] == "latency")
+  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
+  |> yield(name: "mean")
+```
+This would be the graph resulting from this query:
+
+![InfluxDB Latency Graph](/influx-latency.png)
+
+## API Call Status Code Query and a Graph
+
+The following query, which is almost similar to the previous one, uses the data sent using the `onItemCaptured` hook (see a couple of paragraph above) to present the status code of each API call with the path and service name information included for every data point.
+
+```bash
+from(bucket: "Metrics")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "PerformanceKPIs")
+  |> filter(fn: (r) => r["_field"] == "status")
+```
+![InfluxDB Status Codes](/influxdb-status-codes2.png)
 
 ## Connecting to Grafana
 
-Metrics that are transmitted to InfluxDB can be aggregated to be used inGrafana, when selecting your InfluxDB instance as a source.
+Metrics that are transmitted to InfluxDB can be aggregated to be used in Grafana, when selecting your InfluxDB instance as a source.
 
-The following dashboard can be generated based on the metrics that are transmitted to InfluxDB and then aggregated to Grafana:
-![InfluxDB Dashboard](/influxdb-status-codes.png)
+### Adding InfluxDB as a Data Source in Grafana
 
-Follow one of these resources to add your InfluxDB instance to Grafana:
+Follow one of these resources to add your InfluxDB instance to Grafana as a data source:
 
 - [https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-influxdb/](https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-influxdb/)
 - [https://www.influxdata.com/blog/getting-started-influxdb-grafana/](https://www.influxdata.com/blog/getting-started-influxdb-grafana/)
+
+![Grafana InfluxDB Data Source](/grafana-influxdb-data-source.png)
+
+Go ahead, copy and paste the query from InfluxDB to Grafana amd continue manipulating the data in Grafana. Below is a snapshot from Grafana after connecting to your InfluxDB instance.
+
+![Grafana InfluxDB Query](/grafana-influxdb-export.png)
+
 
