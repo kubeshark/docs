@@ -122,7 +122,7 @@ function onItemCaptured(data) {
 }
 ```
 
-### `vendor.influxdb(url: string, token: string, measurement: string, organization: string, bucket: string, data: object, tags: object)`
+### `vendor.influxdb(url: string, token: string, measurement: string, organization: string, bucket: string, data: object, tags?: object)`
 
 > (!) This helper requires a Pro license.
 
