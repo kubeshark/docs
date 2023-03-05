@@ -99,7 +99,29 @@ vendor.webhook(
 );
 ```
 
-### `vendor.slack(token: string, channelID: string, pretext: string, text: string, color: string)`
+### `vendor.slack(webhookUrl: string, pretext: string, text: string, color: string)`
+
+> (!) This helper requires a Pro license.
+
+Sends a Slack message to the Slack webhook in `webhookUrl` argument.
+It's especially useful for **alerting** a group of developers about **an issue detected through the network traffic**, such as
+*HTTP 500 response status code:*
+
+##### Example:
+
+```js
+function onItemCaptured(data) {
+  if (data.response.status === 500)
+    vendor.slack(
+      env.SLACK_WEBHOOK,
+      "Server-side Error",
+      JSON.stringify(data),
+      "#ff0000"
+    );
+}
+```
+
+### `vendor.slackBot(token: string, channelID: string, pretext: string, text: string, color: string)`
 
 > (!) This helper requires a Pro license.
 
@@ -122,7 +144,7 @@ function onItemCaptured(data) {
 }
 ```
 
-### `vendor.influxdb(url: string, token: string, measurement: string, organization: string, bucket: string, data: object, tags?: object)`
+### `vendor.influxdb(url: string, token: string, organization: string, bucket: string, measurement: string, data: object, tags?: object)`
 
 > (!) This helper requires a Pro license.
 
@@ -142,9 +164,9 @@ function pushDataToInfluxDB() {
   vendor.influxdb(
     env.INFLUXDB_URL,
     env.INFLUXDB_TOKEN,
-    "Example Measurement",
     env.INFLUXDB_ORGANIZATION,
     env.INFLUXDB_BUCKET,
+    "Example Measurement",
     data,
     {"example":"tag"}
   );
