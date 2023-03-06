@@ -126,3 +126,33 @@ kubeshark tap -A --proxy-host 0.0.0.0 --set headless=true
 You can now access  **Kubeshark** **Web UI** from a remote server.
 
 As stated above, when you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
+
+### Scripts 
+
+Information related to **Kubeshark**'s scripting engine. For example:
+
+```bash
+scripting:
+    env:
+      CONSTANT-NAME-1: "VALUE"
+      CONSTANT-NAME-2: 77
+    source: "/path/to/script/folder"
+```
+
+#### Source Folders
+
+```bash
+scripting:
+    source: "/path/to/script/folder"
+```
+A path for the scripts folder. If not empty and pre-populated with scripts, all script will run when **Kubeshark** starts.
+
+#### Environment Variables
+
+This section includes variable that can be used inside of scripts.
+
+```bash
+scripting:
+    env:
+      CONSTANT-NAME-1: "VALUE"
+      CONSTANT-NAME-2: 77

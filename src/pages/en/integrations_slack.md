@@ -11,29 +11,16 @@ The following example reports to a Slack Channel whenever the HTTP response stat
 ```bash
 function onItemCaptured(data) {
   if (data.response.status === 500)
-    vendor.slack(SLACK_AUTH_TOKEN, SLACK_CHANNEL_ID, "Server-side Error", JSON.stringify(data), "#ff0000");
+    vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
 }
 ```
 **Kubeshark** uses **Slack Incoming Webhooks** to send messages to your desired Slack. You can read more about the procedure [here](https://api.slack.com/messaging/webhooks).
+
 Slack provides an easy way to create a Slack App that enables maximum flexibility and customization.
 
-There are two ways to post messages to Slack:
-
-1. With an incoming Webhook URL:
-
-```bash
-vendor.webhook("POST", SLACK_WEBHOOK_URL, JSON.stringify({text: "This is an Alert!"}));
-```
-
-2. Using an auth token and a channel ID:
-
-```bash
-vendor.slack(SLACK_AUTH_TOKEN, SLACK_CHANNEL_ID, "Server-side Error", JSON.stringify(data), "#ff0000");
-```
-You may already have the required properties and know how to use them. If not, see below for an explanation how to create a simple Slack App and retrieve these properties.
-
 ## Creating the Slack App
-There are a couple of ways to create a Slack Apps. It shouldn't take more than 5 minutes.
+
+Creating a Slack App shouldn't take more than 5 minutes.
 
 Start [here](https://api.slack.com/apps) and press the **Create New App** button to create a Slack app (Bot):
 
@@ -68,20 +55,12 @@ Install the App to your workspace:
 
 ![Install the App to your workspace](/slack-install-app.png)
 
-The easiest way to get going is to hop over to the **Incoming Webhooks** section and retrieve the **Incoming Webhook URL**.
+Hop over to the **Incoming Webhooks** section and retrieve the **Incoming Webhook URL**.
 
 ![Webhook URL](/slack-webhook.png)
 
-If you choose to use the second method that require the Slack Auth Token and the Channel ID, hop over to the **OAuth & Permissions** section to retrieve your Slack Auth Token.
+That's it, you can now use the Slack helper like this:
 
-![Retrieve your Slack Auth Token](/slack-auth-token.png)
-
-To retrieve the Channel ID, go to the channel in your Slack application. Use the down arrow near the channel name to find and copy the Channel ID.
-
-![Channel Details](/slack-channel-details.png)
-
-![Channel ID](/slack-channel-ID.png)
-
-The last operation is to invite **Kubeshark** to the channel by writing `@Kubeshark` in the channel prompt
-
-![Invite to Channel ID](/slack-invite-channel.png)
+```bash
+vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
+```

@@ -73,7 +73,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Introduction', link: 'en/automation_introduction' },
       { text: 'Scripting', link: 'en/automation_scripting' },
       { text: 'Hooks', link: 'en/automation_hooks' },
-      { text: 'Job Scheduler', link: 'en/automation_job_scheduler' }
+      { text: 'Jobs', link: 'en/automation_jobs' }
       // { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
       // { text: 'Integrations', link: 'en/scripting_integrations' },
 
@@ -82,8 +82,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Actions', link: 'en/integration_actions' },
       { text: 'Console Log', link: 'en/integrations_console' },
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
-      { text: 'Webhook', link: 'en/integration_webhook' },
       { text: 'Slack', link: 'en/integrations_slack' },
+      { text: 'Webhook', link: 'en/integration_webhook' },
       { text: 'AWS S3', link: 'en/integration_aws_s3' }
       // { text: 'Fail/Pass', link: 'en/TBD' },
       // { text: 'File Operations', link: 'en/TBD' },

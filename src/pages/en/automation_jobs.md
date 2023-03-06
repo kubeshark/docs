@@ -1,6 +1,6 @@
 ---
-title: Job Scheduler
-description: Job Scheduler
+title: Jobs
+description: Jobs are functions that are automated to run on a schedule. When functions don't depend on certain network behaviors, they can be automated to run on a schedule. 
 layout: ../../layouts/MainLayout.astro
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Send Metrics to InfluxDB
-description: Kubeshark enables you can send metrics directly to any InfluxDB local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
+description: Kubeshark enables you to send metrics directly to any InfluxDB local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
 layout: ../../layouts/MainLayout.astro
 ---
 > Use of this integration requires Pro license.
@@ -9,7 +9,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## Sending Identity-aware Latency Information
 
-The following example uses the `onItemCaptured` hook to send latency and status-code data to an InfluxDB instance on every API call.
+The following example uses the `onItemCaptured` hook to send latency and status-code data to an InfluxDB instance on every API call. In addition to the latency and status metrics, each message includes the service, path and namespace as tags to enable easy filtering in InfluxDB.
 
 ```bash
 function onItemCaptured(data) {
@@ -17,41 +17,45 @@ function onItemCaptured(data) {
   vendor.influxdb(
     env.INFLUXDB_URL,
     env.INFLUXDB_TOKEN,
-    "PerformanceKPIs" ,                       // Measurement 
     "my-org-name",                            // Organization
     "my-bucket-name",                         // Bucket
+    "PerformanceKPIs" ,                       // Measurement 
     { 
-      latency:  data.elapsedTime 
-      status:   data.response.status
+      latency:    data.elapsedTime 
+      status:     data.response.status
     },                                        // Key-Value Metrics
     { 
-      service:  data.dst.name, 
-      path:     data.request.path 
+      service:    data.dst.name, 
+      path:       data.request.path,
+      namespace:  data.namespace
     }                                         // Key-Value Tags
   ); 
 
 }
 ```
-The example assumes the key properties that are required to authenticate with your InfluxDB instance are stored in the configuration file as environment variables.
+The example assumes the key properties that are required for authentication are stored in the **kubeshark**'s configuration file as [environment variables](http://localhost:3000/en/config#scripts).
 
 Read the [Scripting API Reference](http://localhost:3000/en/scripting_api_reference#vendorinfluxdburl-string-token-string-measurement-string-organization-string-bucket-string-data-object-tags-object) to learn more about the InfluxDB helper.
 
-Read the [onItemCaptured](http://localhost:3000/en/automation_hooks#onitemcaptureddata-object)  hook section to learn more about data that becomes available when using this hook.
+Read the [onItemCaptured](http://localhost:3000/en/automation_hooks#onitemcaptureddata-object) hook section to learn more about data that becomes available when using this hook.
 
 ## Practical Example
 
 Installing a local instance of InfluxDB is pretty straight forward and shouldn't take more than a few minutes.
 
-Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/install/) to install a local instance or go to  [InfluxData Website](https://www.influxdata.com/), the company behind InfluxDB to sign up and use a cloud-hosted version. 
+Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/install/) to install a local instance or go to [InfluxData Website](https://www.influxdata.com/), the company behind InfluxDB to sign up and use a cloud-hosted version. 
 
 ### Install a local Instance
+
 As an example, you can use the following command to install a local instance of InfluxDB on Mac OS and then start it:
+
 ```bash
 brew update
 brew install influxdb
 influxd
 ```
 ### Retrieving the Required Properties
+
 To send a message to your InfluxDB instance you need the following properties:
 - InfluxDB URL
 - API Token
@@ -66,7 +70,7 @@ Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/get-started
 - Organization
 - A bucket
 
-The `InfluxDB URL` is simply the instance URL that can be copied from the browser once you log in to your instance.
+The `InfluxDB URL` is simply the instance's URL that can be copied from the browser once you log in to your instance.
 
 The other three properties (e.g. Measurement, Metrics, Tags) can be defined on the run.
 
@@ -74,7 +78,7 @@ While you can created numerous metrics, queries and graphs, some properties are 
 
 ### API Call Latency Query and a Graph
 
-This query presents a latency graph for each API call including the service name and path of each data point.
+This query presents a latency graph for each API call including the service name, the path and namespace of each data point. Having these tags is useful to filter the APIs based on service, path and namespace properties.
 
 ```bash
 from(bucket: "Metrics")
@@ -117,4 +121,16 @@ Go ahead, copy and paste the query from InfluxDB to Grafana amd continue manipul
 
 ![Grafana InfluxDB Query](/grafana-influxdb-export.png)
 
+Defining the above chart and form selectors in Grafana is done with this query:
+```bash
+from(bucket: "Metrics")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "PerformanceKPIs")
+  |> filter(fn: (r) => r["_field"] == "latency")
+  |> filter(fn: (r) => contains(value: r["namespace"], set: ${Namespace:json}))
+  |> filter(fn: (r) => contains(value: r["service"], set: ${Service:json}))
+  |> filter(fn: (r) => contains(value: r["path"], set: ${Path:json}))  
+  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
+  |> yield(name: "mean")
+```
 
