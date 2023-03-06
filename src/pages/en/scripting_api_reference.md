@@ -179,17 +179,18 @@ function pushDataToInfluxDB() {
 jobs.schedule("push-data-to-influxdb", "0 */1 * * * *", pushDataToInfluxDB);
 ```
 
-### `vendor.s3.put(region: string, keyID: string, accessKey: string, bucket: string, path: string)`
+### `vendor.s3.put(region: string, keyID: string, accessKey: string, bucket: string, path: string): string`
 
 > (!) This helper requires a Pro license.
 
 Uploads a file to an AWS S3 `bucket` on AWS `region` using the **AWS credentials** provided in `keyID` and `accessKey` arguments.
 The S3 path of the file is set based on this pattern: `<NODE_NAME>_<NODE_IP>/<FILENAME>`.
+Returns the URL once the file is successfully uploaded.
 
 ##### Example:
 
 ```js
-vendor.s3.put(
+url = vendor.s3.put(
   env.AWS_REGION,
   env.AWS_ACCESS_KEY_ID,
   env.AWS_SECRET_ACCESS_KEY,
