@@ -185,12 +185,12 @@ jobs.schedule("push-data-to-influxdb", "0 */1 * * * *", pushDataToInfluxDB);
 
 Uploads a file to an AWS S3 `bucket` on AWS `region` using the **AWS credentials** provided in `keyID` and `accessKey` arguments.
 The S3 path of the file is set based on this pattern: `<NODE_NAME>_<NODE_IP>/<FILENAME>`.
-Returns the URL once the file is successfully uploaded.
+Returns the URL of the S3 location once the file is successfully uploaded.
 
 ##### Example:
 
 ```js
-url = vendor.s3.put(
+location = vendor.s3.put(
   env.AWS_REGION,
   env.AWS_ACCESS_KEY_ID,
   env.AWS_SECRET_ACCESS_KEY,
