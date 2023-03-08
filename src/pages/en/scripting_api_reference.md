@@ -249,6 +249,9 @@ By default the merge happens in the internally managed folder of Kubeshark that 
 This argument should be used in conjunction with `file.mkdirTemp` and `file.move` to collect PCAP files
 into a directory.
 
+See [`wrapper.pcapSnapshot`](#wrapperpcapsnapshotregion-string-keyid-string-accesskey-string-bucket-string) helper
+for a shorter and more complete alternative.
+
 ##### Example:
 
 ```js
@@ -508,6 +511,63 @@ if (kfl.validate("http and response.status == 500")) {
   console.log("Valid KFL.")
 } else {
   console.log("Gibberish!")
+}
+```
+
+## Wrapper
+
+The `wrapper.*` helpers wrap a certain JavaScript code and provide easy to use functions.
+
+### `wrapper.pcapSnapshot(region: string, keyID: string, accessKey: string, bucket: string)`
+
+A wrapper around PCAP snapshotting and upload of that PCAP snapshot to an AWS S3 bucket.
+It implements the JavaScript function below:
+
+```js
+function(awsRegion, awsAccessKeyId, awsSecretAccessKey, s3Bucket) {
+	var dir = file.mkdirTemp("snapshot");
+
+	var snapshot = pcap.snapshot();
+
+	file.move(snapshot, dir);
+
+	var nameResolutionHistory = pcap.nameResolutionHistory();
+	file.write(
+		dir + "/name_resolution_history.json",
+		JSON.stringify(nameResolutionHistory)
+	);
+
+	var tarFile = file.tar(dir);
+
+	var location = vendor.s3.put(
+		awsRegion,
+		awsAccessKeyId,
+		awsSecretAccessKey,
+		s3Bucket,
+		tarFile
+	);
+
+	file.delete(dir);
+	file.delete(tarFile);
+
+	return location;
+}
+```
+
+##### Example:
+
+```js
+function onItemCaptured(data) {
+  if (data.response.status === 500) {
+    var location = wrapper.pcapSnapshot(
+      env.AWS_REGION,
+      env.AWS_ACCESS_KEY_ID,
+      env.AWS_SECRET_ACCESS_KEY,
+      env.S3_BUCKET
+    );
+
+    console.log("Uploaded PCAP snapshot to S3:", location);
+  }
 }
 ```
 
