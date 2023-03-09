@@ -22,7 +22,7 @@ Scripting enables automation and allows maximum flexibility. **Kubeshark** scrip
 
 **Kubeshark**, among other hooks, provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected.
 
-For example, the following function leverages the OSI L7 hook `onItemCaptured` and will log every dissected protocol message to the console:
+For example, the following function leverages the OSI L7 hook [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) and will log every dissected protocol message to the console:
 
 ```bash
 function onItemCaptured(data) {

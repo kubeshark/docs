@@ -4,7 +4,7 @@ description: The filter input enables filtering results using Kubeshark Filter L
 layout: ../../layouts/MainLayout.astro
 ---
 
-The filter input enables filtering results using [**Kubeshark Filter Language (KFL)**](#kfl-reference) For example; to only see the items with HTTP client error responses (`400` – `499`), enter:
+The filter input enables filtering results using [**Kubeshark Filter Language (KFL)**](/en/kfl_syntax_reference) For example; to only see the items with HTTP client error responses (`400` – `499`), enter:
 
 ```python
 http and response.status == r"4.*"

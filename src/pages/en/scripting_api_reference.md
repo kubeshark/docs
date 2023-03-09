@@ -48,7 +48,7 @@ The `test.*` helpers are useful for implementing test rules and manipulating the
 ### `test.pass(data: object): object`
 
 Takes a single argument which is a JavaScript object, sets its `passed` field to `true` like; `data.passed = true` and
-returns that object. If you use it inside the `onItemQueried` hook and return the modified `data`, it will order the
+returns that object. If you use it inside the [`onItemQueried`](/en/automation_hooks#onitemquerieddata-object) hook and return the modified `data`, it will order the
 web UI to mark that item as **green** on the left-pane.
 
 ##### Example:
@@ -64,7 +64,7 @@ function onItemQueried(data) {
 ### `test.fail(data: object): object`
 
 Takes a single argument which is a JavaScript object, sets its `failed` field to `true` like; `data.failed = true` and
-returns that object. If you use it inside the `onItemQueried` hook and return the modified `data`, it will order the
+returns that object. If you use it inside the [`onItemQueried`](/en/automation_hooks#onitemquerieddata-object) hook and return the modified `data`, it will order the
 web UI to mark that item as **red** on the left-pane.
 
 ##### Example:
@@ -239,14 +239,14 @@ var nameResolutionHistory = pcap.nameResolutionHistory();
 
 It **merges all the PCAP files (TCP/UDP streams) into a single PCAP file** and saves it under the root folder.
 The returned `path` has always this pattern: `<UNIX_TIMESTAMP>.pcap`. Then you can supply this file path
-to other helpers that accept a file path as argument such as; `vendor.s3.put`, `file.move` or `file.delete`.
+to other helpers that accept a file path as argument such as; [`vendor.s3.put`](#vendors3putregion-string-keyid-string-accesskey-string-bucket-string-path-string-string), [`file.move`](#filemoveoldpath-string-newpath-string) or [`file.delete`](#filedeletepath-string).
 
 You can supply a list of PCAP filenames (the base names of TCP/UDP streams) in the optional `selectedPcaps` argument to specify
-the list of PCAP files to merge. For example; `data.stream` in `onItemCaptured(data)` hook is a PCAP filename.
+the list of PCAP files to merge. For example; `data.stream` in [`onItemCaptured(data)`](/en/automation_hooks#onitemcaptureddata-object) hook is a PCAP filename.
 
 You can specify a custom directory using the optional `pcapsDir` argument which contains PCAP files.
 By default the merge happens in the internally managed folder of Kubeshark that contains all the PCAP files.
-This argument should be used in conjunction with `file.mkdirTemp` and `file.move` to collect PCAP files
+This argument should be used in conjunction with [`file.mkdirTemp`](#filemkdirtempname-string-dir-string-string) and [`file.move`](#filemoveoldpath-string-newpath-string) to collect PCAP files
 into a directory.
 
 See [`wrapper.pcapSnapshot`](#wrapperpcapsnapshotregion-string-keyid-string-accesskey-string-bucket-string) helper
@@ -262,9 +262,9 @@ var snapshot = pcap.snapshot(dir);
 ### `pcap.path(tpcOrUdpStream: string): string`
 
 Returns the full path of a given TCP/UDP stream then you can supply this file path
-to other helpers that accept a file path as argument such as; `vendor.s3.put`.
+to other helpers that accept a file path as argument such as; [`vendor.s3.put`](#vendors3putregion-string-keyid-string-accesskey-string-bucket-string-path-string-string).
 
-> It's <ins>advised against modifiying these files</ins> using helpers like `file.write`, `file.append`, `file.move` or `file.delete`
+> It's <ins>advised against modifiying these files</ins> using helpers like [`file.write`](#filewritepath-string-content-string), [`file.append`](#fileappendpath-string-content-string), [`file.move`](#filemoveoldpath-string-newpath-string) or [`file.delete`](#filedeletepath-string)
 > because the TCP/UDP streams are internally tracked, written and updated files
 > that emerge from the Kubernetes network traffic capture.
 > <ins>Modifiying these files can break the core functionality of Kubeshark.</ins>
@@ -482,7 +482,7 @@ var status = jobs.scheduler.stop()
 
 ## KFL
 
-The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/filtering).
+The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/kfl_syntax_reference).
 
 ### `kfl.match(query: string, data: object): boolean`
 

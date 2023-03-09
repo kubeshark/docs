@@ -1,6 +1,6 @@
 ---
 title: Slack Alerts
-description:  
+description:
 layout: ../../layouts/MainLayout.astro
 ---
 > Use of this integration requires Pro license.
@@ -8,12 +8,14 @@ layout: ../../layouts/MainLayout.astro
 Slack alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
 
 The following example reports to a Slack Channel whenever the HTTP response status code is `500`.
-```bash
+
+```js
 function onItemCaptured(data) {
   if (data.response.status === 500)
     vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
 }
 ```
+
 **Kubeshark** uses **Slack Incoming Webhooks** to send messages to your desired Slack. You can read more about the procedure [here](https://api.slack.com/messaging/webhooks).
 
 Slack provides an easy way to create a Slack App that enables maximum flexibility and customization.
@@ -38,7 +40,7 @@ Select your workspace:
 
 Copy the manifest from below and paste to the Slack Manifest window. Be sure to choose the YAML tab:
 
-```bash
+```yaml
 display_information:
   name: Kubeshark
 features:
@@ -59,8 +61,8 @@ Hop over to the **Incoming Webhooks** section and retrieve the **Incoming Webhoo
 
 ![Webhook URL](/slack-webhook.png)
 
-That's it, you can now use the Slack helper like this:
+That's it, you can now use the Slack helper [`vendor.slack`](/en/scripting_api_reference#vendorslackwebhookurl-string-pretext-string-text-string-color-string) like this:
 
-```bash
+```js
 vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
 ```

@@ -93,7 +93,7 @@ scripting:
 
 When you'd like to set state that will be persistent across the script execution you can use variables that are defined outside of the functions.
 
-For example, the following function will calculate the number of packets and overall traffic processed per minute using an L4 network hook (`onPacketCaptured`), a few Javascript commands and a job.
+For example, the following function will calculate the number of packets and overall traffic processed per minute using an L4 network hook ([`onPacketCaptured`](/en/automation_hooks#onpacketcapturedinfo-object)), a few Javascript commands and a job.
 
 ```bash
 var packetCount = 0;

@@ -9,9 +9,9 @@ layout: ../../layouts/MainLayout.astro
 
 ## Sending Identity-aware Latency Information
 
-The following example uses the `onItemCaptured` hook to send latency and status-code data to an InfluxDB instance on every API call. In addition to the latency and status metrics, each message includes the service, path and namespace as tags to enable easy filtering in InfluxDB.
+The following example uses the [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) hook to send latency and status-code data to an InfluxDB instance on every API call. In addition to the latency and status metrics, each message includes the service, path and namespace as tags to enable easy filtering in InfluxDB.
 
-```bash
+```js
 function onItemCaptured(data) {
   if (data.protocol.name !== "http") return;  // ignore non-HTTP traffic
   vendor.influxdb(
@@ -19,17 +19,17 @@ function onItemCaptured(data) {
     env.INFLUXDB_TOKEN,
     "my-org-name",                            // Organization
     "my-bucket-name",                         // Bucket
-    "PerformanceKPIs" ,                       // Measurement 
-    { 
-      latency:    data.elapsedTime 
+    "PerformanceKPIs" ,                       // Measurement
+    {
+      latency:    data.elapsedTime
       status:     data.response.status
     },                                        // Key-Value Metrics
-    { 
-      service:    data.dst.name, 
+    {
+      service:    data.dst.name,
       path:       data.request.path,
       namespace:  data.namespace
     }                                         // Key-Value Tags
-  ); 
+  );
 
 }
 ```
@@ -43,7 +43,7 @@ Read the [onItemCaptured](http://localhost:3000/en/automation_hooks#onitemcaptur
 
 Installing a local instance of InfluxDB is pretty straight forward and shouldn't take more than a few minutes.
 
-Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/install/) to install a local instance or go to [InfluxData Website](https://www.influxdata.com/), the company behind InfluxDB to sign up and use a cloud-hosted version. 
+Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/install/) to install a local instance or go to [InfluxData Website](https://www.influxdata.com/), the company behind InfluxDB to sign up and use a cloud-hosted version.
 
 ### Install a local Instance
 
@@ -70,11 +70,11 @@ Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/get-started
 - Organization
 - A bucket
 
-The `InfluxDB URL` is simply the instance's URL that can be copied from the browser once you log in to your instance.
+The **InfluxDB URL** is simply the instance's URL that can be copied from the browser once you log in to your instance.
 
 The other three properties (e.g. Measurement, Metrics, Tags) can be defined on the run.
 
-While you can created numerous metrics, queries and graphs, some properties are unlikely to change and therefore it is recommended to keep them in the **Kubeshark** configuration file under the environment variable section. 
+While you can created numerous metrics, queries and graphs, some properties are unlikely to change and therefore it is recommended to keep them in the **Kubeshark** configuration file under the environment variable section.
 
 ### API Call Latency Query and a Graph
 
@@ -122,6 +122,7 @@ Go ahead, copy and paste the query from InfluxDB to Grafana amd continue manipul
 ![Grafana InfluxDB Query](/grafana-influxdb-export.png)
 
 Defining the above chart and form selectors in Grafana is done with this query:
+
 ```bash
 from(bucket: "Metrics")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
@@ -129,7 +130,7 @@ from(bucket: "Metrics")
   |> filter(fn: (r) => r["_field"] == "latency")
   |> filter(fn: (r) => contains(value: r["namespace"], set: ${Namespace:json}))
   |> filter(fn: (r) => contains(value: r["service"], set: ${Service:json}))
-  |> filter(fn: (r) => contains(value: r["path"], set: ${Path:json}))  
+  |> filter(fn: (r) => contains(value: r["path"], set: ${Path:json}))
   |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)
   |> yield(name: "mean")
 ```

@@ -21,6 +21,6 @@ The Jobs Dashboard enables complete control over schedule jobs enabling the foll
 
 ## Running Jobs Programmatically
 
-While you can manually control the Jobs from the jobs dashboard, you can also control them programmatically from a script using the `jobs.run` helper.
+While you can manually control the Jobs from the jobs dashboard, you can also control them programmatically from a script using the [`jobs.run`](/en/scripting_api_reference#jobsruntag-string) helper.
 
 > Visit the [Scripting API Reference](/en/scripting_api_reference#jobs) page to read the complete list of helpers related to Jobs.

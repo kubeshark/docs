@@ -1,6 +1,6 @@
 ---
 title: Hooks
-description:  Kubeshark provides various hooks including OSI L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected. 
+description:  Kubeshark provides various hooks including OSI L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -189,13 +189,13 @@ function onItemQueried(data) {
 ```
 
 The hook `onItemQueried` is called whenever an already captured and stored TCP/UDP stream is queried or fetched through the web UI.
-All of its other aspects are same with the `onItemCaptured` hook.
+All of its other aspects are same with the [`onItemCaptured`](#onitemcaptureddata-object) hook.
 
 > The call to hook `onItemQueried` depends on user's action, it's **not** sourced from network traffic capture.
 
 ### Arguments
 
-Same as `onItemCaptured` hook.
+Same as [`onItemCaptured`](#onitemcaptureddata-object) hook.
 
 ## `onJobPassed(tag: string, cron: string, limit: number)`
 
