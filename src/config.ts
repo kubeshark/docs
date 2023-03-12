@@ -57,14 +57,14 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Community Vs Pro', link: 'en/community_vs_pro' },
       //{ text: 'Clean Up', link: 'en/clean_up' },
     ],
-    'Traffic Analysis': [
-      { text: 'Network Sniffing', link: 'en/network_sniffing' },
+    'Network Analysis': [
+      { text: 'Traffic Sniffing', link: 'en/network_sniffing' },
       { text: 'Encrypted Traffic', link: 'en/encrypted_traffic' },
       { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'Web UI', link: 'en/ui' },
       { text: 'Service Map', link: 'en/service_map' },
       { text: 'Filtering', link: 'en/filtering' },
-      { text: 'PCAP Export/Import', link: 'en/pcap_export_import' },
+      { text: 'PCAPs', link: 'en/pcap_export_import' },
       { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
       { text: 'DNS', link: 'en/dns' },
       { text: 'Configuration', link: 'en/config' },
@@ -73,6 +73,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Introduction', link: 'en/automation_introduction' },
       { text: 'Scripting', link: 'en/automation_scripting' },
       { text: 'Hooks', link: 'en/automation_hooks' },
+      { text: 'Helpers', link: 'en/automation_helpers' },
       { text: 'Jobs', link: 'en/automation_jobs' }
       // { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
       // { text: 'Integrations', link: 'en/scripting_integrations' },
@@ -81,23 +82,21 @@ export const SIDEBAR: Sidebar = {
     'Integrations': [
       { text: 'Actions', link: 'en/integration_actions' },
       { text: 'Console Log', link: 'en/integrations_console' },
-      { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
+      { text: 'Web UI Alerts', link: 'en/integrations_webui' },      
       { text: 'Slack', link: 'en/integrations_slack' },
+      { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
       { text: 'Webhook', link: 'en/integration_webhook' },
       { text: 'AWS S3', link: 'en/integration_aws_s3' }
-      // { text: 'Fail/Pass', link: 'en/TBD' },
-      // { text: 'File Operations', link: 'en/TBD' },
+    ],
+    'Use Cases': [
+      { text: 'Conditional PCAP to S3', link: 'en/kfl_pcap_s3' },
     ],
     'References': [
-      { text: 'Scripting API Reference', link: 'en/scripting_api_reference' },
-      //{ text: 'Network Hooks', link: 'en/scripting_hooks_reference' },
       { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },
     ],
     'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
-      // { text: 'Permissions', link: 'en/permissions' },
-      // { text: 'Helm chart', link: 'en/TBD' },
     ],
   },
 };

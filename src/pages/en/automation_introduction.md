@@ -9,8 +9,10 @@ Things you can automate with **Kubeshark**:
 
 - **Detection** of suspicious network behaviors
 - **Alerts** (e.g. to Slack)
-- **Forensics** generation in the form of PCAPs and upload to an immutable datastore (e.g. AWS S3)
+- **Forensics** in the form of PCAPs uploaded to an immutable datastore (e.g. AWS S3)
 - **Telemetry** messages to external systems (e.g. Grafana)
+
+![Automated Network Analysis](/automation.png)
 
 ## Scripting
 
@@ -30,6 +32,21 @@ function onItemCaptured(data) {
 }
 ```
 > Read more about the available hooks that are supported by **Kubeshark** [here](/en/automation_hooks).
+
+## Helpers
+
+Helpers are used as part of scripts to trigger actions that are related to the supported integrations (e.g. Slack, AWS S3).
+
+Below is an example for a helper that upload an object to a Webhook:
+
+```js
+vendor.webhook(
+  "POST",
+  "https://webhook.site/a42ca96d-4984-45dc-8f72-a601448399dc",
+  JSON.stringify(data)
+);
+```
+> Read more about the available helpers in the [helpers](/en/automation_helpers) section.
 
 ## Jobs
 

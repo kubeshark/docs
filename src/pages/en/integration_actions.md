@@ -15,7 +15,9 @@ Actions are divided to three segments:
 
 ## Alerts
 
-You can send a message to Slack, to a console log or use a webhook to send anything anywhere. Alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
+You can send a message to Slack, to a console log, to the WebUI or use a webhook to send anything anywhere. 
+
+Alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
 
 ## Forensics
 
@@ -23,11 +25,9 @@ Forensics generation can be triggered programmatically using hooks and/or Jobs.
 
 The following forensic types are available:
 - PCAPs
-- Identity-IP resolution history
+- Name resolution history
 - DNS log
 - User-generated files
-
-For example, if suspicious outbound traffic is detected, capture the past 3 hours of traffic in a certain namespace into a PCAP and upload to AWS S3.
 
 Forensics can be uploaded to an immutable datastores like AWS S3 with an existing S3 helper or using a Webhook.
 

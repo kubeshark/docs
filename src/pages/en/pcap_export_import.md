@@ -40,5 +40,9 @@ Running the above command will open Kubeshark in your browser to display the con
 
 > **TIP:** You can view the service dependency map of a previously stored PCAP file.
 
+## Automated Generation 
+
+You can write custom-logic scripts to generate PCAP files based on a programmatic decision and then upload the generated PCAP file to S3. 
+
 
 

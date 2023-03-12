@@ -16,11 +16,15 @@ function onItemCaptured(data) {
 }
 ```
 
-**Kubeshark** uses **Slack Incoming Webhooks** to send messages to your desired Slack. You can read more about the procedure [here](https://api.slack.com/messaging/webhooks).
+**Kubeshark** supports two message sending methods:
+1. Using an `incoming webhooks`.
+2. Using an auth token and a channel ID.
 
-Slack provides an easy way to create a Slack App that enables maximum flexibility and customization.
+You can read more about the sending a Slack message using an Incoming Webhook [here](https://api.slack.com/messaging/webhooks).
 
 ## Creating the Slack App
+
+Slack provides an easy way to create a Slack App that enables maximum flexibility and customization. This step is required for both methods.
 
 Creating a Slack App shouldn't take more than 5 minutes.
 
@@ -57,7 +61,9 @@ Install the App to your workspace:
 
 ![Install the App to your workspace](/slack-install-app.png)
 
-Hop over to the **Incoming Webhooks** section and retrieve the **Incoming Webhook URL**.
+### Using an Incoming Webhooks
+
+If you'd like to use the **Incoming Webhooks** method, hop over to the **Incoming Webhooks** section and retrieve the **Incoming Webhook URL**.
 
 ![Webhook URL](/slack-webhook.png)
 
@@ -66,3 +72,27 @@ That's it, you can now use the Slack helper [`vendor.slack`](/en/scripting_api_r
 ```js
 vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
 ```
+
+### Using an Auth Token and a Channel ID
+
+An alternative and more secure way to send messages requires obtaining an Auth Token and a Channel ID which are also very easy to get.
+
+#### Obtaining the Auth Token
+
+To obtain the Auth Token, go to the new Slack App page and hop over to the `OAuth & Permissions` section and copy the OAuth Token.
+
+![Slack OAuth Token](/slack-oauth.png)
+We suggest keeping the Auth token as an [environment variables](/en/config#scripts) in the **Kubeshark** configuration file.
+
+#### Obtaining the Channel ID 
+When you have a certain channel you'd like to send message to, you can obtain its Channel ID by pressing the down arrow that is adjacent to the channel name. 
+![Slack Chanel Down Arrow](/slack-channel-down-arrow.png)
+
+
+Now copy the channel ID at the bottom of the about section.
+
+![Slack Chanel About](/slack-channel-about.png)
+
+#### Adding Kubeshark to the Channel
+Last required action is to add Kubeshark to the channel. This can be acheieved by calling the Bot using `@Kubeshark`
+![Slack Chanel Add](/slack-adding-to-channel.png)

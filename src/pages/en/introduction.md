@@ -34,3 +34,5 @@ eBPF **without actually doing decryption**. In fact, it hooks into entry and exi
 [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
 
 Kubeshark can recognize service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/) and other service mesh solutions that use [Envoy Proxy](https://www.envoyproxy.io/) under the hood.
+
+With a combination of a scripting language, hooks, helpers and jobs, **Kubeshark** can detect suspicious network behaviors and trigger actions supported by the available integrations (e.g Slack, AWS S3, InfluxDB and more).

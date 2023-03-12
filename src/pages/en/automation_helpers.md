@@ -1,8 +1,24 @@
 ---
-title: Scripting API Reference
+title: Helpers
 description: The reference page for the API provided in scripting and jobs features of Kubeshark
 layout: ../../layouts/MainLayout.astro
 ---
+
+Helpers represents actions supported by the various available integrations. They enable writing custom-logic scripts in conjunctions with hooks that can trigger actions based on a programmatic decision.
+
+The following script example shows the use of the Slack helper to trigger a Slack alert every time the response status equals 500.
+
+```js
+function onItemCaptured(data) {
+  if (data.response.status === 500)
+    vendor.slack(
+      env.SLACK_WEBHOOK,
+      "Server-side Error",
+      JSON.stringify(data),
+      "#ff0000"
+    );
+}
+```
 
 This page contains information about the helpers, objects and overall behavior of the scripting API.
 
@@ -518,57 +534,47 @@ if (kfl.validate("http and response.status == 500")) {
 
 The `wrapper.*` helpers wrap a certain JavaScript code and provide easy to use functions.
 
-### `wrapper.pcapSnapshot(region: string, keyID: string, accessKey: string, bucket: string)`
+### `wrapper.kflPcapS3({kflArr: string[], awsRegion: string, awsAccessKeyId: string, awsSecretAccessKey: string, s3Bucket: string, slackWebhook: string, slackAuthToken: string, slackChannelId: string, s3Bucket: string,active: bool, verbose: bool, maxMinutes: int, maxL4Streams: int })`
 
-A wrapper around PCAP snapshotting and upload of that PCAP snapshot to an AWS S3 bucket.
-It implements the JavaScript function below:
+This wrapper receives a list of KFL queries as input, monitors traffic and generates PCAP files that match any of the KFL entries. PCAP files are uploaded to AWS S3 and a Slack notification is sent.
+
+Here's an example of how to use the helper:
 
 ```js
-function(awsRegion, awsAccessKeyId, awsSecretAccessKey, s3Bucket) {
-	var dir = file.mkdirTemp("snapshot");
+var KFL_PCAP_S3_KFL_ARR =[
+    "http and (response.status==500)",
+    "dns",
+];
 
-	var snapshot = pcap.snapshot();
-
-	file.move(snapshot, dir);
-
-	var nameResolutionHistory = pcap.nameResolutionHistory();
-	file.write(
-		dir + "/name_resolution_history.json",
-		JSON.stringify(nameResolutionHistory)
-	);
-
-	var tarFile = file.tar(dir);
-
-	var location = vendor.s3.put(
-		awsRegion,
-		awsAccessKeyId,
-		awsSecretAccessKey,
-		s3Bucket,
-		tarFile
-	);
-
-	file.delete(dir);
-	file.delete(tarFile);
-
-	return location;
+function onItemCaptured(data) {
+    wrapper.kflPcapS3(data, { 
+        kflArr:             KFL_PCAP_S3_KFL_ARR,   
+    });
 }
 ```
+- `http and (response.status==500)` - HTTP traffic only where response status is 500
+- `dns` - all DNS traffic
 
-##### Example:
+Here's the complete specs:
 
 ```js
-function onItemCaptured(data) {
-  if (data.response.status === 500) {
-    var location = wrapper.pcapSnapshot(
-      env.AWS_REGION,
-      env.AWS_ACCESS_KEY_ID,
-      env.AWS_SECRET_ACCESS_KEY,
-      env.S3_BUCKET
-    );
-
-    console.log("Uploaded PCAP snapshot to S3:", location);
-  }
-}
+    wrapper.kflPcapS3(data, { 
+        kflArr:             KFL_PCAP_S3_KFL_ARR, // Mandatory 
+        /* AWS S3 credential must be present, either here or in the config file as env variables */
+        awsRegion:          env.AWS_REGION,
+        awsAccessKeyId:     env.AWS_ACCESS_KEY_ID,
+        awsSecretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+        s3Bucket:           env.S3_BUCKET,  
+        /* Optional: A slack message is fired only if these properties are provided. There's no default value */
+        slackWebhook:       env.SLACK_WEBHOOK,
+        slackAuthToken:     env.SLACK_AUTH_TOKEN,
+        slackChannelId:     env.SLACK_CHANNEL_ID,
+        /* The rest of the properties are optional */
+        active:             true,   // set to false to deactivate this helper
+        verbose:            false,  // set to true to see verbose log      
+        maxMinutes:         60,     // maximum time for a single PCAP file
+        maxL4Streams:       10000,  // maximum L4 streams for a single PCAP file
+    });
 ```
 
 ## Environment Variables

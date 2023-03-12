@@ -9,8 +9,6 @@ Distributed packet capture with minimal footprint, built to run on large scale p
 
 ![Anatomy of **Kubeshark**](/diagram.png)
 
-> **NOTE:** Some of the protocols and integrations illustrated in the diagram (e.g. FTP, Slack) are work in progress.
-
 **Kubeshark** consists of four software components that work together harmoniously:
 
 ## CLI
@@ -81,3 +79,11 @@ The front-end is a [React](https://reactjs.org/) app that communicates with the 
 **Pod name:** `kubeshark-front`
 
 > **NOTE:** Read more in the [Web UI](/en/ui) section.
+
+## Scripting and Actionable Detection
+
+Scripting facilitates automation and allows maximum flexibility. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). 
+
+Working in conjunction with [hooks](/en/automation_hooks) and helpers, it can trigger actions based on programable decisions and/or on a schedule.
+
+> Read more about **Kubeshark**'s scripting capabilities [here](/en/automation_scripting).
