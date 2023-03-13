@@ -3,7 +3,7 @@ title: Console Log
 description:  The easiest way to export telemetry data outside of Kubeshark and then to redirect it elsewhere.
 layout: ../../layouts/MainLayout.astro
 ---
-One way to export log messages outside of **Kubeshark** and then to redirect it elsewhere is by using the `console.log` helper in a script in conjunction with the `kubeshark console` CLI command.
+You can export log messages outside of **Kubeshark** by using the `console.log` helper. In conjunction with the `kubeshark console` CLI command, you can access the log messages, read them or redirect them to a file or a logs provider.
 
 **Kubeshark** provides two helpers to send messages to STDOUT and STDERR.
 `console.log` sends a message to STDOUT and `console.error` sends a message to STDERR.
@@ -31,9 +31,10 @@ jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTot
 ```
 
 When used in conjunctions with `kubeshark console` you can expect the following console log output:
+
 ![Console Log](/console-log-1.png)
 
-Redirecting the command's output to STDOUT will redirect only rhe results of `console.log` and omit any error message that was sent to STDERR.
+Redirecting the command's output to STDOUT will redirect only rhe results of `console.log` and omit error messages that were sent to STDERR.
 
 The following CLI command redirects the console log output to a file.
 
@@ -51,5 +52,3 @@ The content of the file will not include ony of the messages sent to `console.er
 [mizu-2] Captured packet count per minute: 61
 [mizu-2] Total KB captured per minute: 24.746000000000024
 ```
-
-You can run the `kubeshark console` command as many times as you'd like to process console logs and export to different external systems.

@@ -155,7 +155,7 @@ type TCP struct {
 
 While there are many fields in the `Data` struct, most of them are pretty self-explanatory.
 
-The data structure of `request` and `reponse` fields change basend the `protocol.name`.
+The data structure of `request` and `response` fields change based on the `protocol.name`.
 
 `Node` struct contains the information about the Kubernetes node which capture happened inside.
 
@@ -179,14 +179,6 @@ The data structure of `request` and `reponse` fields change basend the `protocol
 `passed` field manipulates the web UI to mark the item as **green** in the left-pane.
 
 `failed` field manipulates the web UI to mark the item as **red** in the left-pane.
-
-## `onItemQueried(data: object)`
-
-```js
-function onItemQueried(data) {
-  // Your code goes here
-}
-```
 
 The hook `onItemQueried` is called whenever an already captured and stored TCP/UDP stream is queried or fetched through the web UI.
 All of its other aspects are same with the [`onItemCaptured`](#onitemcaptureddata-object) hook.
@@ -234,3 +226,191 @@ The hook `onJobFailed` is called whenever a job fails.
 `limit` is the limit of job runs.
 
 `err` is the error message.
+
+## Examples for the Input Parameter: Data
+
+
+Here's an example of the input variable `data` content:
+
+### HTTP Data Record
+
+```js
+{
+  "dst": {
+    "ip": "10.0.0.99",
+    "name": "",
+    "port": "8086"
+  },
+  "elapsedTime": 23,
+  "failed": false,
+  "id": "192.168.49.2:8897/000000025258.pcap-0",
+  "index": 0,
+  "namespace": "default",
+  "node": {
+    "ip": "192.168.49.2",
+    "name": "mizu"
+  },
+  "outgoing": false,
+  "passed": false,
+  "protocol": {
+    "abbr": "HTTP",
+    "backgroundColor": "#326de6",
+    "fontSize": 12,
+    "foregroundColor": "#ffffff",
+    "layer4": "tcp",
+    "longName": "Hypertext Transfer Protocol -- HTTP/1.1",
+    "macro": "http",
+    "name": "http",
+    "ports": [
+      "80",
+      "443",
+      "8080"
+    ],
+    "priority": 0,
+    "referenceLink": "https://datatracker.ietf.org/doc/html/rfc2616",
+    "version": "1.1"
+  },
+  "request": {
+    "bodySize": 124,
+    "cookies": {},
+    "headers": {
+      "Accept-Encoding": "gzip",
+      "Authorization": "Token edO4nlXbD5cfx8nw9_94LMO4tvGJ_xeMQMiFc6J_DNYFAGRe0YIgG8gz98UwDKOa6otCzml3SNw_c5TiDuB4eA==",
+      "Content-Length": "124",
+      "Host": "10.0.0.99:8086",
+      "User-Agent": "influxdb-client-go/2.12.2 (linux; amd64)"
+    },
+    "headersSize": -1,
+    "httpVersion": "HTTP/1.1",
+    "method": "POST",
+    "path": "/api/v2/write",
+    "pathSegments": [
+      "api",
+      "v2",
+      "write"
+    ],
+    "postData": {
+      "mimeType": "",
+      "params": [],
+      "text": "PerformanceKPIs,namespace=sock-shop,path=/basket.html,service=front-end.sock-shop latency=51,status=200 1678675066165748213\n"
+    },
+    "queryString": {
+      "bucket": "Metrics",
+      "org": "Kubeshark",
+      "precision": "ns"
+    },
+    "targetUri": "/api/v2/write?bucket=Metrics&org=Kubeshark&precision=ns",
+    "url": "/api/v2/write?bucket=Metrics&org=Kubeshark&precision=ns"
+  },
+  "requestSize": 428,
+  "response": {
+    "bodySize": 0,
+    "content": {
+      "encoding": "base64",
+      "mimeType": "",
+      "size": 0
+    },
+    "cookies": {},
+    "headers": {
+      "Date": "Mon, 13 Mar 2023 02:37:46 GMT",
+      "X-Influxdb-Build": "OSS",
+      "X-Influxdb-Version": "2.6.1"
+    },
+    "headersSize": -1,
+    "httpVersion": "HTTP/1.1",
+    "redirectURL": "",
+    "status": 204,
+    "statusText": "No Content"
+  },
+  "responseSize": 114,
+  "src": {
+    "ip": "192.168.49.2",
+    "name": "kubernetes.default",
+    "port": "36848"
+  },
+  "startTime": "2023-03-13T02:37:46.172360504Z",
+  "stream": "000000025258.pcap",
+  "timestamp": 1678675066172,
+  "tls": false,
+  "worker": "192.168.49.2:8897"
+}
+```
+### DNS Data Record
+
+```js
+{
+  "dst": {
+    "ip": "172.17.0.3",
+    "name": "kube-dns.kube-system",
+    "port": "53"
+  },
+  "elapsedTime": 0,
+  "failed": false,
+  "id": "192.168.49.2:8897/000000025277_udp.pcap-0",
+  "index": 0,
+  "namespace": "kube-system",
+  "node": {
+    "ip": "192.168.49.2",
+    "name": "mizu"
+  },
+  "outgoing": false,
+  "passed": false,
+  "protocol": {
+    "abbr": "DNS",
+    "backgroundColor": "#606060",
+    "fontSize": 12,
+    "foregroundColor": "#ffffff",
+    "layer4": "udp",
+    "longName": "Domain Name System",
+    "macro": "dns",
+    "name": "dns",
+    "ports": [],
+    "priority": 4,
+    "referenceLink": "https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml",
+    "version": "0"
+  },
+  "request": {
+    "opCode": "Query",
+    "questions": [
+      {
+        "class": "IN",
+        "name": "session-db.sock-shop.svc.cluster.local",
+        "type": "A"
+      }
+    ]
+  },
+  "requestSize": 154,
+  "response": {
+    "answers": [
+      {
+        "class": "IN",
+        "cname": "",
+        "ip": "10.101.46.75",
+        "mx": "",
+        "name": "session-db.sock-shop.svc.cluster.local",
+        "ns": "",
+        "opt": "",
+        "ptr": "",
+        "soa": "",
+        "srv": "",
+        "ttl": 24,
+        "txts": "",
+        "type": "A",
+        "uri": ""
+      }
+    ],
+    "code": "No Error"
+  },
+  "responseSize": 154,
+  "src": {
+    "ip": "172.17.0.1",
+    "name": "",
+    "port": "33305"
+  },
+  "startTime": "2023-03-13T02:37:49.958762876Z",
+  "stream": "000000025277_udp.pcap",
+  "timestamp": 1678675069958,
+  "tls": false,
+  "worker": "192.168.49.2:8897"
+}
+```

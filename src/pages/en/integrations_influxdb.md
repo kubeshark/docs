@@ -3,7 +3,7 @@ title: Send Metrics to InfluxDB
 description: Kubeshark enables you to send metrics directly to any InfluxDB local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
 layout: ../../layouts/MainLayout.astro
 ---
-> Use of this integration requires Pro license.
+> This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
 **Kubeshark** enables you to send metrics directly to any [InfluxDB](https://www.influxdata.com/) local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
 

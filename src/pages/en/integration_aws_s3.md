@@ -3,11 +3,11 @@ title: Upload Files to AWS S3
 description:  Kubeshark enables you to generate files (e.g. PCAPs) and upload them to an immutable datastore (e.g. AWS S3)
 layout: ../../layouts/MainLayout.astro
 ---
-> Use of this integration requires Pro license.
+> This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
 **Kubeshark** enables you to generate files (e.g. PCAPs) and upload them to an immutable datastore (e.g. AWS S3). 
 
-You can read the [helper](/en/automation/helpers) section to read more about the available AWS S3 helpers.
+You can read the [helper](/en/automation/helpers) section to learn more about the available AWS S3 helpers.
 
 The most common helper would be the `vendor.s3.put` helper that uploads a file using the provided credentials.
 
@@ -23,7 +23,9 @@ vendor.s3.put(
 
 > Read more about the required AWS credentials [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html).
 
-The following wrapper conditionally generate PCAP files based on two KFL queries:
+## Upload a Network Snapshot to S3
+
+The following wrapper conditionally generates PCAP files based on two KFL queries:
 - `http and (response.status==500)` - HTTP traffic only where response status is 500
 - `dns` - all DNS traffic
 
@@ -42,6 +44,7 @@ function onItemCaptured(data) {
 }
 ```
 WHen a file is uploaded, a Slack message is triggered:
-![PCAP Slack Alert](/pcap-slack-alert,png)
+
+![PCAP Slack Alert](/pcap-slack-alert.png)
 
 

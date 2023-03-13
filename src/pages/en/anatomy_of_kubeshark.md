@@ -84,6 +84,6 @@ The front-end is a [React](https://reactjs.org/) app that communicates with the 
 
 Scripting facilitates automation and allows maximum flexibility. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). 
 
-Working in conjunction with [hooks](/en/automation_hooks) and helpers, it can trigger actions based on programable decisions and/or on a schedule.
+Working in conjunction with [hooks](/en/automation_hooks) and [helpers](/en/automation_helpers), scripts can trigger [actions](/en/integration_actions) based on programable decisions and/or on a schedule.
 
 > Read more about **Kubeshark**'s scripting capabilities [here](/en/automation_scripting).

@@ -9,7 +9,7 @@ Things you can automate with **Kubeshark**:
 
 - **Detection** of suspicious network behaviors
 - **Alerts** (e.g. to Slack)
-- **Forensics** in the form of PCAPs uploaded to an immutable datastore (e.g. AWS S3)
+- **Forensics** in the form of network snapshot (PCAPs) uploaded to an immutable datastore (e.g. AWS S3)
 - **Telemetry** messages to external systems (e.g. Grafana)
 
 ![Automated Network Analysis](/automation.png)

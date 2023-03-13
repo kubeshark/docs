@@ -3,7 +3,7 @@ title: Slack Alerts
 description:
 layout: ../../layouts/MainLayout.astro
 ---
-> Use of this integration requires Pro license.
+> This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Slack alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
 
@@ -72,27 +72,32 @@ That's it, you can now use the Slack helper [`vendor.slack`](/en/scripting_api_r
 ```js
 vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
 ```
+As the Webhook is a confidential piece of information, we highly recommend to keep it in the **Kubeshark** configuration file.
 
 ### Using an Auth Token and a Channel ID
 
-An alternative and more secure way to send messages requires obtaining an Auth Token and a Channel ID which are also very easy to get.
+An alternative way to send messages requires obtaining an OAuth Token and a Channel ID which are also very easy to get.
 
 #### Obtaining the Auth Token
 
-To obtain the Auth Token, go to the new Slack App page and hop over to the `OAuth & Permissions` section and copy the OAuth Token.
+To obtain the OAuth Token, go to the new Slack App page and hop over to the `OAuth & Permissions` section and copy the OAuth Token.
 
 ![Slack OAuth Token](/slack-oauth.png)
-We suggest keeping the Auth token as an [environment variables](/en/config#scripts) in the **Kubeshark** configuration file.
+
+We suggest keeping the OAuth token as an [environment variables](/en/config#scripts) in the **Kubeshark** configuration file.
 
 #### Obtaining the Channel ID 
-When you have a certain channel you'd like to send message to, you can obtain its Channel ID by pressing the down arrow that is adjacent to the channel name. 
+
+When you have a certain channel you'd like to send message to, you can obtain its Channel ID by pressing the down arrow that is adjacent to the channel name.
+
 ![Slack Chanel Down Arrow](/slack-channel-down-arrow.png)
 
-
-Now copy the channel ID at the bottom of the about section.
+Now, copy the channel ID at the bottom of the about section.
 
 ![Slack Chanel About](/slack-channel-about.png)
 
 #### Adding Kubeshark to the Channel
-Last required action is to add Kubeshark to the channel. This can be acheieved by calling the Bot using `@Kubeshark`
+
+Last required action is to add Kubeshark to the channel. This can be achieved by calling the Bot using `@Kubeshark`
+
 ![Slack Chanel Add](/slack-adding-to-channel.png)

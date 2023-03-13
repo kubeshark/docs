@@ -82,15 +82,16 @@ export const SIDEBAR: Sidebar = {
     'Integrations': [
       { text: 'Actions', link: 'en/integration_actions' },
       { text: 'Console Log', link: 'en/integrations_console' },
-      { text: 'Web UI Alerts', link: 'en/integrations_webui' },      
-      { text: 'Slack', link: 'en/integrations_slack' },
+      { text: 'Web UI Alerts', link: 'en/integrations_webui' },    
+      { text: 'Necessary Credentials', link: 'en/integration_credentials' },    
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
+      { text: 'AWS S3', link: 'en/integration_aws_s3' },
+      { text: 'Slack', link: 'en/integrations_slack' },
       { text: 'Webhook', link: 'en/integration_webhook' },
-      { text: 'AWS S3', link: 'en/integration_aws_s3' }
     ],
-    'Use Cases': [
-      { text: 'Conditional PCAP to S3', link: 'en/kfl_pcap_s3' },
-    ],
+    // 'Use Cases': [
+    //   { text: 'Conditional PCAP to S3', link: 'en/kfl_pcap_s3' },
+    // ],
     'References': [
       { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },
     ],
