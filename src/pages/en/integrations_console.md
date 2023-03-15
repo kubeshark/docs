@@ -1,12 +1,10 @@
 ---
 title: Console Log
-description:  The easiest way to export telemetry data outside of Kubeshark and then to redirect it elsewhere.
+description:  Export logs outside of Kubeshark and then to redirect it elsewhere.
 layout: ../../layouts/MainLayout.astro
 ---
-You can export log messages outside of **Kubeshark** by using the `console.log` helper. In conjunction with the `kubeshark console` CLI command, you can access the log messages, read them or redirect them to a file or a logs provider.
-
-**Kubeshark** provides two helpers to send messages to STDOUT and STDERR.
-`console.log` sends a message to STDOUT and `console.error` sends a message to STDERR.
+The `console.log` helper enables writing log messages that can be read using the `kubeshark console` CLI command. 
+The `console.error` sends a message to STDERR.
 
 This script example calculates and sends telemetry information once per minute.
 

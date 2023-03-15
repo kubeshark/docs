@@ -6,7 +6,9 @@ layout: ../../layouts/MainLayout.astro
 
 Hooks are pre-defined JavaScript functions in the scripting system that are being attached to a certain point in the network packet **capture - dissect - query** pipeline of **Kubeshark**.
 
-**Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected. These hooks can be very expensive in terms of computing resources. When you develop scripts you should first attempt to run scripts on a schedule and use network hooks only when necessary.
+**Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected. 
+
+These hooks can be very expensive in terms of computing resources. When you develop scripts you should first attempt to run scripts on a schedule and use network hooks only when necessary.
 
 Hooks function arguments with type **object** can be printed to console with the purpose of seeing the data structure of that argument, like;
 
@@ -14,11 +16,9 @@ Hooks function arguments with type **object** can be printed to console with the
 console.log(JSON.stringify(data))
 ```
 
-Each hook description in this page, has an **Arguments** section that explains the Go data structure of
-the arguments in the hook. These **Go data structures give you a hint about the typing** that emerge in
-JavaScript runtime and understanding how **static or dynamic** the data type or its fields are. Please refer
-to the [JSON and Go](https://go.dev/blog/json) page to understand how JSON encoding works in Go language
-if you're not familiar with the Go language.
+A couple of examples can be found at the [end of this section](/en/automation_hooks#http-data-record).
+
+Hook description includes an **Arguments** section that explains the hook's arguments' Go data structure. These **Go data structures provide hints about the typings** that emerge in the JavaScript runtime. Please refer to the [JSON and Go](https://go.dev/blog/json) page to understand how JSON encoding works in Go language if you're not familiar with the Go language.
 
 ## `onPacketCaptured(info: object)`
 
@@ -28,12 +28,8 @@ function onPacketCaptured(info) {
 }
 ```
 The `onPacketCaptured` is an OSI L4 network hook. It is called whenever a new network packet is captured by **Kubeshark**.
-On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that;
-a poorly optimized `onPacketCaptured` implementation can have a **performance impact**
-on the network traffic capture speed of **Kubeshark**. Therefore it's logical to not call `console.log` or
-a helper which does an HTTP request like `vendor.slack` and instead use this hook
-to aggregate data into a global variable and then handle the aggregated data in another hook
-or a job:
+
+On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that; a poorly optimized `onPacketCaptured` implementation can have a **performance impact** on the network traffic capture speed of **Kubeshark**. Therefore it's logical to not call helpers (e.g. `console.log` or `vendor.slack`) and instead use this hook to aggregate data into a global variable and then handle the aggregated data in another hook or a job:
 
 ```js
 var packetCount = 0;
@@ -86,12 +82,11 @@ function onItemCaptured(data) {
 }
 ```
 
-The hook `onItemCaptured` is an OSI L7 network hook that is called whenever a TCP/UDP stream is captured, reassembled
-and successfully dissected by one of the protocol parsers of **Kubeshark**. This hook is relatively less
-triggered than the `onPacketCaptured` hook. Since multiple packets translate into an HTTP request-response pair,
-a Kafka publish, a Kafka consume or an AMQP exchange declare. The item's scope is determined by the corresponding
-application layer protocol as one can imagine. For example; an HTTP request-response pair contains a lot parameters
-while an AMQP exchange declare is quite a simple message.
+The hook `onItemCaptured` is an OSI L7 network hook that is called whenever a TCP/UDP stream is captured, reassembled and successfully dissected by one of the protocol parsers of **Kubeshark**. 
+
+This hook is triggered less compared to the `onPacketCaptured` hook, since multiple packets translate into a protocol-level message (e.g. an HTTP request-response pair, a Kafka publish, a Kafka consume or an AMQP exchange declare). 
+
+The item's scope is determined by the corresponding application layer protocol as one can imagine. For example; an HTTP request-response pair contains a lot parameters   while an AMQP exchange declare is quite a simple message.
 
 > The call to hook `onItemCaptured` does not depend on user's action, it's sourced from network traffic capture.
 

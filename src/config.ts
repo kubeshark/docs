@@ -74,24 +74,28 @@ export const SIDEBAR: Sidebar = {
       { text: 'Scripting', link: 'en/automation_scripting' },
       { text: 'Hooks', link: 'en/automation_hooks' },
       { text: 'Helpers', link: 'en/automation_helpers' },
-      { text: 'Jobs', link: 'en/automation_jobs' }
+      { text: 'Wrappers', link: 'en/automation_wrappers' },
+      { text: 'Jobs', link: 'en/automation_jobs' },
+      { text: 'Console Log', link: 'en/integrations_console' },
+      { text: 'Web UI Alerts', link: 'en/integrations_webui' },    
       // { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
       // { text: 'Integrations', link: 'en/scripting_integrations' },
 
     ],
     'Integrations': [
-      { text: 'Actions', link: 'en/integration_actions' },
-      { text: 'Console Log', link: 'en/integrations_console' },
-      { text: 'Web UI Alerts', link: 'en/integrations_webui' },    
+      // { text: 'Actions', link: 'en/integration_actions' },
+
       { text: 'Necessary Credentials', link: 'en/integration_credentials' },    
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
       { text: 'AWS S3', link: 'en/integration_aws_s3' },
       { text: 'Slack', link: 'en/integrations_slack' },
       { text: 'Webhook', link: 'en/integration_webhook' },
     ],
-    // 'Use Cases': [
-    //   { text: 'Conditional PCAP to S3', link: 'en/kfl_pcap_s3' },
-    // ],
+    'Use Cases': [
+      { text: 'Cloud Forensics', link: 'en/kfl_pcap_s3' },
+      { text: 'Actionable Detection', link: 'en/actionable_detection' },
+      { text: 'Traffic Investigation', link: 'en/traffic_investigation' },
+    ],
     'References': [
       { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },
     ],

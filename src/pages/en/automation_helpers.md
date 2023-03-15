@@ -265,9 +265,6 @@ By default the merge happens in the internally managed folder of Kubeshark that 
 This argument should be used in conjunction with [`file.mkdirTemp`](#filemkdirtempname-string-dir-string-string) and [`file.move`](#filemoveoldpath-string-newpath-string) to collect PCAP files
 into a directory.
 
-See [`wrapper.pcapSnapshot`](#wrapperpcapsnapshotregion-string-keyid-string-accesskey-string-bucket-string) helper
-for a shorter and more complete alternative.
-
 ##### Example:
 
 ```js
@@ -530,52 +527,6 @@ if (kfl.validate("http and response.status == 500")) {
 }
 ```
 
-## Wrapper
-
-The `wrapper.*` helpers wrap a certain JavaScript code and provide easy to use functions.
-
-### `wrapper.kflPcapS3({kflArr: string[], awsRegion: string, awsAccessKeyId: string, awsSecretAccessKey: string, s3Bucket: string, slackWebhook: string, slackAuthToken: string, slackChannelId: string, s3Bucket: string,active: bool, verbose: bool, maxMinutes: int, maxL4Streams: int })`
-
-This wrapper receives a list of KFL queries as input, monitors traffic and generates PCAP files that match any of the KFL entries. PCAP files are uploaded to AWS S3 and a Slack notification is sent.
-
-Here's an example of how to use the helper:
-
-```js
-var KFL_PCAP_S3_KFL_ARR =[
-    "http and (response.status==500)",
-    "dns",
-];
-
-function onItemCaptured(data) {
-    wrapper.kflPcapS3(data, { 
-        kflArr:             KFL_PCAP_S3_KFL_ARR,   
-    });
-}
-```
-- `http and (response.status==500)` - HTTP traffic only where response status is 500
-- `dns` - all DNS traffic
-
-Here's the complete specs:
-
-```js
-    wrapper.kflPcapS3(data, { 
-        kflArr:             KFL_PCAP_S3_KFL_ARR, // Mandatory 
-        /* AWS S3 credential must be present, either here or in the config file as env variables */
-        awsRegion:          env.AWS_REGION,
-        awsAccessKeyId:     env.AWS_ACCESS_KEY_ID,
-        awsSecretAccessKey: env.AWS_SECRET_ACCESS_KEY,
-        s3Bucket:           env.S3_BUCKET,  
-        /* Optional: A slack message is fired only if these properties are provided. There's no default value */
-        slackWebhook:       env.SLACK_WEBHOOK,
-        slackAuthToken:     env.SLACK_AUTH_TOKEN,
-        slackChannelId:     env.SLACK_CHANNEL_ID,
-        /* The rest of the properties are optional */
-        active:             true,   // set to false to deactivate this helper
-        verbose:            false,  // set to true to see verbose log      
-        maxMinutes:         60,     // maximum time for a single PCAP file
-        maxL4Streams:       10000,  // maximum L4 streams for a single PCAP file
-    });
-```
 
 ## Environment Variables
 

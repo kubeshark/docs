@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 ---
 > This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
-**Kubeshark** enables you to generate files (e.g. PCAPs) and upload them to an immutable datastore (e.g. AWS S3). 
+The AWS S3 integration provides an immutable datastore option in case you want to export files outside of the K8s cluster.
 
 You can read the [helper](/en/automation/helpers) section to learn more about the available AWS S3 helpers.
 
@@ -13,10 +13,10 @@ The most common helper would be the `vendor.s3.put` helper that uploads a file u
 
 ```js
 vendor.s3.put(
-  AWS_REGION,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-  S3_BUCKET,
+  env.AWS_REGION,
+  env.AWS_ACCESS_KEY_ID,
+  env.AWS_SECRET_ACCESS_KEY,
+  env.S3_BUCKET,
   tarFile
 );
 ```
@@ -25,11 +25,11 @@ vendor.s3.put(
 
 ## Upload a Network Snapshot to S3
 
-The following wrapper conditionally generates PCAP files based on two KFL queries:
+The `wrapper.kflPcapS3` wrapper conditionally generates PCAP repositories based on two KFL queries:
 - `http and (response.status==500)` - HTTP traffic only where response status is 500
 - `dns` - all DNS traffic
 
-PCAP files are uploaded to AWS S3.
+PCAP repositories are uploaded to AWS S3 and a Slack notification is sent upon completion.
 
 ```js
 var KFL_PCAP_S3_KFL_ARR =[
@@ -43,8 +43,7 @@ function onItemCaptured(data) {
     });
 }
 ```
-WHen a file is uploaded, a Slack message is triggered:
 
 ![PCAP Slack Alert](/pcap-slack-alert.png)
 
-
+> Read more about the KFL-PCAP-S3 wrapper [here](/en/automation_wrappers#wrapperkflpcaps3).

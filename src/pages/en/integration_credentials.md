@@ -6,11 +6,11 @@ layout: ../../layouts/MainLayout.astro
 
 **kubeshark** keeps data secure by working on-prem and exporting data only to customer-provided systems using customer-provided credentials.
 
-To harness the full potential of the integrations supported by **Kubeshark**, the following credentials are nessasery. 
+Some integrations requires credentials and require obtaining its credentials prior to using it.
 
 ##  Influx DB
 
-InfluxDB is a highly popular time series database used by many to store metrics. InfluXDB can easily be configured to be used as a data source in applications such as Grafana. If you don't have an InfluxDB instance, it takes only a few minutes to launch a local instance or sign up to a hosted InfluxDB instance.
+[InfluxDB](https://en.wikipedia.org/wiki/InfluxDB) is a highly popular [time series database](https://en.wikipedia.org/wiki/Time_series_database) that is used to store metrics. InfluXDB can easily be configured to be used as a data source in applications such as [Grafana](https://grafana.com/). If you don't have access to an InfluxDB instance, you can follow the instructions in the [InfluxDB and Grafana](/en/integrations_influxdb#practical-example) section to get one.
 
 The following credentials are necessary:
 - InfluxDB URL
@@ -20,14 +20,14 @@ The following credentials are necessary:
 
 ## AWS S3
 
-AWS S3 credentials are requires to export forensics in the form of PCAP files to an S3 bucket which is an immutable datastore.
+AWS S3 can be used to export forensics in the form of PCAP files (or any other files) to an immutable datastore. 
 
-The following credentials are necessary:
+The following credentials are necessary to use AWS S3:
 
 - AWS Access Key ID
 - AWS Secret Access Key
 
-Additional AWS S3 properties:
+Additional required AWS S3 properties:
 - AWS Region
 - AWS S3 Bucket
 
@@ -35,7 +35,7 @@ Additional AWS S3 properties:
 
 ## Slack
 
-Slack is useful to send alert, whether in real-time or once a certain task is completed.
+Slack is useful to send alerts, whether in real-time or once a certain task is completed.
 
 The following credentials are necessary:
 
