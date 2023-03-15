@@ -5,9 +5,11 @@ layout: ../../layouts/MainLayout.astro
 ---
 
 Jobs are functions that are automated to run on a schedule. When functions don't depend on certain network behaviors, they can be automated to run on a schedule. 
+Jobs are added by adding one line of code at the script scope.
 
-As network hooks can be very expensive in terms of computing resources, it is recommended to attempt to run scripts as Jobs and use network hooks only when necessary.
-
+```js
+jobs.schedule("push-status-codes-to-influxdb", "0 */1 * * * *", pushStatusCodesToInfluxDB);
+```
 **Kubeshark** uses a [crontab](https://crontab.guru/) mechanism to schedule Jobs at the node level. It furthers provides complete control over the scheduled Jobs via the **Web UI**.
 
 

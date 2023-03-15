@@ -8,7 +8,7 @@ Wrappers are a different kind of helpers. They are like library functions that c
 
 ## wrapper.kflPcapS3
 
-This wrapper receives a list of KFL queries as input, monitors traffic and generates PCAP repositories that match any of the KFL entries. The compressed PCAP repositories are uploaded to AWS S3 and a Slack notification is sent.
+This wrapper receives a list of KFL queries as input, monitors traffic and generates PCAP repositories that match any of the KFL entries. The compressed PCAP repositories are uploaded to AWS S3 and optionally sends a Slack notification.
 
 Here's an example of how to use the helper:
 
@@ -74,10 +74,6 @@ in your AWS S3 console:
 
 ![S3 FIles](/kfl-pcap-s3.png)
 
-### Slack Message
-
-To get Slack alerts upon new PCAP repository available in S3, include Slack credentials as part of the input object. If Slack credentials are not provided, no Slack message will be sent.
-
 ### Progress Log File
 
 `wrapper.kflPcapS3` maintains a progress log file in the AWS S3 bucket. Here's the progress log file matching the above example:
@@ -114,6 +110,10 @@ To get Slack alerts upon new PCAP repository available in S3, include Slack cred
   }
 ]
 ```
+
+### Optional Slack Alerts
+
+To get Slack alerts upon new PCAP repository available in S3, include Slack credentials as part of the input object. If Slack credentials are not provided, no Slack message will be sent.
 
 ### PCAP Repository Content
 

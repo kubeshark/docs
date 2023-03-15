@@ -3,14 +3,15 @@ title: Automated Network Analysis
 description: Automation can help analyze vast amounts of data, and flag only data of interest for further analysis by people or external systems.
 layout: ../../layouts/MainLayout.astro
 ---
-Automation can help analyze vast amounts of data, and flag only data of interest for further analysis by people or external systems.
+Automation enables you to analyze vast amounts of data, and flag only data of interest for further analysis by people or external systems.
 
 Things you can automate with **Kubeshark**:
 
 - **Detection** of suspicious network behaviors
 - **Alerts** (e.g. to Slack)
-- **Forensics** in the form of network snapshots (PCAPs) uploaded to an immutable datastore (e.g. AWS S3)
 - **Telemetry** messages to external systems (e.g. Grafana)
+- **Forensics** in the form of network snapshots (PCAPs) uploaded to an immutable datastore
+
 
 ![Automated Network Analysis](/automation.png)
 

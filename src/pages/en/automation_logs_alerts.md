@@ -1,8 +1,17 @@
 ---
-title: Console Log
-description:  Export logs outside of Kubeshark and then to redirect it elsewhere.
+title: Logs & Alerts
+description:  Kubeshark provides ample of ways to send log messages and alerts.
 layout: ../../layouts/MainLayout.astro
 ---
+**Kubeshark** provides ample ways to send log messages and alerts, some are inherent and some require integrations:
+- Console log and error messages
+- Web UI alerts
+- Slack alerts
+- Send log messages to Elastic and other log stash
+- Use a webhook to send anything anywhere
+
+## Console Log & Error Messages
+
 The `console.log` helper enables writing log messages that can be read using the `kubeshark console` CLI command. 
 The `console.error` sends a message to STDERR.
 
@@ -50,3 +59,35 @@ The content of the file will not include ony of the messages sent to `console.er
 [mizu-2] Captured packet count per minute: 61
 [mizu-2] Total KB captured per minute: 24.746000000000024
 ```
+
+## Web UI Alerts
+
+The **Web UI** can show alerts using the `test.pass` and `test.fail` helpers. The `test.pass` will color a traffic entry green, where the `test.fail` helper will color the traffic entry red. You can use these helpers in a script based on a programmatic decision.
+
+Here's an example for a script that uses these helpers:
+
+```js
+function onItemQueried(data) {
+  if (data.protocol.name == "http")
+    return test.pass(data);
+  else
+    return test.fail(data);
+}
+```
+The results look like this:
+
+![Web UI Alerts](/web-ui-alerts.png)
+
+> Read more about the `test.*` helpers in the [helpers](/en/automation_helpers) section.
+
+## Slack Alerts
+
+Use the Slack helper to send Slack alerts.
+
+> Read more in the [Slack integration](/en/integrations_slack) section. 
+
+## Webhooks
+
+The Webhook helper enables you to send any payload anywhere that supports a webhooks.
+
+> Read more in the [Webhook integration](/en/integration_webhook) section. 

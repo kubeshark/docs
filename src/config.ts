@@ -59,13 +59,13 @@ export const SIDEBAR: Sidebar = {
     ],
     'Network Analysis': [
       { text: 'Traffic Sniffing', link: 'en/network_sniffing' },
-      { text: 'Encrypted Traffic', link: 'en/encrypted_traffic' },
-      { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'Web UI', link: 'en/ui' },
       { text: 'Service Map', link: 'en/service_map' },
-      { text: 'Filtering', link: 'en/filtering' },
+      { text: 'Rich Query Language', link: 'en/filtering' },
+      { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
       { text: 'PCAPs', link: 'en/pcap_export_import' },
-      { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
+      // { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
+      { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'DNS', link: 'en/dns' },
       { text: 'Configuration', link: 'en/config' },
     ],
@@ -76,8 +76,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Helpers', link: 'en/automation_helpers' },
       { text: 'Wrappers', link: 'en/automation_wrappers' },
       { text: 'Jobs', link: 'en/automation_jobs' },
-      { text: 'Console Log', link: 'en/integrations_console' },
-      { text: 'Web UI Alerts', link: 'en/integrations_webui' },    
+      { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' }
+      //{ text: 'Web UI Alerts', link: 'en/integrations_webui' },    
       // { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
       // { text: 'Integrations', link: 'en/scripting_integrations' },
 
@@ -92,9 +92,10 @@ export const SIDEBAR: Sidebar = {
       { text: 'Webhook', link: 'en/integration_webhook' },
     ],
     'Use Cases': [
-      { text: 'Cloud Forensics', link: 'en/kfl_pcap_s3' },
-      { text: 'Actionable Detection', link: 'en/actionable_detection' },
-      { text: 'Traffic Investigation', link: 'en/traffic_investigation' },
+      { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
+      { text: 'Observability & Telemetry', link: 'en/observability' },
+      { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
+      { text: 'Actionable Detection', link: 'en/actionable_detection' }
     ],
     'References': [
       { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },

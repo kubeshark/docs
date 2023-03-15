@@ -1,32 +1,18 @@
 ---
-title: Traffic Investigation 
+title: Traffic Investigation & Debugging
 description:  
 layout: ../../layouts/MainLayout.astro
 ---
 
-Kubeshark provides real-time protocol-level visibility to K8s traffic. Coupled with a rich query language and a modern Web UI, **Kubeshark** can be very helpful in identifying culprits. 
+**Kubeshark** provides real-time protocol-level visibility to K8s traffic, coupled with a rich query language, a service map and a modern Web UI.
 
-## Identity-aware Service Map
+Whether you are troubleshooting an infrastructure problem, modeling new threats or investigating a security incident, **Kubeshark** can be very helpful in identifying culprits.
 
-**Kubeshark** offers an instant, identity-aware **Service Map** that updates in real time, and can be used to focus your analysis on specific parts of the cluster. 
+## Protocol-level Visibility
 
-The **Service Map** provides the following information in a visual graph:
-- Label identity for internal workloads and DNS identity for external workloads
-- Connectivity information including direction indicated by arrows
-- Connection protocol indicated by the arrow color
-- Connection density indicated by the number of requests and the arrow thickness
+**Kubeshark** captures, dissects and monitors all traffic and payloads going in, out and across containers, pods, nodes and clusters. You can view the dissected protocol messages in the **Web UI** all the way to the payload level.
 
-#### Focus on Specific Parts of the Cluster
-
-A busy cluster can generate a very dense **Service Map**. **Kubeshark** enables you to focus on specific parts of your cluster by using it in conjunction with a [KFL query](/en/filtering) to reduce the scope of analysis to only a subset of your cluster's traffic.  
-
-For example, the following query will analyze the ingress traffic of two pods and the egress traffic of a third pod:
-
-![Query a Subset of Traffic](/query-subset.png)
-
-The resulting query will show the following service map:
-
-![Service Map Subset](/service-map-subset.png)
+![Protocol-level visibility](/ui-full.png)
 
 ## Rich Query Language
 
@@ -35,14 +21,15 @@ As K8s network is massive, KFL enables you to find the \`needle in the haystack\
 Here are a few examples:
 
 #### Filtering traffic that uses a specific token (or tokens in general)
+```bash
+request.headers["Authorization"] == r"Token.*"
+```
 
 ![Detecting Tokens](/kfl-token.png)
 
 #### Focusing on a Certain Node
 
-KFL is quite rich and can help you narrow down and speed up your investigation.
-
-Here's another example, when you'd like to analyze the traffic at a specific node or set of nodes.
+When you'd like to analyze the traffic at a specific node or set of nodes.
 
 ![KFL Node](/kfl-node.png)
 
@@ -53,3 +40,18 @@ Here's another example, when you'd like to analyze the traffic at a specific nod
 The example below presents traffic captured between two timestamps:
 
 ![Historical Traffic](/history1.png)
+
+## Identity-aware Service Map
+
+**Kubeshark** offers an instant, identity-aware **Service Map** that updates in real time, and can be used to focus your analysis on specific parts of the cluster. 
+
+In conjunction with its rich query language ([KFL](/en/filtering)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.  
+
+For example, the following query will analyze the ingress traffic of two pods and the egress traffic of a third pod:
+
+![Query a Subset of Traffic](/query-subset.png)
+
+The resulting query will show the following service map:
+
+![Service Map Subset](/service-map-subset.png)
+

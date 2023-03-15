@@ -25,9 +25,7 @@ vendor.s3.put(
 
 ## Upload a Network Snapshot to S3
 
-The `wrapper.kflPcapS3` wrapper conditionally generates PCAP repositories based on two KFL queries:
-- `http and (response.status==500)` - HTTP traffic only where response status is 500
-- `dns` - all DNS traffic
+The `wrapper.kflPcapS3` wrapper conditionally generates PCAP repositories based on KFL queries.
 
 PCAP repositories are uploaded to AWS S3 and a Slack notification is sent upon completion.
 
@@ -43,6 +41,11 @@ function onItemCaptured(data) {
     });
 }
 ```
+The above examples shows the script required to monitor traffic and match against two KFL queries:
+- `http and (response.status==500)` - HTTP traffic only where response status is 500
+- `dns` - all DNS traffic
+
+All matching L4 streams will be added to a PCAP repository and uploaded to S3. An optional Slack message will be sent when a new file is uploaded:
 
 ![PCAP Slack Alert](/pcap-slack-alert.png)
 

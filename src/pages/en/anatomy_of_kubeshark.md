@@ -19,8 +19,6 @@ It communicates with your cluster through [K8s API](https://kubernetes.io/docs/c
 
 **Source code:** [`kubeshark/kubeshark`](https://github.com/kubeshark/kubeshark)
 
-> **NOTE:** Read more in the [CLI](/en/cli) section.
-
 ## Hub
 
 The **Hub** is a pod that acts as a gateway to the [**Workers**](#worker). It hosts an HTTP server and serves to these purposes:
@@ -44,7 +42,7 @@ The worker contains the implementations of network sniffer and kernel tracer.
 It captures the packets from all network interfaces, reassembles the TCP streams and if they are dissectable then stores them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files.
 Workers transmit the collected traffic to [**Hub**](#hub) via WebSocket connections.
 
-Kubeshark stores raw packets and dissects them on demand upon [querying](/en/querying).
+Kubeshark stores raw packets and dissects them on demand.
 
 The worker by itself can be used as a network sniffer on your computer without requiring a [Kubernetes](https://kubernetes.io/) cluster.
 
@@ -82,8 +80,8 @@ The front-end is a [React](https://reactjs.org/) app that communicates with the 
 
 ## Scripting and Actionable Detection
 
-Scripting facilitates automation and allows maximum flexibility. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). 
+Scripting facilitates automation and actionable detection. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). 
 
 Working in conjunction with [hooks](/en/automation_hooks) and [helpers](/en/automation_helpers), scripts can trigger [actions](/en/integration_actions) based on programmatic decisions and/or on a schedule.
 
-> Read more about **Kubeshark**'s scripting capabilities [here](/en/automation_scripting).
+> Read more in the [scripting](/en/automation_scripting) section.

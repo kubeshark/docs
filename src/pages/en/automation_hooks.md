@@ -8,8 +8,6 @@ Hooks are pre-defined JavaScript functions in the scripting system that are bein
 
 **Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected. 
 
-These hooks can be very expensive in terms of computing resources. When you develop scripts you should first attempt to run scripts on a schedule and use network hooks only when necessary.
-
 Hooks function arguments with type **object** can be printed to console with the purpose of seeing the data structure of that argument, like;
 
 ```js

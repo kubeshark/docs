@@ -1,10 +1,10 @@
 ---
-title: Filtering
+title: Rich Query Language
 description: The filter input enables filtering results using Kubeshark Filter Language (KFL)
 layout: ../../layouts/MainLayout.astro
 ---
 
-The filter input enables filtering results using [**Kubeshark Filter Language (KFL)**](/en/kfl_syntax_reference) For example; to only see the items with HTTP client error responses (`400` – `499`), enter:
+[**Kubeshark Filter Language (KFL)**](/en/kfl_syntax_reference) is a rich query language that filters traffic that match a query. For example; to only see the items with HTTP client error responses (`400` – `499`), enter:
 
 ```python
 http and response.status == r"4.*"
