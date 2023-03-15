@@ -151,10 +151,10 @@ It's especially useful for **alerting** a group of developers about **an issue d
 function onItemCaptured(data) {
   if (data.response.status === 500)
     vendor.slack(
-      env.SLACK_AUTH_TOKEN,
-      env.SLACK_CHANNEL_ID,
-      "Server-side Error",
-      JSON.stringify(data),
+      env.SLACK_AUTH_TOKEN,     // Webhook URL
+      env.SLACK_CHANNEL_ID,     // Pretext (title)
+      "Server-side Error",      // Message text
+      JSON.stringify(data),     // Color code of the message
       "#ff0000"
     );
 }
@@ -182,8 +182,8 @@ function pushDataToInfluxDB() {
     env.INFLUXDB_TOKEN,
     env.INFLUXDB_ORGANIZATION,
     env.INFLUXDB_BUCKET,
-    "Example Measurement",
-    data,
+    "Example Measurement",        // Measurement
+    data,                         // Payload
     {"example":"tag"}
   );
 
@@ -193,6 +193,43 @@ function pushDataToInfluxDB() {
 
 // Call the JavaScript function `pushDataToInfluxDB` every minute
 jobs.schedule("push-data-to-influxdb", "0 */1 * * * *", pushDataToInfluxDB);
+```
+
+### `vendor.elastic(url: string, index: string, data: object, username?: string, password?: string, cloudID?: string, apiKey?: string, serviceToken?: string, certificateFingerprint?: string)`
+
+> (!) This helper requires a Pro license.
+
+Pushes the data into an Elasticsearch `index` inside an instance at URL `url` argument using various different authentication strategies
+provided by Elasticsearch:
+
+- Set `username` and `password` for [Basic Authentication](https://www.elastic.co/guide/en/elasticsearch/client/go-api/master/connecting.html#auth-basic).
+- Set `serviceToken` for [HTTP Bearer authentication](https://www.elastic.co/guide/en/elasticsearch/client/go-api/master/connecting.html#auth-token).
+- Set `url` to empty string, `cloudID` to [Cloud ID of your Elastic Cloud deployment](https://www.elastic.co/guide/en/cloud/current/ec-cloud-id.html) and `apiKey` to the [API key that you have generated in the Elastic Cloud](https://www.elastic.co/guide/en/cloud/current/ec-api-authentication.html).
+
+##### Example:
+
+```js
+function pushDataToElasticsearch() {
+  // Print the data
+  console.log("Data:", JSON.stringify(data))
+
+  // Push the data
+  vendor.elastic(
+    "",                     // URL is ignored for Elastic Cloud
+    env.ELASTIC_INDEX,
+    data,                   // Payload
+    "",                     // Username is ignored for Elastic Cloud
+    "",                     // Password is ignored for Elastic Cloud
+    env.ELASTIC_CLOUD_ID,
+    env.ELASTIC_API_KEY
+  );
+
+  // Reset the data
+  data = {};
+}
+
+// Call the JavaScript function `pushDataToElasticsearch` every minute
+jobs.schedule("push-data-to-elastic", "0 */1 * * * *", pushDataToElasticsearch);
 ```
 
 ### `vendor.s3.put(region: string, keyID: string, accessKey: string, bucket: string, path: string): string`
