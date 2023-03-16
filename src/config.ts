@@ -59,8 +59,8 @@ export const SIDEBAR: Sidebar = {
     ],
     'Network Analysis': [
       { text: 'Traffic Sniffing', link: 'en/network_sniffing' },
-      { text: 'Web UI', link: 'en/ui' },
       { text: 'Service Map', link: 'en/service_map' },
+      { text: 'Web UI', link: 'en/ui' },
       { text: 'Rich Query Language', link: 'en/filtering' },
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
       { text: 'PCAPs', link: 'en/pcap_export_import' },
@@ -85,11 +85,12 @@ export const SIDEBAR: Sidebar = {
     'Integrations': [
       // { text: 'Actions', link: 'en/integration_actions' },
 
-      { text: 'Necessary Credentials', link: 'en/integration_credentials' },    
+      { text: 'Necessary Credentials', link: 'en/integrations_credentials' },    
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
-      { text: 'AWS S3', link: 'en/integration_aws_s3' },
+      { text: 'Elastic search', link: 'en/integrations_elastic' },
+      { text: 'AWS S3', link: 'en/integrations_aws_s3' },
       { text: 'Slack', link: 'en/integrations_slack' },
-      { text: 'Webhook', link: 'en/integration_webhook' },
+      { text: 'Webhook', link: 'en/integrations_webhook' },
     ],
     'Use Cases': [
       { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
@@ -97,9 +98,9 @@ export const SIDEBAR: Sidebar = {
       { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
       { text: 'Actionable Detection', link: 'en/actionable_detection' }
     ],
-    'References': [
-      { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },
-    ],
+    // 'References': [
+    //   { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },
+    // ],
     'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },

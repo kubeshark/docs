@@ -7,7 +7,7 @@ layout: ../../layouts/MainLayout.astro
 - Console log and error messages
 - Web UI alerts
 - Slack alerts
-- Send log messages to Elastic and other log stash
+- Send log messages to Elasticsearch
 - Use a webhook to send anything anywhere
 
 ## Console Log & Error Messages
@@ -49,17 +49,6 @@ The following CLI command redirects the console log output to a file.
 kubeshark console > /tmp/log.txt
 ```
 
-The content of the file will not include ony of the messages sent to `console.error`:
-
-```bash
-[mizu-2] Captured packet count per minute: 5177
-[mizu-2] Total KB captured per minute: 1910.2869999999884
-[mizu-2] Captured packet count per minute: 4726
-[mizu-2] Total KB captured per minute: 2149.2850000000244
-[mizu-2] Captured packet count per minute: 61
-[mizu-2] Total KB captured per minute: 24.746000000000024
-```
-
 ## Web UI Alerts
 
 The **Web UI** can show alerts using the `test.pass` and `test.fail` helpers. The `test.pass` will color a traffic entry green, where the `test.fail` helper will color the traffic entry red. You can use these helpers in a script based on a programmatic decision.
@@ -86,8 +75,14 @@ Use the Slack helper to send Slack alerts.
 
 > Read more in the [Slack integration](/en/integrations_slack) section. 
 
+## Send logs to Elasticsearch
+
+Use the Elasticsearch helper to send schema-free JSON documents to Elasticsearch.
+
+> Read more in the [Elastic integration](/en/integrations_elastic) section. 
+
 ## Webhooks
 
 The Webhook helper enables you to send any payload anywhere that supports a webhooks.
 
-> Read more in the [Webhook integration](/en/integration_webhook) section. 
+> Read more in the [Webhook integration](/en/integrations_webhook) section. 

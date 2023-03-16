@@ -100,7 +100,7 @@ and pushing data to them when a certain event occur or periodically through jobs
 
 ### `vendor.webhook(method: string, url: string, body: string)`
 
-> (!) This helper requires a Pro license.
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 It does an HTTP request to the WebHook (the HTTP endpoint) that's defined by HTTP `method` and URL in the `url`
 argument with the HTTP body as the string in the `body` argument.
@@ -117,7 +117,7 @@ vendor.webhook(
 
 ### `vendor.slack(webhookUrl: string, pretext: string, text: string, color: string)`
 
-> (!) This helper requires a Pro license.
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Sends a Slack message to the Slack webhook in `webhookUrl` argument.
 It's especially useful for **alerting** a group of developers about **an issue detected through the network traffic**, such as
@@ -139,7 +139,7 @@ function onItemCaptured(data) {
 
 ### `vendor.slackBot(token: string, channelID: string, pretext: string, text: string, color: string)`
 
-> (!) This helper requires a Pro license.
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Sends a Slack message to the Slack channel in `channelID` argument using the provided access token in `token` argument.
 It's especially useful for **alerting** a group of developers about **an issue detected through the network traffic**, such as
@@ -162,7 +162,7 @@ function onItemCaptured(data) {
 
 ### `vendor.influxdb(url: string, token: string, organization: string, bucket: string, measurement: string, data: object, tags?: object)`
 
-> (!) This helper requires a Pro license.
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Pushes the data into a `bucket` the InfluxDB instance at URL `url` argument using the provided access token in `token` argument.
 InfluxDB, as **a timeseries database**, is useful for collecting data or measurements about the Kubernetes network.
@@ -197,7 +197,7 @@ jobs.schedule("push-data-to-influxdb", "0 */1 * * * *", pushDataToInfluxDB);
 
 ### `vendor.elastic(url: string, index: string, data: object, username?: string, password?: string, cloudID?: string, apiKey?: string, serviceToken?: string, certificateFingerprint?: string)`
 
-> (!) This helper requires a Pro license.
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Pushes the data into an Elasticsearch `index` inside an instance at URL `url` argument using various different authentication strategies
 provided by Elasticsearch:
@@ -234,7 +234,7 @@ jobs.schedule("push-data-to-elastic", "0 */1 * * * *", pushDataToElasticsearch);
 
 ### `vendor.s3.put(region: string, keyID: string, accessKey: string, bucket: string, path: string): string`
 
-> (!) This helper requires a Pro license.
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Uploads a file to an AWS S3 `bucket` on AWS `region` using the **AWS credentials** provided in `keyID` and `accessKey` arguments.
 The S3 path of the file is set based on this pattern: `<NODE_NAME>_<NODE_IP>/<FILENAME>`.
@@ -254,7 +254,7 @@ location = vendor.s3.put(
 
 ### `vendor.s3.clear(region: string, keyID: string, accessKey: string, bucket: string)`
 
-> (!) This helper requires a Pro license.
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Clears the content of the folder `<NODE_NAME>_<NODE_IP>/` in the AWS S3 `bucket`.
 The folder is simply owned by the Kubeshark worker/node.
@@ -532,7 +532,7 @@ var status = jobs.scheduler.stop()
 
 ## KFL
 
-The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/kfl_syntax_reference).
+The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/filtering).
 
 ### `kfl.match(query: string, data: object): boolean`
 

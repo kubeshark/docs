@@ -40,7 +40,7 @@ The example below shows how to export a network snapshot of the past 72 hours:
 
 You can write custom-logic scripts to generate network snapshots based on programmatic decisions and then export the generated PCAP repositories to S3. 
 
-> Read more in the [Cloud Forensics](/en/kfl_pcap_s3) section. 
+> Read more in the [Cloud Forensics](/en/cloud_forensics) section. 
 
 ## View the PCAP Snapshot
 
@@ -72,7 +72,7 @@ This section exposes some information:
 
 and buttons:
 
-- To open the [TCP or UDP Replay](#tcpudp-stream-replay) prompt.
+- To open the L4 stream replay prompt.
 - PCAP download (The original PCAP file of this TCP stream)
 
 ### L4 Stream Replay

@@ -18,6 +18,15 @@ The following credentials are necessary:
 
 > Learn more about the InfluxDB integration and the required credentials [here](/en/integrations_influxdb).
 
+##  Elasticsearch
+
+Elasticsearch is a popular schema free JSON document repository.
+
+To access [elastic cloud](https://elastic.co), the following credentials are necessary:
+
+- Elasticsearch Cloud ID
+- ELasticsearch API Key 
+
 ## AWS S3
 
 AWS S3 can be used to export forensics in the form of PCAP files (or any other files) to an immutable datastore. 
