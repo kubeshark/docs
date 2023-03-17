@@ -7,7 +7,7 @@ layout: ../../layouts/MainLayout.astro
 
 The AWS S3 integration provides an immutable datastore option in case you want to export files outside of the K8s cluster.
 
-You can read the [helper](/en/automationhelpers) section to learn more about the available AWS S3 helpers.
+You can read the [helper](/en/automation_helpers) section to learn more about the available AWS S3 helpers.
 
 The most common helper would be the `vendor.s3.put` helper that uploads a file using the provided credentials.
 
