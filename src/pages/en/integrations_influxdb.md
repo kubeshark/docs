@@ -33,11 +33,11 @@ function onItemCaptured(data) {
   );
 }
 ```
-The example assumes the key properties that are required for authentication are stored in the **kubeshark**'s configuration file as [environment variables](http://localhost:3000/en/config#scripts).
+The example assumes the key properties that are required for authentication are stored in the **Kubeshark**'s configuration file as [environment variables](/en/config#scripts).
 
 > See [`vendor.influxdb`](/en/automation_helpers#vendorinfluxdburl-string-token-string-organization-string-bucket-string-measurement-string-data-object-tags-object) for more info.
 
-Read the [onItemCaptured](http://localhost:3000/en/automation_hooks#onitemcaptureddata-object) hook section to learn more about data that becomes available when using this hook.
+Read the [onItemCaptured](/en/automation_hooks#onitemcaptureddata-object) hook section to learn more about data that becomes available when using this hook.
 
 ## Practical Example
 

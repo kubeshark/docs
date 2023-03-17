@@ -134,8 +134,8 @@ Information related to **Kubeshark**'s scripting engine. For example:
 ```shell
 scripting:
     env:
-      CONSTANT-NAME-1: "VALUE"
-      CONSTANT-NAME-2: 77
+      VAR-1: "VALUE"
+      VAR-2: 77
     source: "/path/to/script/folder"
 ```
 
@@ -154,5 +154,5 @@ This section includes variable that can be used inside of scripts.
 ```shell
 scripting:
     env:
-      CONSTANT-NAME-1: "VALUE"
-      CONSTANT-NAME-2: 77
+      VAR-1: "VALUE"
+      VAR-2: 77

@@ -3,7 +3,6 @@ import preact from '@astrojs/preact';
 import react from '@astrojs/react';
 import sitemap from "@astrojs/sitemap";
 
-// https://astro.build/config
 export default defineConfig({
   integrations: [
     // Enable Preact to support Preact JSX components.
@@ -13,5 +12,5 @@ export default defineConfig({
     // Sitemap
     sitemap(),
   ],
-  site: `http://astro.build`
+  site: `https://docs.kubeshark.co`
 });
