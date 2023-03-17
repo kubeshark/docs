@@ -1,12 +1,12 @@
 ---
 title: Hooks
-description:  Kubeshark provides various hooks including OSI L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected.
+description: Provided hooks including OSI L4 and L7 hooks that enable running functions whenever a packet is captured or a new application-layer message is dissected.
 layout: ../../layouts/MainLayout.astro
 ---
 
 Hooks are pre-defined JavaScript functions in the scripting system that are being attached to a certain point in the network packet **capture - dissect - query** pipeline of **Kubeshark**.
 
-**Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected. 
+**Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new application-layer message is dissected.
 
 Hooks function arguments with type **object** can be printed to console with the purpose of seeing the data structure of that argument, like;
 
@@ -27,7 +27,7 @@ function onPacketCaptured(info) {
 ```
 The `onPacketCaptured` is an OSI L4 network hook. It is called whenever a new network packet is captured by **Kubeshark**.
 
-On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that; a poorly optimized `onPacketCaptured` implementation can have a **performance impact** on the network traffic capture speed of **Kubeshark**. Therefore it's logical to not call helpers (e.g. `console.log` or `vendor.slack`) and instead use this hook to aggregate data into a global variable and then handle the aggregated data in another hook or a job:
+On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that; a poorly optimized `onPacketCaptured` implementation can have a **performance impact** on the network traffic capture speed of **Kubeshark**. Therefore it's logical to not call certain helpers (e.g. [`console.log`](/en/automation_helpers#consolelogparams-string) or [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string)) and instead use this hook to aggregate data into a global variable and then handle the aggregated data in another hook or a job:
 
 ```js
 var packetCount = 0;
@@ -241,7 +241,7 @@ Here's an example of the input variable `data` content:
   "namespace": "default",
   "node": {
     "ip": "192.168.49.2",
-    "name": "mizu"
+    "name": "my-cluster"
   },
   "outgoing": false,
   "passed": false,
@@ -344,7 +344,7 @@ Here's an example of the input variable `data` content:
   "namespace": "kube-system",
   "node": {
     "ip": "192.168.49.2",
-    "name": "mizu"
+    "name": "my-cluster"
   },
   "outgoing": false,
   "passed": false,

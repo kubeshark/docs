@@ -1,6 +1,6 @@
 ---
 title: Web UI
-description: A Web UI to view all Kubernetes distributed traffic
+description: A Web UI to view all Kubernetes network traffic.
 layout: ../../layouts/MainLayout.astro
 mascot:
 ---
@@ -21,15 +21,15 @@ Accessible via the **Service Map** button, the [Service Map](/en/service_map) up
 
 ![Service Map Button](/service-map-button.png)
 
-## Query Box
+## Filter Input
 
-The query box is used to enter the [Kubeshark Filter Language (KFL)](/en/kfl) statements. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
+The filter input is used to enter the [Kubeshark Filter Language (KFL)](/en/filtering#kfl-syntax-reference) statements. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
 
 ![Kubeshark UI](/ks-filter-applied.png)
 
-You can also query by timestamp, integer, and even queryable UI elements (below). A syntax cheatsheet is available next to the query box.
+You can also filter by timestamp, integer, and even queryable UI elements (below). A syntax cheatsheet is available next to the query box.
 
-> **NOTE:** Read the [Filter Language](/en/kfl) section to learn more about **Kubeshark**'s Filter Language.
+> **NOTE:** Read the [filtering](/en/filtering) section to learn more about filtering.
 
 ### Queryable UI Elements
 
@@ -47,7 +47,7 @@ Once you run a query, the query gets added to the **Web UI** URL. This is helpfu
 
 ## Streaming Traffic
 
-The left panel shows the streaming traffic entries captured by the **Workers** and transmitted in real time through the **Hub** to the **Web UI**. Each entry includes mostly metadata like: protocol, response code, method, source and destination IPs and Pods.
+The left-pane shows the streaming traffic entries captured by the **Workers** and transmitted in real time through the **Hub** to the **Web UI**. Each entry includes mostly metadata like: protocol, response code, method, source and destination IPs and Pods.
 
 ![Streaming Traffic Entry](/entry.png)
 
@@ -71,7 +71,7 @@ http and response.status == 500
 
 ### Stop
 
-Scrolling up indicates you'd like to view historical traffic entries and therefore streaming will stop. The same operation can be obtained by pressing the pause button at the top of the left panel.
+Scrolling up indicates you'd like to view historical traffic entries and therefore streaming will stop. The same operation can be obtained by pressing the pause button at the top of the left-pane.
 
 ![Stop Streaming](/stop-streaming.png)
 

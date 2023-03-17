@@ -16,7 +16,7 @@ Linux kernel with version 4.4 and quite matured since then.
 
 To deploy Kubeshark with TLS sniffing capability, simply add the `--tls` option:
 
-```bash
+```shell
 kubeshark tap --tls -n sock-shop
 ```
 

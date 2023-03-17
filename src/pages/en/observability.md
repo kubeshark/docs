@@ -1,6 +1,6 @@
 ---
 title: Observability & Telemetry
-description:  
+description: Kubeshark as an observability and telemetry tool.
 layout: ../../layouts/MainLayout.astro
 ---
 

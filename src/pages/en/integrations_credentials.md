@@ -1,6 +1,6 @@
 ---
 title: Customer-provided Credentials
-description:  
+description: Credentials required for integrations.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -22,14 +22,16 @@ The following credentials are necessary:
 
 Elasticsearch is a popular schema free JSON document repository.
 
-To access [elastic cloud](https://elastic.co), the following credentials are necessary:
+To access [Elastic Cloud](https://www.elastic.co/cloud), the following credentials are necessary:
 
 - Elasticsearch Cloud ID
-- ELasticsearch API Key 
+- ELasticsearch API Key
+
+> For a self-hosted Elasticsearch instance, different authentication strategies are possible. See [`vendor.elastic`](/en/automation_helpers#vendorelasticurl-string-index-string-data-object-username-string-password-string-cloudid-string-apikey-string-servicetoken-string-certificatefingerprint-string) helper for more info.
 
 ## AWS S3
 
-AWS S3 can be used to export forensics in the form of PCAP files (or any other files) to an immutable datastore. 
+AWS S3 can be used to export forensics in the form of PCAP files (or any other files) to an immutable datastore.
 
 The following credentials are necessary to use AWS S3:
 
@@ -59,19 +61,19 @@ As these credentials are confidential, we highly recommend to keep them in the *
 
 Here's an example of a suggested configuration file clause:
 
-```bash
+```yaml
 configpath: /home/xxx/.kubeshark/config.yaml
 headless: false
 license: FT7YKAYBAE....
 scripting:
-    env:
-        AWS_ACCESS_KEY_ID: AKIA...
-        AWS_REGION: us-east-2
-        AWS_SECRET_ACCESS_KEY: YZv..
-        INFLUXDB_TOKEN: edO4...
-        INFLUXDB_URL: http://10.0.0.99:8086
-        S3_BUCKET: my-bucket-name
-        SLACK_AUTH_TOKEN: xoxb-43...
-        SLACK_CHANNEL_ID: C0..
-        WEBHOOK_URL: https://webhook.site/08c9a...
+  env:
+    AWS_ACCESS_KEY_ID: AKIA...
+    AWS_REGION: us-east-2
+    AWS_SECRET_ACCESS_KEY: YZv..
+    INFLUXDB_TOKEN: edO4...
+    INFLUXDB_URL: http://10.0.0.99:8086
+    S3_BUCKET: my-bucket-name
+    SLACK_AUTH_TOKEN: xoxb-43...
+    SLACK_CHANNEL_ID: C0..
+    WEBHOOK_URL: https://webhook.site/08c9a...
 ```

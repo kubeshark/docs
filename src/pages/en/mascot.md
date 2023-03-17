@@ -1,6 +1,6 @@
 ---
 title: Sharky
-description: Sharky
+description: Sharky loves you!
 layout: ../../layouts/MainLayout.astro
 mascot: Love
 mascotSize: 230

@@ -1,28 +1,32 @@
 ---
 title: Slack Alerts
-description:
+description: Kubeshark can send Slack messages to any channel with the purpose of alerting against anomalies in the Kubernetes network traffic.
 layout: ../../layouts/MainLayout.astro
 ---
 > This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Slack alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
 
-The following example reports to a Slack Channel whenever the HTTP response status code is `500`.
+The following example reports to a Slack channel whenever the HTTP response status code is `500`.
 
 ```js
 function onItemCaptured(data) {
   if (data.response.status === 500)
-    vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
+    vendor.slack(
+      SLACK_WEBHOOK,
+      "Server-side Error",
+      JSON.stringify(data),
+      "#ff0000"
+    );
 }
 ```
 
 **Kubeshark** supports two message sending methods:
-1. Using an `incoming webhooks`.
-2. Using an auth token and a channel ID.
 
-You can read more about the sending a Slack message using an Incoming Webhook [here](https://api.slack.com/messaging/webhooks).
+1. Using an [incoming webhook](https://api.slack.com/messaging/webhooks). See [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string) helper.
+2. Using an auth token and a channel ID. See [`vendor.slackBot`](/en/automation_helpers#vendorslackbottoken-string-channelid-string-pretext-string-text-string-color-string) helper.
 
-## Creating the Slack App
+## Creating a Slack App
 
 Slack provides an easy way to create a Slack App that enables maximum flexibility and customization. This step is required for both methods.
 
@@ -70,7 +74,12 @@ If you'd like to use the **Incoming Webhooks** method, hop over to the **Incomin
 That's it, you can now use the Slack helper [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string) like this:
 
 ```js
-vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");
+vendor.slack(
+  SLACK_WEBHOOK,
+  "Server-side Error",
+  JSON.stringify(data),
+  "#ff0000"
+);
 ```
 As the Webhook is a confidential piece of information, we highly recommend to keep it in the **Kubeshark** configuration file.
 

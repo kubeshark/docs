@@ -1,8 +1,7 @@
 ---
 title: Service Mesh
-description: Service Mesh
+description: About the service mesh support like Istio or Linkerd.
 layout: ../../layouts/MainLayout.astro
-mascot: 
 ---
 
 **Kubeshark** can recognize service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/) and other service mesh solutions that use [Envoy Proxy](https://www.envoyproxy.io/) under the hood.

@@ -1,333 +1,96 @@
 ---
-title: Permissions - TBD
-description: Permissions
+title: Permissions
+description: Required Kubernetes permissions for Kubeshark.
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
 ---
 
-This page needs work ..
+This page contains `Role` and `RoleBinding` which provide permissions required for full and correct operation of **Kubeshark** in your Kubernetes cluster.
 
-This document describes in details all permissions required for full and correct operation of **Mizu** in your Kubernetes cluster. 
+## All namespaces
 
-This list has three categories:  
+For capturing from all namespaces with `kubeshark tap -A`:
 
-- ***Required*** - what is needed for `mizu` to run properly on your k8s cluster  
-- ***Optional*** - permissions needed for proper name resolving for service & pod IPs  
-- ***addition*** - required for policy validation  
+```yaml
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubeshark-runner-clusterrole
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["list", "watch", "create"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "create"]
+- apiGroups: ["apps"]
+  resources: ["daemonsets"]
+  verbs: ["create", "patch"]
+- apiGroups: [""]
+  resources: ["namespaces"]
+  verbs: ["list", "watch", "create", "delete"]
+- apiGroups: [""]
+  resources: ["services/proxy"]
+  verbs: ["get", "create"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["create"]
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get"]
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubeshark-runner-clusterrolebindings
+subjects:
+- kind: User
+  name: user-with-clusterwide-access
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: kubeshark-runner-clusterrole
+  apiGroup: rbac.authorization.k8s.io
+```
 
-## Required permissions
+## Specific Namespace
 
-**Mizu** needs the following permissions on your Kubernetes cluster to run properly
+For capturing from a specific namespace with `kubeshark tap -n example`:
 
-Kubeshark
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services
-  verbs:
-  - create
-  - delete
-- apiGroups:
-  - apps
-  resources:
-  - daemonsets
-  verbs:
-  - create
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services/proxy
-  verbs:
-  - get
-</syntaxhighlighter>
-
-## Permissions required running with --daemon flag or (optional) for service / pod name resolving
-
-Mandatory permissions for running with `--daemon` flag.
-
-Optional for service/pod name resolving in non daemon mode
-
-Kubeshark
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - apps
-  resources:
-  - daemonsets
-  verbs:
-  - create
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services/proxy
-  verbs:
-  - get
-- apiGroups:
-  - ""
-  resources:
-  - serviceaccounts
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterroles
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - clusterrolebindings
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - roles
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - rolebindings
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - apps
-  - extensions
-  resources:
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - apps
-  - extensions
-  resources:
-  - services
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  - apps
-  - extensions
-  resources:
-  - endpoints
-  verbs:
-  - get
-  - list
-  - watch
-</syntaxhighlighter>
-
-## Permissions for Policy rules validation feature (opt)
-
-Optionally, in order to use the policy rules validation feature, **Mizu** requires the following additional permissions:
-
-Kubeshark
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  verbs:
-  - get
-  - create
-  - delete
-</syntaxhighlighter>
-
-## Namespace-Restricted mode
-
-Alternatively, in order to restrict **Mizu** to one namespace only (by setting `agent.namespace` in the config file), **Mizu** needs the following permissions in that namespace:
-
-Kubeshark
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - apps
-  resources:
-  - daemonsets
-  verbs:
-  - get
-  - create
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services/proxy
-  verbs:
-  - get
-</syntaxhighlighter>
-
-### Name resolving in Namespace-Restricted mode (opt)
-
-To restrict **Mizu** to one namespace while also resolving IPs, **Mizu** needs the following permissions in that namespace:
-
-Kubeshark
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services
-  verbs:
-  - get
-  - list
-  - watch
-  - create
-  - delete
-- apiGroups:
-  - apps
-  resources:
-  - daemonsets
-  verbs:
-  - get
-  - create
-  - patch
-  - delete
-- apiGroups:
-  - ""
-  resources:
-  - services/proxy
-  verbs:
-  - get
-- apiGroups:
-  - ""
-  resources:
-  - serviceaccounts
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - roles
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - rbac.authorization.k8s.io
-  resources:
-  - rolebindings
-  verbs:
-  - get
-  - create
-  - delete
-- apiGroups:
-  - apps
-  - extensions
-  resources:
-  - pods
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - apps
-  - extensions
-  resources:
-  - services
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  - apps
-  - extensions
-  resources:
-  - endpoints
-  verbs:
-  - get
-  - list
-  - watch
-</syntaxhighlighter>
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubeshark-runner-role
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["list", "watch", "create"]
+- apiGroups: [""]
+  resources: ["services"]
+  verbs: ["get", "create", "delete"]
+- apiGroups: ["apps"]
+  resources: ["daemonsets"]
+  verbs: ["create", "patch", "delete"]
+- apiGroups: [""]
+  resources: ["services/proxy"]
+  verbs: ["get", "create", "delete"]
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["create", "delete"]
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: kubeshark-runner-rolebindings
+subjects:
+- kind: User
+  name: user-with-restricted-access
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: kubeshark-runner-role
+  apiGroup: rbac.authorization.k8s.io
+```

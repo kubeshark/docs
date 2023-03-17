@@ -1,6 +1,6 @@
 ---
 title: Helpers
-description: The reference page for the API provided in scripting and jobs features of Kubeshark
+description: The reference page for the helpers provided in scripting and jobs features of Kubeshark
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -102,7 +102,7 @@ and pushing data to them when a certain event occur or periodically through jobs
 
 > (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
-It does an HTTP request to the WebHook (the HTTP endpoint) that's defined by HTTP `method` and URL in the `url`
+It does an HTTP request to the webhook (the HTTP endpoint) that's defined by HTTP `method` and URL in the `url`
 argument with the HTTP body as the string in the `body` argument.
 
 ##### Example:
@@ -532,7 +532,7 @@ var status = jobs.scheduler.stop()
 
 ## KFL
 
-The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/kfl).
+The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/filtering#kfl-syntax-reference).
 
 ### `kfl.match(query: string, data: object): boolean`
 

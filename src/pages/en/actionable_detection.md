@@ -1,13 +1,12 @@
 ---
 title: Actionable Detection
-description:  
+description: Detecting anomalies and load or suspicious activity inside the Kubernetes network.
 layout: ../../layouts/MainLayout.astro
 ---
+
 K8s network is likely to include significant information that can help not only understand the reasons for a problem, but potentially avoid the problem altogether by detecting and reacting quickly to its symptoms.
 
-Kubernetes network is massive. It makes absolutely no sense to process it all in order to find culprits. 
-
-
+Kubernetes network is massive. It makes absolutely no sense to process it all in order to find culprits.
 
 ## Detection
 
@@ -16,14 +15,15 @@ Kubernetes network is massive. It makes absolutely no sense to process it all in
 For example:
 ```js
 function onItemCaptured(data) {
-  if (data.response.status === 500)
-    // ... add action code
-  if (kfl.match(data, 'request.headers["Authorization"] == r"Token.*" and src.ip != "192.168.49.2"'))
-    // .. add action code
+  if (data.response.status === 500) {
+    // Your code goes here
+  } else if (kfl.match(data, 'request.headers["Authorization"] == r"Token.*" and src.ip != "192.168.49.2"')) {
+    // Your code goes here
+  }
 }
 ```
 A few more detection examples:
-- Abnormal API throughput 
+- Abnormal API throughput
 - Suspicious payload matching a regex
 - Incoming communication from bad IPs
 
@@ -36,7 +36,7 @@ Actions are divided to three segments:
 
 ### Alerts
 
-You can send a message to Slack, to a console log, to the WebUI or use a webhook to send anything anywhere. 
+You can send a message to Slack, to a console log, to the WebUI or use a webhook to send anything anywhere.
 
 Alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
 

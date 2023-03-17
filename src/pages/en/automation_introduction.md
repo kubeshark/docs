@@ -17,7 +17,7 @@ Things you can automate with **Kubeshark**:
 
 ## Scripting
 
-**Kubeshark** supports a scripting language that is based on [Javascript ES5](https://262.ecma-international.org/5.1/). 
+**Kubeshark** supports a scripting language that is based on [Javascript ES5](https://262.ecma-international.org/5.1/).
 
 In addition to its rich capabilities as a modern programming language, **Kubeshark**'s scripting language can trigger actions based on programmatic decisions and/or based on a schedule.
 
@@ -29,9 +29,9 @@ Among other hooks, **Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OS
 
 For example, the following function leverages the OSI L7 hook [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) and will log every dissected protocol message to the console:
 
-```bash
+```js
 function onItemCaptured(data) {
-  console.log("Msg:",JSON.stringify(data));
+  console.log("Msg:", JSON.stringify(data));
 }
 ```
 > Read more in the  [hooks](/en/automation_hooks) section.
@@ -53,13 +53,14 @@ vendor.webhook(
 
 ## Jobs
 
-Jobs are functions that are automated to run on a schedule. 
+Jobs are functions that are automated to run on a schedule.
 
 This example schedules the function *exampleJob* to run every 5 minutes:
 
-```bash
+```js
 jobs.schedule("example-job", "0 */5 * * * *", exampleJob)
 ```
+
 Jobs can be added and removed on-demand and in real-time based on programable decisions.
 
 > Read more in the [jobs](/en/automation_jobs) section.

@@ -9,11 +9,12 @@ layout: ../../layouts/MainLayout.astro
 
 ## Sending Identity-aware Latency Information
 
-The following example uses the [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) hook to send latency and status-code data to an InfluxDB instance on every API call. In addition to the latency and status metrics, each message includes the service, path and namespace as tags to enable easy filtering in InfluxDB.
+The following example utilizes the [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) hook and calls [`vendor.influxdb`](/en/automation_helpers#vendorinfluxdburl-string-token-string-organization-string-bucket-string-measurement-string-data-object-tags-object) to send latency and status-code data to an InfluxDB instance on every API call. In addition to the latency and status metrics, each message includes the service, path and namespace as tags to enable easy filtering in InfluxDB.
 
 ```js
 function onItemCaptured(data) {
   if (data.protocol.name !== "http") return;  // ignore non-HTTP traffic
+
   vendor.influxdb(
     env.INFLUXDB_URL,
     env.INFLUXDB_TOKEN,
@@ -30,12 +31,11 @@ function onItemCaptured(data) {
       namespace:  data.namespace
     }                                         // Key-Value Tags
   );
-
 }
 ```
 The example assumes the key properties that are required for authentication are stored in the **kubeshark**'s configuration file as [environment variables](http://localhost:3000/en/config#scripts).
 
-Read the [Scripting API Reference](http://localhost:3000/en/automation_helpers#vendorinfluxdburl-string-token-string-measurement-string-organization-string-bucket-string-data-object-tags-object) to learn more about the InfluxDB helper.
+> See [`vendor.influxdb`](/en/automation_helpers#vendorinfluxdburl-string-token-string-organization-string-bucket-string-measurement-string-data-object-tags-object) for more info.
 
 Read the [onItemCaptured](http://localhost:3000/en/automation_hooks#onitemcaptureddata-object) hook section to learn more about data that becomes available when using this hook.
 
@@ -43,13 +43,13 @@ Read the [onItemCaptured](http://localhost:3000/en/automation_hooks#onitemcaptur
 
 Installing a local instance of InfluxDB is pretty straight forward and shouldn't take more than a few minutes.
 
-Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/install/) to install a local instance or go to [InfluxData Website](https://www.influxdata.com/), the company behind InfluxDB to sign up and use a cloud-hosted version.
+Follow the [InfluxDB's documentation](https://docs.influxdata.com/influxdb/v2.6/install/) to install a local instance or go to [InfluxData Website](https://www.influxdata.com/), the company behind InfluxDB to sign up and use a cloud-hosted version.
 
 ### Install a local Instance
 
 As an example, you can use the following command to install a local instance of InfluxDB on Mac OS and then start it:
 
-```bash
+```shell
 brew update
 brew install influxdb
 influxd
@@ -65,7 +65,7 @@ To send a message to your InfluxDB instance you need the following properties:
 - Metrics: Key-value set
 - Tags: Key-value set
 
-Follow the [documentation](https://docs.influxdata.com/influxdb/v2.6/get-started/setup/) to create the following:
+Follow the [InfluxDB's documentation](https://docs.influxdata.com/influxdb/v2.6/get-started/setup/) to create the following:
 - API Token
 - Organization
 - A bucket
@@ -80,7 +80,7 @@ While you can created numerous metrics, queries and graphs, some properties are 
 
 This query presents a latency graph for each API call including the service name, the path and namespace of each data point. Having these tags is useful to filter the APIs based on service, path and namespace properties.
 
-```bash
+```shell
 from(bucket: "Metrics")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r["_measurement"] == "PerformanceKPIs")
@@ -96,7 +96,7 @@ This would be the graph resulting from this query:
 
 The following query, which is almost similar to the previous one, uses the data sent using the `onItemCaptured` hook (see a couple of paragraph above) to present the status code of each API call with the path and service name information included for every data point.
 
-```bash
+```shell
 from(bucket: "Metrics")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r["_measurement"] == "PerformanceKPIs")
@@ -123,7 +123,7 @@ Go ahead, copy and paste the query from InfluxDB to Grafana amd continue manipul
 
 Defining the above chart and form selectors in Grafana is done with this query:
 
-```bash
+```shell
 from(bucket: "Metrics")
   |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
   |> filter(fn: (r) => r["_measurement"] == "PerformanceKPIs")

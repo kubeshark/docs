@@ -8,9 +8,9 @@ mascot:
 
 ## PCAP - Network Traces
 
-PCAP, short for packet capture, is a [file format](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html#name-introduction) that is commonly used by network analysis tools such as [Wireshark](https://wireshark.org), [Fiddler](https://www.telerik.com/fiddler) and [TCPdump](https://www.tcpdump.org/). 
+PCAP, short for packet capture, is a [file format](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html#name-introduction) that is commonly used by network analysis tools such as [Wireshark](https://wireshark.org), [Fiddler](https://www.telerik.com/fiddler) and [TCPdump](https://www.tcpdump.org/).
 
-PCAP file format is suitable to contains network traces that include all communication information relevant to the trace. 
+PCAP file format is suitable to contains network traces that include all communication information relevant to the trace.
 
 ## Distributed PCAP-based Storage
 
@@ -20,15 +20,15 @@ As the raw network traces do not include identity information (e.g. service name
 
 ## Export a Network Snapshot
 
-**Kubeshark** enables you to export any network snapshot that is represented by a [KFL](/en/kfl) query. The network snapshot comes in the form of a compressed PCAP repository that includes one PCAP file per node, where all L4 streams that match the KFL query at the specific node are merged into that PCAP file.
+**Kubeshark** enables you to export any network snapshot that is represented by a [filter](/en/filtering). The network snapshot comes in the form of a compressed PCAP repository that includes one PCAP file per node, where all L4 streams that match the filter at the specific node are merged into that PCAP file.
 
 ![Selective Network Snapshot](/network-snapshot.png)
 
 **Kubeshark** enables you to manually export a network snapshot or conditionally generate and upload a network snapshot to an immutable datastore.
 
-### Manual PCAP Export 
+### Manual PCAP Export
 
-Clicking the PCAP button will download the compressed PCAP repository in a `.tar.gz` format. 
+Clicking the PCAP button will download the compressed PCAP repository in a `.tar.gz` format.
 
 ![PCAP Button](/PCAP-button.png)
 
@@ -36,15 +36,15 @@ The PCAP repository will also include one file named: `name_resolution_history.j
 
 ![PCAP Snapshot](/pcap-snapshot.png)
 
-The example below shows how to export a network snapshot of the past 72 hours: 
+The example below shows how to export a network snapshot of the past 72 hours:
 
 ![Historical Traffic](/history2.png)
 
 ## Network Snapshot Automation
 
-You can write custom-logic scripts to generate network snapshots based on programmatic decisions and then export the generated PCAP repositories to S3. 
+You can write custom-logic scripts to generate network snapshots based on programmatic decisions and then export the generated PCAP repositories to S3.
 
-> Read more in the [Cloud Forensics](/en/cloud_forensics) section. 
+> Read more in the [Cloud Forensics](/en/cloud_forensics) section.
 
 ## View the PCAP Snapshot
 
@@ -60,9 +60,9 @@ Running the above command will open **Kubeshark** Web UI in your browser and dis
 
 ## OSI L4 (TCP/UDP) Streams
 
-**Kubeshark** stores the dissected protocols' complete TCP or UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server. 
+**Kubeshark** stores the dissected protocols' complete TCP or UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server.
 
-> NOTE: Captured TCP or UDP streams that do not belong to a dissected protocols are discarded. 
+> NOTE: Captured TCP or UDP streams that do not belong to a dissected protocols are discarded
 
 ### L4 Stream Section
 

@@ -1,10 +1,10 @@
 ---
 title: Cloud Forensics
-description:  
+description: Cloud forensics through raw traffic capture and PCAP export from your Kubernetes network.
 layout: ../../layouts/MainLayout.astro
 ---
 
-Cloud forensics can be extremely useful for incident investigation, both for security and infrastructure professionals. 
+Cloud forensics can be extremely useful for incident investigation, both for security and infrastructure professionals.
 
 Traffic includes information that can be useful to find the root cause of a problem or a breach.
 
@@ -17,34 +17,32 @@ Continuous, query-based forensics generation is a process that runs in the backg
 ![](/kfl-pcap-s3-3.png)
 
 Here's an example of a script that continuously monitors traffic, matching the traffic against two KFL queries:
-- `http and (response.status==500)` - HTTP traffic with `500` response code 
+
+- `http and response.status == 500` - HTTP traffic with `500` response code
 - `dns` - DNS traffic
 
-Matching L4 streams will be added into a PCAP repository, compressed and uploaded to AWS S3. 
+Matching L4 streams will be added into a PCAP repository, compressed and uploaded to AWS S3.
 
 ```js
-    var KFL_PCAP_S3_KFL_ARR =[
-        "http and (response.status==500)",
-        "dns",
-    ];
+var KFL_PCAP_S3_KFL_ARR = [
+  "http and response.status == 500",
+  "dns",
+];
 
-    function onItemCaptured(data) {
-        wrapper.kflPcapS3(data, { 
-            kflArr:             KFL_PCAP_S3_KFL_ARR, // Mandory     
-        });
+function onItemCaptured(data) {
+  wrapper.kflPcapS3(data, {
+      kflArr:             KFL_PCAP_S3_KFL_ARR, // Mandory
+  });
+}
 ```
 
-> Read the full description of the kflPcapS3 wrapper [here](/en/automation_wrappers#wrapperkflpcaps3).
+> See [`wrapper.kflPcapS3`](/en/automation_wrappers#wrapperkflpcaps3) for more info.
 
-## TL;DR
+### Filtering
 
-### KFL
+For example, the KFL statement: `http and response.status == 500` will match a TCP stream that's HTTP in terms of application-layer and at least one response with the status `500`.
 
-KFL (Kubeshark Filtering Language) is a rich query language that can be used to filter L4 streams that match the a query.
-
-For example, the KFL query: `http and (response.status==500)` will match L4 streams that include `HTTP` traffic and at least one response with the status 500.
-
-> Read more in the [KFL](/en/kfl) section
+> Read more in the [filtering](/en/filtering) section.
 
 ### PCAP
 

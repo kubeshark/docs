@@ -1,6 +1,6 @@
 ---
 title: Configuration
-description: Docs intro
+description: Kubeshark configuration explained in detail.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -127,11 +127,11 @@ You can now access  **Kubeshark** **Web UI** from a remote server.
 
 As stated above, when you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
 
-### Scripts 
+### Scripts
 
 Information related to **Kubeshark**'s scripting engine. For example:
 
-```bash
+```shell
 scripting:
     env:
       CONSTANT-NAME-1: "VALUE"
@@ -141,7 +141,7 @@ scripting:
 
 #### Source Folders
 
-```bash
+```shell
 scripting:
     source: "/path/to/script/folder"
 ```
@@ -151,7 +151,7 @@ A path for the scripts folder. If not empty and pre-populated with scripts, all 
 
 This section includes variable that can be used inside of scripts.
 
-```bash
+```shell
 scripting:
     env:
       CONSTANT-NAME-1: "VALUE"

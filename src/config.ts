@@ -54,17 +54,15 @@ export const SIDEBAR: Sidebar = {
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
       { text: 'Install & Run', link: 'en/install' }
-      // { text: 'Community Vs Pro', link: 'en/community_vs_pro' },
-      //{ text: 'Clean Up', link: 'en/clean_up' },
     ],
     'Network Analysis': [
-      { text: 'Traffic Sniffing', link: 'en/network_sniffing' },
+      { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Service Map', link: 'en/service_map' },
       { text: 'Web UI', link: 'en/ui' },
-      { text: 'Rich Query Language', link: 'en/kfl' },
+      { text: 'Filtering', link: 'en/filtering' },
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
       { text: 'PCAPs', link: 'en/pcap' },
-      // { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
+      { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
       { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'DNS', link: 'en/dns' },
       { text: 'Configuration', link: 'en/config' },
@@ -77,17 +75,12 @@ export const SIDEBAR: Sidebar = {
       { text: 'Wrappers', link: 'en/automation_wrappers' },
       { text: 'Jobs', link: 'en/automation_jobs' },
       { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' }
-      //{ text: 'Web UI Alerts', link: 'en/integrations_webui' },    
-      // { text: 'CLI Commands', link: 'en/scripting_cli_commands' },
-      // { text: 'Integrations', link: 'en/scripting_integrations' },
 
     ],
     'Integrations': [
-      // { text: 'Actions', link: 'en/integration_actions' },
-
-      { text: 'Necessary Credentials', link: 'en/integrations_credentials' },    
+      { text: 'Necessary Credentials', link: 'en/integrations_credentials' },
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
-      { text: 'Elastic search', link: 'en/integrations_elastic' },
+      { text: 'Elasticsearch', link: 'en/integrations_elastic' },
       { text: 'AWS S3', link: 'en/integrations_aws_s3' },
       { text: 'Slack', link: 'en/integrations_slack' },
       { text: 'Webhook', link: 'en/integrations_webhook' },
@@ -98,12 +91,10 @@ export const SIDEBAR: Sidebar = {
       { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
       { text: 'Actionable Detection', link: 'en/actionable_detection' }
     ],
-    // 'References': [
-    //   { text: 'KFL Syntax Reference', link: 'en/kfl_syntax_reference' },
-    // ],
     'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
+      { text: 'Permissions', link: 'en/permissions' },
     ],
   },
 };

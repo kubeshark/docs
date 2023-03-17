@@ -1,6 +1,6 @@
 ---
 title: Anatomy of Kubeshark
-description: With a distributed architecture that promises a very low CPU and network overheads and capable of processing significant amounts of traffic, Kubeshark is built to run on large scale production clusters.
+description: The distributed architecture of Kubeshark that enables scalable network traffic capture, explained with diagrams.
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---

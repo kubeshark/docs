@@ -1,6 +1,6 @@
 ---
 title: Traffic Investigation & Debugging
-description:  
+description: Kubeshark as a traffic investigation and debugging.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -14,14 +14,15 @@ Whether you are troubleshooting an infrastructure problem, modeling new threats 
 
 ![Protocol-level visibility](/ui-full.png)
 
-## Rich Query Language
+## Kubeshark Filter Language (KFL)
 
-As K8s network is massive, KFL enables you to find the \`needle in the haystack\`.
+As K8s network is massive, [filtering](/en/filtering) enables you to find the \`needle in the haystack\`.
 
 Here are a few examples:
 
 #### Filtering traffic that uses a specific token (or tokens in general)
-```bash
+
+```python
 request.headers["Authorization"] == r"Token.*"
 ```
 
@@ -45,7 +46,7 @@ The example below presents traffic captured between two timestamps:
 
 **Kubeshark** offers an instant, identity-aware **Service Map** that updates in real time, and can be used to focus your analysis on specific parts of the cluster. 
 
-In conjunction with its rich query language ([KFL](/en/kfl)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.  
+In conjunction with its filtering language ([KFL](/en/filtering#kfl-syntax-reference)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.
 
 For example, the following query will analyze the ingress traffic of two pods and the egress traffic of a third pod:
 
