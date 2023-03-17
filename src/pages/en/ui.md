@@ -23,13 +23,13 @@ Accessible via the **Service Map** button, the [Service Map](/en/service_map) up
 
 ## Query Box
 
-The query box is used to enter the [Kubeshark Filter Language (KFL)](/en/filtering) statements. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
+The query box is used to enter the [Kubeshark Filter Language (KFL)](/en/kfl) statements. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
 
 ![Kubeshark UI](/ks-filter-applied.png)
 
 You can also query by timestamp, integer, and even queryable UI elements (below). A syntax cheatsheet is available next to the query box.
 
-> **NOTE:** Read the [Filter Language](/en/filtering) section to learn more about **Kubeshark**'s Filter Language.
+> **NOTE:** Read the [Filter Language](/en/kfl) section to learn more about **Kubeshark**'s Filter Language.
 
 ### Queryable UI Elements
 

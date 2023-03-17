@@ -67,7 +67,7 @@ If you'd like to use the **Incoming Webhooks** method, hop over to the **Incomin
 
 ![Webhook URL](/slack-webhook.png)
 
-That's it, you can now use the Slack helper [`vendor.slack`](/en/scripting_api_reference#vendorslackwebhookurl-string-pretext-string-text-string-color-string) like this:
+That's it, you can now use the Slack helper [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string) like this:
 
 ```js
 vendor.slack(SLACK_WEBHOOK, "Server-side Error", JSON.stringify(data), "#ff0000");

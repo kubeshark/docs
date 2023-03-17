@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-Distributed packet capture with minimal footprint, built to run on large scale production clusters.
+Distributed packet capture with minimal footprint, built for large scale production clusters.
 
 ![Anatomy of **Kubeshark**](/diagram.png)
 
@@ -77,11 +77,3 @@ The front-end is a [React](https://reactjs.org/) app that communicates with the 
 **Pod name:** `kubeshark-front`
 
 > **NOTE:** Read more in the [Web UI](/en/ui) section.
-
-## Scripting and Actionable Detection
-
-Scripting facilitates automation and actionable detection. **Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/). 
-
-Working in conjunction with [hooks](/en/automation_hooks) and [helpers](/en/automation_helpers), scripts can trigger [actions](/en/actionable_detection) based on programmatic decisions and/or on a schedule.
-
-> Read more in the [scripting](/en/automation_scripting) section.

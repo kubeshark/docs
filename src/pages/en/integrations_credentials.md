@@ -40,7 +40,7 @@ Additional required AWS S3 properties:
 - AWS Region
 - AWS S3 Bucket
 
-> Learn more about the AWS S3 integration and the required credentials [here](/en/integration_aws_s3).
+> Learn more about the AWS S3 integration and the required credentials [here](/en/integrations_aws_s3).
 
 ## Slack
 

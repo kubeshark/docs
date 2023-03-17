@@ -22,7 +22,7 @@ The **Service Map** is quite sophisticated and can be used to support multiple u
 
 ### Focus on Specific Parts of the Cluster
 
-A busy cluster can generate a very dense **Service Map**. **Kubeshark** enables you to focus on specific parts of your cluster by using it in conjunction with a [KFL query](/en/filtering) to reduce the scope of analysis to only a subset of your cluster's traffic.  
+A busy cluster can generate a very dense **Service Map**. **Kubeshark** enables you to focus on specific parts of your cluster by using it in conjunction with a [KFL query](/en/kfl) to reduce the scope of analysis to only a subset of your cluster's traffic.  
 
 For example, the following query will analyze the ingress traffic of two pods and the egress traffic of a third pod:
 
@@ -54,7 +54,7 @@ If you have a lot of traffic, the image can be jumpy as it updates every 500ms. 
 
 The **Service Map** provides two methods to analyze historic traffic:
 1. Using a KFL query that includes a time window
-2. Using the **Service Map** functionality on a [previously exported PCAP file](/en/pcap_export_import#export-a-pcap-snapshot)
+2. Using the **Service Map** functionality on a [previously exported PCAP file](/en/pcap#export-a-pcap-snapshot)
 
 **Kubeshark** can retain the captured traffic over a long period of time, enabling **Kubeshark** to present a historic traffic snapshot.
 

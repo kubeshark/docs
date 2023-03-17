@@ -165,4 +165,4 @@ The file looks something like this:
 ```
 You can view the content of the repository using  **Kubeshark** with the `kubeshark tap --pcap <pcap-repo-name>`
 
-> Read more in the [PCAP](/en/pcap_export_import#view-the-pcap-snapshot) section
+> Read more in the [PCAP](/en/pcap#view-the-pcap-snapshot) section

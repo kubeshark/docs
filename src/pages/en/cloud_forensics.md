@@ -44,7 +44,7 @@ KFL (Kubeshark Filtering Language) is a rich query language that can be used to 
 
 For example, the KFL query: `http and (response.status==500)` will match L4 streams that include `HTTP` traffic and at least one response with the status 500.
 
-> Read more in the [KFL](/en/filtering) section
+> Read more in the [KFL](/en/kfl) section
 
 ### PCAP
 

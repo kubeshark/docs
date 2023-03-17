@@ -1,28 +1,35 @@
 ---
-title: PCAP and L4 Streams
+title: PCAP & L4 Streams
 description: With its distributed PCA-based architecture, optimized for performance and scale, Kubeshark makes PCAP or It Didn't Happen possible.
 layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 **Optimized for Performance and Scale**
 
+## PCAP - Network Traces
+
+PCAP, short for packet capture, is a [file format](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html#name-introduction) that is commonly used by network analysis tools such as [Wireshark](https://wireshark.org), [Fiddler](https://www.telerik.com/fiddler) and [TCPdump](https://www.tcpdump.org/). 
+
+PCAP file format is suitable to contains network traces that include all communication information relevant to the trace. 
+
 ## Distributed PCAP-based Storage
 
 **Kubeshark** captures all L4 (UDP and TCP) streams and stores each L4 stream in a separate PCAP file in the root file system of each node in the cluster.
-It also keeps track of name resolution history with a JSON dump. This PCAP-based workflow enables a seamless exporting and importing
-capability of the captured traffic.
+
+As the raw network traces do not include identity information (e.g. service names), **kubeshark** also keeps track of name resolution history in a JSON file that is attached to each PCAP file.
 
 ## Export a Network Snapshot
 
-**Kubeshark** enables you to export any network snapshot that is represented by a [KFL](/en/filtering) query. The network snapshot comes in the form of a compressed PCAP repository that includes one PCAP file per node, where all L4 streams that match the KFL query at the specific node are merged into that PCAP file.
+**Kubeshark** enables you to export any network snapshot that is represented by a [KFL](/en/kfl) query. The network snapshot comes in the form of a compressed PCAP repository that includes one PCAP file per node, where all L4 streams that match the KFL query at the specific node are merged into that PCAP file.
 
 ![Selective Network Snapshot](/network-snapshot.png)
 
-**Kubeshark** enables you to manually export a network snapshot or conditionally generate and export a network snapshot to an immutable datastore.
+**Kubeshark** enables you to manually export a network snapshot or conditionally generate and upload a network snapshot to an immutable datastore.
 
 ### Manual PCAP Export 
 
 Clicking the PCAP button will download the compressed PCAP repository in a `.tar.gz` format. 
+
 ![PCAP Button](/PCAP-button.png)
 
 The PCAP repository will also include one file named: `name_resolution_history.json` per each node in the cluster. `name_resolution_history.json` file contains the historical changes in the mapping of IPs to pod or service names:
@@ -32,9 +39,6 @@ The PCAP repository will also include one file named: `name_resolution_history.j
 The example below shows how to export a network snapshot of the past 72 hours: 
 
 ![Historical Traffic](/history2.png)
-
-> **NOTE:** When dealing with a large amount of traffic, this operation can take a few seconds to complete.
-
 
 ## Network Snapshot Automation
 
@@ -50,13 +54,13 @@ Kubeshark provides a **CLI** option to view a previously exported PCAP file.
 kubeshark tap --pcap <pcap-snapshot.tar.gz>
 ```
 
-Running the above command will open Kubeshark in your browser to display the content of the PCAP file.
+Running the above command will open **Kubeshark** Web UI in your browser and display the content of the PCAP file.
 
 > **TIP:** You can view the service dependency map of a previously stored PCAP file.
 
-## L4 (TCP/UDP) Streams
+## OSI L4 (TCP/UDP) Streams
 
-**Kubeshark** stores the dissected protocols' complete TCP and UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server. 
+**Kubeshark** stores the dissected protocols' complete TCP or UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server. 
 
 > NOTE: Captured TCP or UDP streams that do not belong to a dissected protocols are discarded. 
 
@@ -64,10 +68,10 @@ Running the above command will open Kubeshark in your browser to display the con
 
 ![TCP Stream](/tcp-stream.png)
 
-This section exposes some information:
+This L4 stream section exposes the following information:
 
-- The unique identifier of the TCP or UDP stream (internal to Kubeshark)
-- The index of the item in the TCP or UDP stream
+- The unique identifier of the L4 stream (internal to Kubeshark)
+- The index of the item in the L4 stream
 - The node name or IP.
 
 and buttons:
@@ -77,7 +81,7 @@ and buttons:
 
 ### L4 Stream Replay
 
-Use the **Replay** button to replay the TCP or UDP stream. Replaying a TCP or UDP stream establishes a brand new connection to the destination server using the destination IP and port of the item. It only replays the payload of client packets.
+Use the **Replay** button to replay the L4 stream. Replaying a TCP or UDP stream establishes a brand new connection to the destination server using the destination IP and port of the item. It only replays the payload of client packets.
 
 ![TCP stream Replay](/tcp-replay.png)
 

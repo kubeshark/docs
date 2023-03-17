@@ -45,7 +45,7 @@ The example below presents traffic captured between two timestamps:
 
 **Kubeshark** offers an instant, identity-aware **Service Map** that updates in real time, and can be used to focus your analysis on specific parts of the cluster. 
 
-In conjunction with its rich query language ([KFL](/en/filtering)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.  
+In conjunction with its rich query language ([KFL](/en/kfl)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.  
 
 For example, the following query will analyze the ingress traffic of two pods and the egress traffic of a third pod:
 

@@ -43,6 +43,8 @@ eBPF **without actually doing decryption**. In fact, it hooks into entry and exi
 
 Kubeshark can recognize service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/) and other service mesh solutions that use [Envoy Proxy](https://www.envoyproxy.io/) under the hood.
 
-With a combination of a scripting language, hooks, helpers and jobs, **Kubeshark** can detect suspicious network behaviors and trigger actions supported by the available integrations (e.g Slack, AWS S3, InfluxDB, Elasticsearch and more).
+## Automation, Scripts, Hooks & Actions
+
+With a combination of a [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers) and [jobs](/en/automation_jobs), **Kubeshark** can detect suspicious network behaviors and trigger actions supported by the available integrations (e.g [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), [Elasticsearch](/en/integrations_elastic) and more).
 
 

@@ -532,7 +532,7 @@ var status = jobs.scheduler.stop()
 
 ## KFL
 
-The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/filtering).
+The `kfl.*` helpers provide functionality around the [**Kubeshark Filter Language (KFL)**](/en/kfl).
 
 ### `kfl.match(query: string, data: object): boolean`
 
