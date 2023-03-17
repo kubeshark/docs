@@ -42,7 +42,7 @@ The worker contains the implementations of network sniffer and kernel tracer.
 It captures the packets from all network interfaces, reassembles the TCP streams and if they are dissectable then stores them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files.
 Workers transmit the collected traffic to [**Hub**](#hub) via WebSocket connections.
 
-Kubeshark stores raw packets and dissects them on demand.
+Kubeshark stores raw packets and dissects them on demand upon [filtering](/en/filtering).
 
 The worker by itself can be used as a network sniffer on your computer without requiring a [Kubernetes](https://kubernetes.io/) cluster.
 

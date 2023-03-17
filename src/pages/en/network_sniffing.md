@@ -14,7 +14,7 @@ The **Worker** dissects the TCP or UDP traffic on demand when a [filter](/en/fil
 
 ## The TAP Command
 
-The TAP command of the CLI instructs Kubeshark to deploy the **Hub** and start tapping based on the TAP scope rules. 
+The TAP command of the CLI instructs Kubeshark to deploy the **Hub** and start tapping based on the TAP scope rules.
 > Learn more about the TAP scop rules in the [Pods & Namespaces](/en/scope) page.
 
 TAP documentation can change. To see the most up-to-date TAP documentation run:
