@@ -1,5 +1,5 @@
 ---
-title: PCAP & L4 Streams
+title: PCAP and L4 Streams
 description: With its distributed PCA-based architecture, optimized for performance and scale, Kubeshark makes PCAP or It Didn't Happen possible.
 layout: ../../layouts/MainLayout.astro
 mascot:
