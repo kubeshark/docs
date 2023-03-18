@@ -65,24 +65,24 @@ h2 {
 }
 
 :is(h4, h5, h6):not(:first-child) {
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 }
 
 h1 {
-	font-size: 3.25rem;
+	font-size: 2.25rem;
 	font-weight: 800;
 }
 
 h2 {
-	font-size: 2.5rem;
-}
-
-h3 {
 	font-size: 1.75rem;
 }
 
+h3 {
+	font-size: 1.5rem;
+}
+
 h4 {
-	font-size: 1.3rem;
+	font-size: 1.25rem;
 }
 
 h5 {
@@ -201,6 +201,9 @@ code {
 	margin: calc(var(--padding-block) * -1) -0.125em;
 	border-radius: var(--border-radius);
 	word-break: break-word;
+
+  margin: 1px;
+  padding: 3px 5px 3px 5px;
 }
 
 pre.astro-code > code {
@@ -209,6 +212,9 @@ pre.astro-code > code {
 
 pre > code {
 	font-size: 1em;
+
+  margin: 0px;
+  padding: 0px;
 }
 
 table,

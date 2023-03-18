@@ -1,6 +1,6 @@
 ---
 title: Install
-description: kubeshark tap -n sock-shop "(catalo*|front-end*)"
+description: Install and run Kubeshark inside your Kubernetes cluster in seconds.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
@@ -38,10 +38,12 @@ Here are a few examples how you can use the **Kubeshark** **CLI** to start captu
 ```shell
 kubeshark tap
 ```
-```
+
+```shell
 kubeshark tap -A
 ```
-```
+
+```shell
 kubeshark tap -n sock-shop "(catalo*|front-end*)"
 ```
 
@@ -51,3 +53,21 @@ Once you run the CLI, a browser window will open at **localhost:8899** by defaul
 
 
 ![Kubeshark UI](/kubeshark-ui.png)
+
+## Clean Up
+
+To clean up a Kubeshark deployment from your cluster, simply run:
+
+```shell
+kubeshark clean
+```
+
+### Only A Certain Namespace
+
+By default, Kubeshark the `clean` command removes the any Kubeshark deployments
+cluster-wide. To clean up only a certain namespace:
+
+```shell
+kubeshark clean -n sock-shop
+```
+

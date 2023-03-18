@@ -1,18 +1,26 @@
 ---
-title: Kubernetes Observability
-description: Kubeshark is an API Traffic Viewer for Kubernetes providing deep visibility and monitoring of all API traffic and payloads going in, out and across containers and pods inside a Kubernetes cluster.
+title: Kubernetes Network Analyzer
+description: Real-time K8s network visibility and forensics, capturing and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
 **Through Scalable & Secure Traffic Capture**
 
-**Kubeshark** is an API Traffic Viewer for [Kubernetes](https://kubernetes.io/) providing real-time, protocol-level visibility into Kubernetes’ internal network, capturing, dissecting and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
+**Kubeshark** is an API Traffic Analyzer for [Kubernetes](https://kubernetes.io/) providing real-time, protocol-level visibility into Kubernetes’ internal network, capturing, dissecting and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
 Think [TCPDump](https://en.wikipedia.org/wiki/Tcpdump) and [Wireshark](https://www.wireshark.org/) re-invented for Kubernetes.
 
+## Kubeshark Use-cases
+Visit the following sections to read more about use-cases, Kubeshark can be helpful with:
+- [Investigation & Debugging](/en/traffic_investigation)
+- [Observability & Telemetry](/en/observability)
+- [Cloud Forensics](/en/cloud_forensics)
+- [Actionable Detection](/en/actionable_detection)
+
+## Network Analysis
 Kubeshark can sniff parts or all TCP traffic in your cluster, record it into a PCAP file and dissect the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
@@ -34,3 +42,9 @@ eBPF **without actually doing decryption**. In fact, it hooks into entry and exi
 [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
 
 Kubeshark can recognize service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/) and other service mesh solutions that use [Envoy Proxy](https://www.envoyproxy.io/) under the hood.
+
+## Automation, Scripts, Hooks & Actions
+
+With a combination of a [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers) and [jobs](/en/automation_jobs), **Kubeshark** can detect suspicious network behaviors and trigger actions supported by the available integrations (e.g [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), [Elasticsearch](/en/integrations_elastic) and more).
+
+

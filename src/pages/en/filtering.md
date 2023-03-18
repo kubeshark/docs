@@ -1,10 +1,10 @@
 ---
 title: Filtering
-description: The filter input enables filtering results using Kubeshark Filter Language (KFL)
+description: The filter input enables filtering results using Kubeshark Filter Language (KFL).
 layout: ../../layouts/MainLayout.astro
 ---
 
-The filter input enables filtering results using [**Kubeshark Filter Language (KFL)**](#kfl-reference) For example; to only see the items with HTTP client error responses (`400` – `499`), enter:
+**Kubeshark Filter Language (KFL)** is a language that enables you filter traffic that matches a boolean expression. For example; to only see the items with HTTP reponse status codes (`400` – `499`), enter:
 
 ```python
 http and response.status == r"4.*"
@@ -18,23 +18,13 @@ and click the **Apply** button. Your traffic stream will look like this:
 
 When you hover over UI elements and they display a green plus sign, it means this element can be added to your query. Selecting an element with a green plus sign will add this element to the query. For example, selecting this queryable element:
 
-![query](/filter-ui-example.png)
+![Queryable UI Elements Example](/filter-ui-example.png)
 
 adds `response.status == 201` to your query and only displays `HTTP 201` responses in the live traffic streaming.
 
-## Filtering Guide (Cheatsheet)
-
-**Kubeshark** has a built-in cheatsheet to guide for the filtering functionality.
-
-![KFL Cheatsheet](/cheatsheet.png)
-
-The cheatsheet is available by pressing the button that is adjacent to the **Apply** button, right to the filter input.
-
-![KFL Cheatsheet button](/cheatsheet-button.png)
-
 ## KFL Syntax Reference
 
-**Kubeshark** Filter Language (KFL) is the language implemented inside **Kubeshark** server that enables the user to query the traffic logs efficiently and precisely.
+**Kubeshark Filter Language (KFL)** is the language implemented inside [`kubeshark/worker`](https://github.com/kubeshark/worker) that enables the user to filter the traffic efficiently and precisely.
 
 ```python
 http and request.method == "GET" and request.path != "/example" and (request.query.a > 42 or request.headers["x"] == "y")

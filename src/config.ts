@@ -52,34 +52,49 @@ export const SIDEBAR: Sidebar = {
   en: {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
-     // { text: 'Benefits', link: 'en/benefits' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Install & Run', link: 'en/install' },
-      { text: 'Clean Up', link: 'en/clean_up' },
+      { text: 'Install & Run', link: 'en/install' }
     ],
-    'Features': [
-      { text: 'Web UI', link: 'en/ui' },
+    'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Service Map', link: 'en/service_map' },
-      { text: 'Encrypted Traffic', link: 'en/encrypted_traffic' },
-      { text: 'Pods & Namespaces', link: 'en/scope' },
+      { text: 'Web UI', link: 'en/ui' },
       { text: 'Filtering', link: 'en/filtering' },
-      { text: 'PCAP Export/Import', link: 'en/pcap_export_import' },
+      { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
+      { text: 'PCAPs', link: 'en/pcap' },
       { text: 'TCP/UDP Streams', link: 'en/tcp_streams' },
+      { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'DNS', link: 'en/dns' },
-    ],
-    'Advanced': [
       { text: 'Configuration', link: 'en/config' },
-      //{ text: 'Permissions', link: 'en/permissions' },
+    ],
+    'Automation': [
+      { text: 'Introduction', link: 'en/automation_introduction' },
+      { text: 'Scripting', link: 'en/automation_scripting' },
+      { text: 'Hooks', link: 'en/automation_hooks' },
+      { text: 'Helpers', link: 'en/automation_helpers' },
+      { text: 'Wrappers', link: 'en/automation_wrappers' },
+      { text: 'Jobs', link: 'en/automation_jobs' },
+      { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' }
+
+    ],
+    'Integrations': [
+      { text: 'Necessary Credentials', link: 'en/integrations_credentials' },
+      { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
+      { text: 'Elasticsearch', link: 'en/integrations_elastic' },
+      { text: 'AWS S3', link: 'en/integrations_aws_s3' },
+      { text: 'Slack', link: 'en/integrations_slack' },
+      { text: 'Webhook', link: 'en/integrations_webhook' },
+    ],
+    'Use Cases': [
+      { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
+      { text: 'Observability & Telemetry', link: 'en/observability' },
+      { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
+      { text: 'Actionable Detection', link: 'en/actionable_detection' }
+    ],
+    'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
-      //	{ text: 'Helm chart', link: 'en/TBD' },
+      { text: 'Permissions', link: 'en/permissions' },
     ],
-    // 'Advanced': [
-    //     { text: 'Installing plugins', link: 'en/installing_plugins' },
-    //     { text: 'Developing plugins', link: 'en/developing_plugins' },
-    //     { text: 'Hooks reference', link: 'en/hooks_reference' },
-    //     { text: 'Integrations', link: 'en/integrations' },
-    // ],
   },
 };

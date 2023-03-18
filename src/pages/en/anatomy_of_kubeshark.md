@@ -1,15 +1,13 @@
 ---
 title: Anatomy of Kubeshark
-description: With a distributed architecture that promises a very low CPU and network overheads and capable of processing significant amounts of traffic, Kubeshark is built to run on large scale production clusters.
+description: The distributed architecture of Kubeshark that enables scalable network traffic capture, explained with diagrams.
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-Distributed packet capture with minimal footprint, built to run on large scale production clusters.
+Distributed packet capture with minimal footprint, built for large scale production clusters.
 
 ![Anatomy of **Kubeshark**](/diagram.png)
-
-> **NOTE:** Some of the protocols and integrations illustrated in the diagram (e.g. FTP, Slack) are work in progress.
 
 **Kubeshark** consists of four software components that work together harmoniously:
 
@@ -44,7 +42,7 @@ The worker contains the implementations of network sniffer and kernel tracer.
 It captures the packets from all network interfaces, reassembles the TCP streams and if they are dissectable then stores them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files.
 Workers transmit the collected traffic to [**Hub**](#hub) via WebSocket connections.
 
-Kubeshark stores raw packets and dissects them on demand upon [querying](/en/filtering).
+Kubeshark stores raw packets and dissects them on demand upon [filtering](/en/filtering).
 
 The worker by itself can be used as a network sniffer on your computer without requiring a [Kubernetes](https://kubernetes.io/) cluster.
 

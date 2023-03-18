@@ -1,11 +1,12 @@
 ---
 title: TCP/UDP streams
-description: Kubeshark stores the dissected protocols' complete TCP and UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server. 
+description: Kubeshark stores the dissected protocols' complete TCP and UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** stores the dissected protocols' complete TCP and UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server. 
-> NOTE: Captured TCP or UDP streams that do not belong to a dissected protocols are discarded. 
+**Kubeshark** stores the dissected protocols' complete TCP and UDP streams. TCP and UDP streams include all of the request-response pairs throughout the communication between client and server.
+
+> NOTE: Captured TCP or UDP streams that do not belong to a dissected protocols are discarded.
 
 ## TCP/UDP Stream Section
 
