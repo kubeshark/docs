@@ -1,11 +1,11 @@
 ---
-title: Web UI
-description: A Web UI to view all Kubernetes network traffic.
+title: The Dashboard
+description: A dashboard to view all Kubernetes network traffic.
 layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 
-The **Web UI** is made out of a [React](https://reactjs.org/) application and communicates via a websocket with the [Hub](/en/anatomy_of_kubeshark#hub). The **Web UI** displays the captured traffic in a browser.
+**Kubeshark** dashboard is made out of a [React](https://reactjs.org/) application and communicates via a websocket with the [Hub](/en/anatomy_of_kubeshark#hub). The dashboard displays the captured traffic in a browser.
 
 ![**Kubeshark** UI](/ui-full.png)
 
@@ -39,15 +39,15 @@ When you hover over UI elements and they display a green plus sign, it means thi
 
 ... adds response.status == 201 to your KFL statement, and only displays HTTP 201 responses in the live traffic streaming.
 
-## Web UI URL
+## Dashboard URL
 
-Once you run a query, the query gets added to the **Web UI** URL. This is helpful if you'd like to bookmark or store the query for further use.
+Once you run a query, the query gets added to the dashboard's URL. This is helpful if you'd like to bookmark or store the query for further use.
 
-![Web UI URL](/web-ui-url.png)
+![Dashboard URL](/web-ui-url.png)
 
 ## Streaming Traffic
 
-The left-pane shows the streaming traffic entries captured by the **Workers** and transmitted in real time through the **Hub** to the **Web UI**. Each entry includes mostly metadata like: protocol, response code, method, source and destination IPs and Pods.
+The left-pane shows the streaming traffic entries captured by the **Workers** and transmitted in real time through the **Hub** to the dashboard. Each entry includes mostly metadata like: protocol, response code, method, source and destination IPs and Pods.
 
 ![Streaming Traffic Entry](/entry.png)
 
@@ -61,7 +61,7 @@ Here's an example for a query that will show the streaming traffic:
 timestamp >= now()
 ```
 
-The above query is the default query when the **Web UI** is opened.
+The above query is the default query when the dashboard is opened.
 
 Here's an example query that matches the HTTP traffic with response status code `500`:
 

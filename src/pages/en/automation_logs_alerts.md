@@ -7,7 +7,7 @@ layout: ../../layouts/MainLayout.astro
 **Kubeshark** provides ample ways to send log messages and alerts, some are inherent and some require integrations:
 
 - Console log and error messages
-- Web UI alerts
+- Dashboard alerts
 - Slack alerts
 - Send log messages to Elasticsearch
 - Use a webhook to send anything anywhere
@@ -54,9 +54,9 @@ The following CLI command redirects the console log output to a file.
 kubeshark console > /tmp/log.txt
 ```
 
-## Web UI Alerts
+## Dashboard Alerts
 
-The **Web UI** can show alerts using the [`test.pass`](/en/automation_helpers#testpassdata-object-object) and [`test.fail`](/en/automation_helpers#testfaildata-object-object) helpers. The [`test.pass`](/en/automation_helpers#testpassdata-object-object) will color a traffic entry **green**, where the [`test.fail`](/en/automation_helpers#testfaildata-object-object) helper will color the traffic entry **red**. You can for example; call these helpers through a JavaScript conditional statements that acts as the test criteria:
+The **Kubeshark** dashboard can show alerts using the [`test.pass`](/en/automation_helpers#testpassdata-object-object) and [`test.fail`](/en/automation_helpers#testfaildata-object-object) helpers. The [`test.pass`](/en/automation_helpers#testpassdata-object-object) will color a traffic entry **green**, where the [`test.fail`](/en/automation_helpers#testfaildata-object-object) helper will color the traffic entry **red**. You can for example; call these helpers through a JavaScript conditional statements that acts as the test criteria:
 
 ```js
 function onItemQueried(data) {
@@ -68,7 +68,7 @@ function onItemQueried(data) {
 ```
 The results look like this:
 
-![Web UI Alerts](/web-ui-alerts.png)
+![Dashboard Alerts](/web-ui-alerts.png)
 
 > Read more about the `test.*` helpers in the [helpers](/en/automation_helpers) section.
 

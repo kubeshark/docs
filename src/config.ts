@@ -58,7 +58,7 @@ export const SIDEBAR: Sidebar = {
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Service Map', link: 'en/service_map' },
-      { text: 'Web UI', link: 'en/ui' },
+      { text: 'Dashboard', link: 'en/ui' },
       { text: 'Filtering', link: 'en/filtering' },
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
       { text: 'PCAPs', link: 'en/pcap' },
@@ -89,6 +89,10 @@ export const SIDEBAR: Sidebar = {
       { text: 'Observability & Telemetry', link: 'en/observability' },
       { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
       { text: 'Actionable Detection', link: 'en/actionable_detection' }
+    ],
+    'The Pro Edition': [
+      { text: 'Pro Vs Community', link: 'en/pro' },
+      { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' }
     ],
     'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },

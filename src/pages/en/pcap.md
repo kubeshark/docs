@@ -54,7 +54,7 @@ Kubeshark provides a **CLI** option to view a previously exported PCAP file.
 kubeshark tap --pcap <pcap-snapshot.tar.gz>
 ```
 
-Running the above command will open **Kubeshark** Web UI in your browser and display the content of the PCAP file.
+Running the above command will open the **Kubeshark** dashboard in your browser and display the content of the PCAP file.
 
 > **TIP:** You can view the service dependency map of a previously stored PCAP file.
 

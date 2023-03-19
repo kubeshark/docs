@@ -50,7 +50,7 @@ You can edit, add, delete scripts directly in the **workers**. Any changes you m
 
 ![Scripting Editor](/script-editor.png)
 
-To access the **Web UI**'s script editor and edit the scripts in the **workers**, press the scrips button located at the top right corner.
+To access the dashboard's script editor and edit the scripts in the **workers**, press the scrips button located at the top right corner.
 ![Scripting Button](/scripting-button.png)
 
 The **CLI** monitors the scripts folder by default and updates the **workers** on any changes. You can use the `kubeshark scripts` command to explicitly monitor the folder for changes, especially if you don't use the **CLI**.
@@ -104,6 +104,6 @@ vendor.influxdb(
 
 ## Script Examples Dropdown
 
-**Kubeshark** comes with numerous script examples representing certain use-cases as part of the **Web UI**. Use the Examples dropdown list to access the list of script examples.
+**Kubeshark** comes with numerous script examples representing certain use-cases as part of its dashboard. Use the Examples dropdown list to access the list of script examples.
 
 ![Script Examples](/script-examples.png)

@@ -33,7 +33,7 @@ to statically-typed [native Go types](https://go.dev/ref/spec#Types).
 ## Console
 
 The `console.*` helpers provide a way to print messages or debug variables in the console.
-You can access this console through web UI or `kubeshark console` command.
+You can access this console through the **Kubeshark** dashboard or the `kubeshark console` command.
 
 ### `console.log(...params: string[])`
 
@@ -59,13 +59,11 @@ console.error("Something is not right and the value is:", value)
 
 ## Test
 
-The `test.*` helpers are useful for implementing test rules and manipulating the web UI.
+The `test.*` helpers are useful for implementing test rules and manipulating the dashboard.
 
 ### `test.pass(data: object): object`
 
-Takes a single argument which is a JavaScript object, sets its `passed` field to `true` like; `data.passed = true` and
-returns that object. If you use it inside the [`onItemQueried`](/en/automation_hooks#onitemquerieddata-object) hook and return the modified `data`, it will order the
-web UI to mark that item as **green** on the left-pane.
+Takes a single argument which is a JavaScript object, sets its `passed` field to `true` like; `data.passed = true` and returns that object. If you use it inside the [`onItemQueried`](/en/automation_hooks#onitemquerieddata-object) hook and return the modified `data`, it will order the dashboard to mark that item as **green** on the left-pane.
 
 ##### Example:
 
@@ -80,8 +78,7 @@ function onItemQueried(data) {
 ### `test.fail(data: object): object`
 
 Takes a single argument which is a JavaScript object, sets its `failed` field to `true` like; `data.failed = true` and
-returns that object. If you use it inside the [`onItemQueried`](/en/automation_hooks#onitemquerieddata-object) hook and return the modified `data`, it will order the
-web UI to mark that item as **red** on the left-pane.
+returns that object. If you use it inside the [`onItemQueried`](/en/automation_hooks#onitemquerieddata-object) hook and return the modified `data`, it will order the dashboard to mark that item as **red** on the left-pane.
 
 ##### Example:
 

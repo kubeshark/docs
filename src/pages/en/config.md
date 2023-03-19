@@ -43,9 +43,9 @@ Alternatively, use the shell config option:
 kubeshark tap -A --docker-registry "docker.io/kubeshark"
 ```
 
-### Web UI IP and Accessibility
+### Dashboard IP and Accessibility
 
-For security reasons, the default address of the proxy host for the **Web UI** is set to `127.0.0.1` that allows opening only local connections.
+For security reasons, the default address of the proxy host for the **Kubeshark** dashboard is set to `127.0.0.1` that allows opening only local connections.
 
 ```shell
 tap:
@@ -58,7 +58,7 @@ Alternatively, use the shell config option:
 kubeshark tap -A --proxy-host 0.0.0.0
 ```
 
-Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that **Web UI** access isn't encrypted or authenticated.
+Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that access to the dashboard isn't encrypted or authenticated.
 
 When you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
 
@@ -98,7 +98,7 @@ tap:
 
 ### Run Kubeshark Headless
 
-By default, **Kubeshark** opens the **Web UI**. If you are running **Kubeshark** on a headless machine and you'd like NOT to open the **Web UI**, set `headless` to true.
+By default, the **Kubeshark** dashboard opens automatically. If you are running **Kubeshark** on a headless machine and you'd like NOT to open the dashboard, set `headless` to true.
 
 ```shell
 headless: true
@@ -111,7 +111,7 @@ kubeshark tap -A --set headless=true
 
 ### Public IP and Headless
 
-This is a very popular option that enables running **Kubeshark** on a public IP and without opening the **Web UI**.
+This is a very popular option that enables running **Kubeshark** on a public IP and without opening the its dashboard.
 
 ```shell
 tap:
@@ -123,7 +123,7 @@ Alternatively, use the shell config option:
 ```shell
 kubeshark tap -A --proxy-host 0.0.0.0 --set headless=true
 ```
-You can now access  **Kubeshark** **Web UI** from a remote server.
+You can now access the **Kubeshark** dashboard from a remote server.
 
 As stated above, when you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
 

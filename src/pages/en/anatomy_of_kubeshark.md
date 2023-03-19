@@ -66,9 +66,9 @@ Kubeshark's configuration includes a storage limit that is set to 200MB by defau
 
 To reduce potential network overhead, only a fraction of the traffic is sent over the network upon request.
 
-## Front-end
+## The Dashboard
 
-The front-end is a [React](https://reactjs.org/) app that communicates with the [**Hub**](#hub) via WebSocket and displays the captured traffic in a scrolling feed.
+**Kubeshark**'s dashboard is a [React](https://reactjs.org/) app that communicates with the [**Hub**](#hub) via WebSocket and displays the captured traffic in a scrolling feed.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
@@ -76,4 +76,4 @@ The front-end is a [React](https://reactjs.org/) app that communicates with the 
 
 **Pod name:** `kubeshark-front`
 
-> **NOTE:** Read more in the [Web UI](/en/ui) section.
+> **NOTE:** Read more in the [dashboard](/en/ui) section.

@@ -169,11 +169,11 @@ The data structure of `request` and `response` fields change based on the `proto
 
 `elapsedTime` is the time that passed until the emit of this item.
 
-`passed` field manipulates the web UI to mark the item as **green** in the left-pane.
+`passed` field manipulates the dashboard to mark the item as **green** in the left-pane.
 
-`failed` field manipulates the web UI to mark the item as **red** in the left-pane.
+`failed` field manipulates the dashboard to mark the item as **red** in the left-pane.
 
-The hook `onItemQueried` is called whenever an already captured and stored TCP/UDP stream is queried or fetched through the web UI.
+The hook `onItemQueried` is called whenever an already captured and stored TCP/UDP stream is queried or fetched through the dashboard.
 All of its other aspects are same with the [`onItemCaptured`](#onitemcaptureddata-object) hook.
 
 > The call to hook `onItemQueried` depends on user's action, it's **not** sourced from network traffic capture.

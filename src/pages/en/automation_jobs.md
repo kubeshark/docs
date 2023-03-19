@@ -11,11 +11,11 @@ Jobs are added by adding one line of code at the script scope.
 jobs.schedule("push-status-codes-to-influxdb", "0 */1 * * * *", pushStatusCodesToInfluxDB);
 ```
 
-**Kubeshark** uses a [crontab](https://crontab.guru/) mechanism to schedule Jobs at the node level. It furthers provides complete control over the scheduled Jobs via the **Web UI**.
+**Kubeshark** uses a [crontab](https://crontab.guru/) mechanism to schedule Jobs at the node level. It furthers provides complete control over the scheduled Jobs via the dashboard.
 
 
 ## The Jobs Dashboard
-The Jobs Dashboard enables complete control over schedule jobs enabling the following operations:
+The jobs dashboard enables complete control over schedule jobs enabling the following operations:
 - Stop a specific Jobs or all Jobs
 - Start / Re-start a specific Job or all Jobs
 - Delete a specific Job or all Jobs
