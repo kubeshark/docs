@@ -27,7 +27,7 @@ function onPacketCaptured(info) {
 ```
 The `onPacketCaptured` is an OSI L4 network hook. It is called whenever a new network packet is captured by **Kubeshark**.
 
-On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that; a poorly optimized `onPacketCaptured` implementation can have a **performance impact** on the network traffic capture speed of **Kubeshark**. Therefore it's logical to not call certain helpers (e.g. [`console.log`](/en/automation_helpers#consolelogparams-string) or [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string)) and instead use this hook to aggregate data into a global variable and then handle the aggregated data in another hook or a job:
+On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that; a poorly optimized `onPacketCaptured` implementation can have a **performance impact** on the network traffic capture speed of **Kubeshark**. Therefore it's logical to not call certain helpers (e.g. [`console.log`](/en/automation_helpers#consolelogargs-string) or [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string)) and instead use this hook to aggregate data into a global variable and then handle the aggregated data in another hook or a job:
 
 ```js
 var packetCount = 0;
@@ -80,9 +80,9 @@ function onItemCaptured(data) {
 }
 ```
 
-The hook `onItemCaptured` is an OSI L7 network hook that is called whenever a TCP/UDP stream is captured, reassembled and successfully dissected by one of the protocol parsers of **Kubeshark**. 
+The hook `onItemCaptured` is an OSI L7 network hook that is called whenever a TCP/UDP stream is captured, reassembled and successfully dissected by one of the protocol parsers of **Kubeshark**.
 
-This hook is triggered less compared to the `onPacketCaptured` hook, since multiple packets translate into a protocol-level message (e.g. an HTTP request-response pair, a Kafka publish, a Kafka consume or an AMQP exchange declare). 
+This hook is triggered less compared to the `onPacketCaptured` hook, since multiple packets translate into a protocol-level message (e.g. an HTTP request-response pair, a Kafka publish, a Kafka consume or an AMQP exchange declare).
 
 The item's scope is determined by the corresponding application layer protocol as one can imagine. For example; an HTTP request-response pair contains a lot parameters   while an AMQP exchange declare is quite a simple message.
 
@@ -173,6 +173,8 @@ The data structure of `request` and `response` fields change based on the `proto
 
 `failed` field manipulates the dashboard to mark the item as **red** in the left-pane.
 
+## `onItemQueried(data: object)`
+
 The hook `onItemQueried` is called whenever an already captured and stored TCP/UDP stream is queried or fetched through the dashboard.
 All of its other aspects are same with the [`onItemCaptured`](#onitemcaptureddata-object) hook.
 
@@ -220,12 +222,12 @@ The hook `onJobFailed` is called whenever a job fails.
 
 `err` is the error message.
 
-## Examples for the Input Parameter: Data
+## Example values of the `data` argument
 
+Here are some example values of the `data` argument that being used in
+[`onItemCaptured`](#onitemcaptureddata-object) and [`onItemQueried`](#onitemquerieddata-object) hooks:
 
-Here's an example of the input variable `data` content:
-
-### HTTP Data Record
+### HTTP
 
 ```js
 {
@@ -328,7 +330,7 @@ Here's an example of the input variable `data` content:
   "worker": "192.168.49.2:8897"
 }
 ```
-### DNS Data Record
+### DNS
 
 ```js
 {

@@ -1,5 +1,5 @@
 ---
-title: The Kubernetes Network Analyzer 
+title: The Kubernetes Network Analyzer
 description: Real-time K8s network visibility and forensics, capturing and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
@@ -14,6 +14,7 @@ mascot: Hello
 Think [TCPDump](https://en.wikipedia.org/wiki/Tcpdump) and [Wireshark](https://www.wireshark.org/) re-invented for Kubernetes.
 
 ## Kubeshark Use-cases
+
 Visit the following sections to read more about use-cases, Kubeshark can be helpful with:
 - [Investigation & Debugging](/en/traffic_investigation)
 - [Observability & Telemetry](/en/observability)
@@ -21,6 +22,7 @@ Visit the following sections to read more about use-cases, Kubeshark can be help
 - [Actionable Detection](/en/actionable_detection)
 
 ## Network Analysis
+
 Kubeshark can sniff parts or all [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 (TCP and UDP) traffic in your cluster, record it into PCAP files and dissect the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)

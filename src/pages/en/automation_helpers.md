@@ -35,7 +35,7 @@ to statically-typed [native Go types](https://go.dev/ref/spec#Types).
 The `console.*` helpers provide a way to print messages or debug variables in the console.
 You can access this console through the **Kubeshark** dashboard or the `kubeshark console` command.
 
-### `console.log(...params: string[])`
+### `console.log(...args: string[])`
 
 Takes N number of `string` typed arguments, concatenates them and prints them to the console with " "(whitespace) as separator between
 the arguments.
@@ -46,7 +46,7 @@ the arguments.
 console.log("The variable x is:", x)
 ```
 
-### `console.error(...params: string[])`
+### `console.error(...args: string[])`
 
 Takes N number of `string` typed arguments, concatenates them and prints them to the console **as error messages** with " "(whitespace) as separator between
 the arguments.

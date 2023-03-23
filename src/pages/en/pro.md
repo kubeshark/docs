@@ -1,17 +1,18 @@
 ---
-title: Pro Vs Community
-description: 
+title: Pro vs. Community
+description: The difference between Pro Edition and Community Edition
 layout: ../../layouts/MainLayout.astro
-mascot:
 ---
 ## Investigation & API Debugging
+
 **Community Edition**
 
 **Kubeshark** community edition provides real-time protocol-level visibility to K8s traffic in addition to an identity-aware service map and a rich query language that helps identify culprits.
 
-> Read more in the [Investigation & API Debugging](/en/traffic_investigation) section. 
+> Read more in the [Investigation & API Debugging](/en/traffic_investigation) section.
 
-## Actionable Network Observability 
+## Actionable Network Observability
+
 **Pro Edition**
 
 The Pro edition enables you to monitor traffic, leverage the full power of automation to detect suspicious network behaviors and trigger one of the supported actions:

@@ -14,8 +14,8 @@ layout: ../../layouts/MainLayout.astro
 
 ## Console Log & Error Messages
 
-The [`console.log`](/en/automation_helpers#consolelogparams-string) helper enables writing log messages that can be read using the `kubeshark console` CLI command.
-The [`console.error`](/en/automation_helpers#consoleerrorparams-string) sends a message to [`stderr`](https://linux.die.net/man/3/stderr).
+The [`console.log`](/en/automation_helpers#consolelogargs-string) helper enables writing log messages that can be read using the `kubeshark console` CLI command.
+The [`console.error`](/en/automation_helpers#consoleerrorargs-string) sends a message to [`stderr`](https://linux.die.net/man/3/stderr).
 
 This script example calculates and sends telemetry information once per minute.
 
@@ -46,7 +46,7 @@ When used in conjunctions with `kubeshark console` you can expect the following 
 
 ![Console Log](/console-log-1.png)
 
-Redirecting the command's output to STDOUT will redirect only the results of [`console.log`](/en/automation_helpers#consolelogparams-string) and omit error messages that were sent to [`stderr`](https://linux.die.net/man/3/stderr).
+Redirecting the command's output to STDOUT will redirect only the results of [`console.log`](/en/automation_helpers#consolelogargs-string) and omit error messages that were sent to [`stderr`](https://linux.die.net/man/3/stderr).
 
 The following CLI command redirects the console log output to a file.
 
