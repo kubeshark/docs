@@ -91,7 +91,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Detection Engineering', link: 'en/actionable_detection' }
     ],
     'The Pro Edition': [
-      { text: 'Pro Vs Community', link: 'en/pro' },
+      { text: 'Pro vs. Community', link: 'en/pro' },
       { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' }
     ],
     'Misc': [
