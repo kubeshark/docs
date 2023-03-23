@@ -13,11 +13,11 @@ mascot:
 
 ![Targeted PODs](/targets.png)
 
-At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date list of Pods that are being tapped. As **Kubeshark** follows dynamically started and stopped Pods, this list can change in real time.
+At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date list of Pods that are being tapped. As **Kubeshark** follows dynamically started and stopped Pods, this list can change in real-time.
 
 ## Service Map
 
-Accessible via the **Service Map** button, the [Service Map](/en/service_map) updates in real time and can analyze dependencies of a system-wide or a subset of traffic.
+Accessible via the **Service Map** button, the [Service Map](/en/service_map) updates in real-time and can analyze dependencies of a system-wide or a subset of traffic.
 
 ![Service Map Button](/service-map-button.png)
 
@@ -47,7 +47,7 @@ Once you run a query, the query gets added to the dashboard's URL. This is helpf
 
 ## Streaming Traffic
 
-The left-pane shows the streaming traffic entries captured by the **Workers** and transmitted in real time through the **Hub** to the dashboard. Each entry includes mostly metadata like: protocol, response code, method, source and destination IPs and Pods.
+The left-pane shows the streaming traffic entries captured by the **Workers** and transmitted in real-time through the **Hub** to the dashboard. Each entry includes mostly metadata like: protocol, response code, method, source and destination IPs and Pods.
 
 ![Streaming Traffic Entry](/entry.png)
 

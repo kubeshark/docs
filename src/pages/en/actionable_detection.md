@@ -1,5 +1,5 @@
 ---
-title: Actionable Detection
+title: Detection Engineering
 description: Detecting anomalies and load or suspicious activity inside the Kubernetes network.
 layout: ../../layouts/MainLayout.astro
 ---

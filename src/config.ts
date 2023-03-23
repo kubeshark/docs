@@ -88,7 +88,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
       { text: 'Observability & Telemetry', link: 'en/observability' },
       { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
-      { text: 'Actionable Detection', link: 'en/actionable_detection' }
+      { text: 'Detection Engineering', link: 'en/actionable_detection' }
     ],
     'The Pro Edition': [
       { text: 'Pro Vs Community', link: 'en/pro' },

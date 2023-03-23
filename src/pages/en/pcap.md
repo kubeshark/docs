@@ -1,5 +1,5 @@
 ---
-title: PCAP and L4 Streams
+title: PCAPs and L4 Streams
 description: With its distributed PCA-based architecture, optimized for performance and scale, Kubeshark makes PCAP or It Didn't Happen possible.
 layout: ../../layouts/MainLayout.astro
 mascot:
@@ -8,7 +8,9 @@ mascot:
 
 ## PCAP - Network Traces
 
-PCAP, short for packet capture, is a [file format](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html#name-introduction) that is commonly used by network analysis tools such as [Wireshark](https://wireshark.org), [Fiddler](https://www.telerik.com/fiddler) and [TCPdump](https://www.tcpdump.org/).
+PCAP, short for packet capture, is an API and a [file format](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html#name-introduction) that is commonly used by network analysis tools such as [Wireshark](https://wireshark.org), [Fiddler](https://www.telerik.com/fiddler) and [TCPdump](https://www.tcpdump.org/).
+
+PCAP provides all packet information from the Ethernet header all the way to the application payload, providing you with the full visibility of the application and network interaction, pre- and post-event.
 
 PCAP file format is suitable to contains network traces that include all communication information relevant to the trace.
 
@@ -18,9 +20,18 @@ PCAP file format is suitable to contains network traces that include all communi
 
 As the raw network traces do not include identity information (e.g. service names), **kubeshark** also keeps track of name resolution history in a JSON file that is attached to each PCAP file.
 
-## Export a Network Snapshot
+### On-demand Network Traces (PCAPs)
 
-**Kubeshark** enables you to export any network snapshot that is represented by a [filter](/en/filtering). The network snapshot comes in the form of a compressed PCAP repository that includes one PCAP file per node, where all L4 streams that match the filter at the specific node are merged into that PCAP file.
+Kubeshark provides means to export network traces on-demand in PCAP format, without any need for code instrumentation. You can use a [rich filtering language](/en/filtering) to define the areas in your network you'd like to include in the trace. 
+
+For example, when I want to export all gRPC traffic between two pods when a certain token is used.
+```js
+grpc and 
+request.headers["Authorization"] == r"Token.*" and 
+src.name == "front-end.sock-shop" and 
+dst.name == "catalogue.sock-shop"
+```
+The resulting network trace will include all L4 streams that match the query, all the way to the ethernet packets.
 
 ![Selective Network Snapshot](/network-snapshot.png)
 

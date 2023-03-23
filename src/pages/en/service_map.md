@@ -4,7 +4,7 @@ description: Kubeshark offers a Service Dependency Graph to display your Kuberne
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** offers an instant, identity-aware **Service Map** that updates in real time, and can be used to focus your analysis on specific parts of the cluster. 
+**Kubeshark** offers an instant, identity-aware **Service Map** that updates in real-time, and can be used to focus your analysis on specific parts of the cluster. 
 
 The **Service Map** provides the following information in a visual graph:
 - Label identity for internal workloads and DNS identity for external workloads
@@ -44,7 +44,7 @@ Here's another example, when you'd like to analyze the traffic at a specific nod
 
 ### View Real Time Changes
 
-By default, the **Service Map** updates in real time and can show changes that are inferred directly from traffic as traffic is streaming in.
+By default, the **Service Map** updates in real-time and can show changes that are inferred directly from traffic as traffic is streaming in.
 
 If you have a lot of traffic, the image can be jumpy as it updates every 500ms. If you'd like to see a static view of the **Service Map**, simply pause the streaming.
 

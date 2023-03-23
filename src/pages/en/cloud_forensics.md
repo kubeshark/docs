@@ -31,7 +31,7 @@ var KFL_PCAP_S3_KFL_ARR = [
 
 function onItemCaptured(data) {
   wrapper.kflPcapS3(data, {
-      kflArr:             KFL_PCAP_S3_KFL_ARR, // Mandory
+      kflArr:             KFL_PCAP_S3_KFL_ARR, // Mandatory
   });
 }
 ```
