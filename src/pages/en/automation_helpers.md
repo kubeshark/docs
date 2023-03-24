@@ -134,26 +134,58 @@ function onItemCaptured(data) {
 }
 ```
 
-### `vendor.slackBot(token: string, channelID: string, pretext: string, text: string, color: string)`
+### `vendor.slackBot(token: string, channelID: string, pretext: string, text: string, color: string, fields?: object, files?: object)`
 
 > (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Sends a Slack message to the Slack channel in `channelID` argument using the provided access token in `token` argument.
+
+`fields` optional argument is a list key-value pairs which describes the fields that are going to be added to the Slack message.
+The keys are field names. The values should be string. There is always a *Timestamp* field added to the list of fields automatically.
+
+`files` optional argument is a list of key-value pairs which describes the list of files that are going to be attached into the Slack message.
+The keys are file names. The values are file paths.
+
 It's especially useful for **alerting** a group of developers about **an issue detected through the network traffic**, such as
-*HTTP 500 response status code:*
+*"HTTP 500 response status code:"*
 
 ##### Example:
 
 ```js
 function onItemCaptured(data) {
-  if (data.response.status === 500)
-    vendor.slack(
-      env.SLACK_AUTH_TOKEN,     // Webhook URL
-      env.SLACK_CHANNEL_ID,     // Pretext (title)
-      "Server-side Error",      // Message text
-      JSON.stringify(data),     // Color code of the message
-      "#ff0000"
+  // Check if it's an HTTP request and the response status is 500
+  if (data.protocol.name === "http" && data.response.status === 500) {
+    var files = {};
+
+    // Get the path of the PCAP file that this stream belongs to
+    var pcapPath = pcap.path(data.stream);
+    files[data.stream + ".pcap"] = pcapPath;
+
+    // Dump the `data` argument into a temporary JSON file
+    var dataPath = file.temp("data", "", "json");
+    file.write(dataPath, JSON.stringify(data, null, 2));
+    files["data.json"] = dataPath;
+
+    // Send a detailed Slack message with 2 attached files
+    vendor.slackBot(
+      SLACK_AUTH_TOKEN,
+      SLACK_CHANNEL_ID,
+      "Server-side Error in Kubernetes Cluster",                                    // Pretext
+      "An HTTP request resulted with " + data.response.status + " status code:",    // Text
+      "#ff0000",                                                                    // Color
+      {
+        "Service": data.dst.name,
+        "Namespace": data.namespace,
+        "Node": data.node.name,
+        "HTTP method": data.request.method,
+        "HTTP path": data.request.path
+      },
+      files
     );
+
+    // Delete the temporary file
+    file.delete(dataPath);
+  }
 }
 ```
 
