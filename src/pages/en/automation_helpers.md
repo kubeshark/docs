@@ -410,7 +410,7 @@ Creates a new temporary file in the directory `dir` and returns the path of the 
 ##### Example:
 
 ```js
-var tempFile = file.temp("bar", "example/folder/here", ".json")
+var tempFile = file.temp("bar", "example/folder/here", "json")
 ```
 
 ### `file.tar(path: dir): string`
@@ -591,4 +591,4 @@ would print;
 {"SLACK_AUTH_TOKEN":"foo","SLACK_CHANNEL_ID":"bar"}
 ```
 
-in to the console.
+into the console.
