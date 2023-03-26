@@ -5,20 +5,51 @@ layout: ../../layouts/MainLayout.astro
 ---
 > This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
-Slack alerts can be used to notify that a certain action was completed (e.g. PCAP was generated and upload) or to provide a real-time notification of a programmatically identified network behavior.
+Real-time Slack alerts can be triggered when suspicious network behaviors occur. Messages can include event information and forensics (e.g. network traces - PCAPs).
 
-The following example reports to a Slack channel whenever the HTTP response status code is `500`.
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2psme48ygzM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+The following example uses an L7 hook and the Slack helper to trigger areal-time alert to a Slack channel whenever the HTTP response status code is `500`. The alert includes a brief description and a network trace. You can invite additional team members to the Slack channel to help identify the culprit. 
 
 ```js
+// Report To a Slack Channel If HTTP Response Status Code is 500 Example
+
 function onItemCaptured(data) {
-  if (data.response.status === 500)
-    vendor.slack(
-      SLACK_WEBHOOK,
-      "Server-side Error",
-      JSON.stringify(data),
-      "#ff0000"
+  // Check if it's an HTTP request and the response status is 500
+  if (data.protocol.name === "http" && data.response.status === 500) {
+    var files = {};
+
+    // Get the path of the PCAP file that this stream belongs to
+    var pcapPath = pcap.path(data.stream);
+    files[data.stream + ".pcap"] = pcapPath;
+
+    // Dump the `data` argument into a temporary JSON file
+    var dataPath = file.temp("data", "", "json");
+    file.write(dataPath, JSON.stringify(data, null, 2));
+    files["data.json"] = dataPath;
+
+    // Send a detailed Slack message with 2 attached files
+    vendor.slackBot(
+      SLACK_AUTH_TOKEN,
+      SLACK_CHANNEL_ID,
+      "Server-side Error in Kubernetes Cluster",                                    // Pretext
+      "An HTTP request resulted with " + data.response.status + " status code:",    // Text
+      "#ff0000",                                                                    // Color
+      {
+        "Service": data.dst.name,
+        "Namespace": data.namespace,
+        "Node": data.node.name,
+        "HTTP method": data.request.method,
+        "HTTP path": data.request.path
+      },
+      files
     );
+
+    // Delete the temporary file
+    file.delete(dataPath);
+  }
 }
+
 ```
 
 **Kubeshark** supports two message sending methods:
