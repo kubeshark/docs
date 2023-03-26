@@ -55,7 +55,7 @@ function onItemCaptured(data) {
 **Kubeshark** supports two message sending methods:
 
 1. Using an [incoming webhook](https://api.slack.com/messaging/webhooks). See [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string) helper.
-2. Using an auth token and a channel ID. See [`vendor.slackBot`](/en/automation_helpers#vendorslackbottoken-string-channelid-string-pretext-string-text-string-color-string) helper.
+2. Using an auth token and a channel ID. See [`vendor.slackBot`](/en/automation_helpers#vendorslackbottoken-string-channelid-string-pretext-string-text-string-color-string-fields-object-files-object) helper.
 
 ## Creating a Slack App
 
