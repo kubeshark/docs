@@ -61,6 +61,7 @@ type Info struct {
 	CaptureLength int       `json:"captureLength"`
 	Length        int       `json:"length"`
 	Truncated     bool      `json:"truncated"`
+	Fragmented    bool      `json:"fragmented"`
 }
 ```
 
