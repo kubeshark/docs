@@ -593,6 +593,65 @@ if (kfl.validate("http and response.status == 500")) {
 }
 ```
 
+## ChatGPT
+
+The `chatgpt.*` helpers lets you use [OpenAI's ChatGPT](https://openai.com/blog/chatgpt) in your scripts.
+
+### `chatgpt.prompt(apiKey: string, prompt: string, maxTokens?: number): string`
+
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
+
+Prompts ChatGPT using [OpenAI's API](https://platform.openai.com/docs/api-reference/introduction) with given `apiKey`.
+You build the `prompt` string argument by starting with a question and include some network data to get a response from ChatGPT.
+`maxTokens` optional argument lets you set the "the maximum number of tokens to generate in the completion", the default value is `1024`.
+
+##### Example:
+
+```js
+function onItemCaptured(data) {
+  if (data.protocol.name == "http") {
+    // Delete internally used fields to not confuse ChatGPT
+    delete data.passed
+    delete data.failed
+
+    var payload = JSON.stringify(data);
+
+    var response = chatgpt.prompt(
+      env.OPENAI_API_KEY,
+      "Did the HTTP request failed in this HTTP request-response pair? " + payload
+    );
+    console.log("ChatGPT:", response);
+
+    var score = chatgpt.sentiment(response);
+    if (score.pos > 0.4) {
+      console.log("ALERT! ChatGPT is detected a failed HTTP request:", response, "Payload:", payload);
+    }
+  }
+}
+```
+
+### `chatgpt.sentiment(text: string): object`
+
+> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
+
+Does [sentiment analysis](https://en.wikipedia.org/wiki/Sentiment_analysis) on a given `text` input and returns the
+score object below:
+
+```go
+type Score struct {
+	Negative float64 `json:"neg"`
+	Neutral  float64 `json:"neu"`
+	Positive float64 `json:"pos"`
+	Compound float64 `json:"compound"`
+}
+```
+
+> This helper is supposed to be used in conjunction with [chatgpt.prompt](#chatgptpromptapikey-string-prompt-string-maxtokens-number-string) helper
+> in such a way that you pass the **response of ChatGPT** to this helper to get a **sentiment analysis score**.
+> Using this score, you can detect whether the ChatGPT's judgement is **positive or negative**.
+> Alternatively, you can tell ChatGPT to respond only using **"Yes" or "No"**. In that case, **you don't require** `chatgpt.sentiment` helper
+> but **you lose the context** in the ChatGPT's response.
+
 
 ## Environment Variables
 
