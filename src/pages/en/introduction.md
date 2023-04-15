@@ -47,5 +47,3 @@ eBPF **without actually doing decryption**. In fact, it hooks into entry and exi
 ## Actionable Automation, Scripts & L4/L7 Hooks
 
 With a combination of a [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers) and [jobs](/en/automation_jobs), **Kubeshark** can detect suspicious network behaviors and trigger actions supported by the available integrations (e.g [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), [Elasticsearch](/en/integrations_elastic) and more).
-
-

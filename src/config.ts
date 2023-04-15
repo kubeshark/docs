@@ -62,7 +62,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Filtering', link: 'en/filtering' },
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
       { text: 'PCAPs', link: 'en/pcap' },
-      { text: 'Pods & Namespaces', link: 'en/scope' },
+      // { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'DNS', link: 'en/dns' },
       { text: 'Configuration', link: 'en/config' },
     ],

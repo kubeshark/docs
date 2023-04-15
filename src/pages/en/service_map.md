@@ -4,15 +4,14 @@ description: Kubeshark offers a Service Dependency Graph to display your Kuberne
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** offers an instant, identity-aware **Service Map** that updates in real-time, and can be used to focus your analysis on specific parts of the cluster. 
+**Kubeshark** offers an instant, identity-aware **Service Map** with real-time performance KPIs that can be used to focus your analysis on specific parts of the cluster. 
 
 The **Service Map** provides the following information in a visual graph:
-- Label identity for internal workloads and DNS identity for external workloads
-- Connectivity information including direction indicated by arrows
-- Connection protocol indicated by the arrow color
-- Connection density indicated by the number of requests and the arrow thickness
+- Multiple identity layers including namespaces, pod names, service names for internal workloads and DNS identities for external workloads
+- Performance KPIs including latency, throughput and bandwidth
+- Service connectivity information including protocol, direction and density 
 
-![Service Dependency Graph](/service-dependency-graph.png)
+![Service Dependency Graph](/new-service-map.png)
 
 To view the **Service Map** click on its button in the upper right hand corner.
 

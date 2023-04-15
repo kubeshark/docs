@@ -15,35 +15,53 @@ The **Worker** dissects the TCP or UDP traffic on demand when a [filter](/en/fil
 ## The TAP Command
 
 The TAP command of the CLI instructs Kubeshark to deploy the **Hub** and start tapping based on the TAP scope rules.
-> Learn more about the TAP scop rules in the [Pods & Namespaces](/en/scope) page.
-
-TAP documentation can change. To see the most up-to-date TAP documentation run:
+To see the most up-to-date TAP documentation run:
 
 ```shell
 kubeshark tap -h
 ```
 
+### Pods and Namespaces
+
+While capturing all traffic is possible, it is a storage and CPU intensive operation. **Kubeshark** enables you to describe the scope of traffic capture with support for namespaces and PODs.
+
+#### Pods selection
+
+##### Specific Pod:
+
 ```shell
-Usage:
-  kubeshark tap [POD REGEX] [flags]
+kubeshark tap catalogue-b87b45784-sxc8q
+```
 
-Flags:
-  -A, --allnamespaces             Tap all namespaces.
-  -r, --docker-registry string    The Docker registry that's hosting the images. (default "docker.io/kubeshark")
-  -t, --docker-tag string         The tag of the Docker images that are going to be pulled. (default "latest")
-      --dryrun                    Preview of all pods matching the regex, without tapping them.
-  -h, --help                      help for tap
-  -n, --namespaces strings        Namespaces selector.
-  -p, --pcap string               Capture from a PCAP snapshot of Kubeshark (.tar.gz) using your Docker Daemon instead of Kubernetes.
-      --proxy-front-port uint16   Provide a custom port for the front-end proxy/port-forward. (default 8899)
-      --proxy-host string         Provide a custom host for the proxy/port-forward. (default "127.0.0.1")
-      --proxy-hub-port uint16     Provide a custom port for the Hub proxy/port-forward. (default 8898)
-      --servicemesh               Capture the encrypted traffic if the cluster is configured with a service mesh and with mTLS. (default true)
-      --storagelimit string       Override the default storage limit. (per node) (default "200MB")
-      --tls                       Capture the traffic that's encrypted with OpenSSL or Go crypto/tls libraries. (default true)
+##### Set of Pods Using a Regex:
 
-Global Flags:
-      --config-path string   Override config file path using --config-path (default "$HOME/.kubeshark/config.yaml")
-  -d, --debug                Enable debug mode.
-      --set strings          Override values using --set
+You can use a regular expression to indicate several pod names as well as dynamically changing names.
+
+In the example below using the regex `(catalo*|front-end*)` will catch the following three Pods:
+* catalogue-868cc5ffd6-p9njn
+* catalogue-db-669d5dbf48-8hnrl
+* front-end-6db57bf84f-7kss9
+
+```shell
+kubeshark tap "(catalo*|front-end*)"
+```
+
+![PODS](/pods.png)
+
+#### Namespaces
+
+By default, **Kubeshark** is deployed into the `default` namespace.
+To specify a different namespace:
+
+```
+kubeshark tap -n sock-shop
+```
+
+#### Specify All Namespaces
+
+The default deployment strategy of **Kubeshark** waits for the new Pods
+to be created. To simply deploy to all existing namespaces run:
+
+```
+kubeshark tap -A
 ```

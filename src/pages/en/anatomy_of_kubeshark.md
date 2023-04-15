@@ -13,11 +13,38 @@ Distributed packet capture with minimal footprint, built for large scale product
 
 ## CLI
 
-The binary distribution of the **Kubeshark** client and it is written in [Go](https://go.dev/) language.
+The CLI is a binary distribution of the **Kubeshark** client and it is written in [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint. It communicates directly with [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the right containers at the right place at the right time.
 
-It communicates with your cluster through [K8s API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the **Hub** and **Worker** pods.
+Here are a few examples how you can use the **Kubeshark** **CLI** to start capturing traffic in your K8s cluster:
+
+**kubeshark tap**
+```shell
+kubeshark tap                                       - tap all pods in the default namespace
+kubeshark tap -A                                    - tap all pods in all namespaces
+kubeshark tap -n sock-shop "(catalo*|front-end*)"   - tap only pods that match the regex in a certain namespace
+```
+
+For more options on how to use the `tap` command, refer to the [`tap` command](/en/network_sniffing#the-tap-command) section.
+
+**Additional kubeshark commands**
+```shell
+kubeshark proxy                                       - re-establish a connection to the dashboard
+kubeshark clean                                       - clean all kubeshark resources
+```
 
 **Source code:** [`kubeshark/kubeshark`](https://github.com/kubeshark/kubeshark)
+
+## The Dashboard
+
+**Kubeshark**'s dashboard is a [React](https://reactjs.org/) app that communicates with the [**Hub**](#hub) via WebSocket and displays the captured traffic in a scrolling feed.
+
+![Kubeshark UI](/kubeshark-ui.png)
+
+**Source code:** [`kubeshark/front`](https://github.com/kubeshark/front)
+
+**Pod name:** `kubeshark-front`
+
+> **NOTE:** Read more in the [dashboard](/en/ui) section.
 
 ## Hub
 
@@ -65,15 +92,3 @@ Kubeshark's configuration includes a storage limit that is set to 200MB by defau
 ### Low Network Overhead
 
 To reduce potential network overhead, only a fraction of the traffic is sent over the network upon request.
-
-## The Dashboard
-
-**Kubeshark**'s dashboard is a [React](https://reactjs.org/) app that communicates with the [**Hub**](#hub) via WebSocket and displays the captured traffic in a scrolling feed.
-
-![Kubeshark UI](/kubeshark-ui.png)
-
-**Source code:** [`kubeshark/front`](https://github.com/kubeshark/front)
-
-**Pod name:** `kubeshark-front`
-
-> **NOTE:** Read more in the [dashboard](/en/ui) section.

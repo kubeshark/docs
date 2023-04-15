@@ -29,7 +29,7 @@ function logPacketCountTotalBytes() {
 jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTotalBytes);
 ```
 
-## Scripts Development
+## Scripts Folder
 
 Develope your scripts locally in your environment (e.g. VS Code, GitHub) and simply add your scripts folder to the [scripts section](/en/config#scripts) in **Kubeshark**'s configuration file .
 
