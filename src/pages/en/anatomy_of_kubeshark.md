@@ -9,6 +9,12 @@ Distributed packet capture with minimal footprint, built for large scale product
 
 ![Anatomy of **Kubeshark**](/diagram.png)
 
+**Kubeshark** supports two main deployment use-cases:
+1. On-demand lightweight traffic investigation using a [CLI](/en/install#cli), by anyone with [kubectl](https://kubernetes.io/docs/reference/kubectl/) access.
+2. Long living deployment, using a [helm chart](/en/install#helm), in support of multiple use-cases (e.g. collaborative debugging, network monitoring, telemetry and forensics).
+
+**Kubeshark** requires no prerequisites like: CNI, service-mesh or coding. It doesn't use a proxy or a sidecar and doesn't require architecture alterations to function. The CLI option can get your K8s traffic investigation going in only a few minutes.
+
 **Kubeshark** consists of four software components that work together harmoniously:
 
 ## CLI
@@ -19,9 +25,9 @@ Here are a few examples how you can use the **Kubeshark** **CLI** to start captu
 
 **kubeshark tap**
 ```shell
-kubeshark tap                                       - tap all pods in the default namespace
-kubeshark tap -A                                    - tap all pods in all namespaces
+kubeshark tap                                       - tap all pods in all namespaces
 kubeshark tap -n sock-shop "(catalo*|front-end*)"   - tap only pods that match the regex in a certain namespace
+kubeshark tap --proxy-host 0.0.0.0                  - make the dashboard port accessible from outside localhost
 ```
 
 For more options on how to use the `tap` command, refer to the [`tap` command](/en/network_sniffing#the-tap-command) section.

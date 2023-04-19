@@ -40,7 +40,7 @@ tap:
 
 Alternatively, use the shell config option:
 ```shell
-kubeshark tap -A --docker-registry "docker.io/kubeshark"
+kubeshark tap --docker-registry "docker.io/kubeshark"
 ```
 
 ### Dashboard IP and Accessibility
@@ -55,7 +55,7 @@ tap:
 
 Alternatively, use the shell config option:
 ```shell
-kubeshark tap -A --proxy-host 0.0.0.0
+kubeshark tap --proxy-host 0.0.0.0
 ```
 
 Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that access to the dashboard isn't encrypted or authenticated.
@@ -74,7 +74,7 @@ tap:
 Alternatively, use the shell config option:
 
 ```shell
-kubeshark tap -A --storagelimit 2000MB
+kubeshark tap --storagelimit 2000MB
 ```
 
 ### Kubeshark Resource Assignment Limits
@@ -106,7 +106,7 @@ headless: true
 
 Alternatively, use the shell config option:
 ```shell
-kubeshark tap -A --set headless=true
+kubeshark tap --set headless=true
 ```
 
 ### Public IP and Headless

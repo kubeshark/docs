@@ -63,5 +63,5 @@ The default deployment strategy of **Kubeshark** waits for the new Pods
 to be created. To simply deploy to all existing namespaces run:
 
 ```
-kubeshark tap -A
+kubeshark tap
 ```

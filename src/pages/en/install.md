@@ -42,7 +42,7 @@ cd kubeshark & make
 
 To run the CLI, use the `tap` command. For example:
 ```shell
-kubeshark tap -A --proxy-host 0.0.0.0
+kubeshark tap --proxy-host 0.0.0.0
 ```
 > Read more `tap` command options in the [`tap` section](/en/network_sniffing#the-tap-command)
 
