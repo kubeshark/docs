@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-You can get started in < 60 seconds by downloading the **Kubeshark** CLI [latest release](https://github.com/kubeshark/kubeshark/releases/latest), running `kubeshark tap -A` and pointing your browser to `localhost:8899`. 
+You can get started in < 60 seconds by downloading the **Kubeshark** CLI [latest release](https://github.com/kubeshark/kubeshark/releases/latest), running `kubeshark tap` and pointing your browser to `localhost:8899`. 
 
 ![Kubeshark UI](/kubeshark-ui.png)
 

@@ -8,7 +8,7 @@ This page contains `Role` and `RoleBinding` which provide permissions required f
 
 ## All namespaces
 
-For capturing from all namespaces with `kubeshark tap -A`:
+For capturing from all namespaces with `kubeshark tap`:
 
 ```yaml
 kind: ClusterRole

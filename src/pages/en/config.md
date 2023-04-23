@@ -121,7 +121,7 @@ headless: true
 ```
 Alternatively, use the shell config option:
 ```shell
-kubeshark tap -A --proxy-host 0.0.0.0 --set headless=true
+kubeshark tap --proxy-host 0.0.0.0 --set headless=true
 ```
 You can now access the **Kubeshark** dashboard from a remote server.
 
