@@ -55,9 +55,13 @@ kubeshark clean
 
 ## Helm
 
-For a more permanent deployment, add **Kubeshark**'s Helm repository and install its chart :
+For a more permanent deployment, add **Kubeshark**'s Helm repository:
 ```shell
-helm repo add kubeshark https://helm.kubeshark.co & helm install kubeshark kubeshark/kubeshark
+helm repo add kubeshark https://helm.kubeshark.co
+```
+Once the repository was added you can install **Kubeshark**:
+```shell 
+helm install kubeshark kubeshark/kubeshark
 ```
 Once installed, add port-forward to the two containers:
 ```shell
