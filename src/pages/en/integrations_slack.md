@@ -82,14 +82,21 @@ Copy the manifest from below and paste to the Slack Manifest window. Be sure to 
 ```yaml
 display_information:
   name: Kubeshark
+  description: The API Traffic Analyzer for Kubernetes
+  background_color: "#1c50d4"
+  long_description: Think Wireshark re-invented for K8s, Kubeshark provides deep visibility and real-time monitoring of all traffic going in, out and across containers, pods, namespaces, nodes, and clusters, elevating your ability to debug, troubleshoot, and protect your K8s clusters.
 features:
   bot_user:
     display_name: Kubeshark
+    always_online: true
 oauth_config:
   scopes:
     bot:
-      - incoming-webhook
       - chat:write
+      - chat:write.public
+      - files:write
+      - incoming-webhook
+      - remote_files:share
 ```
 
 Install the App to your workspace:
