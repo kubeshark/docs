@@ -70,6 +70,19 @@ When using the CLI, the tap command creates a K8s proxy to the front-end contain
 kubeshark tap --proxy-host 0.0.0.0
 ```
 
+## Got Response With Status Code: 418
+
+If you get something like this in your console log:
+```shell
+2023-06-04T11:05:34+03:00 WRN hub.go:215 > Failed creating 
+script Hub: error="got response with status code: 418, 
+body: {\"EnabledFeatures\":[\"Ingress\"]}"
+```
+It means your Pro license if out-of-date. Pro edition is free while in Beta. You can simply update it by using: 
+```shell
+kubeshark pro
+```
+
 ## CNI and K8s Version Incompatibility
 
 There were some reports on incompatibility between certain versions of Kubernetes and Calico. We don't have enough information to suggest a course of action.

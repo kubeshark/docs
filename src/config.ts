@@ -92,7 +92,8 @@ export const SIDEBAR: Sidebar = {
     ],
     'The Pro Edition': [
       { text: 'Pro vs. Community', link: 'en/pro' },
-      { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' }
+      { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
+  //    { text: 'Self Hosting', link: 'en/self_hosting' },
     ],
     'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },
