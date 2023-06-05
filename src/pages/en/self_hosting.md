@@ -1,23 +1,21 @@
 ---
-title: Self Hosting
-description: This article describes how to install Kubeshark at the company level and allow others to view its content via the web and without kubectl permissions.
+title: Ingress & Authentication 
+description: This article describes how to self host Kubeshark using Ingress and an IDP.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** provides a method for self-hosting as an authenticated web service that enables team members to access Kubeshark using a web browser with their corporate identity.
+> This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
- method  to gain access to its dashboard using an ingress controller that is also connected to an identity system. This method delivers certain advantages compared to the inherent proxy/prot-forward solution. An Ingress Controller communicates via HTTP and not by opening a tunnel. THe Ingress method is long lasting as opposed to the proxy one that needs restarting every so often.
-
+**Kubeshark** provides a method for self-hosting as an authenticated web service that enables team members to access **Kubeshark** using a web browser with their corporate identities.
 
 ## Pre-requisites
 
-
 ### A Pro License
-INgress is a Pro feature and require a Pro license. Kubeshark Pro edition is in beta and while in beta, it's free. To upgrade, simply run:
+Ingress is a Pro feature and requires a Pro license. Kubeshark Pro edition is in beta and while in beta, it's free. To upgrade, simply run:
 ```shell
 kubeshark pro
 ```
-And follow the on-screen instructions
+And follow the on-screen instructions.
 
 ### Ingress Controller
 Your cluster needs to have an ingress controller such as Nginx deployed. If you don't have one already in your cluster, you can install it like this:
@@ -33,7 +31,6 @@ kubeshark-ingress-ingress-nginx-controller             LoadBalancer   10.100.80.
 kubeshark-ingress-ingress-nginx-controller-admission   ClusterIP      10.100.159.17   <none>                                                                  443/TCP                      74m
 ```
 Note down the Ingress Controller external IP, you'll use it soon.
-
 
 ## Required Configuration Block
 
@@ -55,13 +52,9 @@ Here's an example of a cluster I'm using:
       approvedDomains: 
       - 'kubeshark.co'
 ```
-
-two methods to gain access to its dashboard:
-- K8s proxy
-- Ingress controller + authentication (a pro edition option)
-
-When using the CLI, KUbeshark opens a K8s proxy to provide access to its dashboard. That's the quickest way to access the dashboard, however it requires:
-
-Kubeshark offers a way to access its dashboard
-Deploy an INgress Controller 
-
+When using a Helm chart, the following values should be used during installation:
+```shell
+--set tap.ingress.enabled=true \
+--set tap.ingress.host=<Ingress IP/LB> \
+--set "tap.ingress.auth.approvedDomains={<corporate domain name>}" \
+```
