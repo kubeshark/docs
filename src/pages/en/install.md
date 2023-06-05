@@ -63,11 +63,7 @@ Once the repository was added you can install **Kubeshark**:
 ```shell 
 helm install kubeshark kubeshark/kubeshark
 ```
-Once installed, add port-forward to the two containers:
-```shell
-kubectl port-forward -n kubeshark service/kubeshark-hub 8898:80 &
-kubectl port-forward -n kubeshark service/kubeshark-front 8899:80
-```
+
 Use the `--set` Helm flag to override default Helm values. Here's a useful Helm command that overrides the default `proxy.host` IP which is `localhost`, and set it to `0.0.0.0`:
 ```shell
 helm install kubeshark kubeshark/kubeshark --set tap.proxy.host=0.0.0.0 
@@ -79,3 +75,7 @@ To uninstall the Helm chart:
 ```shell
 helm uninstall kubeshark
 ```
+
+## Ingress Controller
+
+Kubeshark offers an Ingress controller option. You can read more about this option in the [self-hosting section](/en/self_hosting).
