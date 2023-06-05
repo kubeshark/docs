@@ -17,7 +17,7 @@ The [CLI](/en/anatomy_of_kubeshark#cli) offers a lightweight on-demand option to
 Install the CLI using one of these methods:
 ### Run a Shell Script
 
-Th quickest way to get started is to use a shell script that downloads the right binary for your operating system and CPU architecture:
+The quickest way to get started is to use a shell script that downloads the right binary for your operating system and CPU architecture:
 ```shell
 sh <(curl -Ls https://kubeshark.co/install)
 ```
