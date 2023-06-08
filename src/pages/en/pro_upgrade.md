@@ -21,6 +21,14 @@ The authentication process will attempt to automatically configure **Kubeshark**
 
 If something goes wrong, you will be asked to manually enter a license key when prompted in the CLI.
 
+### Troubleshooting / Manual Upgrade
+
+The upgrade process triggered by running `kubeshark pro` performs two operations:
+1. Creates a config file at ~/.kubeshark/config.yaml, unless one exists already
+2. Attempts to enter the license in the file
+
+In the unlikely event that the automatic operation fails, you can copy the license from the console and enter it in the configuration file. If the configuration file doesn't exist, you can cause it to create by running: `kubeshark config -r`.
+
 ## Downgrading
 
 Using the Pro edition, requires having a valid license key in the Kubeshark configuration file, that usually resides at ~/.kubeshark/config.yaml.
