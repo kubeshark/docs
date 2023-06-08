@@ -3,22 +3,29 @@ title: Pro vs. Community
 description: The difference between Pro Edition and Community Edition
 layout: ../../layouts/MainLayout.astro
 ---
-## Investigation & API Debugging
 
-**Community Edition**
+## Community Edition
+Enabling DevOps, SREs and Platform Engineers with Kubectl access to quickly investigate traffic in real time.
 
-**Kubeshark** community edition provides real-time protocol-level visibility to K8s traffic in addition to an identity-aware service map and a rich query language that helps identify culprits.
+## Pro Edition
+Providing developers and security engineers visibility into Kubernetes, using a secure web access. Monitoring Kubernetes traffic to detect security threats, trigger remediation actions, generate forensics (PCAPs) and export telemetry.
 
-> Read more in the [Investigation & API Debugging](/en/traffic_investigation) section.
+## Features
 
-## Actionable Network Observability
-
-**Pro Edition**
-
-The Pro edition enables you to monitor traffic, leverage the full power of automation to detect suspicious network behaviors and trigger one of the supported actions:
-- Send real-time alerts to Slack or use a Webhook
-- Stream user-generated and network metrics to InfluxDB and Grafana
-- Send schema-free documents (e.g. logs) to Elasticsearch
-- Upload network traces (PCAPs) to AWS S3
-
-> Read more in the [Observability & Telemetry](/en/observability), [Cloud Forensics](/en/cloud_forensics), [Actionable Detection](/en/actionable_detection) sections.
+|Feature|Community|Pro|
+|---|---|---|
+|Real-time protocol-level visibility|+|+|
+|UDP, TCP, DNS, TLS, mTLS, REST, gRPC, GraphQL, WebSocket, Redis, RabbitMQ and Kafka|+|+|
+|Dashboard with a rich query language|+|+|
+|Identity-aware service map showing performance KPIs|+|+|
+|Dashboard alerts|+|+|
+|Lightweight, on-demand CLI Installation|+|+|
+|Helm installation|+|+|
+|Ingress|-|+|
+|Viewer authentication using social IDPs and OIDC / SAML SSO|-|+|
+|Viewer authorization by time, cluster, namespace and pods|-|+|
+|Sensitive data redaction|-|+|
+|Automation & Detection (scripting, hooks, helpers)|-|+|
+|Alerts|-|+|
+|Export PCAPs|-|+|
+|Integrations: Grafana, InfluxDB, Elasticsearch, AWS S3, Slack|-|+|

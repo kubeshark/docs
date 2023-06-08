@@ -53,7 +53,8 @@ export const SIDEBAR: Sidebar = {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Install & Run', link: 'en/install' }
+      { text: 'Install & Run', link: 'en/install' },
+      { text: 'Ingress & Authentication', link: 'en/self_hosting' },
     ],
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
@@ -93,7 +94,7 @@ export const SIDEBAR: Sidebar = {
     'The Pro Edition': [
       { text: 'Pro vs. Community', link: 'en/pro' },
       { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
-      { text: 'Ingress & Authentication', link: 'en/self_hosting' },
+      { text: 'License', link: 'en/license' },
     ],
     'Misc': [
       { text: 'Service Mesh', link: 'en/service_mesh' },

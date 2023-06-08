@@ -8,14 +8,15 @@ layout: ../../layouts/MainLayout.astro
 
 **Kubeshark** provides a method for self-hosting as an authenticated web service that enables team members to access **Kubeshark** using a web browser with their corporate identities.
 
-## Pre-requisites
+## Benefits
 
-### A Pro License
-Ingress is a Pro feature and requires a Pro license. Kubeshark Pro edition is in beta and while in beta, it's free. To upgrade, simply run:
-```shell
-kubeshark pro
-```
-And follow the on-screen instructions.
+### Performance & Stability
+Compared to port-forward or Kubernetes proxy, Ingress is much lighter and more stable.
+
+### Secure
+When self-hosted as a web service, developers and security engineers can access **Kubeshark** from remote, using a browser, authenticated with their corporate ID and not requiring kubectl Permission.
+
+## Pre-requisites
 
 ### Ingress Controller
 Your cluster needs to have an ingress controller such as Nginx deployed. If you don't have one already in your cluster, you can install it like this:
@@ -31,6 +32,9 @@ kubeshark-ingress-ingress-nginx-controller             LoadBalancer   10.100.80.
 kubeshark-ingress-ingress-nginx-controller-admission   ClusterIP      10.100.159.17   <none>                                                                  443/TCP                      74m
 ```
 Note down the Ingress Controller external IP, you'll use it soon.
+
+## SAML / SSO
+You can connect Kubeshark to your corporate IDP. Please reach out to us in order to configure KUbeshark to use your corporate IDP.
 
 ## Required Configuration Block
 
