@@ -78,4 +78,4 @@ helm uninstall kubeshark
 
 ## Ingress Controller
 
-Kubeshark offers an Ingress controller option. You can read more about this option in the [self-hosting section](/en/self_hosting).
+Kubeshark offers an Ingress controller option. You can read more about this option in the [Ingress & Authentication](/en/self_hosting).
