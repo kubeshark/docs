@@ -54,7 +54,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
       { text: 'Install & Run', link: 'en/install' },
-      { text: 'Ingress & Authentication', link: 'en/self_hosting' },
+      { text: 'Self-hosted', link: 'en/self_hosted' },
     ],
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
@@ -91,7 +91,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
       { text: 'Detection Engineering', link: 'en/actionable_detection' }
     ],
-    'The Pro Edition': [
+    'Editions': [
       { text: 'Pro vs. Community', link: 'en/pro' },
       { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
       { text: 'License', link: 'en/license' },

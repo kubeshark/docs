@@ -1,26 +1,26 @@
 ---
-title: Ingress & Authentication 
+title: Self-hosted
 description: This article describes how to self host Kubeshark using Ingress and an IDP.
 layout: ../../layouts/MainLayout.astro
 ---
 
-> This integration is part of the [Pro edition](https://kubeshark.co/pricing).
+> Self-hosted feature is part of the [Pro edition](https://kubeshark.co/pricing).
 
-**Kubeshark** provides a method for self-hosting as an authenticated web service that allows team members to access **Kubeshark** using a web browser with their corporate identities.
+**Kubeshark** provides a method for self-hosting as an authenticated web service that allows team members to access **Kubeshark** using a web browser with their corporate identities from remote.
 
 ## Benefits
 
-### Performance & Stability
-Compared to port-forward or Kubernetes proxy, Ingress is much lighter and more stable.
-
 ### Security
-When self-hosted as a web service, developers and security engineers can access **Kubeshark** remotely using a browser, authenticated with their corporate ID, without requiring kubectl permissions.
+When self-hosted as a web service, developers and security engineers can access **Kubeshark** remotely using a browser, authenticated with their corporate ID, without requiring RBAC / kubectl permissions.
+
+### Performance & Stability
+Compared to [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) or Kubernetes proxy, [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) is much lighter and more stable.
 
 ## Pre-requisites
 
 ### Ingress Controller
 
-Your cluster needs to have an ingress controller such as Nginx deployed. If you don't already have one in your cluster, you can install it by following these steps:
+Your cluster needs to have an ingress controller such as [Nginx](https://www.nginx.com/products/nginx-ingress-controller/) deployed. If you don't already have one in your cluster, you can install it by following these steps:
 
 ```shell
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
@@ -39,6 +39,10 @@ Make a note of the Ingress Controller's external IP; you'll need it shortly.
 ## SAML / SSO
 You can connect **Kubeshark** to your corporate IDP. Please reach out to us to configure **Kubeshark** to use your corporate IDP.
 
+## Approved Domains
+
+As a temporary solution, you can set the approved domains in Kubeshark's config file. Any login email with a domain that is not in the approved domains list will be rejected.
+
 ## Required Configuration Block
 To activate the Ingress feature, modify the following fields in the `ingress` block under the `tap` config:
 
@@ -50,6 +54,9 @@ To activate the Ingress feature, modify the following fields in the `ingress` bl
       approvedDomains: 
       - '<corporate domain name>'
 ```
+- **host:** the IP/LB of the Ingress. You made a note earlier for that.
+- **approvedDomains:** a list of approved domain names for email address to log in to Kubeshark. For example, if you use: `gmail.com` only gmail addresses will be able to log in. We recommend using this option as a temporary mean until you integrate SSO/SAML.
+
 Here's an example of a cluster I'm using:
 ```shell
   ingress:
