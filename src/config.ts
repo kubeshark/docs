@@ -84,6 +84,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'AWS S3', link: 'en/integrations_aws_s3' },
       { text: 'Slack', link: 'en/integrations_slack' },
       { text: 'Webhook', link: 'en/integrations_webhook' },
+      { text: 'K8s Lens', link: 'en/integrations_lens' },
     ],
     'Use Cases': [
       { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
