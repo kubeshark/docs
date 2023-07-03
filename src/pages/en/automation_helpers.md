@@ -265,22 +265,46 @@ jobs.schedule("push-data-to-elastic", "0 */1 * * * *", pushDataToElasticsearch);
 
 > (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
-Uploads a file to an AWS S3 `bucket` on AWS `region` using the **AWS credentials** provided in `keyID` and `accessKey` arguments.
-The S3 path of the file is set based on this pattern: `<NODE_NAME>_<NODE_IP>/<FILENAME>`.
+Uploads a file to an AWS S3 `bucket` on AWS `region` using the either AWS authentication. AWS authentication can be achieved using:
+- Specific credentials: `keyID` and `accessKey` arguments
+- Shared configuration (e.g. IRSA, kube2aim)
+
+The S3 path of the file is set based on this pattern: `<NODE_NAME>_<NODE_IP>_<RUN_ID>/<FILENAME>`.
 Returns the URL of the S3 location once the file is successfully uploaded.
 
-##### Example:
+#### Example:
 
 ```js
 location = vendor.s3.put(
-  env.AWS_REGION,
-  env.AWS_ACCESS_KEY_ID,
-  env.AWS_SECRET_ACCESS_KEY,
   env.S3_BUCKET,
   filePath
+  env.AWS_REGION,             
+  env.AWS_ACCESS_KEY_ID,      // optional. will default to shared configuration 
+  env.AWS_SECRET_ACCESS_KEY   // optional. will default to shared configuration 
 );
 ```
+#### Using IRSA or kube2iam 
 
+[IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) is a method for not using specific credentials but rather use a role associated with a service account.
+To use IRSA, you'd need to:
+1. Provide annotation of the IAM role
+2. Use shared configuration
+
+For example, when using help (or CLI), add the following property:
+
+```shell
+--set-json 'tap.annotations={"eks.amazonaws.com/role-arn":"arn:aws:iam::7456....3350:role/s3-role"}'
+```
+
+And as the helper use:
+
+```js
+location = vendor.s3.put(
+  env.S3_BUCKET,
+  filePath
+  env.AWS_REGION
+);
+```
 ### `vendor.s3.clear(region: string, keyID: string, accessKey: string, bucket: string)`
 
 > (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).

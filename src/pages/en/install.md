@@ -38,13 +38,23 @@ You can clone the [Kubeshark GitHub](https://github.com/kubeshark/kubeshark) rep
 git clone kubeshark/kubeshark
 cd kubeshark & make
 ```
-### Run
+### Run (Tap)
 
 To run the CLI, use the `tap` command. For example:
 ```shell
-kubeshark tap --proxy-host 0.0.0.0
+kubeshark tap
 ```
 > Read more `tap` command options in the [`tap` section](/en/network_sniffing#the-tap-command)
+
+### Proxy
+
+When Kubeshark starts, to expose the dashboard port, it automatically starts a kube-proxy. If kube-proxy creation fails, it defaults to port-forward. Both kube-proxy and port-forward solutions can break after some time. You can always use: 
+```shell
+kubeshark proxy
+```
+To re-establish a kube-proxy (or port-forward).
+
+You can also, safely exit (use ^C) Kubeshark. It will continue to run in the background. Here again, you can use the `kubehsark proxy` command to re-establish a kube-proxy (or port-forward).
 
 ### Clean
 
@@ -52,6 +62,10 @@ To clean all relics of Kubeshark from your cluster when using the CLI:
 ```shell
 kubeshark clean
 ```
+
+Existing Kubeshark using ^C only breaks the kube-proxy / port-forward connection and does not remove Kubeshark from the cluster. Only `clean` command does.
+
+> Pro tip: use `kubeshark tap; kubeshark clean' when you run Kubeshark for the CLI.
 
 ## Helm
 
@@ -64,14 +78,50 @@ Once the repository was added you can install **Kubeshark**:
 helm install kubeshark kubeshark/kubeshark
 ```
 
-Use the `--set` Helm flag to override default Helm values. Here's a useful Helm command that overrides the default `proxy.host` IP which is `localhost`, and set it to `0.0.0.0`:
-```shell
-helm install kubeshark kubeshark/kubeshark --set tap.proxy.host=0.0.0.0 
-```
-
 ### Uninstall
 
 To uninstall the Helm chart:
 ```shell
 helm uninstall kubeshark
+```
+
+## Change the Default Deployment Namespace
+
+By default Kubeshark installs int eh `default` namespace. Use the following methods based on your installation method.
+
+### CLI
+
+The following commands will create a new namespace named: `<unique-name-space>`, and install Kubeshark in it, instead of the `default` namespace.
+
+```shell
+kubectl create namespace <unique-name-space>
+kubeshark tap --set tap.release.namespace=<unique-name-space>
+```
+
+The following will clean all relics:
+
+```shell
+kubeshark clean --set tap.release.namespace=<unique-name-space>
+kubectl delete namespace <unique-name-space>
+```
+
+You can avoid setting the `tap.release.namespace` every time by setting it in the `config.yaml` file.
+```shell
+tap:
+  release:
+    repo: https://helm.kubeshark.co
+    name: kubeshark
+    namespace: <unique-name-space>
+```
+### Helm
+
+```shell
+helm install kubeshark kubeshark/kubeshark -n <unique-name-space> --create-namespace \
+--set tap.release.namespace=<unique-name-space>
+```
+
+To uninstall:
+```shell
+helm uninstall kubeshark -n unique-name-space>
+kubectl delete namespace unique-name-space>
 ```

@@ -4,44 +4,14 @@ description: Kubeshark configuration explained in detail.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml` or at a different location specified as a CLI flag: `--configpath string`.
+**Kubeshark** reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml`.
 
 ## The Config Command
 
-The `config` command generates a ​**​Kubeshark​**​ config file with default values.
-
-```shell
-Usage:
-  kubeshark config [flags]
-
-Flags:
-  -h, --help         help for config
-  -r, --regenerate   Regenerate the config file with default values to path $HOME/.kubeshark/config.yaml or to chosen path using --configpath
-
-Global Flags:
-      --configpath string   Override config file path using --configpath (default "$HOME/.kubeshark/config.yaml")
-  -d, --debug               Enable debug mode.
-      --set strings         Override values using --set
-```
+`kubeshark config` - The `config` command generates a ​**​Kubeshark​**​ config file with default values.
+`kubeshark config -r` will read the existing config file, if one exists, and will merge its values into a new config file and save to the config file location (`~/.kubeshark/config.yaml`).
 
 ## Popular Configuration Elements
-
-### Private Docker Registry
-
-Use when you'd like **Kubeshark** to pull its images from a local Docker repository. This is useful in an Enterprise environment, where images are built and hosted locally.
-
-```shell
-tap:
-    docker:
-        registry: docker.io/kubeshark
-        tag: latest
-        imagepullpolicy: Always
-```
-
-Alternatively, use the shell config option:
-```shell
-kubeshark tap --docker-registry "docker.io/kubeshark"
-```
 
 ### Dashboard IP and Accessibility
 
@@ -61,21 +31,6 @@ kubeshark tap --proxy-host 0.0.0.0
 Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that access to the dashboard isn't encrypted or authenticated.
 
 When you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
-
-### Worker Storage Limit
-
-**Kubeshark** **Workers** store the captured traffic locally at the Node level with no limit other than the limit of the volumes attached to the Nodes. Use the following configuration to set the limit of the storage used by the **Workers**.
-
-```shell
-tap:
-    storagelimit: 200MB
-```
-
-Alternatively, use the shell config option:
-
-```shell
-kubeshark tap --storagelimit 2000MB
-```
 
 ### Kubeshark Resource Assignment Limits
 
