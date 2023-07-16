@@ -30,6 +30,7 @@ Install using Homebrew:
 brew tap kubeshark/kubeshark
 brew install kubeshark
 ```
+While this option is there, due to demand we invest more in the shell script installation option and the Helm option. For this reason, we do not recommend using Homebrew. 
 
 ### Build from the Source
 
@@ -76,6 +77,20 @@ helm repo add kubeshark https://helm.kubeshark.co
 Once the repository was added you can install **Kubeshark**:
 ```shell 
 helm install kubeshark kubeshark/kubeshark
+```
+
+A typical Helm command:
+```shell
+helm install kubeshark kubeshark/kubeshark -n kubeshark --create-namespace \
+--set license=FT7YKA .. 4VGK5EASXETJD2XCWIUVNYAILCJPNNSWX6MSI6V4L5E66XQCJ4SANN3BLGAA= \
+--set-json 'scripting.env={"AWS_ACCESS_KEY_ID":"AKI..5YF", "AWS_SECRET_ACCESS_KEY": "mbio..gtJuf", "AWS_REGION":"us-east-2", "S3_BUCKET":"demo-kubeshark-co"}' \
+--set-json 'tap.annotations={"eks.amazonaws.com/role-arn":"arn:aws:iam::74..50:role/s3-role", "alb.ingress.kubernetes.io/scheme":"internet-facing", "alb.ingress.kubernetes.io/target-type":"ip"}' \
+--set tap.ingress.enabled=true \
+--set tap.ingress.host=demo.kubehq.org \
+--set "tap.ingress.auth.approveddomains={kubeshark.co}" \
+--set tap.release.namespace=kubeshark \
+--set tap.resources.worker.limits.memory=2Gi \
+--set-json 'tap.nodeselectorterms=[{"matchExpressions": [ { "key": "kubeshark" , "operator": "In", "values": [ "true" ] } ] }]'
 ```
 
 ### Uninstall

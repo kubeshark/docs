@@ -1,6 +1,6 @@
 ---
 title: Cloud Forensics
-description: Cloud forensics through raw traffic capture and PCAP export from your Kubernetes network.
+description: Record K8s traffic and perform offline investigations to hunt down performance and security culprits with ease
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -21,33 +21,59 @@ Here's an example of a script that continuously monitors traffic, matching the t
 - `http and response.status == 500` - HTTP traffic with `500` response code
 - `dns` - DNS traffic
 
-Matching L4 streams will be added into a PCAP repository, compressed and uploaded to AWS S3.
 
-```js
-var KFL_PCAP_S3_KFL_ARR = [
-  "http and response.status == 500",
-  "dns",
-];
+## Getting Started
 
-function onItemCaptured(data) {
-  wrapper.kflPcapS3(data, {
-      kflArr:             KFL_PCAP_S3_KFL_ARR, // Mandatory
-  });
-}
+You can start recording traffic, and store in AWS S3, by providing the following properties in Kubeshark's config file:
+
+```shell
+license: FT7YKAYBAEDUY2LD.. your license here .. 65JQRQMNSYWAA=
+scripting:
+  env:
+    AWS_REGION: us-east-2-this-is-an-example
+    S3_BUCKET: give-it-a-name
+    RECORDING_KFL: "http or dns" # To deactivated remove this field.
+  source: "/path/to/a/local/scripts/folder"
+  watchScripts: true
 ```
 
-> See [`wrapper.kflPcapS3`](/en/automation_wrappers#wrapperkflpcaps3) for more info.
+Get the script and more detailed instructions from [here](https://github.com/kubeshark/scripts/tree/master/dfir).
 
-### Filtering
+## Long Term Retention
 
-For example, the KFL statement: `http and response.status == 500` will match a TCP stream that's HTTP in terms of application-layer and at least one response with the status `500`.
+The recorded traffic is securely uploaded to an AWS S3 bucket dedicated to long-term retention. This ensures that the recorded data remains accessible and available for thorough analysis even after significant time has passed.
 
-> Read more in the [filtering](/en/filtering) section.
+![AWS S3 for DFIR ](/dfir-s3.png)
 
-### PCAP
+The recorded traffic holds valuable insights that can be analyzed over time to uncover hidden patterns and recurring issues. 
 
-In **Kubeshark**, a PCAP file is a combination of L4 streams representing a network snapshot. The snapshot can include different L4 streams from different areas of the K8s cluster.
+## On-demand Offline Investigation
 
-PCAP example (from Wireshark):
+The true power of recording K8s traffic lies in the ability to conduct offline investigations on-demand.  
 
-![PCAP example](/pcap.png)
+Use the following command, to investigate the recorded traffic that is stored and retained in the AWS S3
+bucket:
+
+```shell
+kubeshark tap --pcap s3://my-bucket/
+```
+
+The above command initiates Kubeshark's offline mode, enabling you to explore the contents of the S3 bucket without the need for direct access to your cluster. 
+
+The convenience of offline investigation empowers professionals to dig deeper into the recorded traffic, perform comprehensive analysis, and unveil valuable insights for resolving complex issues.
+
+Kubeshark's dashboard allows you to visualize and explore the recorded traffic using powerful filtering, searching, and analytical capabilities. With this user-friendly interface, you can navigate through the recorded data more efficiently, saving precious time and effort.
+
+![Kubeshark Dashboard](/ks-dashboard.png)
+
+## Deactivating Recording
+
+Remove the `RECORDING_KFL` property from Kubeshark's config file to deactivate the recording.
+
+## Conclusion
+
+DevOps, SREs, Platform Engineers, and Developers can leverage the ability to record K8s traffic and perform offline investigations to hunt down performance and security culprits with ease. 
+
+Traffic recording and offline investigation can lead to faster issue resolution, improved performance, and enhanced security, unraveling the intricate web of interactions within K8s.
+
+Happy investigating!

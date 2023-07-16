@@ -53,8 +53,14 @@ export const SIDEBAR: Sidebar = {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Install & Run', link: 'en/install' },
-      { text: 'Self-hosted', link: 'en/self_hosted' },
+      { text: 'Install & Run', link: 'en/install' },    
+    ],
+    'DevOps Stuff': [
+      { text: 'Ingress, TLS & Auth', link: 'en/self_hosted' },
+//      { text: 'Node Scheduling', link: 'en/node_scheduling' },
+      { text: 'Service Mesh', link: 'en/service_mesh' },
+      { text: 'Permissions', link: 'en/permissions' },
+      { text: 'Troubleshooting', link: 'en/troubleshooting' },
     ],
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
@@ -96,11 +102,6 @@ export const SIDEBAR: Sidebar = {
       { text: 'Pro vs. Community', link: 'en/pro' },
       { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
       { text: 'License', link: 'en/license' },
-    ],
-    'Misc': [
-      { text: 'Service Mesh', link: 'en/service_mesh' },
-      { text: 'Troubleshooting', link: 'en/troubleshooting' },
-      { text: 'Permissions', link: 'en/permissions' },
     ],
   },
 };

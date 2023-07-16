@@ -8,20 +8,78 @@ layout: ../../layouts/MainLayout.astro
 
 ## Versions Incompatibility 
 
-Most problems are resolved by simply re-installing the CLI using the following script or by any other means listed in the [installation page](/en/install):
+### CLI
+
+When using the CLI, most problems can be resolved by simply re-installing the CLI using the following script or by any other means listed in the [installation page](/en/install):
+
 ```shell
 sh <(curl -Ls https://kubeshark.co/install)
 ```
 
+### Helm
+
+Use the following commands to update KUbeshark's Helm repo:
+
+```shell
+helm uninstall kubeshark -n kubeshark
+helm search repo kubeshark
+helm repo update
+helm search repo kubeshark
+helm install kubeshark kubeshark/kubeshark -n kubeshark --create-namespace
+```
+
 ## Config File Incompatibility
 
-When you upgrade the CLI, and you're using a config file, you may need to update it. You can generate a fresh config file using the following command:
+It is highly recommended to upgrade the config file, if used, every time you upgrade the CLI. The following command will upgrade the config file and merge any existing properties into the new config file structure:
+
 ```shell
 kubeshark config -r
 ```
-If you have an existing config file, use the following command to see the new fields and make the relevant adjustments:
+
+## Workers OOMKilled
+
+Getting frequent OOMKilled is frustrating!
+
+At this time we don't have memory and CPU guardrails, causing Workers (and sometime the Hub) to get OOMKilled due to inefficient use of resources and or high traffic load. 
+
+While this section will provide a few remedies, know that we are committed to helping you get started even at high loads. If you're unable to find the proper configuration that enables smooth running, contact us and we'll get you there fast!
+
+Workers' performance is a function of the **traffic throughput**, **memory** and **CPU**. If you get this triangle right, in all likelihood everything will function well.
+
+If you see memory **or CPU** levels reach maximum capacity, consider allocating more resources. If you can't, consider reducing the traffic throughput by using the Pods filter.
+
+**CLI Pods Filter**:
+
 ```shell
-kubeshark config
+kubeshark tap "(pod1.*|pod2.*)"
+```
+
+**Config File Pod Filter**:
+
+```shell
+tap:
+    regex: "(pod1.*|pod2.*)"
+```
+
+**Helm Value**:
+
+```shell
+--set tap.regex="(pod1.*|pod2.*)"
+```
+
+### Use Debug Logs 
+
+When run in debug mode, Kubeshark will store all relevant KPIs in the logs. Viewing this log information or better yet, send it to us, will likely show the reason for any weird performance behavior.
+
+Various ways to enable logs:
+```shell
+kubeshark tap -d / --debug
+--set tap.debug=true
+```
+
+To dump the log files, run:
+```shell
+kubeshark logs
 ```
 
 ## Ports Range
