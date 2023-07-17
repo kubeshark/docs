@@ -57,7 +57,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'DevOps Stuff': [
       { text: 'Ingress, TLS & Auth', link: 'en/self_hosted' },
-//      { text: 'Node Scheduling', link: 'en/node_scheduling' },
+      { text: 'Node Scheduling', link: 'en/node_scheduling' },
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Permissions', link: 'en/permissions' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
