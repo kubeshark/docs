@@ -8,9 +8,19 @@ layout: ../../layouts/MainLayout.astro
 
 ## Direct Packet Capture
 
-**Kubeshark**'s [Worker](/en/anatomy_of_kubeshark#worker) uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) and [UDP](https://en.wikipedia.org/wiki/User_Datagram_Protocol) traffic in your cluster using [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). The TCP and UDP packets that are stored in a [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file and the packets are dissected on demand when a [filter](/en/filtering) is received. The **Worker** works at the Kubernetes Node level.
+**Kubeshark**'s [Worker](/en/anatomy_of_kubeshark#worker) works at the Kubernetes Node level and uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) and [UDP](https://en.wikipedia.org/wiki/User_Datagram_Protocol) traffic in your cluster using [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). 
 
-The **Worker** dissects the TCP or UDP traffic on demand when a [filter](/en/filtering) is received with support for popular application layer protocols like: [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html), [GraphQL](https://graphql.org/learn/serving-over-http/) and [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml).
+The **Worker** continuously captures TCP and UDP packets into a master [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) file. This file is limited in size, flushes when limit is reached and acts as a buffer to enable on-demand offline dissection.
+
+Packets are dissected on-demand either by an active [Dashboard](/en/ui) connection or when [scripting](/en/automation_scripting) is used. Packets that aren't dissected will be discarded when the master file flushes. 
+
+Packets that are dissected as a result of an active Dashboard connection are retained for as long as the connection is active and aren't impacted by the master file flushing. 
+
+You can retain traffic for longer time periods using scripting. Read more in the [Forensics](/en/cloud_forensics) section.
+
+**Workers** dissect only packets that match one of the supported protocols (e.g. [HTTP](https://datatracker.ietf.org/doc/html/rfc2616), [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html), [Apache Kafka](https://kafka.apache.org/protocol), [Redis](https://redis.io/topics/protocol), [gRPC](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html), [GraphQL](https://graphql.org/learn/serving-over-http/) and [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)). Packets of other protocol will not be dissected and will be discarded.
+
+> If you'd like to retain raw traffic that includes packets that aren't dissected, follow this [feature request](https://github.com/kubeshark/kubeshark/issues/1393).
 
 ## The TAP Command
 
