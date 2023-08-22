@@ -97,8 +97,6 @@ and pushing data to them when a certain event occur or periodically through jobs
 
 ### `vendor.webhook(method: string, url: string, body: string)`
 
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
-
 It does an HTTP request to the webhook (the HTTP endpoint) that's defined by HTTP `method` and URL in the `url`
 argument with the HTTP body as the string in the `body` argument.
 
@@ -113,8 +111,6 @@ vendor.webhook(
 ```
 
 ### `vendor.slack(webhookUrl: string, pretext: string, text: string, color: string)`
-
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Sends a Slack message to the Slack webhook in `webhookUrl` argument.
 It's especially useful for **alerting** a group of developers about **an issue detected through the network traffic**, such as
@@ -135,8 +131,6 @@ function onItemCaptured(data) {
 ```
 
 ### `vendor.slackBot(token: string, channelID: string, pretext: string, text: string, color: string, fields?: object, files?: object)`
-
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Sends a Slack message to the Slack channel in `channelID` argument using the provided access token in `token` argument.
 
@@ -191,8 +185,6 @@ function onItemCaptured(data) {
 
 ### `vendor.influxdb(url: string, token: string, organization: string, bucket: string, measurement: string, data: object, tags?: object)`
 
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
-
 Pushes the data into a `bucket` the InfluxDB instance at URL `url` argument using the provided access token in `token` argument.
 InfluxDB, as **a timeseries database**, is useful for collecting data or measurements about the Kubernetes network.
 InfluxDB can also be added as [**a data source to Grafana**](https://grafana.com/docs/grafana/latest/getting-started/get-started-grafana-influxdb/).
@@ -225,8 +217,6 @@ jobs.schedule("push-data-to-influxdb", "0 */1 * * * *", pushDataToInfluxDB);
 ```
 
 ### `vendor.elastic(url: string, index: string, data: object, username?: string, password?: string, cloudID?: string, apiKey?: string, serviceToken?: string, certificateFingerprint?: string)`
-
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Pushes the data into an Elasticsearch `index` inside an instance at URL `url` argument using various different authentication strategies
 provided by Elasticsearch:
@@ -262,8 +252,6 @@ jobs.schedule("push-data-to-elastic", "0 */1 * * * *", pushDataToElasticsearch);
 ```
 
 ### `vendor.s3.put(region: string, keyID: string, accessKey: string, bucket: string, path: string): string`
-
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Uploads a file to an AWS S3 `bucket` on AWS `region` using the either AWS authentication. AWS authentication can be achieved using:
 - Specific credentials: `keyID` and `accessKey` arguments
@@ -306,8 +294,6 @@ location = vendor.s3.put(
 );
 ```
 ### `vendor.s3.clear(region: string, keyID: string, accessKey: string, bucket: string)`
-
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Clears the content of the folder `<NODE_NAME>_<NODE_IP>/` in the AWS S3 `bucket`.
 The folder is simply owned by the Kubeshark worker/node.
@@ -623,8 +609,6 @@ The `chatgpt.*` helpers lets you use [OpenAI's ChatGPT](https://openai.com/blog/
 
 ### `chatgpt.prompt(apiKey: string, prompt: string, maxTokens?: number): string`
 
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
-
 Prompts ChatGPT using [OpenAI's API](https://platform.openai.com/docs/api-reference/introduction) with given `apiKey`.
 You build the `prompt` string argument by starting with a question and include some network data to get a response from ChatGPT.
 `maxTokens` optional argument lets you set the "the maximum number of tokens to generate in the completion", the default value is `1024`.
@@ -655,8 +639,6 @@ function onItemCaptured(data) {
 ```
 
 ### `chatgpt.sentiment(text: string): object`
-
-> (!) This helper is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Does [sentiment analysis](https://en.wikipedia.org/wiki/Sentiment_analysis) on a given `text` input and returns the
 score object below:

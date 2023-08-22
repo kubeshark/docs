@@ -5,19 +5,22 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-You can get started in < 60 seconds by downloading the **Kubeshark** CLI [latest release](https://github.com/kubeshark/kubeshark/releases/latest), running `kubeshark tap` and pointing your browser to `localhost:8899`. 
+You can install Kubeshark using two main methods:
+1. [CLI](#cli)
+2. [Helm](#helm)
+
+The quickest way to get started would be to download the **Kubeshark** CLI [latest release](https://github.com/kubeshark/kubeshark/releases/latest), running `kubeshark tap` and pointing your browser to `localhost:8899`. 
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
 Based on your use-case, see below additional installation methods like [Helm](/en/install#helm), [Homebrew](/en/install#homebrew) and more:
 
 ## CLI
-The [CLI](/en/anatomy_of_kubeshark#cli) offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint. It communicates directly with [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the right containers at the right place at the right time. It's a perfect solution for development environments or when and where you'd like to investigate traffic asap with minimum preparations.
+> Read more in the [CLI](/en/anatomy_of_kubeshark#cli) section.
 
-Install the CLI using one of these methods:
 ### Run a Shell Script
 
-The quickest way to get started is to use a shell script that downloads the right binary for your operating system and CPU architecture:
+You can use a shell script to download the right binary for your operating system and CPU architecture:
 ```shell
 sh <(curl -Ls https://kubeshark.co/install)
 ```
@@ -30,7 +33,7 @@ Install using Homebrew:
 brew tap kubeshark/kubeshark
 brew install kubeshark
 ```
-While this option is there, due to demand we invest more in the shell script installation option and the Helm option. For this reason, we do not recommend using Homebrew. 
+While this option is there, due to demand we invest more in the shell script and the Helm options. For this reason, we do not recommend using Homebrew. 
 
 ### Build from the Source
 
@@ -64,7 +67,7 @@ To clean all relics of Kubeshark from your cluster when using the CLI:
 kubeshark clean
 ```
 
-Existing Kubeshark using ^C only breaks the kube-proxy / port-forward connection and does not remove Kubeshark from the cluster. Only `clean` command does.
+Exiting Kubeshark using ^C only breaks the kube-proxy / port-forward connection and does not remove Kubeshark from the cluster. Only `clean` command does.
 
 > Pro tip: use `kubeshark tap; kubeshark clean' when you run Kubeshark for the CLI.
 
@@ -102,7 +105,7 @@ helm uninstall kubeshark
 
 ## Change the Default Deployment Namespace
 
-By default Kubeshark installs int eh `default` namespace. Use the following methods based on your installation method.
+By default Kubeshark installs in the `default` namespace. Use the following methods based on your installation method.
 
 ### CLI
 

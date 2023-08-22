@@ -4,9 +4,11 @@ description: Kubeshark as a traffic investigation and debugging.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** provides real-time protocol-level visibility to K8s traffic, coupled with a rich query language, a service map and a dashboard.
+**Kubeshark** offers real-time protocol-level visibility into Kubernetes (K8s) traffic, complemented by a rich query language, a service map, and a dashboard.
 
-Whether you are troubleshooting an infrastructure problem, modeling new threats or investigating a security incident, **Kubeshark** can be very helpful in identifying culprits.
+Whether you are resolving issues with your infrastructure, analyzing potential threats, or delving into a security incident, **Kubeshark** can be highly valuable in pinpointing the responsible factors.
+
+
 
 ## Protocol-level Visibility
 

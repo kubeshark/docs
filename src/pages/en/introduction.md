@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-**Through Scalable & Secure Traffic Capture**
+**The most efficient way to troubleshoot your K8s apps**
 
 **Kubeshark** is an API Traffic Analyzer for [Kubernetes](https://kubernetes.io/) providing real-time, protocol-level visibility into Kubernetes’ internal network, capturing, dissecting and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
 
@@ -17,12 +17,11 @@ Think [TCPDump](https://en.wikipedia.org/wiki/Tcpdump) and [Wireshark](https://w
 
 Visit the following sections to read more about use-cases, Kubeshark can be helpful with:
 - [Investigation & API Debugging](/en/traffic_investigation)
-- [Observability & Telemetry](/en/observability)
-- [Cloud Forensics](/en/cloud_forensics)
-- [Detection Engineering](/en/actionable_detection)
+- [Traffic Recording & Offline Investigation](/en/cloud_forensics)
+- [Detection Engineering & Telemetry](/en/actionable_detection)
 
 ## Network Analysis
-**Kubeshark** can sniff parts or all [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 (TCP and UDP) traffic in your cluster, record it into PCAP files and dissect the following application layer protocols:
+**Kubeshark** uses various packet [capture technologies (e.g. eBPF, PF_RING)](/en/performance#packet-processing-library) and leverages [custom kernel modules](https://en.wikipedia.org/wiki/Loadable_kernel_module) to capture cluster-wide L4 (TCP and UDP) traffic, into distributed PCAP storage and dissect the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
@@ -44,6 +43,6 @@ eBPF **without actually doing decryption**. In fact, it hooks into entry and exi
 
 **Kubeshark** can recognize service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/) and other service mesh solutions that use [Envoy Proxy](https://www.envoyproxy.io/) under the hood.
 
-## Actionable Automation, Scripts & L4/L7 Hooks
+## Actionable Detection Using Scripts & L4/L7 Hooks
 
 With a combination of a [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers) and [jobs](/en/automation_jobs), **Kubeshark** can detect suspicious network behaviors and trigger actions supported by the available integrations (e.g [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), [Elasticsearch](/en/integrations_elastic) and more).

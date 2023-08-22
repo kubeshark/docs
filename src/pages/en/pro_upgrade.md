@@ -31,7 +31,7 @@ In the unlikely event that the automatic operation fails, you can copy the licen
 
 ## Downgrading
 
-Using the Pro edition, requires having a valid license key in the Kubeshark configuration file, that usually resides at ~/.kubeshark/config.yaml.
+Using the Pro edition requires having a valid license key in the Kubeshark configuration file, that usually resides at ~/.kubeshark/config.yaml.
 
 To downgrade, simply erase the license key and Kubeshark will use the community version.
 

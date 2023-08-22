@@ -3,7 +3,6 @@ title: Slack Alerts
 description: Kubeshark can send Slack messages to any channel with the purpose of alerting against anomalies in the Kubernetes network traffic.
 layout: ../../layouts/MainLayout.astro
 ---
-> This integration is part of the [Pro edition](https://kubeshark.co/pricing).
 
 Real-time Slack alerts can be triggered when suspicious network behaviors occur. Messages can include event information and forensics (e.g. network traces - PCAPs).
 

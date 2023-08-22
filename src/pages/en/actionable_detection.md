@@ -4,10 +4,6 @@ description: Detecting anomalies and load or suspicious activity inside the Kube
 layout: ../../layouts/MainLayout.astro
 ---
 
-K8s network is likely to include significant information that can help not only understand the reasons for a problem, but potentially avoid the problem altogether by detecting and reacting quickly to its symptoms.
-
-Kubernetes network is massive. It makes absolutely no sense to process it all in order to find culprits.
-
 ## Detection
 
 **Kubeshark** scripting in conjunction with hooks provides mean to programmatically detect suspicious network behaviors. Using helpers can trigger actions as a result and by that reduce the incident response time.
@@ -53,4 +49,6 @@ Forensics can be uploaded to an immutable datastore like AWS S3 with an existing
 
 ### Telemetry
 
-You can send user-enriched telemetry to external systems such as InfluxDB, Grafana and Elastic, or otherwise use a webhook to upload anything anywhere.
+**Kubeshark** enables you to send metrics and logs to your favorite telemetry or logs provider and enjoy dashboards and alerts.
+
+> Read more in the [InfluxDB & Grafana](/en/integrations_influxdb) and [Elasticsearch](/en/integrations_elastic) sections.

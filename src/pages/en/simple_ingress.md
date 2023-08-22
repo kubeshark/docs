@@ -1,16 +1,14 @@
 ---
-title: Ingress (self-hosting)
+title: Ingress
 description: This article describes how to self host Kubeshark using Ingress.
 layout: ../../layouts/MainLayout.astro
 ---
 
-As an option for `kubectl` and `port-forward`, **Kubeshark** provides a method for self-hosting with Ingress.
-
-As a stand-alone option or one that complements the Ingress option, [Authentication](/en/authentication) can be enabled to provide a secure, authenticated web service that allows team members to access **Kubeshark** using a web browser with their corporate identities from remote. 
-
-As a final layer of security TLS can be enabled in addition to Ingress and Authentication.
+**Kubeshark** provides an option for self-hosting as a secure, authenticated web service that allows team members to access **Kubeshark** using a web browser with their corporate identities from remote.
 
 ## Benefits
+
+Deploying Ingress is superior to using `port-forward` or `kubernetes proxy`.
 
 ### Security
 
@@ -20,13 +18,9 @@ When self-hosted as a web service, developers and security engineers can access 
 
 Compared to [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) or Kubernetes proxy, [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) is much lighter and more stable.
 
-## Pre-requisites
-
-### Ingress Controller
+## Ingress Configuration
 
 Your cluster needs to have an ingress controller such as [Nginx](https://www.nginx.com/products/nginx-ingress-controller/) deployed. If you don't already have one in your cluster, you can install it by following one of the examples at the end of this article.
-
-## Kubeshark Ingress Configuration
 
 ### Ingress Config Values
 
@@ -37,13 +31,16 @@ tap:
     classname: kubeshark-ingress-class
     controller: k8s.io/ingress-nginx
     host: ks.svc.cluster.local
+    tls: []
+    certmanager: letsencrypt-prod
 ```
 
 - To enable ingress set `tap.ingress.enabled` to `true`.
 - Use the `tap.ingress.classname` and `tap.ingress.controller` when necessary for a more granular control.
 - **host:** the IP/LB of the Ingress. You made a note earlier for that.
 
-## Ingress Installation Example
+
+## Install Ingress
 
 ```shell
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
@@ -59,5 +56,3 @@ kubeshark-ingress-ingress-nginx-controller-admission   ClusterIP      10.100.159
 ```
 
 Copy the Ingress' external IP and use it in the `tap.ingress.host` field.
-
-> See the [AWS EKS with TLS Termination](/en/aws_ingress_auth) section to read more about enabling Ingress in AWS

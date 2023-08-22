@@ -53,14 +53,9 @@ export const SIDEBAR: Sidebar = {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Install & Run', link: 'en/install' },    
-    ],
-    'DevOps Stuff': [
-      { text: 'Ingress, TLS & Auth', link: 'en/self_hosted' },
-      { text: 'Node Scheduling', link: 'en/node_scheduling' },
-      { text: 'Service Mesh', link: 'en/service_mesh' },
-      { text: 'Permissions', link: 'en/permissions' },
-      { text: 'Troubleshooting', link: 'en/troubleshooting' },
+      { text: 'Install & Run', link: 'en/install' },   
+      { text: 'Ingress', link: 'en/self_hosted' }, 
+      { text: 'Authentication', link: 'en/authentication' }, 
     ],
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
@@ -71,7 +66,6 @@ export const SIDEBAR: Sidebar = {
       { text: 'PCAPs', link: 'en/pcap' },
       // { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'DNS', link: 'en/dns' },
-      { text: 'Configuration', link: 'en/config' },
     ],
     'Automation': [
       { text: 'Introduction', link: 'en/automation_introduction' },
@@ -94,14 +88,24 @@ export const SIDEBAR: Sidebar = {
     ],
     'Use Cases': [
       { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
-      { text: 'Observability & Telemetry', link: 'en/observability' },
-      { text: 'Cloud Forensics', link: 'en/cloud_forensics' },
-      { text: 'Detection Engineering', link: 'en/actionable_detection' }
+      { text: 'Traffic Recording & Offline Investigation', link: 'en/cloud_forensics' },
+      { text: 'Detection Engineering & Telemetry', link: 'en/actionable_detection' },
     ],
     'Editions': [
-      { text: 'Pro vs. Community', link: 'en/pro' },
+      { text: 'Pro Edition', link: 'en/pro' },
       { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
       { text: 'License', link: 'en/license' },
+    ],
+    'DevOps Stuff': [
+      { text: 'Performance & Scale', link: 'en/performance' },
+      { text: 'Configuration', link: 'en/config' },
+      { text: 'AWS, Ingress & TLS', link: 'en/aws_ingress_auth' },
+      { text: 'EKS & IRSA', link: 'en/irsa' },
+      { text: 'Node Scheduling', link: 'en/node_scheduling' },
+      { text: 'Service Mesh', link: 'en/service_mesh' },
+      { text: 'Permissions', link: 'en/permissions' },
+      { text: 'Troubleshooting', link: 'en/troubleshooting' },
+      // { text: 'Performance Benchmark', link: 'en/performance_benchmark' },
     ],
   },
 };

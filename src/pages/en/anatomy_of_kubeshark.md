@@ -83,17 +83,9 @@ The worker by itself can be used as a network sniffer on your computer without r
 
 **Pod name:** `kubeshark-worker-daemon-set-<id>`
 
-### Distributed Protocol Dissectors
-
-The dissection of application layer protocols are distributed throughout the cluster by the nature of DaemonSet configuration.
-
 ### Distributed PCAP-based Storage
 
-Kubeshark uses a distributed PCAP-based storage where each of the workers store the captured TCP streams in the root file system of the node.
-
-Kubeshark's configuration includes a storage limit that is set to 200MB by default. That limit can be changed through CLI options.
-
-> **NOTE:** See [Worker Storage Limit](/en/config#worker-storage-limit) section for more info.
+Kubeshark uses a distributed PCAP-based storage where each of the Workers store the captured L4 streams in the root file system of the node.
 
 ### Low Network Overhead
 
