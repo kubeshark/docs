@@ -1,115 +1,95 @@
 ---
-title:  AWS EKS with TLS Termination
+title:  AWS EKS, ALB with TLS Termination
 description: This article describes how to self host Kubeshark using Ingress and an IDP.
 layout: ../../layouts/MainLayout.astro
 ---
 
-We recommend using AWS [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) on EKS for best results. Classic and Application Load-balancers ([CLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html) and [ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)) aren't likely to work. Follow these steps to self host Kubeshark on EKS, using and AWS Load Balancer, Ingress Controller with TLS termination.
+If you're using an AWS Application Load Balancer (ALB) as the Ingress Controller, there are specific considerations and adjustments you need to make in your environment and configuration. Below, I'll outline the key steps:
 
-1. Install the AWS LoadBalancer Controller Add-on
-2. Install the Nginx Ingress resource and controller of type NLB
+## Install and Configure AWS ALB Ingress Controller
 
-#### Installing the AWS LoadBalancer Controller Add-on
+1. Ensure you have a Kubernetes cluster running on AWS.
 
-1. Create an IAM policy
-2. Create an IAM role.
-3. Install the AWS Load Balancer Controller.
-4. Check everything was installed correctly.
+2. Install the AWS ALB Ingress Controller by following the instructions provided in the [official documentation](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html).
 
-Follow the steps in this [article](https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html) to install the AWS LB Controller add-on.
+**2.1.** Another useful documentation can be found in [ArtifactHub](https://artifacthub.io/packages/helm/aws/aws-load-balancer-controller).
 
-Download an IAM policy for the AWS Load Balancer Controller that allows it to make calls to AWS APIs on your behalf. Once downloaded, use the AWS CLI to create an IAM policy:
+3. Verify that the ALB controller is up and running and connected to your cluster.
 
-```shell
-curl -O https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.4.7/docs/install/iam_policy.json
+## Adjust Ingress Configuration
 
-aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam_policy.json
+1. Set the ingress class for the AWS ALB. In your configuration file, change the ingress class configuration to point to the ALB controller:
+
+```yaml
+tap:
+  ingress:
+    annotations: {}
+    classname: "alb"
 ```
 
-Now use `eksctl` to create an IAM role:
+Some annotations should be required to properly make the ingress available. Should be something like this:
 
-```shell
-eksctl create iamserviceaccount \
-  --cluster=<eks-cluster-name> \
-  --namespace=<aws-loadbalancer-namespace> \
-  --name=aws-load-balancer-controller \
-  --role-name AmazonEKSLoadBalancerControllerRole \
-  --attach-policy-arn=arn:aws:iam::78......10:policy/AWSLoadBalancerControllerIAMPolicy \
-  --approve \
-  --region us-east-2-this-is-an-example
+```yaml
+tap:
+  ingress:
+    annotations:
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/scheme: internet-facing
 ```
 
-With the IAM policy and role, you can use Helm to install the AWS Load Balancer Controller:
+## TLS Termination on AWS ALB
 
-```shell
-helm repo add eks https://aws.github.io/eks-charts
-helm repo update eks
+1. To enable TLS using an AWS-managed certificate, you can configure the TLS section in your configuration file. Ensure that the domain configured in the `hosts` matches the domain associated with your ALB in AWS:
 
-helm install kubeshark-ingress eks/aws-load-balancer-controller  -n <aws-loadbalancer-namespace> \
---set clusterName=<eks-cluster-name> \
---set serviceAccount.create=false \
---set serviceAccount.name=aws-load-balancer-controller \
---set region=us-east-2-this-is-an-example \
---set vpcId=<eks-cluster-vpx-id \
---set logLevel=info \
---set replicaCount=1 \
---set cluster.dnsDomain=<fqdn for the SSL domain>
-```
-When you're done, verify all was installed correctly:
-
-```shell
-kubectl get deployment -n <aws-loadbalancer-namespace> aws-load-balancer-controller
+```yaml
+tap:
+  ingress:
+    tls:
+      - secretName: kubeshark-tls-secret
+        hosts:
+          - kubeshark.local
 ```
 
-Results should resemble this output:
+Another way to do so is to include the certificate's ARN in the ingress' annotation, so the certificate will be injected by the load balancer automatically:
 
-```shell
-NAME                                             READY   UP-TO-DATE   AVAILABLE   AGE
-<aws-loadbalancer-namespace>-aws-load-balancer-controller   1/1     1            1           40m
-```
-#### Installing the Nginx Ingress Resource and Controller of Type NLB
-
-Firstly, add the Ingress resource:
-
-```shell
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/aws/nlb-with-tls-termination/deploy.yaml
+```yaml
+tap:
+  ingress:
+    annotations:
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:<region>:<acc>:certificate/XXXXXXXXXXXXXXX
+    classname: "alb"
 ```
 
-Now download the file:
+## Install Kubeshark with Adjusted Configuration
 
-```shell
-curl https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/aws/nlb-with-tls-termination/deploy.yaml
+1. Install Kubeshark using the adjusted Helm Chart for the AWS ALB. Use the following command:
+
+```bash
+helm install kubeshark kubeshark/kubeshark -f <path-to-custom-values.yaml>
 ```
 
-Once downloaded, open in an editor and replace the following annotations:
+Be sure to adjust `<path-to-custom-values.yaml>` to the actual path of your custom configuration file.
 
-```shell
-service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-2:71.......90:certificate/73......7
-service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
-service.beta.kubernetes.io/aws-load-balancer-type: "external"
-service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
-service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
-```
+## DNS and Security Group Considerations
 
-Make sure you change the AWS Certificate Manager (ACM) ID as well:
+1. Ensure the domain you're using in the ingress (e.g., `kubeshark.local`) is pointing to the ALB's DNS in AWS.
 
-```shell
-service.beta.kubernetes.io/aws-load-balancer-ssl-cert: arn:aws:acm:us-east-2:71.......90:certificate/73......7
-```
+2. Review the ALB's Security Group settings to ensure the required ports are open for the appropriate traffic.
 
-Find this line and replace with the EKS cluster's VPC CIDR:
+Remember to refer to the official AWS ALB Ingress Controller documentation and AWS documentation for more detailed and up-to-date guidance, as details may change based on current versions and features.
 
-```shell
-proxy-real-ip-cidr: XXX.XXX.XXX/XX
-```
+## Further notes
 
-Deploy the edited manifest:
+When using the AWS ALB Ingress Controller, you typically don't need to add annotations directly to your Ingress resources for basic functionality. However, there are scenarios where you might want to use annotations to configure specific behaviors or features related to the ALB. Here are some common scenarios where annotations might be useful:
 
-```shell
-kubectl apply -f deploy.yaml
-```
+1. **SSL Policy**: You can use the `alb.ingress.kubernetes.io/ssl-policy` annotation to specify the SSL policy for your ALB listener. This can control the supported SSL/TLS protocols and ciphers.
 
-#### Troubleshooting
+2. **Target Group Attributes**: Annotations like `alb.ingress.kubernetes.io/target-group-attributes` can be used to define specific target group attributes, like stickiness or slow start settings.
 
-Use [this document](https://repost.aws/knowledge-center/load-balancer-troubleshoot-creating) to troubleshoot.
+3. **Health Checks**: Annotations like `alb.ingress.kubernetes.io/healthcheck-*` can be used to configure health checks for your target groups.
+
+4. **Authentication**: For scenarios requiring AWS Cognito or other authentication mechanisms, you might need to use annotations to set up authentication.
+
+5. **Rules Priority**: If you have multiple Ingress resources and you want to control the priority of the rules, you can use `alb.ingress.kubernetes.io/conditions` annotation.
+
+Remember that annotations are controller-specific, and their usage might change with different versions of the ALB Ingress Controller. Always consult the official documentation for the most up-to-date information regarding annotations and their usage with the AWS ALB Ingress Controller.

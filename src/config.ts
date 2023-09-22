@@ -53,7 +53,8 @@ export const SIDEBAR: Sidebar = {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Install & Run', link: 'en/install' },   
+      { text: 'Install with CLI', link: 'en/install' },  
+      { text: 'Install with Helm', link: 'en/install_helm' },   
       { text: 'Ingress', link: 'en/self_hosted' }, 
       { text: 'Authentication', link: 'en/authentication' }, 
     ],
@@ -99,7 +100,7 @@ export const SIDEBAR: Sidebar = {
     'DevOps Stuff': [
       { text: 'Performance & Scale', link: 'en/performance' },
       { text: 'Configuration', link: 'en/config' },
-      { text: 'AWS, Ingress & TLS', link: 'en/aws_ingress_auth' },
+      { text: 'EKS, ALB, Ingress & TLS', link: 'en/aws_ingress_auth' },
       { text: 'EKS & IRSA', link: 'en/irsa' },
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
       { text: 'Service Mesh', link: 'en/service_mesh' },

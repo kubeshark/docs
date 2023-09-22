@@ -4,9 +4,9 @@ description: This article describes how to self host Kubeshark using Ingress.
 layout: ../../layouts/MainLayout.astro
 ---
 
-As an option for `kubectl` and `port-forward`, **Kubeshark** provides a method for self-hosting with Ingress.
+As an alternative for `kubectl` and `port-forward`, **Kubeshark** provides a method for self-hosting with Ingress.
 
-As a stand-alone option or one that complements the Ingress option, [Authentication](/en/authentication) can be enabled to provide a secure, authenticated web service that allows team members to access **Kubeshark** using a web browser with their corporate identities from remote. 
+[Authentication](/en/authentication) is optional and can be enabled to provide a secure, authenticated web service that allows team members to access **Kubeshark** using a web browser with their corporate identities from remote. 
 
 As a final layer of security TLS can be enabled in addition to Ingress and Authentication.
 
@@ -22,42 +22,68 @@ Compared to [port-forward](https://kubernetes.io/docs/tasks/access-application-c
 
 ## Pre-requisites
 
-### Ingress Controller
+It's important to understand that Kubeshark uses a WebSocket connection, that isn't supported out of the box for some load balancers.
+Ingress can be enabled by setting the `tap.ingress.enabled` to `true`.
+For example:
+```bash
+helm upgrade kubeshark kubeshark/kubeshark --set tap.ingress.enabled=true 
+```
+To disable ingress, execute the following command:
 
-Your cluster needs to have an ingress controller such as [Nginx](https://www.nginx.com/products/nginx-ingress-controller/) deployed. If you don't already have one in your cluster, you can install it by following one of the examples at the end of this article.
+```bash
+helm upgrade kubeshark kubeshark/kubeshark --set tap.ingress.enabled=false
+```
 
-## Kubeshark Ingress Configuration
+## Setting Up TLS Using Cert-manager
 
-### Ingress Config Values
+1. Ensure that cert-manager is installed in your K8s cluster. If not, follow the cert-manager installation instructions for your environment. You are going to need an Issuer or Cluster Issuer in your cluster.
 
-```shell
+2. Open your customized `values.yaml` file and locate the `tap.ingress.tls` section.
+
+3. Add the configuration to enable TLS and set the name of the secret that will contain the TLS certificate, along with the necessary annotations:
+
+```yaml
 tap:
   ingress:
-    enabled: false
-    classname: kubeshark-ingress-class
-    controller: k8s.io/ingress-nginx
-    host: ks.svc.cluster.local
+    annotations:
+      cert-manager.io/issuer: "your-issuer-here"
+      cert-manager.io/cluster-issuer: "your-cluster-issuer-here"
+    tls:
+      - secretName: kubeshark-tls-secret
+        hosts:
+          - kubeshark.local
 ```
 
-- To enable ingress set `tap.ingress.enabled` to `true`.
-- Use the `tap.ingress.classname` and `tap.ingress.controller` when necessary for a more granular control.
-- **host:** the IP/LB of the Ingress. You made a note earlier for that.
+Replace `"your-issuer-here"` with the name of the cert-manager Issuer or ClusterIssuer you want to use to issue the TLS certificate.
 
-## Ingress Installation Example
+3.1. If you are using ALB with certificates, include the annotation `alb.ingress.kubernetes.io/certificate-arn` with the relative certificate to be used by the ingress.
 
-```shell
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
-helm install kubeshark-ingress ingress-nginx/ingress-nginx --namespace kubeshark-ingress --create-namespace
-```
-Once installed, you'll need the IP or DNS of the Ingress Controller. You can retrieve it by running `kubectl get services <ingress service name>`. It should look something like this:
+4. Ensure that the host `kubeshark.local` is properly configured to point to your cluster's IP.
 
-```shell
-kubectl --namespace kubeshark-ingress get services
-NAME                                                   TYPE           CLUSTER-IP      EXTERNAL-IP                                                             PORT(S)                      AGE
-kubeshark-ingress-ingress-nginx-controller             LoadBalancer   10.100.80.51    af5dde9619d1a44dfb01109571266776-16181046.us-east-2.elb.amazonaws.com   80:30550/TCP,443:30859/TCP   74m
-kubeshark-ingress-ingress-nginx-controller-admission   ClusterIP      10.100.159.17   <none>                                                                  443/TCP                      74m
+5. After saving the changes, execute the following command to apply the settings:
+
+```bash
+helm upgrade kubeshark kubeshark/kubeshark -f <path-to-custom-values.yaml>
 ```
 
-Copy the Ingress' external IP and use it in the `tap.ingress.host` field.
+## Using a Different IngressClass
 
-> See the [AWS EKS with TLS Termination](/en/aws_ingress_auth) section to read more about enabling Ingress in AWS
+1. In your customized `values.yaml` file, locate the `tap.ingress.classname` section.
+
+2. Replace the empty value with the name of the ingress class you want to use, for example:
+
+```yaml
+tap:
+  ingress:
+    classname: "ingress-controller-custom"
+```
+
+3. Execute the command to apply the settings:
+
+```bash
+helm upgrade kubeshark kubeshark/kubeshark -f <path-to-custom-values.yaml>
+```
+
+Now you have successfully enabled ingress for Kubeshark via CLI, set up TLS using cert-manager, and defined a custom ingress class.
+
+Make sure to adjust the commands and configurations according to your environment and the path to your customized `values.yaml` file.

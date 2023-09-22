@@ -1,17 +1,19 @@
 ---
-title: The Kubernetes Network Analyzer
+title: The Kubernetes API Traffic Analyzer
 description: Real-time K8s network visibility and forensics, capturing and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-**The most efficient way to troubleshoot your K8s apps**
+**Crush your Production Incidents' MTTR!**
 
-**Kubeshark** is an API Traffic Analyzer for [Kubernetes](https://kubernetes.io/) providing real-time, protocol-level visibility into Kubernetes’ internal network, capturing, dissecting and monitoring all traffic and payloads going in, out and across containers, pods, nodes and clusters.
+Think [Wireshark](https://www.wireshark.org/) re-invented for [Kubernetes](https://kubernetes.io/) (K8s), **Kubeshark** provides SREs and DevOps teams instant and unique insights that were previously unattainable, accelerating the diagnosis process of production incidents and ensuring rapid resolution. 
+
+**Kubeshark** offers real-time, cluster-wide, identity-aware, protocol-level visibility into API traffic, empowering its users to see in their own eyes what's happening in all (hidden) corners of their K8s clusters.
+
+Observe all traffic, including payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP), DNS, Websockets, TLS and mTLS.
 
 ![Kubeshark UI](/kubeshark-ui.png)
-
-Think [TCPDump](https://en.wikipedia.org/wiki/Tcpdump) and [Wireshark](https://www.wireshark.org/) re-invented for Kubernetes.
 
 ## Kubeshark Use-cases
 
@@ -20,8 +22,8 @@ Visit the following sections to read more about use-cases, Kubeshark can be help
 - [Traffic Recording & Offline Investigation](/en/cloud_forensics)
 - [Detection Engineering & Telemetry](/en/actionable_detection)
 
-## Network Analysis
-**Kubeshark** uses various packet [capture technologies (e.g. eBPF, PF_RING)](/en/performance#packet-processing-library) and leverages [custom kernel modules](https://en.wikipedia.org/wiki/Loadable_kernel_module) to capture cluster-wide L4 (TCP and UDP) traffic, into distributed PCAP storage and dissect the following application layer protocols:
+## API Traffic Analysis
+**Kubeshark** uses various packet [capture technologies (e.g. eBPF, AF_XDP, PF_RING)](/en/performance#packet-processing-library) and leverages [custom kernel modules](https://en.wikipedia.org/wiki/Loadable_kernel_module) to capture cluster-wide L4 (TCP and UDP) traffic, into distributed PCAP storage and dissect the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
