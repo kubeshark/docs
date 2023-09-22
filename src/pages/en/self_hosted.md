@@ -87,3 +87,6 @@ helm upgrade kubeshark kubeshark/kubeshark -f <path-to-custom-values.yaml>
 Now you have successfully enabled ingress for Kubeshark via CLI, set up TLS using cert-manager, and defined a custom ingress class.
 
 Make sure to adjust the commands and configurations according to your environment and the path to your customized `values.yaml` file.
+
+## AWS, EKS, ALB, Ingress & TLS
+> Read more how to how to use on AWS infra [here](/en/aws_ingress_auth)
