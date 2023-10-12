@@ -9,79 +9,61 @@ Distributed packet capture with minimal footprint, built for large scale product
 
 ![Anatomy of **Kubeshark**](/diagram.png)
 
-**Kubeshark** supports two main deployment use-cases:
+**Kubeshark** supports two main deployment methods:
 1. On-demand lightweight traffic investigation using a [CLI](/en/install#cli), by anyone with [kubectl](https://kubernetes.io/docs/reference/kubectl/) access.
 2. Long living deployment, using a [helm chart](/en/install#helm), in support of multiple use-cases (e.g. collaborative debugging, network monitoring, telemetry and forensics).
 
 **Kubeshark** requires no prerequisites like: CNI, service-mesh or coding. It doesn't use a proxy or a sidecar and doesn't require architecture alterations to function. The CLI option can get your K8s traffic investigation going in only a few minutes.
 
-**Kubeshark** consists of four software components that work together harmoniously:
+**Kubeshark** comprises four software components that seamlessly integrate with one another:
 
 ## CLI
 
-The CLI is a binary distribution of the **Kubeshark** client and it is written in [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint. It communicates directly with [Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/) to deploy the right containers at the right place at the right time.
+The CLI is a binary distribution of the **Kubeshark** client and it is written in [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint.
 
-Here are a few examples how you can use the **Kubeshark** **CLI** to start capturing traffic in your K8s cluster:
+Once downloaded, simply use the `tap` command to start seeing cluster-wide API traffic:
 
-**kubeshark tap**
 ```shell
 kubeshark tap                                       - tap all pods in all namespaces
 kubeshark tap -n sock-shop "(catalo*|front-end*)"   - tap only pods that match the regex in a certain namespace
-kubeshark tap --proxy-host 0.0.0.0                  - make the dashboard port accessible from outside localhost
 ```
-
-For more options on how to use the `tap` command, refer to the [`tap` command](/en/network_sniffing#the-tap-command) section.
-
-**Additional kubeshark commands**
-```shell
-kubeshark proxy                                       - re-establish a connection to the dashboard
-kubeshark clean                                       - clean all kubeshark resources
-```
-
-**Source code:** [`kubeshark/kubeshark`](https://github.com/kubeshark/kubeshark)
 
 ## The Dashboard
 
-**Kubeshark**'s dashboard is a [React](https://reactjs.org/) app that communicates with the [**Hub**](#hub) via WebSocket and displays the captured traffic in a scrolling feed.
+**Kubeshark**'s dashboard is a [React](https://reactjs.org/) application packaged as a K8s deployment. It operates on the K8s control plane and communicates with the [**Hub**](#hub) via WebSocket, displaying captured traffic in real-time as a scrolling feed.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
-**Source code:** [`kubeshark/front`](https://github.com/kubeshark/front)
-
-**Pod name:** `kubeshark-front`
+**Service name:** `kubeshark-front`
 
 > **NOTE:** Read more in the [dashboard](/en/ui) section.
 
 ## Hub
 
-The **Hub** is a pod that acts as a gateway to the [**Workers**](#worker). It hosts an HTTP server and serves to these purposes:
+The **Hub** is a K8 deployment that serves as a gateway to the [**Workers**](#worker). It hosts an HTTP server and fulfills the following functions:
 
-- Accepts WebSocket connections and accompanying filter.
-- Establishes new WebSocket connections to the workers.
-- Receives the dissected traffic from the workers.
-- Streams the results back to the requester.
-- Configure worker states through HTTP calls.
+- Accepting WebSocket connections and their accompanying filters.
+- Establishing new WebSocket connections to the workers.
+- Receiving dissected traffic from the workers.
+- Streaming results back to the requester.
+- Configuring worker states through HTTP calls.
 
-**Source code:** [`kubeshark/hub`](https://github.com/kubeshark/hub)
-
-**Pod name:** `kubeshark-hub`
+**Service name:** `kubeshark-hub`
 
 ## Worker
 
-It's deployed into your cluster as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
-to ensure each node in your cluster are covered by Kubeshark.
+The worker is deployed into your cluster as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) to ensure that each node in your cluster is covered by Kubeshark.
 
-The worker contains the implementations of network sniffer and kernel tracer.
-It captures the packets from all network interfaces, reassembles the TCP streams and if they are dissectable then stores them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files.
-Workers transmit the collected traffic to [**Hub**](#hub) via WebSocket connections.
+This worker encompasses two services: 
 
-Kubeshark stores raw packets and dissects them on demand upon [filtering](/en/filtering).
+1. A network sniffer
+2. A kernel tracer
 
-The worker by itself can be used as a network sniffer on your computer without requiring a [Kubernetes](https://kubernetes.io/) cluster.
+It captures packets from all network interfaces, reassembles TCP streams, and if they are dissectable, stores them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files. The collected traffic is then transmitted to the [**Hub**](#hub) via WebSocket connections.
 
-**Source code:** [`kubeshark/worker`](https://github.com/kubeshark/worker)
+**Kubeshark** stores raw packets and dissects them on-demand upon [filtering](/en/filtering).
 
-**Pod name:** `kubeshark-worker-daemon-set-<id>`
+**Name:** `kubeshark-worker-daemon-set-<id>`
 
 ### Distributed PCAP-based Storage
 

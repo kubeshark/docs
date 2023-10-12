@@ -55,7 +55,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
       { text: 'Install with CLI', link: 'en/install' },  
       { text: 'Install with Helm', link: 'en/install_helm' },   
-      { text: 'Ingress', link: 'en/self_hosted' }, 
+      { text: 'Ingress', link: 'en/ingress' }, 
       { text: 'Authentication', link: 'en/authentication' }, 
     ],
     'Network Analysis': [
@@ -65,6 +65,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Filtering', link: 'en/filtering' },
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
       { text: 'PCAPs', link: 'en/pcap' },
+      { text: 'Short-term Traffic Retention', link: 'en/short_retention' },
       // { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'DNS', link: 'en/dns' },
     ],

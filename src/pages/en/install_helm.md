@@ -45,7 +45,7 @@ helm uninstall kubeshark -n <release-namespace>
 
 ## Change the Default Deployment Namespace
 
-By default Kubeshark installs in the `default` namespace. Use the following methods to change:
+By default **Kubeshark** installs in the `default` namespace. Use the following methods to change:
 
 ```shell
 helm install kubeshark kubeshark/kubeshark -n <unique-name-space> --create-namespace \
@@ -60,20 +60,20 @@ kubectl delete namespace <release-space>
 
 ## Accessing the Dashboard
 
-THere are multiple ways to access the dashboard when installed via Helm:
+There are multiple ways to access the dashboard when installed via Helm:
 
 ### Port-forward
 
 ```shell
 kubectl port-forward service/kubeshark-front 8899:80 -n <release-space>
-``````
+```
 
 ### The CLI
 
 ```shell
 kubectl proxy -s <release-space>
-``````
+```
 
 ### Ingress
-> Read more in the [Ingress](/en/self_hosted) section.
+> Read more in the [Ingress](/en/ingress) section.
 

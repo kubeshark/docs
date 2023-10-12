@@ -1,5 +1,5 @@
 ---
-title: Ingress (self-hosting)
+title: Ingress
 description: This article describes how to self host Kubeshark using Ingress.
 layout: ../../layouts/MainLayout.astro
 ---
@@ -22,16 +22,19 @@ Compared to [port-forward](https://kubernetes.io/docs/tasks/access-application-c
 
 ## Pre-requisites
 
-It's important to understand that Kubeshark uses a WebSocket connection, that isn't supported out of the box for some load balancers.
+It's important to understand that **Kubeshark** uses a WebSocket connection, that isn't supported out of the box for some load balancers.
+
 Ingress can be enabled by setting the `tap.ingress.enabled` to `true`.
+
 For example:
+
 ```bash
-helm upgrade kubeshark kubeshark/kubeshark --set tap.ingress.enabled=true 
+helm upgrade -i kubeshark kubeshark/kubeshark --set tap.ingress.enabled=true 
 ```
 To disable ingress, execute the following command:
 
 ```bash
-helm upgrade kubeshark kubeshark/kubeshark --set tap.ingress.enabled=false
+helm upgrade -i kubeshark kubeshark/kubeshark --set tap.ingress.enabled=false
 ```
 
 ## Setting Up TLS Using Cert-manager
@@ -84,7 +87,7 @@ tap:
 helm upgrade kubeshark kubeshark/kubeshark -f <path-to-custom-values.yaml>
 ```
 
-Now you have successfully enabled ingress for Kubeshark via CLI, set up TLS using cert-manager, and defined a custom ingress class.
+Now you have successfully enabled ingress for **Kubeshark** via CLI, set up TLS using cert-manager, and defined a custom ingress class.
 
 Make sure to adjust the commands and configurations according to your environment and the path to your customized `values.yaml` file.
 

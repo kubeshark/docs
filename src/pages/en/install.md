@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-You can install Kubeshark using two main methods:
+You can install **Kubeshark** using two main methods:
 1. [CLI](#cli)
 2. [Helm](/en/install_helm)
 
@@ -45,50 +45,66 @@ To run the CLI, use the `tap` command. For example:
 ```shell
 kubeshark tap
 ```
-> Read more `tap` command options in the [`tap` section](/en/network_sniffing#the-tap-command)
-
 ## Proxy
 
-When Kubeshark starts, to expose the dashboard port, it automatically starts a kube-proxy. If kube-proxy creation fails, it defaults to port-forward. Both kube-proxy and port-forward solutions can break after some time. You can always use: 
+When **Kubeshark** starts, to expose the dashboard port, it automatically starts a kube-proxy. If kube-proxy creation fails, it defaults to port-forward. Both kube-proxy and port-forward solutions can break after some time. You can always use: 
 ```shell
 kubeshark proxy
 ```
 To re-establish a kube-proxy (or port-forward).
 
-You can also, safely exit (use ^C) Kubeshark. It will continue to run in the background. Here again, you can use the `kubehsark proxy` command to re-establish a kube-proxy (or port-forward).
+You can also, safely exit (use ^C) **Kubeshark**. It will continue to run in the background. Here again, you can use the `kubehsark proxy` command to re-establish a kube-proxy (or port-forward).
 
 ## Clean
 
-To clean all relics of Kubeshark from your cluster when using the CLI:
+To clean all relics of **Kubeshark** from your cluster when using the CLI:
 ```shell
 kubeshark clean
 ```
 
-Exiting Kubeshark using ^C only breaks the kube-proxy / port-forward connection and does not remove Kubeshark from the cluster. Only `clean` command does.
+Exiting **Kubeshark** using ^C only breaks the kube-proxy / port-forward connection and does not remove **Kubeshark** from the cluster. Only `clean` command does.
 
-> Pro tip: use `kubeshark tap; kubeshark clean' when you run Kubeshark for the CLI.
+> Pro tip: use `kubeshark tap; kubeshark clean' when you run **Kubeshark** for the CLI.
 
-## Change the Default Deployment Namespace
+## Filtering Based on Pods and Namespaces
 
-By default Kubeshark installs in the `default` namespace. The following commands will create a new namespace named: `<unique-name-space>`, and install Kubeshark in it, instead of the `default` namespace.
+While capturing all traffic is possible, it is a storage and CPU intensive operation. **Kubeshark** enables you to describe the scope of traffic capture with support for namespaces and PODs.
+
+### Specific Pod:
 
 ```shell
-kubectl create namespace <unique-name-space>
-kubeshark tap --set tap.release.namespace=<unique-name-space>
+kubeshark tap catalogue-b87b45784-sxc8q
 ```
 
-The following will clean all relics:
+### Set of Pods Using a Regex:
+
+You can use a regular expression to indicate several pod names as well as dynamically changing names.
+
+In the example below using the regex `(catalo*|front-end*)` will catch the following three Pods:
+* catalogue-868cc5ffd6-p9njn
+* catalogue-db-669d5dbf48-8hnrl
+* front-end-6db57bf84f-7kss9
 
 ```shell
-kubeshark clean --set tap.release.namespace=<unique-name-space>
-kubectl delete namespace <unique-name-space>
+kubeshark tap "(catalo*|front-end*)"
 ```
 
-You can avoid setting the `tap.release.namespace` every time by setting it in the `config.yaml` file.
-```shell
-tap:
-  release:
-    repo: https://helm.kubeshark.co
-    name: kubeshark
-    namespace: <unique-name-space>
+![PODS](/pods.png)
+
+### Namespaces
+
+By default, **Kubeshark** is deployed into the `default` namespace.
+To specify a different namespace:
+
+```
+kubeshark tap -n sock-shop
+```
+
+### Specify All Namespaces
+
+The default deployment strategy of **Kubeshark** waits for the new Pods
+to be created. To simply deploy to all existing namespaces run:
+
+```
+kubeshark tap
 ```

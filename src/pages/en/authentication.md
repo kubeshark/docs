@@ -1,29 +1,28 @@
 ---
 title: Authentication
-description: This article describes how to enable authentication.
+description: Learn how to enable authentication for Kubeshark.
 layout: ../../layouts/MainLayout.astro
 ---
-**Kubeshark** comes with email and social authentication out of the box. Authentication is an independent option that can be enabled or disabled.
-![Social and IDP Authentication](/authentication.png)
 
+**Kubeshark** provides email and social authentication right out of the box. Authentication is a standalone feature that can be toggled on or off.
+![Social and IDP Authentication](/authentication.png)
 
 ## SAML
 
-If you'd like to connect your organization's SAML provider, first sign up to [Kubeshark's console](https://console.kubeshark.co/) and then [drop us a note](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA) (or send an email to: info@kubeshark.co) with the following properties:
-1. Company name (tenant name)
-2. List of approved corporate domains
-3. The email of the tenant admin who sign up to [Kubeshark's console](https://console.kubeshark.co/)
+To integrate your organization's SAML provider, begin by signing up on the [Kubeshark's console](https://console.kubeshark.co/). Afterward, reach out to us on [Slack](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA), use our [contact-us](https://kubeshark.co/contact-us) form or send an email to info@kubeshark.co with the following details:
 
-Once we get a chance to configure you as your tenant admin, we will send you a SAML link where you can configure your SAML details.
+1. Company name (tenant name)
+2. Approved corporate domains list
+3. The email of the tenant admin who registered on [Kubeshark's console](https://console.kubeshark.co/)
+
+After receiving your details, we'll set you up as a tenant admin and provide you with a link to configure your SAML settings.
 
 ## Configuration
 
-If you don't use SAML, we introduce two steps that includes:
-1. Authentication
-2. Authorization
+For those not using SAML, we offer a two-step process:
+1. Authentication - which can be performed via email or through social authentication providers (like Google, Microsoft).
+2. Authorization - this involves setting configurations in the **Kubeshark** config file.
 
-Authentication will be conducted via email or Social authentication vendors (e.g. Googl, Microsoft).
-Authorization requires setting configuration in the **Kubeshark** config file:
 
 ```shell
 tap:
@@ -36,9 +35,8 @@ tap:
     - me@gmail.com
     - they@yahoo.com
 ```
+To enable authentication, set the `tap.auth.enabled` field to `true`. To disable it, set it to `false`.
 
-To enable authentication change the `tap.auth.enabled` field to `true`. To disable it, change it to `false`. 
+In the `approveddomains`, list the domains that should be authorized to view the dashboard.
 
-In the `approveddomains`, list the domains that should be authorized to view the dashboard. 
-
-In the `approvedemails`, list the emails that should be authorized to view the dashboard if they are outside the `approvddomain` list.
+In the `approvedemails`, list the emails that should be authorized to view the dashboard if they are outside the `approveddomains` list.
