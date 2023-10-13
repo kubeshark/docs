@@ -136,7 +136,7 @@ If you get something like this in your console log:
 script Hub: error="got response with status code: 418, 
 body: {\"EnabledFeatures\":[\"Ingress\"]}"
 ```
-It means your Pro license if out-of-date. Pro edition is free while in Beta. You can simply update it by using: 
+It means your Pro license if out-of-date. You can simply update it by using: 
 ```shell
 kubeshark pro
 ```
@@ -155,4 +155,4 @@ If you were unable to find a solution to your problem, there're other means to e
 
 - [Report a bug](https://github.com/kubeshark/kubeshark/issues) by opening a ticket on GitHub.
 - [Join our Slack channel](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA) and seek support from the community. We're usually there and try to be first to respond.
-- Get dedicated and timely support from the project team by [joining our private beta program](https://kubeshark.co/beta).
+- [Get dedicated and timely support from the project team](https://kubeshark.co/contact-us).

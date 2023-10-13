@@ -3,7 +3,6 @@ title: Pro vs. Enterprise vs. Community
 description: The difference between Pro Edition and Community Edition
 layout: ../../layouts/MainLayout.astro
 ---
-> Pro & Enterprise editions are in Beta and are provided for free while in Beta.
 
 ## Pro Vs. Community
 

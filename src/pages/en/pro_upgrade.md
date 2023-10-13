@@ -3,7 +3,6 @@ title: Upgrading & Downgrading
 description: Upgrading & Downgrading
 layout: ../../layouts/MainLayout.astro
 ---
-> Pro edition is in Beta and is provided for free while in Beta.
 
 ## Upgrading to Pro
 
