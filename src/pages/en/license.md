@@ -5,24 +5,25 @@ layout: ../../layouts/MainLayout.astro
 ---
 **Full code transparency with fair limitation on commercial exploitation**
 
-Kubeshark is a collection of four different projects, each with its own license.  
+Kubeshark is a collection of five different projects, each with its own license.  
 
 |Project |Type|Version|Link
 |---|---|---|---|
 |CLI|Apache|2.0|https://github.com/kubeshark/kubeshark/blob/master/LICENSE|   
 |Front-end|BSL|1.1|https://github.com/kubeshark/front/blob/master/LICENSE|   
 |Hub|BSL|1.1|https://github.com/kubeshark/hub/blob/master/LICENSE|   
-|Worker|GPL|3.0|https://github.com/kubeshark/worker/blob/master/LICENSE|  
+|Worker|BSL|1.1|https://github.com/kubeshark/worker/blob/master/LICENSE|  
+|Tracer|GPL|3.0|https://github.com/kubeshark/tracer/blob/master/LICENSE|  
 
 When using Kubeshark the least permissive license takes dominance. In this case its BSL 1.1.
 
-## TL;DR - Why Did We chose This License
+## TL;DR - Why Did We chose This License Strategy
 
 ### Code Transparency 
 
-When creating the code for Kubeshark, it was clear to us that the code needs to be transparent as no modern organization, SRE or DevOp will seriously consider code they can't look into. When we evaluated options of closed and semi-closed code, we realized that the best option for the user would be source code that is completely available.
+When creating the code for Kubeshark, it was clear to us that the code needs to be transparent as no modern organization, SRE or DevOp will seriously consider code they can't look into. When we evaluated options of closed and semi-closed codebase, we realized that the best option for the user would be source code that is completely available.
 
-BSL1.1 grants users the freedom to view, use, and modify the source code, just like traditional open source licenses. However, it introduces a fair limitation on commercial exploitation for a specific period, giving the project a chance to grow and generate resources.
+BSL 1.1 grants users the freedom to view, use, and modify the source code, just like traditional open source licenses. However, it introduces a fair limitation on commercial exploitation for a specific period, giving the project a chance to grow and generate resources.
 
 ## What is BSL 1.1 License
 
