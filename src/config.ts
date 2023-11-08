@@ -94,8 +94,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Detection Engineering & Telemetry', link: 'en/actionable_detection' },
     ],
     'Editions': [
-      { text: 'Pro Edition', link: 'en/pro' },
-      { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
+      { text: 'Pro & Enterprise', link: 'en/pro' },
+      // { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
       { text: 'License', link: 'en/license' },
     ],
     'DevOps Stuff': [
@@ -103,6 +103,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Configuration', link: 'en/config' },
       { text: 'EKS, ALB, Ingress & TLS', link: 'en/aws_ingress_auth' },
       { text: 'EKS & IRSA', link: 'en/irsa' },
+      { text: 'Openshift', link: 'en/openshift' },
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Permissions', link: 'en/permissions' },

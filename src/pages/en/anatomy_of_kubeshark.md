@@ -5,23 +5,24 @@ layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-Distributed packet capture with minimal footprint, built for large scale production clusters.
+**A distributed packet capture system with a minimal footprint, designed for large-scale production clusters.**
 
 ![Anatomy of **Kubeshark**](/diagram.png)
 
-**Kubeshark** supports two main deployment methods:
-1. On-demand lightweight traffic investigation using a [CLI](/en/install#cli), by anyone with [kubectl](https://kubernetes.io/docs/reference/kubectl/) access.
-2. Long living deployment, using a [helm chart](/en/install#helm), in support of multiple use-cases (e.g. collaborative debugging, network monitoring, telemetry and forensics).
+**Kubeshark** offers two primary deployment methods:
 
-**Kubeshark** requires no prerequisites like: CNI, service-mesh or coding. It doesn't use a proxy or a sidecar and doesn't require architecture alterations to function. The CLI option can get your K8s traffic investigation going in only a few minutes.
+1. On-demand, lightweight traffic investigation accessible through a [CLI](/en/install#cli) for anyone with [kubectl](https://kubernetes.io/docs/reference/kubectl/) access.
+2. Long-term deployment via a [helm chart](/en/install#helm), providing stable and secure access to developers without the need for `kubectl` access.
 
-**Kubeshark** comprises four software components that seamlessly integrate with one another:
+**Kubeshark** does not require any prerequisites such as CNI, service mesh, or coding knowledge. It functions without the need for a proxy or sidecar, and does not necessitate any changes to existing architecture. The CLI option enables you to commence K8s traffic investigation in just a few minutes.
+
+**Kubeshark** is comprised of four software components that integrate seamlessly:
 
 ## CLI
 
-The CLI is a binary distribution of the **Kubeshark** client and it is written in [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint.
+The CLI, a binary distribution of the Kubeshark client, is written in the [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint.
 
-Once downloaded, simply use the `tap` command to start seeing cluster-wide API traffic:
+Once downloaded, you can simply use the `tap` command to begin monitoring cluster-wide API traffic:
 
 ```shell
 kubeshark tap                                       - tap all pods in all namespaces
@@ -30,45 +31,45 @@ kubeshark tap -n sock-shop "(catalo*|front-end*)"   - tap only pods that match t
 
 ## The Dashboard
 
-**Kubeshark**'s dashboard is a [React](https://reactjs.org/) application packaged as a K8s deployment. It operates on the K8s control plane and communicates with the [**Hub**](#hub) via WebSocket, displaying captured traffic in real-time as a scrolling feed.
+**Kubeshark**'s dashboard is a [React](https://reactjs.org/) application packaged as a Kubernetes (K8s) deployment. It operates within the K8s control plane and communicates with the [**Hub**](#hub) via WebSocket, displaying captured traffic in real-time as a scrolling feed.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
-**Service name:** `kubeshark-front`
+**Service Name**: `kubeshark-front`
 
-> **NOTE:** Read more in the [dashboard](/en/ui) section.
+> **NOTE:** For more information, refer to the [dashboard documentation](/en/ui).
 
 ## Hub
 
-The **Hub** is a K8 deployment that serves as a gateway to the [**Workers**](#worker). It hosts an HTTP server and fulfills the following functions:
+The **Hub** is a Kubernetes deployment that acts as a gateway to the [**Workers**](#worker). It hosts an HTTP server and performs several key functions:
 
-- Accepting WebSocket connections and their accompanying filters.
-- Establishing new WebSocket connections to the workers.
-- Receiving dissected traffic from the workers.
-- Streaming results back to the requester.
-- Configuring worker states through HTTP calls.
+- Accepting WebSocket connections along with their respective filters.
+- Establishing WebSocket connections to the Workers.
+- Receiving processed traffic from the Workers.
+- Streaming results back to the requestors.
+- Managing Worker states via HTTP requests.
 
-**Service name:** `kubeshark-hub`
+**Service Name**: `kubeshark-hub`
 
 ## Worker
 
-The worker is deployed into your cluster as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/) to ensure that each node in your cluster is covered by Kubeshark.
+Each Worker is deployed into your cluster as a [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/), ensuring coverage of every node in your cluster by Kubeshark.
 
-This worker encompasses two services: 
+Each Worker provides two services: 
 
-1. A network sniffer
-2. A kernel tracer
+1. A network packet sniffer.
+2. A kernel tracer.
 
-It captures packets from all network interfaces, reassembles TCP streams, and if they are dissectable, stores them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files. The collected traffic is then transmitted to the [**Hub**](#hub) via WebSocket connections.
+These services capture packets from all network interfaces, reassemble TCP streams, and, if dissectable, store them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files. The traffic collected is then transmitted to the [**Hub**](#hub) via WebSocket.
 
-**Kubeshark** stores raw packets and dissects them on-demand upon [filtering](/en/filtering).
+**Kubeshark** stores raw packets and dissects them on-demand based on [filtering criteria](/en/filtering).
 
-**Name:** `kubeshark-worker-daemon-set-<id>`
+**Service Name**: `kubeshark-worker-daemon-set-<id>`
 
 ### Distributed PCAP-based Storage
 
-Kubeshark uses a distributed PCAP-based storage where each of the Workers store the captured L4 streams in the root file system of the node.
+Kubeshark employs distributed PCAP-based storage, with each Worker storing captured Layer 4 (L4) streams in the root file system of its node.
 
 ### Low Network Overhead
 
-To reduce potential network overhead, only a fraction of the traffic is sent over the network upon request.
+To minimize potential network overhead, only a selected portion of the traffic is sent over the network upon request.
