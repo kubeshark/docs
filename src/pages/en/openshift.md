@@ -4,10 +4,10 @@ description:
 layout: ../../layouts/MainLayout.astro
 ---
 
-Prerequisite:
+Prerequisites:
 1. An active Redhat account
-2. An Active AWS account
-3. have the following CLIs installed and configure: [rosa](https://console.redhat.com/openshift/downloads), [aws](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) and [oc](https://console.redhat.com/openshift/downloads).
+2. An active AWS account
+3. Have the following CLIs installed and configured: [rosa](https://console.redhat.com/openshift/downloads), [aws](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-quickstart.html) and [oc](https://console.redhat.com/openshift/downloads).
 
 If you don't have an Openshift cluster, you can follow the [instructions below](#tldr---create-an-openshift-cluster) to install one.
 
