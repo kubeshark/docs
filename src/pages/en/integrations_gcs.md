@@ -15,7 +15,7 @@ The most common helper would be the [`vendor.gcs.put`](/en/automation_helpers#ve
 vendor.gcs.put(
   env.GCS_BUCKET,
   tarFile,
-  env.GCS_SA_KEY_JSON
+  JSON.parse(env.GCS_SA_KEY_JSON)
 );
 ```
 
