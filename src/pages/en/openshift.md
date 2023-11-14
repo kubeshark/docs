@@ -29,9 +29,13 @@ You can now install Kubeshark:
 sh <(curl -Ls https://kubeshark.co/install)
 ```
 
+## Change the Workers Pods
+
+Change the following property `tap.proxy.worker.srvPort` to `30001` or to any other port above 30000.
+
 And run it:
 ```shell
-kubeshark tap
+kubeshark tap --set tap.proxy.worker.srvPort=30001
 ```
 
 That's it, your good to go!
