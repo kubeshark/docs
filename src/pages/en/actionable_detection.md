@@ -45,7 +45,7 @@ The following forensic types are available:
 - Name resolution history
 - User-generated files
 
-Forensics can be uploaded to an immutable datastore like AWS S3 with an existing S3 helper or by using a Webhook.
+Forensics can be uploaded to an immutable datastore like AWS S3 or Google Cloud STorage with existing helpers or by using a Webhook.
 
 ### Telemetry
 

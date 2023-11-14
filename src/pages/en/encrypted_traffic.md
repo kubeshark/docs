@@ -12,6 +12,8 @@ Kubeshark can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/
 Kubeshark offers tracing kernel-space and user-space functions using [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/) (Extended Berkeley Packet Filter). eBPF is an in-kernel virtual machine running programs passed from user space. It's first introduced into
 Linux kernel with version 4.4 and quite matured since then.
 
+> **Disclaimer**: Intercepting TLS using eBPF is challenging due to the multitude of languages and library versions and variations. There isn't a one-size-fits-all solution, and custom configuration may be required. Contact us to learn more. [Contact-us](https://kubeshark.co/contact-us) if you'd like to validate that Kubeshark support your TLS use-case.
+
 ## Capturing Unencrypted TLS Traffic
 
 To deploy Kubeshark with TLS sniffing capability, simply add the `--tls` option:

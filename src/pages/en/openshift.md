@@ -11,7 +11,7 @@ Prerequisite:
 
 If you don't have an Openshift cluster, you can follow the [instructions below](#tldr---create-an-openshift-cluster) to install one.
 
-## Adding Privileges
+## Adding Constraints 
 
 Kubeshark requires adding the following [SCCs](https://docs.openshift.com/enterprise/3.0/admin_guide/manage_scc.html): `privileged` and `anyuid` to the following service accounts: `default` and `kubeshark-service-account` in the namespace Kubeshark is about to run in (e.g. `default`).
 

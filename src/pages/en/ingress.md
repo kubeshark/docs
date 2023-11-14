@@ -4,20 +4,6 @@ description: This article describes how to self host Kubeshark using Ingress.
 layout: ../../layouts/MainLayout.astro
 ---
 
-As an alternative for `kubectl` and `port-forward`, **Kubeshark** provides a method for self-hosting with Ingress.
-
-[Authentication](/en/authentication) is optional and can be enabled to provide a secure, authenticated web service that allows team members to access **Kubeshark** using a web browser with their corporate identities from remote. 
-
-As a final layer of security TLS can be enabled in addition to Ingress and Authentication.
-
-## Benefits
-
-### Security
-
-When self-hosted as a web service, developers and security engineers can access **Kubeshark** remotely using a browser, authenticated with their corporate ID, without requiring RBAC / kubectl permissions.
-
-### Performance & Stability
-
 Compared to [port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/) or Kubernetes proxy, [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) is much lighter and more stable.
 
 ## Pre-requisites

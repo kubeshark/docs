@@ -251,7 +251,7 @@ function pushDataToElasticsearch() {
 jobs.schedule("push-data-to-elastic", "0 */1 * * * *", pushDataToElasticsearch);
 ```
 
-### `vendor.s3.put(region: string, keyID: string, accessKey: string, bucket: string, path: string): string`
+### `vendor.s3.put(bucket: string, path: string, region: string, keyID: string, accessKey: string): string`
 
 Uploads a file to an AWS S3 `bucket` on AWS `region` using the either AWS authentication. AWS authentication can be achieved using:
 - Specific credentials: `keyID` and `accessKey` arguments
@@ -271,7 +271,10 @@ location = vendor.s3.put(
   env.AWS_SECRET_ACCESS_KEY   // optional. will default to shared configuration 
 );
 ```
+
 #### Using IRSA or kube2iam 
+
+`vendor.s3.put(bucket: string, path: string, region: string): string`
 
 [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) is a method for not using specific credentials but rather use a role associated with a service account.
 To use IRSA, you'd need to:
@@ -309,6 +312,37 @@ vendor.s3.clear(
   env.S3_BUCKET
 );
 ```
+### `vendor.gcs.put(bucket: string, path: string, saKeyObj: json): string`
+
+Uploads a file to a GCS `bucket` on GCP using a service account key.
+
+The GCS path of the file is set based on this pattern: `<NODE_NAME>_<NODE_IP>_<RUN_ID>/<FILENAME>`.
+Returns the URL of the S3 location once the file is successfully uploaded.
+
+#### Example:
+
+```js
+location = vendor.s3.put(
+  env.GCS_BUCKET,
+  filePath
+  JSON.parse(env.GCS_SA_KEY_JSON)             
+);
+```
+### `vendor.gcs.clear(bucket: string, , saKeyObj: json)`
+
+Clears the content of the folder `<NODE_NAME>_<NODE_IP>/` in the GCS `bucket`.
+The folder is simply owned by the Kubeshark worker/node.
+It can be called through a job to do a periodic clean up.
+
+##### Example:
+
+```js
+vendor.s3.clear(
+  env.AWS_REGION,
+  env.AWS_ACCESS_KEY_ID,
+  env.AWS_SECRET_ACCESS_KEY,
+  env.S3_BUCKET
+);
 
 ## PCAP
 

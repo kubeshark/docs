@@ -58,6 +58,11 @@ export const SIDEBAR: Sidebar = {
       { text: 'Ingress', link: 'en/ingress' }, 
       { text: 'Authentication', link: 'en/authentication' }, 
     ],
+    'Use Cases': [
+      { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
+      { text: 'Traffic Recording & Offline Investigation', link: 'en/cloud_forensics' },
+      { text: 'Detection Engineering & Telemetry', link: 'en/actionable_detection' },
+    ],
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Service Map', link: 'en/service_map' },
@@ -74,7 +79,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Scripting', link: 'en/automation_scripting' },
       { text: 'Hooks', link: 'en/automation_hooks' },
       { text: 'Helpers', link: 'en/automation_helpers' },
-      { text: 'Wrappers', link: 'en/automation_wrappers' },
+      // { text: 'Wrappers', link: 'en/automation_wrappers' },
       { text: 'Jobs', link: 'en/automation_jobs' },
       { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' }
 
@@ -84,14 +89,10 @@ export const SIDEBAR: Sidebar = {
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
       { text: 'Elasticsearch', link: 'en/integrations_elastic' },
       { text: 'AWS S3', link: 'en/integrations_aws_s3' },
+      { text: 'Google Cloud Storage', link: 'en/integrations_gcs' },
       { text: 'Slack', link: 'en/integrations_slack' },
       { text: 'Webhook', link: 'en/integrations_webhook' },
       { text: 'K8s Lens', link: 'en/integrations_lens' },
-    ],
-    'Use Cases': [
-      { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
-      { text: 'Traffic Recording & Offline Investigation', link: 'en/cloud_forensics' },
-      { text: 'Detection Engineering & Telemetry', link: 'en/actionable_detection' },
     ],
     'Editions': [
       { text: 'Pro & Enterprise', link: 'en/pro' },
