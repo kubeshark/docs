@@ -108,6 +108,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
       { text: 'Service Mesh', link: 'en/service_mesh' },
       { text: 'Permissions', link: 'en/permissions' },
+      { text: 'Air-gap Support', link: 'en/air_gapped' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
       // { text: 'Performance Benchmark', link: 'en/performance_benchmark' },
     ],
