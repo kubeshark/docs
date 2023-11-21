@@ -3,17 +3,34 @@ title: Installing in an Air-gapped Environment
 description: 
 layout: ../../layouts/MainLayout.astro
 ---
-**Air-gapped environment support is an enterprise feature.** To retrieve your license, log in to the [Admin console](https://console.kubeshark.co/).
+**Air-gapped Environment Support is an Enterprise Feature**  
+To retrieve your license, please log in to the [Admin Console](https://console.kubeshark.co/).
 
-Please note, the availability of the following features depends on an open internet connection and should be disabled in air-gapped environments:
+## Docker Registry
+
+To pull a specific version or the latest of the following Docker images from `docker.io`, visit:
+- [kubeshark/worker](https://hub.docker.com/r/kubeshark/worker)
+- [kubeshark/hub](https://hub.docker.com/r/kubeshark/hub)
+- [kubeshark/front](https://hub.docker.com/r/kubeshark/front)
+
+You can then push these images to your local Docker registry and update the proper configuration including the registry address and, if needed, the secret for pulling images from your local repository.
+
+## Disabling Internet-Dependent Features
+Be aware that the availability of certain features relies on an active internet connection. In air-gapped environments, it's advisable to disable these features:
 - Authentication
 - Telemetry
 - PF_RING
 
-To disable these features, please set the following configuration values:
+## Configuration Example
+
+Below is an example and guidelines for configuring your local Docker registry, disabling the aforementioned features, and managing your license:
+
 
 ```yaml
 tap:
+  docker:
+    registry: <local-registry-address>
+    imagePullSecrets: [ <secret> ]
   auth:
     enabled: false
   telemetry:
@@ -27,7 +44,9 @@ Alternatively, you can add the following directives to your command line as a se
 --set tap.auth.enabled=false \
 --set tap.telemetry.enabled=false \
 --set tap.noKernelModule=true \
---set license=<your-enterprise-license>
+--set license=<your-enterprise-license> \
+--set tap.docker.registry=<local-registry-address> \
+--set-json 'tap.docker.imagePullSecrets=["<secret>"]'
 ```
 
 **Notes:**
