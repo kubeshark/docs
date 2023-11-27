@@ -59,7 +59,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Authentication', link: 'en/authentication' }, 
     ],
     'Use Cases': [
-      { text: 'Investigation & Debugging', link: 'en/traffic_investigation' },
+      { text: 'Real-time Investigation', link: 'en/traffic_investigation' },
       { text: 'Traffic Recording & Offline Investigation', link: 'en/cloud_forensics' },
       { text: 'Detection Engineering & Telemetry', link: 'en/actionable_detection' },
     ],
@@ -71,6 +71,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
       { text: 'PCAPs', link: 'en/pcap' },
       { text: 'Short-term Traffic Retention', link: 'en/short_retention' },
+      { text: 'Traffic Recorder', link: 'en/traffic_recorder' },
       // { text: 'Pods & Namespaces', link: 'en/scope' },
       { text: 'DNS', link: 'en/dns' },
     ],

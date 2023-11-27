@@ -72,7 +72,7 @@ tap:
   storagelimit: 500Mi
 ```
 
-Traffic is recorded and stored by the Worker at the K8s node level. Storage is monitored and purged once 50% of the limit is reached. The Worker pod is evicted (and storage purged) if storage usage exceeds the limit. The limit is controlled by setting the `tap.storagelimit` configuration value. To increase this limit, simply provide a different value (e.g., setting it to 1GB with `--set tap.storagelimit=1Gi`).
+Traffic is recorded and stored by the Worker at the K8s node level. Storage is monitored and purged once limit is reached. The Worker pod is evicted (and storage purged) if storage usage exceeds the limit. The limit is controlled by setting the `tap.storagelimit` configuration value. To increase this limit, simply provide a different value (e.g., setting it to 1GB with `--set tap.storagelimit=1Gi`).
 
 ## Packet Processing Library
 

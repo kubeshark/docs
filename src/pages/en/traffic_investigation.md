@@ -1,14 +1,12 @@
 ---
-title: Investigation & API Debugging
-description: Kubeshark as a traffic investigation and debugging.
+title: Real-time API Investigation & Debugging
+description: Kubeshark as a real-time traffic investigation and debugging.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** offers real-time protocol-level visibility into Kubernetes (K8s) traffic, complemented by a rich query language, a service map, and a dashboard.
+**Kubeshark** offers real-time, cluster-wide, identity-aware, protocol-level visibility into API traffic, empowering its users to see in their own eyes what's happening in all (hidden) corners of their K8s clusters. Observe all traffic,  including payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP), DNS, TLS and mTLS.
 
 Whether you are resolving issues with your infrastructure, analyzing potential threats, or delving into a security incident, **Kubeshark** can be highly valuable in pinpointing the responsible factors.
-
-
 
 ## Protocol-level Visibility
 

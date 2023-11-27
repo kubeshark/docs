@@ -8,9 +8,9 @@ layout: ../../layouts/MainLayout.astro
 
 ![Error Message](/storage_error.png)
 
-> For information on long-term traffic retention, read the [Traffic Recording & Offline Analysis](/en/cloud_forensics) section.
+> For information on long-term traffic retention, read the [Traffic Recorder](/en/traffic_recorder) section.
 
-## Guardrails
+## Storage Limit & Guardrails
 
 Because storage can fill up rapidly, we have established certain guardrails to prevent overuse of disk resources.
 
@@ -21,5 +21,3 @@ To increase this limit, simply provide a different value (e.g., setting it to 1G
 When an L4 stream is dissected, a JSON file is generated with all relevant details. This file has a time to live of 5 minutes.
 
 The actual L4 stream (PCAP) has a time to live of 10 seconds, enough for a script to copy it to a different folder if retention is required.
-
-> For longer retention of traffic, please visit the [Traffic Recording & Offline Analysis](/en/cloud_forensics) section.
