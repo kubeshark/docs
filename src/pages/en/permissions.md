@@ -1,96 +1,73 @@
 ---
-title: Permissions
-description: Required Kubernetes permissions for Kubeshark.
+title: Kubeshark's Security Context & RBAC
+description: This document outlines the necessary Kubernetes permissions for the efficient operation of Kubeshark, a network monitoring tool.
 layout: ../../layouts/MainLayout.astro
 ---
 
-This page contains `Role` and `RoleBinding` which provide permissions required for full and correct operation of **Kubeshark** in your Kubernetes cluster.
+## The Worker DaemonSet
 
-## All namespaces
-
-For capturing from all namespaces with `kubeshark tap`:
+Kubeshark's Worker DaemonSet is a critical component designed to monitor network traffic within the Kubernetes cluster. To function effectively, it requires specific capabilities that go beyond the standard set. These capabilities are essential for enabling network sniffing and detailed traffic analysis. The security context for the Worker DaemonSet is defined as follows:
 
 ```yaml
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: kubeshark-runner-clusterrole
-rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["list", "watch", "create"]
-- apiGroups: [""]
-  resources: ["services"]
-  verbs: ["get", "create"]
-- apiGroups: ["apps"]
-  resources: ["daemonsets"]
-  verbs: ["create", "patch"]
-- apiGroups: [""]
-  resources: ["namespaces"]
-  verbs: ["list", "watch", "create", "delete"]
-- apiGroups: [""]
-  resources: ["services/proxy"]
-  verbs: ["get", "create"]
-- apiGroups: [""]
-  resources: ["configmaps"]
-  verbs: ["create"]
-- apiGroups: [""]
-  resources: ["pods/log"]
-  verbs: ["get"]
----
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: kubeshark-runner-clusterrolebindings
-subjects:
-- kind: User
-  name: user-with-clusterwide-access
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: ClusterRole
-  name: kubeshark-runner-clusterrole
-  apiGroup: rbac.authorization.k8s.io
+securityContext:
+  capabilities:
+    add:
+      - NET_RAW        # Essential for raw socket handling, used in network sniffing
+      - NET_ADMIN      # Needed for network administration tasks
+      - SYS_ADMIN      # Grants various system administration permissions
+      - SYS_PTRACE     # Allows tracing system calls and processes
+      - DAC_OVERRIDE   # Bypasses file read, write, and execute permission checks
+      - SYS_RESOURCE   # Permits resource configuration and management
+      - CHECKPOINT_RESTORE # Enables checkpoint and restore capabilities of processes
+    drop:
+      - ALL            # Drops all capabilities not explicitly added
+
 ```
 
-## Specific Namespace
+## Service Account
 
-For capturing from a specific namespace with `kubeshark tap -n example`:
+Kubeshark utilizes a dedicated Service Account named `kubeshark-service-account` for all its components. This account is specifically configured to provide the necessary access permissions for Kubeshark's operations within the Kubernetes environment, ensuring secure and efficient performance.
+
+## Cluster Role
+
+The Cluster Role in Kubeshark is designed to grant broad permissions across the entire Kubernetes cluster. This role is crucial for Kubeshark to access and monitor various Kubernetes resources at a cluster-wide level. The Cluster Role Binding, detailed below, outlines these permissions:
 
 ```yaml
-kind: Role
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: kubeshark-runner-role
 rules:
-- apiGroups: [""]
-  resources: ["pods"]
-  verbs: ["list", "watch", "create"]
-- apiGroups: [""]
-  resources: ["services"]
-  verbs: ["get", "create", "delete"]
-- apiGroups: ["apps"]
-  resources: ["daemonsets"]
-  verbs: ["create", "patch", "delete"]
-- apiGroups: [""]
-  resources: ["services/proxy"]
-  verbs: ["get", "create", "delete"]
-- apiGroups: [""]
-  resources: ["configmaps"]
-  verbs: ["create", "delete"]
-- apiGroups: [""]
-  resources: ["pods/log"]
-  verbs: ["get"]
----
-kind: RoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: kubeshark-runner-rolebindings
-subjects:
-- kind: User
-  name: user-with-restricted-access
-  apiGroup: rbac.authorization.k8s.io
-roleRef:
-  kind: Role
-  name: kubeshark-runner-role
-  apiGroup: rbac.authorization.k8s.io
+  - apiGroups:
+      - ""
+      - extensions
+      - apps
+    resources:
+      - pods
+      - services
+      - endpoints
+      - persistentvolumeclaims
+    verbs:
+      - list
+      - get
+      - watch
 ```
+
+## Namespace Specific Role
+
+Within the specific namespace where Kubeshark is deployed, a Role Binding is used to grant targeted permissions for namespace-level resources. This ensures Kubeshark's access to essential configurations and secrets within its operational namespace:
+
+```yaml
+rules:
+  - apiGroups:
+      - ""           # Core API group
+      - v1           # Version 1 of the core API group
+    resourceNames:
+      - kubeshark-secret      # Specific secret for Kubeshark
+      - kubeshark-config-map  # Specific config map for Kubeshark
+    resources:
+      - secrets       # Access to secrets resource
+      - configmaps    # Access to configmaps resource
+    verbs:
+      - get           # Permission to get resource details
+      - watch         # Permission to watch for changes in resources
+      - update        # Permission to update resources
+```
+
+These permissions are integral for Kubeshark's self-configuration and adaptive operation within the Kubernetes environment.

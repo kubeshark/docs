@@ -1,122 +1,109 @@
-# EKS Persistent Storage
+---
+title: Using AWS EFS as a Persistent Volume
+description: Guide on utilizing EFS as a persistent volume
+layout: ../../layouts/MainLayout.astro
+---
 
-## Get EKS Cluster VPC  Subnets
+Mount an EFS volume in RWX mode by using a filesystem ID and mountpoints across all subnets in all node groups. Ensure you have an EFS storage class name. Follow the [instructions below](/en/efs#tldr---configure-an-efs-volume) for provisioning.
 
-### Pick the name of existing cluster
+## Prerequisites
 
-where EFS and Kubeshark to be deployed
+- EFS storage class name: `<efs-storage-class-name>`
+- Filesystem ID: `<filesystem-id>`
 
-```
-aws eks list-clusters --query "clusters[]" --output text
-```
+## Use in Kubeshark
 
-and save for further usage
+Configure the following to utilize the persistent volume:
 
-#### Get its node group names
-
-```
-aws eks list-nodegroups --cluster-name <picked cluster name> --query "nodegroups[]" --output text
-```
-
-and save them for further usage
-
-#### Get its subnets
-
-By subsequently calling for picked cluster and each its node group gotten above
-
-```
-aws eks describe-nodegroup --query "nodegroup.subnets[]" --output text --cluster-name <picked cluster name>  --nodegroup-name <node group name>
+```yaml
+tap:
+  persistentStorage:    true
+  storageClass:         <efs-storage-class-name>  # prerequisite
+  storageLimit:         5Gi                       # An example
+  fileSystemIdAndPath:  <filesystem-id>           # Prerequisite
 ```
 
-and save them for further usage
+## TL;DR - Configure an EFS Volume
 
-### Or create new cluster
+### Prerequisites
 
+Prepare the following information:
+- Cluster region: `<cluster-region>`
+- Node group subnets: `<subnet-id>`
+- EKS cluster VPC-ID: `<cluster-vpc-id>`
+
+### Create a Dedicated Security Group 
+
+```yaml
+aws ec2 create-security-group \
+--query GroupId \
+--output text \
+--group-name MyEfsMountableFromEverywhereSecurityGroup \
+--description "Opens inbound EFS/NFS port to be accessible from every host in subnet" \
+--region <cluster-region> \      # Prerequisite
+--vpc-id <cluster-vpc-id>        # Prerequisite
 ```
-eksctl create cluster --name my-kubeshark-dev-eks-cluster --nodegroup-name my-kubeshark-dev-eks-nodegroup-minimal --node-type m3.medium --nodes 2  --nodes-min 0 --nodes-max 2 --node-volume-size 10
+Save the group ID for the following command: `<security-group-id>`.
+
+### Open Inbound (Ingress) NFS/EFS port `2049`
+
+Authorize ingress on port 2049 for the security group created above in your cluster region.
+
+```yaml
+aws ec2 authorize-security-group-ingress \
+--group-id <security-group-id>  \   # From the previous command
+--protocol tcp \
+--port 2049 \
+--cidr 0.0.0.0/0 \
+--region <cluster-region>           # Prerequisite
+``` 
+
+### Create Filesystem
+
+Create a file system in your cluster region and note the filesystem ID.
+
+```yaml
+aws efs create-file-system  \
+--query "FileSystemId" \
+--output text \
+--region <cluster-region>          # Prerequisite  
+```
+Save the filesystem ID for the following command: `<filesystem-id>`.
+
+### Create Mount-points in Each Subnet
+
+For each subnet across all node groups, create mount targets to provide all pods access to the file system. Use the filesystem ID and security group ID from the previous steps.
+
+```yaml
+aws efs create-mount-target \
+--query "MountTargetId" \
+--output text 
+--file-system-id <filesystem-id> \      # From previous command
+--subnet-id <subnet-id> \               # Prerequisite
+--security-groups <security-group-id> \ # From previous command
+--region <cluster-region>               # Prerequisite
 ```
 
-#### Get its `subnets`
+### Deploy the Amazon EFS CSI driver
 
-```
-aws eks describe-nodegroup --query "nodegroup.subnets[]" --output text --cluster-name my-kubeshark-dev-eks-cluster  --nodegroup-name my-kubeshark-dev-eks-nodegroup-minimal
-```
+Deploy the Amazon EFS CSI driver using the stable ECR release.
 
-and save them for further usage
-
-
-
-## Create and configure EFS
-
-### Create dedicated security group 
-
-to do not affect any existing security
-
-```
-aws ec2 create-security-group --query GroupId --output text --group-name MyEfsMountableFromEverywhereSecurityGroup --description "Opens inbound EFS/NFS port to be accessible from every host in subnet" 
-```
-
-and save its output (which is purely `GroupId` value) for further usage
-
-#### Open inbound (ingress) NFS/EFS port `2049`
-
-using above `GroupId`
-
-```
-aws ec2 authorize-security-group-ingress --group-id <GroupId> --protocol tcp --port 2049 --cidr 0.0.0.0/0
-```
-
-### Create filesystem
-
-```
-aws efs create-file-system  --query "FileSystemId" --output text
-```
-
-and save its output (which is purely `FileSystemId` value) for further usage
-
-#### Make it accessible (mountable) for each cluster node
-
-subsequently for each `subnet` gotten and saved above call all below
-
-##### Create mount target
-
-```
-aws efs create-mount-target --query "MountTargetId" --output text --file-system-id <FileSystemId> --subnet-id <subnet> --security-groups <GroupId>
-```
-
-and save its output (which is purely `MountTargetId` value) for further usage
-
-### Make EFS available on the cluster
-
-#### Deploy the Amazon EFS CSI driver
-
-```
+```yaml
 kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.3"
 ```
 
-#### Create `StorageClass`
+### Create a `StorageClass`
 
-##### Create a file named e.g. `efs-sc.yaml` with the following content:
+Create a file named `efs-sc.yaml` with the specified content and deploy it using kubectl.
 
-```
+```yaml
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
   name: efs-sc
 provisioner: efs.csi.aws.com
 ```
-
-##### Deploy it
-
-```
+Deploy it:
+```yaml
 kubectl apply -f efs-sc.yaml
-```
-
-## Install/update Kubeshark
-
-using `FileSystemId` value gotten and saved above
-
-```
-helm uninstall kubeshark
-helm install kubeshark kubeshark/kubeshark --set tap.fileSystemIdAndPath=FileSystemId -f ./helm-chart/values-efs.yaml
 ```
