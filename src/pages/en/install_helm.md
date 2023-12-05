@@ -43,6 +43,31 @@ To uninstall the Helm chart:
 helm uninstall kubeshark -n <release-namespace>
 ```
 
+## Persistent storage
+
+### EFS
+
+```shell
+helm install kubeshark kubeshark/kubeshark \
+--set tap.persistentStorage=true \
+--set tap.storageClass=<efsStorageClassName>
+```
+* Where `efsStorageClassName` should be the one chosen for `StorageClass` deployed on [EFS storage dynamic provision](efs#sstatically-provisioned)
+
+#### Static provision
+
+[See difference](efs#statically-provisioned) with above dynamic provision
+
+```shell
+helm install kubeshark kubeshark/kubeshark \
+--set tap.persistentStorage=true \
+--set tap.storageClass=<efsStorageClassName>
+--set tap.persistentStorageStatic=true
+--set tap.efsFileSytemIdAndPath=<efsFileSystemId[:Path][:AccessPointId]>
+```
+
+* Where `efsStorageClassName` should be the one chosen for `StorageClass` deployed on [EFS storage static provision](efs#sstatically-provisioned)
+
 ## Change the Default Deployment Namespace
 
 By default **Kubeshark** installs in the `default` namespace. Use the following methods to change:
