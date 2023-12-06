@@ -104,7 +104,7 @@ Simpler and suitable in most cases. Kubehark and all other persistent volume cla
 apiVersion: storage.k8s.io/v1
 kind: StorageClass         
 metadata:
-  name: efs-sc   
+  name: efs-sc # Any arbitrary name can be chosen
 provisioner: efs.csi.aws.com
 parameters:   
   provisioningMode: efs-ap
