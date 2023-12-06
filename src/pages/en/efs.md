@@ -56,7 +56,7 @@ aws ec2 authorize-security-group-ingress \
 --port 2049 \
 --cidr 0.0.0.0/0 \
 --region <cluster-region>           # Prerequisite
-``` 
+```
 
 ### Create Filesystem
 
@@ -94,7 +94,27 @@ kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernete
 
 ### Create a `StorageClass`
 
-Create a file named `efs-sc.yaml` with the specified content and deploy it using kubectl.
+Create a file named `efs-sc.yaml` with either of below content (depending from your infrastructure and cluster configuration/requirements)  and deploy it using kubectl.
+
+#### Dynamically provisioned
+
+Simpler and suitable in most cases. Kubehark and all other persistent volume claims with specified below storage class will be provisioned to the automatically created unique directory on the EFS with specified below file system ID 
+
+```yaml
+apiVersion: storage.k8s.io/v1
+kind: StorageClass         
+metadata:
+  name: efs-sc # Any arbitrary name can be chosen
+provisioner: efs.csi.aws.com
+parameters:   
+  provisioningMode: efs-ap
+  fileSystemId: <FileSystemId> # From previous command
+  directoryPerms: "700"
+```
+
+#### Statically provisioned
+
+In this case EFS file system ID should be specified during Kubeshark deployment (e.g. via `--set` in Helm). Can be helpful e.g. if some infrastructure has requirement (e.g. defined by organziation) to use only some directrory pre-created specially for Kubeshark with specific permissions on the EFS file system which is used for other EFS persistent volume claims as well
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -104,6 +124,7 @@ metadata:
 provisioner: efs.csi.aws.com
 ```
 Deploy it:
+
 ```yaml
 kubectl apply -f efs-sc.yaml
 ```
