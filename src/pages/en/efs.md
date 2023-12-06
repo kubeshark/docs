@@ -8,7 +8,7 @@ Mount an EFS volume in RWX mode by using a filesystem ID and mountpoints across 
 
 ## Prerequisites
 
-- EFS storage class name: `<efs-storage-class-name>`
+- EFS storage class named: `efs-sc`
 - Filesystem ID: `<filesystem-id>`
 
 ## Use in Kubeshark
@@ -18,7 +18,7 @@ Configure the following to utilize the persistent volume:
 ```yaml
 tap:
   persistentStorage:    true
-  storageClass:         <efs-storage-class-name>  # prerequisite
+  storageClass:         efs-sc                    # prerequisite
   storageLimit:         5Gi                       # An example
   fileSystemIdAndPath:  <filesystem-id>           # Prerequisite
 ```
@@ -28,7 +28,7 @@ tap:
 ### Prerequisites
 
 Prepare the following information:
-- Cluster region: `<cluster-region>`
+- Cluster region:     `<cluster-region>`
 - Node group subnets: `<subnet-id>`
 - EKS cluster VPC-ID: `<cluster-vpc-id>`
 

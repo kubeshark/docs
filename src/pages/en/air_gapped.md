@@ -15,6 +15,17 @@ To pull a specific version or the latest of the following Docker images from `do
 
 You can then push these images to your local Docker registry and update the proper configuration including the registry address and, if needed, the secret for pulling images from your local repository.
 
+## Helm Chart
+
+To use the appropriate helm templates, pull the latest **Kubeshark** repository. Please do not use the development version.
+
+```yaml
+git clone git@github.com:kubeshark/kubeshark.git --depth 1
+git checkout <tag>  # run `git tags` to see available tags 
+cd kubeshark/helm-chart
+helm install kubeshark .
+```
+
 ## Disabling Internet-Dependent Features
 Be aware that the availability of certain features relies on an active internet connection. In air-gapped environments, it's advisable to disable these features:
 - Authentication

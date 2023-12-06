@@ -9,7 +9,6 @@ layout: ../../layouts/MainLayout.astro
 kubectl create namespace kubeshark
 kubeshark tap -s kubeshark
 ```
-
 ## TL;DR - Create an Openshift Cluster on AWS
 
 ### Prerequisites:

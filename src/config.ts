@@ -105,7 +105,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Configuration', link: 'en/config' },
       { text: 'EKS, ALB, Ingress & TLS', link: 'en/aws_ingress_auth' },
       { text: 'EKS & IRSA', link: 'en/irsa' },
-      // { text: 'EFS Persistent Volume', link: 'en/efs' },
+      { text: 'EFS Persistent Volume', link: 'en/efs' },
       { text: 'Openshift', link: 'en/openshift' },
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
       { text: 'Service Mesh', link: 'en/service_mesh' },

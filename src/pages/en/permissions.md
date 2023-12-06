@@ -8,21 +8,24 @@ layout: ../../layouts/MainLayout.astro
 
 Kubeshark's Worker DaemonSet is a critical component designed to monitor network traffic within the Kubernetes cluster. To function effectively, it requires specific capabilities that go beyond the standard set. These capabilities are essential for enabling network sniffing and detailed traffic analysis. The security context for the Worker DaemonSet is defined as follows:
 
-```yaml
-securityContext:
-  capabilities:
-    add:
-      - NET_RAW        # Essential for raw socket handling, used in network sniffing
-      - NET_ADMIN      # Needed for network administration tasks
-      - SYS_ADMIN      # Grants various system administration permissions
-      - SYS_PTRACE     # Allows tracing system calls and processes
-      - DAC_OVERRIDE   # Bypasses file read, write, and execute permission checks
-      - SYS_RESOURCE   # Permits resource configuration and management
-      - CHECKPOINT_RESTORE # Enables checkpoint and restore capabilities of processes
-    drop:
-      - ALL            # Drops all capabilities not explicitly added
+#### Normal Kubeshark Operations
 
+- NET_RAW:    Essential for raw socket handling, used in network sniffing
+- NET_ADMIN:  Needed for network administration tasks
+
+#### In Support of ServieMesh, eBPF and TLS
+      
+Can be disabled with the following config values:
+```yaml
+--set tap.serviceMesh=false
+--set tap.tls=false
 ```
+
+- SYS_ADMIN:          Grants various system administration permissions
+- SYS_PTRACE:         Allows tracing system calls and processes
+- DAC_OVERRIDE:       Bypasses file read, write, and execute permission checks
+- SYS_RESOURCE:       Permits resource configuration and management
+- CHECKPOINT_RESTORE: Enables checkpoint and restore capabilities of processes
 
 ## Service Account
 
