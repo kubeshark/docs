@@ -34,7 +34,7 @@ Prepare the following information:
 
 ### Create a Dedicated Security Group 
 
-```yaml
+```shell
 aws ec2 create-security-group \
 --query GroupId \
 --output text \
@@ -49,7 +49,7 @@ Save the group ID for the following command: `<security-group-id>`.
 
 Authorize ingress on port 2049 for the security group created above in your cluster region.
 
-```yaml
+```shell
 aws ec2 authorize-security-group-ingress \
 --group-id <security-group-id>  \   # From the previous command
 --protocol tcp \
@@ -62,7 +62,7 @@ aws ec2 authorize-security-group-ingress \
 
 Create a file system in your cluster region and note the filesystem ID.
 
-```yaml
+```shell
 aws efs create-file-system  \
 --query "FileSystemId" \
 --output text \
@@ -74,7 +74,7 @@ Save the filesystem ID for the following command: `<filesystem-id>`.
 
 For each subnet across all node groups, create mount targets to provide all pods access to the file system. Use the filesystem ID and security group ID from the previous steps.
 
-```yaml
+```shell
 aws efs create-mount-target \
 --query "MountTargetId" \
 --output text 
@@ -84,13 +84,74 @@ aws efs create-mount-target \
 --region <cluster-region>               # Prerequisite
 ```
 
-### Deploy the Amazon EFS CSI driver
+### EKS specific
+
+#### Deploy the Amazon EFS CSI driver
 
 Deploy the Amazon EFS CSI driver using the stable ECR release.
 
-```yaml
+```shell
 kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.3"
 ```
+
+###  OpenShift specific
+
+####  Subscribe to the Operator
+
+Create a file named efs-operator.yaml with below content
+
+```yaml
+apiVersion: operators.coreos.com/v1alpha1
+kind: Subscription
+metadata:
+  name: aws-efs-csi-driver-operator
+  namespace: openshift-cluster-csi-drivers
+spec:
+  channel: stable
+  name: aws-efs-csi-driver-operator
+  source: redhat-operators
+  sourceNamespace: openshift-marketplace
+
+```
+
+Deploy it:
+
+```shell
+oc apply -f efs-operator.yaml
+```
+
+Check its status:
+
+```shell
+oc describe operator aws-efs-csi-driver-operator
+```
+
+####  Installing the AWS EFS CSI Driver
+
+Create a file named efs-driver.yaml with below content
+
+```yaml
+apiVersion: operator.openshift.io/v1
+kind: ClusterCSIDriver
+metadata:
+    name: efs.csi.aws.com
+spec:
+  managementState: Managed
+```
+
+Deploy it:
+
+```shell
+oc apply -f efs-driver.yaml 
+```
+
+Check its status:
+
+```shell
+oc describe clustercsidriver ebs.csi.aws.com
+```
+
+
 
 ### Create a `StorageClass`
 
@@ -108,8 +169,8 @@ metadata:
 provisioner: efs.csi.aws.com
 parameters:   
   provisioningMode: efs-ap
-  fileSystemId: <FileSystemId> # From previous command
   directoryPerms: "700"
+  fileSystemId: <FileSystemId> # From previous command
 ```
 
 #### Statically provisioned
