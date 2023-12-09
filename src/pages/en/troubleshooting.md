@@ -147,6 +147,11 @@ There were some reports on incompatibility between certain versions of Kubernete
 
 ## Openshift
 
+When Dynatrace enabled in Openshift cluster, Kubeshark worker pod may get `terminated` immediately.
+
+- One possible workround is to exclude Kubeshark namespace for Dynatrace by adding `openshift.io/cluster-monitoring: false` into `annotations:` section of Kubeshark namespace yaml.
+- Another way to exclude kubeshark namespace is through Dynatrace Admin Dashboard
+
 There were some reports where Kubeshark wasn't running out of the box on Openshift. We plan to make sure it runs flawlessly on Openshift, but we haven't gotten to that yet.
 
 ## Well That Didn't Work
