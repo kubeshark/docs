@@ -1,4 +1,5 @@
 ---
+
 title: Using AWS EFS as a Persistent Volume
 description: Guide on utilizing EFS as a persistent volume
 layout: ../../layouts/MainLayout.astro
@@ -94,30 +95,189 @@ Deploy the Amazon EFS CSI driver using the stable ECR release.
 kubectl apply -k "github.com/kubernetes-sigs/aws-efs-csi-driver/deploy/kubernetes/overlays/stable/ecr/?ref=release-1.3"
 ```
 
-###  OpenShift specific
+###  OpenShift only
+
+#### STS cluster only
+
+##### Create IAM role for EFS CSI Driver Operator
+
+###### Create IAM role trust/assume policy
+
+To allow assume this IAM role by the current IAM account
+
+Get **IAM account ID** and save for further usage:
+
+```shell
+aws sts get-caller-identity \
+  --query Account \
+  --output text
+```
+
+Get **IAM OIDC (OpenID Connec) provider** and save for further usage omitting `https://` at the beginning and `%` at the end:
+
+```shell
+oc get authentication.config.openshift.io cluster \
+  -o jsonpath='{.spec.serviceAccountIssuer}'
+```
+
+Create file `TrustPolicy.json` with below content, replacing `<IAM ACCOUNT ID>` and `<IAM OIDC PROVIDER>` with above outputs appropriately:
+
+```json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::<IAM ACCOUNT ID>:oidc-provider/<IAM OIDC PROVIDER>"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "${OIDC_PROVIDER}:sub": [
+            "system:serviceaccount:openshift-cluster-csi-drivers:aws-efs-csi-driver-operator",
+            "system:serviceaccount:openshift-cluster-csi-drivers:aws-efs-csi-driver-controller-sa"
+          ]
+        }
+      }
+    }
+  ]
+}
+```
+
+Create IAM role using above file and replacing `<CLUSTER NAME`> with the name of the current cluster
+```shell 
+aws iam create-role \
+  --role-name "<CLUSTER NAME>-aws-efs-csi-operator" \
+  --assume-role-policy-document file://TrustPolicy.json \
+  --query "Role.Arn" --output text
+```
+
+Save its output which is **`ARN`** of new created **IAM role** for further usage
+
+###### Create IAM policy
+
+Create file named `efs-policy.json` with below content
+
+```json
+efs-policy.json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:DescribeAccessPoints",
+        "elasticfilesystem:DescribeFileSystems",
+        "elasticfilesystem:DescribeMountTargets",
+        "elasticfilesystem:TagResource",
+        "ec2:DescribeAvailabilityZones"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "elasticfilesystem:CreateAccessPoint"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringLike": {
+          "aws:RequestTag/efs.csi.aws.com/cluster": "true"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "elasticfilesystem:DeleteAccessPoint",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:ResourceTag/efs.csi.aws.com/cluster": "true"
+        }
+      }
+    }
+  ]
+}
+```
+
+Create IAM policy using above file and replacing `<CLUSTER NAME`> with the name of the current cluster:
+
+```shell
+aws iam create-policy --policy-name "<CLUSTER NAME>-rosa-efs-csi" \
+   --policy-document file://efs-policy.json \
+   --query 'Policy.Arn' \
+   --output text
+```
+
+Save its output which is **`ARN`** of new created **IAM policy**  forbelow use
+
+###### Attach IAM policy to the role
+
+Call below while replacing `<CLUSTER NAME>` and `<IAM POLICY ARN>` with ones gotten above
+
+```shell
+aws iam attach-role-policy \
+   --role-name "<CLUSTER NAME>-aws-efs-csi-operator" \
+   --policy-arn <IAM POLICY ARN>
+```
+
+##### Create `Secret`
+
+Create file `efs-secret.yaml` with below content while replacing `<ROLE ARN>`  with one gotten above
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+ name: aws-efs-cloud-credentials
+ namespace: openshift-cluster-csi-drivers
+stringData:
+  credentials: |-
+    [default]
+    sts_regional_endpoints = regional
+    role_arn = <ROLE ARN> 
+    web_identity_token_file = /var/run/secrets/openshift/serviceaccount/token
+```
+
+Deploy it:
+
+```shell
+oc apply -f efs-secret.yaml
+```
+
+
 
 ####  Subscribe to the Operator
 
 Create a file named efs-operator.yaml with below content
 
 ```yaml
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
+metadata:
+  generateName: openshift-cluster-csi-drivers-
+  namespace: openshift-cluster-csi-drivers
+---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
+  labels:
+    operators.coreos.com/aws-efs-csi-driver-operator.openshift-cluster-csi-drivers: ""
   name: aws-efs-csi-driver-operator
   namespace: openshift-cluster-csi-drivers
 spec:
   channel: stable
+  installPlanApproval: Automatic
   name: aws-efs-csi-driver-operator
   source: redhat-operators
   sourceNamespace: openshift-marketplace
-
 ```
 
 Deploy it:
 
 ```shell
-oc apply -f efs-operator.yaml
+oc create -f efs-operator.yaml
 ```
 
 Check its status:
@@ -150,8 +310,6 @@ Check its status:
 ```shell
 oc describe clustercsidriver ebs.csi.aws.com
 ```
-
-
 
 ### Create a `StorageClass`
 
