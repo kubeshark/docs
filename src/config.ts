@@ -55,13 +55,12 @@ export const SIDEBAR: Sidebar = {
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
       { text: 'Install with CLI', link: 'en/install' },  
       { text: 'Install with Helm', link: 'en/install_helm' },   
-      { text: 'Ingress', link: 'en/ingress' }, 
-      { text: 'Authentication', link: 'en/authentication' }, 
     ],
     'Use Cases': [
-      { text: 'Real-time Investigation', link: 'en/traffic_investigation' },
-      { text: 'Traffic Recording & Offline Investigation', link: 'en/cloud_forensics' },
-      { text: 'Detection Engineering & Telemetry', link: 'en/actionable_detection' },
+      { text: 'Deep Network Observability', link: 'en/traffic_investigation' },
+      { text: 'Traffic Recording', link: 'en/cloud_forensics' },
+      { text: 'Collaborative Diagnosis', link: 'en/collaborative_incident_diagnosis' },
+      { text: 'Incident Detection & Response', link: 'en/actionable_detection' },
     ],
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
@@ -69,11 +68,18 @@ export const SIDEBAR: Sidebar = {
       { text: 'Dashboard', link: 'en/ui' },
       { text: 'Filtering', link: 'en/filtering' },
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
-      { text: 'PCAPs', link: 'en/pcap' },
-      { text: 'Short-term Traffic Retention', link: 'en/short_retention' },
+      { text: 'Half & Erroneous Connection Analysis', link: 'en/half_connections' },
+    ],
+    'Traffic Recording': [
       { text: 'Traffic Recorder', link: 'en/traffic_recorder' },
-      // { text: 'Pods & Namespaces', link: 'en/scope' },
-      { text: 'DNS', link: 'en/dns' },
+      { text: 'Offline Analysis', link: 'en/offline_analysis' },
+      { text: 'Recordings Management', link: 'en/recordings_management' },
+      { text: 'PCAP & API metadata', link: 'en/pcap' },
+      { text: 'Data Persistency', link: 'en/data_persistency' },
+    ],
+    'Collaboration': [
+      { text: 'Ingress', link: 'en/ingress' }, 
+      { text: 'Authentication', link: 'en/authentication' }, 
     ],
     'Automation': [
       { text: 'Introduction', link: 'en/automation_introduction' },
@@ -83,7 +89,6 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Wrappers', link: 'en/automation_wrappers' },
       { text: 'Jobs', link: 'en/automation_jobs' },
       { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' }
-
     ],
     'Integrations': [
       { text: 'Necessary Credentials', link: 'en/integrations_credentials' },

@@ -328,7 +328,7 @@ Here are some example values of the `data` argument that being used in
   "stream": "000000025258.pcap",
   "timestamp": 1678675066172,
   "tls": false,
-  "worker": "192.168.49.2:8897"
+  "worker": "192.168.49.2:30001"
 }
 ```
 ### DNS
@@ -407,6 +407,6 @@ Here are some example values of the `data` argument that being used in
   "stream": "000000025277_udp.pcap",
   "timestamp": 1678675069958,
   "tls": false,
-  "worker": "192.168.49.2:8897"
+  "worker": "192.168.49.2:30001"
 }
 ```

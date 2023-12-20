@@ -84,7 +84,7 @@ kubeshark logs
 
 ## Ports Range
 
-**Kubeshark**'s default config uses ports 8897-8899. Some K8s distributions like K3s and Microk8s do not allow this port range and require changing these ports. Luckily it's very easy to do.
+**Kubeshark**'s default config uses ports 30001,8898 and 8899. Some K8s distributions like K3s and Microk8s do not allow this port range and require changing these ports. Luckily it's very easy to do.
 
 If you aren't using a config file already, please use the following command:
 ```shell

@@ -1,10 +1,10 @@
 ---
-title: Real-time API Investigation & Debugging
+title: Deep Network Observability
 description: Kubeshark as a real-time traffic investigation and debugging.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** offers real-time, cluster-wide, identity-aware, protocol-level visibility into API traffic, empowering its users to see in their own eyes what's happening in all (hidden) corners of their K8s clusters. Observe all traffic,  including payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP), DNS, TLS and mTLS.
+**Kubeshark** offers real-time, cluster-wide, identity-aware, protocol-level visibility into API traffic, empowering its users to see in their own eyes what's happening in all (hidden) corners of their K8s clusters. Observe all traffic,  including payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP), DNS, TLS, mTLS, ICMP and TCP.
 
 Whether you are resolving issues with your infrastructure, analyzing potential threats, or delving into a security incident, **Kubeshark** can be highly valuable in pinpointing the responsible factors.
 
@@ -33,14 +33,6 @@ request.headers["Authorization"] == r"Token.*"
 When you'd like to analyze the traffic at a specific node or set of nodes.
 
 ![KFL Node](/kfl-node.png)
-
-#### Historic Traffic Snapshot Analysis
-
-**Kubeshark** can retain the captured traffic over a long period of time, enabling **Kubeshark** to present a historic traffic snapshot.
-
-The example below presents traffic captured between two timestamps:
-
-![Historical Traffic](/history1.png)
 
 ## Identity-aware Service Map
 

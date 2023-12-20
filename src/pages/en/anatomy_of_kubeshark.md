@@ -33,7 +33,7 @@ kubeshark tap -n sock-shop "(catalo*|front-end*)"   - tap only pods that match t
 
 ![Full Architecture](/full-architecture.png)
 
-Workers are deployed, one per node, at the node level, to sniff traffic and listen to requests on port `8897` on each node.
+Workers are deployed, one per node, at the node level, to sniff traffic and listen to requests on port `30001` on each node.
 
 The Hub is a single container deployed at the Control Plane level. It consolidates information received from all the Workers and listens to requests on port `8898`.
 
