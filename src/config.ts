@@ -88,7 +88,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Helpers', link: 'en/automation_helpers' },
       // { text: 'Wrappers', link: 'en/automation_wrappers' },
       { text: 'Jobs', link: 'en/automation_jobs' },
-      { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' }
+      { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' },
+      { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
     ],
     'Integrations': [
       { text: 'Necessary Credentials', link: 'en/integrations_credentials' },
