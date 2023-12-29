@@ -39,8 +39,12 @@ Connected (press CTRL+C to quit)
 < {"dst":{"endpointSlice":null,"ip":"169.254.169.254","name":"","namespace":"","pod":null,"port":"80","service":null},"elapsedTime":0,"entryFile":"000000019561_pcap-0_entry.json","error":null,"failed":false,"id":"10.0.41.65:30001/000000019561.pcap-0","index":0,"node":{"ip":"10.0.41.65","name":"ip-10-0-41-65.ec2.internal"},"outgoing":false,"passed":false,"protocol":{"abbr":"HTTP","backgroundColor":"#416CDE","fontSize":12,"foregroundColor":"#ffffff","layer3":"ip","layer4":"tcp","longName":"Hypertext Transfer Protocol -- HTTP/1.1","macro":"http","name":"http","ports":["80","443","8080"],"priority":0,"referen
 ```
 
-## Controlling the Returned JSON Structure
-TBD
+Another example for running in a non interactive mode:
 
-## Worker Websocket API Endpoint
+```yaml
+➜  ~ wscat --connect ws://127.0.0.1:8899/api/wsFull -x "response.status > 300 and node.name == \"ip-10-0-41-65.ec2.internal\"" -w 1000
+Connected (press CTRL+C to quit)
+< {"dst":{"endpointSlice":null,"ip":"169.254.169.254","name":"","namespace":"","pod":null,"port":"80","service":null},"elapsedTime":0,"entryFile":"000000019561_pcap-0_entry.json","error":null,"failed":false,"id":"10.0.41.65:30001/000000019561.pcap-0","index":0,"node":{"ip":"10.0.41.65","name":"ip-10-0-41-65.ec2.internal"},"outgoing":false,"passed":false,"protocol":{"abbr":"HTTP","backgroundColor":"#416CDE","fontSize":12,"foregroundColor":"#ffffff","layer3":"ip","layer4":"tcp","longName":"Hypertext Transfer Protocol -- HTTP/1.1","macro":"http","name":"http","ports":["80","443","8080"],"priority":0,"referen
+```
+## Controlling the Returned JSON Structure
 TBD

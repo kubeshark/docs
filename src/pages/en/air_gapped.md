@@ -46,7 +46,8 @@ tap:
     enabled: false
   telemetry:
     enabled: false
-  noKernelModule: true
+  kernelModule:
+    enabled: false
 license: <your-enterprise-license>
 ```
 
@@ -54,7 +55,7 @@ Alternatively, you can add the following directives to your command line as a se
 ```yaml
 --set tap.auth.enabled=false \
 --set tap.telemetry.enabled=false \
---set tap.noKernelModule=true \
+--set tap.kernelModule.enabled=false \
 --set license=<your-enterprise-license> \
 --set tap.docker.registry=<local-registry-address> \
 --set-json 'tap.docker.imagePullSecrets=["<secret>"]'

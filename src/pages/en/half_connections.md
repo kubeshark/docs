@@ -4,36 +4,48 @@ description: Recordings Management
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
-Kubeshark effectively displays both successful and erroneous communications.
 
-## Successfully Paired Request-Response Pairs
+Kubeshark effectively displays full, half, and erroneous connections.
 
-Successfully paired request-response pairs are indicative of API transactions where valid requests and responses are both present.
+## Full Connections
+
+Full connections entail successfully paired request-response pairs. These are indicative of API transactions where valid requests and responses are both present.
 
 ![Successful API Transaction](/successful.png)
 
-## Half Connections & Protocol Parser Errors
+## Half Connections
 
-Half connections are indicative of incomplete transactions where either a request or a response is missing.
+Half connections represent incomplete transactions where either a request or a response is missing.
 
-![Half Connections](/half_connections.png)
+![Half Connection Example](/half_connections.png)
 
-Kubeshark also identifies and reports errors from the protocol parser, which may be related to protocol issues, such as an unexpected EOF.
+Kubeshark endeavors to identify the reason for these incomplete transactions.
 
-## ICMP & TCP Errors
+## Protocol Parser & Connection Errors
 
-Kubeshark provides insights into errors at lower protocol levels, such as TCP and ICMP, and displays these errors when detected.
+Kubeshark identifies and reports errors from the protocol parser, which may be related to issues such as unexpected EOFs.
 
-![ICMP errors](/icmp.png)
+It provides further insight into errors at lower protocol levels, like TCP and ICMP, displaying these errors when detected.
 
-![TCP errors](/tcp.png)
+![ICMP Errors](/icmp.png)
+
+![TCP Errors](/tcp.png)
 
 ## Error Filter
 
-Utilize KFL to selectively display or filter out various errors. For instance:
+Utilize the Kubeshark Filter Language (KFL) to selectively display or filter out various errors. For example:
 
 ```yaml
 !error      # Filters out any half-connections
 !icmp       # Filters out any ICMP entries
 !tcp        # Filters out any TCP level errors
 ```
+
+## Tip: Error Dashboard
+Enter the following KFL in the KFL box:
+`response.status > 400 or error or icmp or tcp`, apply, copy and enter to favorite.
+The link should look like this:
+```yaml
+http://<kubeshark-domain>:<port>/?q=response.status%20%3E%20400%20or%20error%20or%20icmp%20or%20tcp
+```
+It will look even better on a 60" screen.

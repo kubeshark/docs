@@ -34,3 +34,4 @@ KFL statements can identify K8s elements like pods and namespaces but can also d
 ```
 In this scenario, record L4 streams that include API traffic from a specific service, with certain characteristics and API status code `500`.
 
+> Go next to [Recorded Traffic Offline Analysis](/en/offline_analysis)
