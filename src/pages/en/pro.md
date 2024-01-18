@@ -1,56 +1,50 @@
 ---
 title: Pro vs. Enterprise vs. Community
-description: The difference between Pro Edition and Community Edition
+description: Exploring the Differences Between Pro, Enterprise, and Community Editions
 layout: ../../layouts/MainLayout.astro
 ---
 
-We recognize that the demands of a startup differ from those of an enterprise, and that the requirements for a dev & test cluster are not the same as those for a production cluster.
+Understanding that startups have different needs compared to enterprises, and that development and testing clusters have unique requirements compared to production clusters, **Kubeshark** offers three distinct editions. Each edition is tailored to meet the varied demands of different use-cases and company types.
 
-To accommodate these varied needs, **Kubeshark** is available in three editions, each designed to support multiple use-cases and types of companies.
+For a detailed comparison of features across editions, visit our [pricing page](https://kubeshark.co/pricing).
 
-## Community
+## Community Edition
 
-The Community Edition is free of charge and an excellent choice for getting started and deriving immediate value. While it supports all basic features, it lacks more advanced capabilities, such as customization and enterprise-level features, and is primarily tailored for smaller, low-throughput clusters.
+The Community Edition is complimentary and primarily targets small development and testing clusters. It is readily available for on-demand use without requiring a license.
 
-The Community Edition is available for on-demand use without the need for a license.
+> To begin using the Community Edition, [install Kubeshark](/en/install).
 
-> To get started with the Community Edition, simply [install](/en/install) Kubeshark
+## Pro Edition
 
-## Pro
+The Pro Edition caters to smaller clusters of up to 20 nodes in environments with active internet connectivity. It includes a one-month free license, with the option to upgrade using a credit card.
 
-The Pro Edition is designed for low-throughput clusters, offering all the basic features of the Community Edition with no limitation on the number of nodes.
+> Obtain your one-month free PRO license by executing `kubeshark pro` in the terminal, or sign up via the [Admin Console](https://console.kubeshark.co) for your Pro license.
 
-> Upgrade to the Pro Edition by running `kubeshark pro` in the terminal, or by signing up on the [Admin Console](https://console.kubeshark.co) to get your Pro license
+## Enterprise Edition
 
-## Enterprise
-
-The Enterprise Edition of **Kubeshark** is specifically designed for larger organizations and environments, with multiple either manged or self-manged clusters. It includes features that are suited to these more demanding environments, such as:
-- High-speed/high-throughput capabilities
-- Compatibility with air-gapped environments
+Designed for larger organizations managing multiple, either managed or self-managed, clusters, the Enterprise Edition of **Kubeshark** is equipped with features suitable for demanding environments. These include:
+- Enhanced high-speed/high-throughput capabilities
+- Support for air-gapped environments
 - SAML/SSO integration
-- Enhanced TLS interception support
 
-Users of the Enterprise Edition also benefit from dedicated support, ensuring prompt responses via Slack, on-demand Zoom calls, premium onboarding, and a guarantee of smooth operations across all clusters.
+Enterprise Edition users also benefit from dedicated support, ensuring swift assistance through Slack, on-demand Zoom calls, premium onboarding services, and a commitment to seamless operations across all clusters.
+
+[Contact us](https://kubeshark.co/contact-us) for a demo of the Enterprise Edition and a complimentary trial license.
 
 ### SAML/SSO/Authorization
 
-In the Enterprise Edition, developers are granted access to Kubeshark without the need for `kubectl` privileges, authenticating instead through their corporate Identity Provider (IDP). Authorization is determined by their affiliation with certain groups or organizations. Users within these specific groups or organizations are authorized to view network traffic, with visibility controlled by namespaces and pod regex rules that correspond to their respective group or organizational roles.
+The Enterprise Edition allows developers to access Kubeshark through their corporate Identity Provider (IDP) without needing `kubectl` privileges. Authorization is based on group or organizational affiliation, with network traffic visibility controlled by namespace and pod regex rules aligned with their roles.
 
 ### Air-gapped Support
 
-The Enterprise Edition enables users to utilize the full set of features without needing to disable them due to the lack of Internet connectivity. This includes storing Docker images, scripts, and kernel modules locally.
-
-### TLS Interception
-
-A key advanced feature is the enhanced TLS interception capability. Interception of TLS traffic using eBPF can be challenging because of the diverse languages, library versions, and variations encountered. Since there is no universal solution, custom configurations may be required.
+This edition enables the full feature set even without Internet connectivity, facilitating the local storage of Docker images, scripts, and kernel modules.
 
 ### Dedicated Support
 
-With dedicated support, Enterprise Edition users receive prompt responses via Slack, access to on-demand Zoom calls, premium onboarding experiences, and a commitment to ensuring smooth operations across all clusters.
+Enterprise users receive immediate support through Slack, access to on-demand Zoom calls, premium onboarding, and a guarantee of smooth operations across all clusters.
 
 ### High-speed Networks
 
-The Enterprise Edition offers high-speed packet capture and processing capabilities, significantly reducing the overhead associated with traditional packet handling in the kernel.
+The Enterprise Edition enhances packet capture and processing speeds, significantly minimizing the overhead typically associated with kernel-level packet handling.
 
-
-> [Contact us](https://kubeshark.co/contact-us) to learn more about the Enterprise Edition
+> [Contact us](https://kubeshark.co/contact-us) for more information about the Enterprise Edition.
