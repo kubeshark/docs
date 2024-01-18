@@ -108,6 +108,8 @@ export const SIDEBAR: Sidebar = {
     ],
     'DevOps Stuff': [
       { text: 'Performance & Scale', link: 'en/performance' },
+      { text: 'Air-gap Support', link: 'en/air_gapped' },
+      { text: 'Security Context & RBAC', link: 'en/permissions' },
       // { text: 'PF_RING', link: 'en/pf_ring' },
       { text: 'Configuration', link: 'en/config' },
       { text: 'EKS, ALB, Ingress & TLS', link: 'en/aws_ingress_auth' },
@@ -116,8 +118,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Openshift', link: 'en/openshift' },
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
       { text: 'Service Mesh', link: 'en/service_mesh' },
-      { text: 'Security Context & RBAC', link: 'en/permissions' },
-      { text: 'Air-gap Support', link: 'en/air_gapped' },
+
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
       // { text: 'Performance Benchmark', link: 'en/performance_benchmark' },
     ],
