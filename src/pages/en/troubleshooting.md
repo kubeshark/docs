@@ -153,7 +153,7 @@ There were some reports where Kubeshark wasn't running out of the box on Openshi
 
 # Dynatrace
 
-There was one report about `CrashLoopBackOff` status of `kubeshark-worker-daemon-set` pods on the cluster on which Dynatrace deployed with full observability (full-stack) which can be either [classic](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/installation/classic-full-stack) or [cloud-native](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/installation/cloud-native-fullstack) . At least on OpenShift. This can be solved by exlusion of Kubeshark from Dynatrace OneAgent monitoring by one of below ways.
+There was one report about `CrashLoopBackOff` status of `kubeshark-worker-daemon-set` pods on the cluster on which Dynatrace deployed with full observability (full-stack) which can be either [classic](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/installation/classic-full-stack) or [cloud-native](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/installation/cloud-native-fullstack) . At least on OpenShift. This can be solved by [exlusion of Kubeshark from Dynatrace OneAgent monitoring](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/guides/operation/annotate#exclude-specific-namespaces-from-being-monitored) by one of below ways.
 
 > However **PLEASE NOTE** that exclusion is possible **only** in **`cloud-native`** Dynatrace deployment, and **IMPOSSIBLE** in `classic`
 
