@@ -4,64 +4,37 @@ description: AF_PACKET, AF_XDP, PF-RING.
 layout: ../../layouts/MainLayout.astro
 ---
 
-## CPU and Memory Consumption
+## Topics
+- [Resource Consumption](#resource-consumption)
+- [Kubeshark Operations](#kubeshark-operations)
+- [Resource Limitations: Container Memory and CPU Limitations](#container-memory-and-cpu-limitations)
+- [Resource Limitations: Worker Storage Limitation](#worker-storage-limitation)
+- [Predictable Consumption: Pod Targeting](#predictable-consumption-pod-targeting)
+- [Predictable Consumption: Traffic Sampling](#predictable-consumption-traffic-sampling)
+- [Tracer](#tracer)
+- [PF-RING](#pf-ring)
+- [The Browser](#the-browser)
+- [Kubernetes API Events](#kubernetes-api-events)
 
-When you initially launch **Kubeshark**, it captures all traffic. However, dissecting the traffic—a process that can be resource-intensive—is executed on-demand. Hence, when evaluating performance, it's essential to consider three distinct scenarios:
+## Resource Consumption
 
-1. **Idle State:** Minimal activity on the cluster.
-2. **Loaded State without Dashboard:** The cluster is under significant load, but the **Kubeshark** dashboard is not open, implying no dissection of traffic.
-3. **Loaded State with Dashboard:** Not only is the cluster under heavy load, but the **Kubeshark** dashboard is also active, showcasing real-time traffic.
+Kubeshark's resource consumption largely depends on the cluster workload and the amount of dissection required. Most resource-consuming operations are performed by the Worker at the node level.
 
-Below, you'll find a performance demonstration for a two-node cluster powered by `m5.large` instances:
+## Kubeshark Operations
 
-![Memory consumption](/memory.png)
-![CPU consumption](/cpu.png)
+Kubeshark captures and stores all traffic in memory. It then filters traffic based on pod targeting rules, which include pod regex and a list of namespaces. Traffic filtered out by these rules is discarded. Traffic filtered in is dissected. Among all Kubeshark operations—traffic capturing, storing, filtering, and dissection—dissection is the most resource-intensive and is performed on-demand when a client requests it (e.g., the dashboard, a recording, a running script).
 
-The graph illustrates the memory usage of the system over time. Here's a breakdown of key observations:
+## Resource Limitations
 
-- The 1st Scenario (indicated by "1"): This represents the memory usage when the system is idle.
-- The 2nd Scenario (indicated by "2"): Shows the memory spike when the cluster is under significant load, but the **Kubeshark** dashboard remains closed.
-- The 3rd Scenario (indicated by "3"): Portrays the memory consumption when the cluster is loaded and the **Kubeshark** dashboard is open, actively displaying real-time traffic.
+While resource consumption can increase based on the amount of traffic targeted for dissection, it can be limited by setting configuration values.
 
-In summary, the performance metrics indicate how **Kubeshark**'s operations can influence the CPU and memory resources of a Kubernetes cluster. Making informed decisions about resource allocation can ensure optimal performance while using **Kubeshark**.
+### Container Memory and CPU Limitations
 
-**Idle time with minimal load on the cluster**
+Container resources are limited by default. However, allocations can be adjusted in the configuration:
 
-| Pod | Memory | CPU |
-| --- | --- | --- |
-| Hub | < 15MB | <10% |
-| Front | < 5MB | <10% |
-| Worker | ~110MB | <10% |
-
-**Significant load, yet no dashboard is open (no dissection)**
-
-| Pod | Memory | CPU |
-| --- | --- | --- |
-| Hub | < 20MB | <10% |
-| Front | < 5MB | <10% |
-| Worker | ~160MB | <10% |
-
-**Significant load and Kubeshark dashboard is used to view real time traffic.**
-
-| Pod | Memory | CPU |
-| --- | --- | --- |
-| Hub | < 20MB | <10% |
-| Front | < 5MB | <10% |
-| Worker | ~300MB | <10% |
-
-## CPU, Memory, and Storage Limitations
-
-Resources are limited by default. However, allocation can be set as configuration values:
-```js
+```yaml
 tap:
   resources:
-    worker:
-      limits:
-        cpu: 750m
-        memory: 1Gi
-      requests:
-        cpu: 50m
-        memory: 50Mi
     hub:
       limits:
         cpu: 750m
@@ -69,49 +42,136 @@ tap:
       requests:
         cpu: 50m
         memory: 50Mi
-  storagelimit: 500Mi
+    sniffer:
+      limits:
+        cpu: 750m
+        memory: 1Gi
+      requests:
+        cpu: 50m
+        memory: 50Mi
+    tracer:
+      limits:
+        cpu: 750m
+        memory: 1Gi
+      requests:
+        cpu: 50m
+        memory: 50Mi
 ```
 
-Traffic is recorded and stored by the Worker at the K8s node level. Storage is monitored and purged once limit is reached. The Worker pod is evicted (and storage purged) if storage usage exceeds the limit. The limit is controlled by setting the `tap.storagelimit` configuration value. To increase this limit, simply provide a different value (e.g., setting it to 1GB with `--set tap.storagelimit=1Gi`).
 
-## Packet Processing Library
+### Worker Storage Limitation
 
-AF_PACKET, AF_XDP, and PF_RING are all different technologies related to packet processing and networking in Linux systems. Each serves specific purposes and has its own advantages and use cases. Let's explore each of them:
+Traffic is recorded and stored by the Worker at the Kubernetes node level. Kubeshark generates a PCAP file per L4 stream and a JSON file per API message. Files are deleted based on a TTL:
+- PCAP - 10s TTL
+- JSON - 5m TTL
 
-### In The Context of Kubeshark
+If storage exceeds its limit, the pod is evicted. The storage limit is controlled by setting the `tap.storagelimit` configuration value. To increase this limit, provide a different value (e.g., setting it to 5GB with `--set tap.storagelimit=5Gi`).
 
-While AF_PACKET is readily available for most common architectures, the availability of AF_XDP and PF_RING depends on various factors like your worker nodes' architecture and MTU. Kubeshark will first try to use PF_RING, as it is the most performant packet capture library, and if not possible, will downgrade to AF_XDP and then to AF_PACKET.
+### OOMKilled and Evictions
 
-### AF_PACKET (Packet Socket)
+Whenever a container surpasses its memory limit, it will get OOMKilled. If Worker storage surpasses its limitation, the pod will get evicted.
 
-AF_PACKET is a socket type in the Linux socket API that provides direct access to network packets at the link-layer level. It allows applications to receive and send raw packets, including Ethernet headers. This is useful for applications that require low-level access to network traffic, such as network analyzers, packet capture tools (like Wireshark), and custom networking utilities.
+## Predictable Consumption
 
-### AF_XDP (Express Data Path)
+While limitations ensure Kubeshark does not consume resources above set limits, it is insufficient to ensure proper operation if the available resources aren't adequate for the amount of traffic Kubeshark must process.
 
-AF_XDP is a newer socket type introduced in the Linux kernel that enables high-performance packet processing directly in the kernel space. It leverages the [eBPF (extended Berkeley Packet Filter)](https://ebpf.io/) technology to execute code in a safe and controlled manner within the kernel. AF_XDP is designed for applications that require fast packet filtering, forwarding, and other network functions.
+To consume fewer resources and not surpass limitations, Kubeshark offers two methods to control the amount of processed traffic:
 
-### PF_RING
+### Pod Targeting
 
-PF_RING is a high-speed packet capture and processing framework that provides APIs and tools for dealing with network traffic efficiently. It supports various packet capture methods, including kernel bypass techniques. PF_RING aims to overcome the limitations of the traditional Linux networking stack, offering acceleration mechanisms for high-speed packet capture and analysis. It is frequently used in high-performance scenarios, such as intrusion detection systems and network monitoring appliances.
+Kubeshark allows targeting specific pods using pod regex and a list of namespaces. This ensures only traffic related to targeted pods is processed, and the rest is discarded.
 
-### In Summary
+For example, the following config will cause Kubeshark to process only traffic coming from or to pods matching the regex `catal.*` and belonging to either `ks-load` or `sock-shop` namespaces:
 
-AF_PACKET provides raw access to network packets at the link-layer level, suitable for packet capturing and analysis.
+```yaml
+tap:
+  regex: catal.*
+  namespaces:
+  - ks-load
+  - sock-shop
+```
 
-AF_XDP offers high-performance packet processing in the kernel space using eBPF, making it a good choice for tasks like packet filtering and forwarding.
+The rest of the traffic will be discarded.
 
-PF_RING is an efficient framework for high-speed packet capture and processing, especially with kernel bypass techniques, suitable for high-performance network analysis.
+### Traffic Sampling
 
-## Comparison 
+`TrafficSampleRate` is a number representing a percentage between 0 and 100. This number causes Kubeshark to randomly select L4 streams, not exceeding the set percentage.
 
-| Library                     | AF_PACKET                                                                                            | AF_XDP                                                                                                                   | PF_RING                                                                                                                |
-|-----------------------------|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
-| Use Case                    | Used for packet capture, monitoring, and analysis. Provides raw access to network packets.            | Designed for high-performance packet processing within the kernel. Useful for packet filtering, load balancing, etc.      | Geared towards high-speed packet capture and processing, especially for network monitoring and intrusion detection.     |
-| Performance                 | Good for packet capture but may require more user-space processing for specific tasks.                | High performance due to kernel-space processing with eBPF. Reduces context switches and increases efficiency.            | Offers high-speed packet capture and processing, minimizing overhead of traditional packet handling in the kernel.       |
-| Flexibility                 | Allows raw access to packets, but more user-space code may be required for specific tasks.            | Provides flexibility through dynamically loadable eBPF programs, enabling efficient packet processing within the kernel. | Offers APIs and tools for advanced packet capture and processing. Supports both user-space and kernel-bypass approaches. |
-| Ease of Use and Development | Requires manual packet parsing in user space. More effort needed for complex tasks.                   | Requires familiarity with eBPF and kernel programming. Streamlines packet processing in the kernel.                      | Offers simplified packet capture APIs but might need more setup for specific tasks.                                     |
-| Integration with Ecosystem  | Part of the standard Linux socket API. Widely supported but may be less performant for some use cases.| Integrates well with the eBPF ecosystem.                                                                                  | Requires separate integration into applications. Provides enhanced performance for specific scenarios.                   |
-| Community and Support       | Well-established and documented API within the Linux networking stack.                                | Growing community support, especially within the eBPF ecosystem.      |Well-maintained project with a community and commercial support, often used in specialized network monitoring applications.|
+For example, this configuration will cause Kubeshark to process only 20% of traffic, discarding the rest:
 
-In conclusion, each technology serves different purposes in the realm of packet processing and networking. AF_PACKET is suitable for packet capture and analysis, AF_XDP excels in high-performance packet processing in the kernel, and PF_RING offers a framework for high-speed packet capture and analysis, particularly with kernel bypass capabilities. The choice depends on the specific requirements and trade-offs of your application.
 
+```yaml
+tap:
+  trafficSampleRate: 20
+```
+
+
+## Tracer
+
+The Tracer is responsible for TLS interception. As it consumes significant CPU and memory, it should be disabled if no TLS traffic is present in the cluster or if there is no interest in processing TLS traffic.
+
+## AF-PACKET and PF-RING
+
+AF-PACKET relies on the Linux kernel to receive network packets. When the kernel becomes busy, an increasing number of packets are dropped, leading to significant memory consumption and potentially causing Worker pods to be OOMKilled.
+
+PF-RING, a popular kernel extension, provides access to network packets without going through the kernel. As it is more efficient, the likelihood of packet drops reduces, thereby mitigating the risk of elevated memory consumption.
+
+## The Browser
+
+Be aware that your browser can consume a significant amount of CPU when displaying a substantial amount of traffic.
+
+## Load Tests
+
+Below are the results of various load tests conducted on an EKS cluster with three m5.large instances and default resource limitations.
+
+### Resource Consumption in a Mostly Idle Cluster Without Dissection
+
+| Pod    | Memory | CPU   |
+| ------ | ------ | ----- |
+| Hub    | ~14MB  | ~0.01 |
+| Front  | ~2MB   | ~0.01 |
+| Worker | ~100MB | ~0.05 |
+
+### Resource Consumption in a Mostly Idle Cluster With Dissection
+
+| Pod    | Memory | CPU   |
+| ------ | ------ | ----- |
+| Hub    | ~14MB  | ~0.05 |
+| Front  | ~3MB   | ~0.01 |
+| Worker | ~100MB | ~0.2  |
+
+### Small Load (288 Requests/Second on a Single Node)
+
+#### The Load Test
+
+Using a K6-based load test (link provided) with the following parameters:
+
+```yaml
+     ✗ image upload status was 200
+       ↳  99% — ✓ 92622 / ✗ 4
+
+      checks..........................: 99.99% ✓ 92622     ✗ 4
+      data_received...................: 116 MB 361 kB/s
+      data_sent.......................: 110 MB 344 kB/s
+      http_req_blocked................: avg=17.83µs min=0s med=3.15µs max=46.39ms p(90)=4.63µs p(95)=6.63µs
+      http_req_connecting.............: avg=9.22µs min=0s med=0s max=35.08ms p(90)=0s p(95)=0s
+      http_req_duration...............: avg=3.46ms min=0s med=1.11ms max=88.85ms p(90)=9.22ms p(95)=14.32ms
+        { expected_response:true }....: avg=3.46ms min=179.14µs med=1.11ms max=88.85ms p(90)=9.22ms p(95)=14.32ms
+      http_req_failed.................: 0.00% ✓ 4 ✗ 92622
+      http_req_receiving..............: avg=79.07µs min=0s med=30.7µs max=36.15ms p(90)=54.33µs p(95)=133.29µs
+      http_req_sending................: avg=82.47µs min=0s med=14.84µs max=63.4ms p(90)=53.85µs p(95)=230.19µs
+      http_req_tls_handshaking........: avg=0s min=0s med=0s max=0s p(90)=0s p(95)=0s
+      http_req_waiting................: avg=3.29ms min=0s med=1.01ms max=88.79ms p(90)=8.9ms p(95)=13.92ms
+      http_reqs.......................: 92626 288.56091/s
+      iteration_duration..............: avg=1s min=1s med=1s max=1.1s p(90)=1.01s p(95)=1.02s
+      iterations......................: 92626 288.56091/s
+      vus.............................: 16 min=14 max=300
+      vus_max.........................: 300 min=300 max=300
+```
+#### Kubeshark Worker Resource Consumption
+
+| Metric | Value |
+| --- | --- |
+| Max CPU | 0.6 |
+| Max Memory | 127MB |
+| Disk IOs | 1 io/s |

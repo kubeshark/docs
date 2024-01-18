@@ -108,6 +108,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'DevOps Stuff': [
       { text: 'Performance & Scale', link: 'en/performance' },
+      // { text: 'PF_RING', link: 'en/pf_ring' },
       { text: 'Configuration', link: 'en/config' },
       { text: 'EKS, ALB, Ingress & TLS', link: 'en/aws_ingress_auth' },
       { text: 'EKS & IRSA', link: 'en/irsa' },
