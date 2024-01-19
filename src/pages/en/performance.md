@@ -9,12 +9,11 @@ layout: ../../layouts/MainLayout.astro
 - [Kubeshark Operations](#kubeshark-operations)
 - [Resource Limitations: Container Memory and CPU Limitations](#container-memory-and-cpu-limitations)
 - [Resource Limitations: Worker Storage Limitation](#worker-storage-limitation)
-- [Predictable Consumption: Pod Targeting](#predictable-consumption-pod-targeting)
-- [Predictable Consumption: Traffic Sampling](#predictable-consumption-traffic-sampling)
+- [Predictable Consumption: Pod Targeting](#pod-targeting)
+- [Predictable Consumption: Traffic Sampling](#traffic-sampling)
 - [Tracer](#tracer)
-- [PF-RING](#pf-ring)
+- [PF-RING](#af-packet-and-pf-ring)
 - [The Browser](#the-browser)
-- [Kubernetes API Events](#kubernetes-api-events)
 
 ## Resource Consumption
 
@@ -122,7 +121,7 @@ Be aware that your browser can consume a significant amount of CPU when displayi
 
 ## Load Tests
 
-Below are the results of various load tests conducted on an EKS cluster with three m5.large instances and default resource limitations.
+Below are the results of various load tests conducted on an EKS cluster with three m5.large instances and default resource limitations, running Kubeshark with TLS disabled.
 
 ### Resource Consumption in a Mostly Idle Cluster Without Dissection
 
@@ -168,7 +167,7 @@ Using a K6-based load test (link provided) with the following parameters:
       vus.............................: 16 min=14 max=300
       vus_max.........................: 300 min=300 max=300
 ```
-#### Kubeshark Worker Resource Consumption
+#### Worker Resource Consumption
 
 | Metric | Value |
 | --- | --- |

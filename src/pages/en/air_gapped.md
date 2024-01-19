@@ -46,4 +46,4 @@ Alternatively, you can add the following directives to your command line as a se
 ```
 ## Notes:
 
-- PF-RING For instructions on using PF-RING in an air-gapped environment, please [contact us](https://kubeshark.co/contact-us).
+- For instructions on using PF-RING in an air-gapped environment, please [contact us](https://kubeshark.co/contact-us).
