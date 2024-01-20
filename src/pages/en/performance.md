@@ -79,18 +79,11 @@ To consume fewer resources and not surpass limitations, Kubeshark offers two met
 ### Pod Targeting
 
 Kubeshark allows targeting specific pods using pod regex and a list of namespaces. This ensures only traffic related to targeted pods is processed, and the rest is discarded.
+Utilizing Pod Targeting can significantly optimize resource consumption:
 
-For example, the following config will cause Kubeshark to process only traffic coming from or to pods matching the regex `catal.*` and belonging to either `ks-load` or `sock-shop` namespaces:
+![Pod Targeting Changes](/pod_targeting_grafana.png)
 
-```yaml
-tap:
-  regex: catal.*
-  namespaces:
-  - ks-load
-  - sock-shop
-```
-
-The rest of the traffic will be discarded.
+> Read more in the [Pod Targeting](/en/pod_targeting) section
 
 ### Traffic Sampling
 
@@ -107,7 +100,14 @@ tap:
 
 ## Tracer
 
-The Tracer is responsible for TLS interception. As it consumes significant CPU and memory, it should be disabled if no TLS traffic is present in the cluster or if there is no interest in processing TLS traffic.
+The Tracer is responsible for TLS interception and can consume a significant amount of CPU, especially during the first few minutes of operation. This high consumption is a result of utilizing [eBPF](/en/encrypted_traffic) to scan all processes on the host for TLS library invocations. CPU usage should diminish after a few minutes. Disabling the Tracer is recommended if there is no TLS traffic in the cluster or if processing TLS traffic is not a requirement.
+
+Disable the Tracer with these settings:
+
+```yaml
+tap:
+  tls: false
+```
 
 ## AF-PACKET and PF-RING
 
