@@ -76,6 +76,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Recordings Management', link: 'en/recordings_management' },
       { text: 'PCAP & API metadata', link: 'en/pcap' },
       { text: 'Data Persistency', link: 'en/data_persistency' },
+      { text: 'Pod Targeting', link: 'en/pod_targeting' },
     ],
     'Collaboration': [
       { text: 'Ingress', link: 'en/ingress' }, 
