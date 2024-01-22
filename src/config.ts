@@ -108,7 +108,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'License', link: 'en/license' },
     ],
     'DevOps Stuff': [
-      { text: 'Performance & Scale', link: 'en/performance' },
+      { text: 'CPU & Memory Consumption', link: 'en/performance' },
       { text: 'Air-gap Support', link: 'en/air_gapped' },
       { text: 'Security Context & RBAC', link: 'en/permissions' },
       { text: 'Installing Older Releases', link: 'en/tag_release' },

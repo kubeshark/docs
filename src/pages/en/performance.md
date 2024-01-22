@@ -1,5 +1,5 @@
 ---
-title: Performance & Scale
+title: CPU & Memory Consumption
 description: AF_PACKET, AF_XDP, PF-RING.
 layout: ../../layouts/MainLayout.astro
 ---
