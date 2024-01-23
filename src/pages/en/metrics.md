@@ -29,7 +29,7 @@ To monitor Kubeshark on your local Grafana dashboard, incorporating proprietary 
 
 ```yaml
 helm upgrade -i prometheus prometheus-community/kube-prometheus-stack \
---namespace prometheus \
+--namespace prometheus --create-namespace \
 -f kube_prometheus_stack.yaml
 
 kubectl port-forward -n prometheus svc/prometheus-grafana 8080:80
