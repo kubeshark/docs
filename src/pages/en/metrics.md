@@ -31,6 +31,8 @@ To monitor Kubeshark on your local Grafana dashboard, incorporating proprietary 
 helm upgrade -i prometheus prometheus-community/kube-prometheus-stack \
 --namespace prometheus \
 -f kube_prometheus_stack.yaml
+
+kubectl port-forward -n prometheus svc/prometheus-grafana 8080:80
 ```
 
 Example `kube_prometheus_stack.yaml` file:
@@ -62,7 +64,7 @@ prometheus:
           - action: labelmap
             regex: __meta_kubernetes_service_label_(.+)
 ```
-## Import Kubeshark Specific Dashboard into Grafana
+### Import Kubeshark Specific Dashboard into Grafana
 
 Navigate to the dashboards section in Grafana and import a new dashboard by pasting the JSON content from [here](https://github.com/kubeshark/scripts/blob/master/grafana/metrics.json).
 ![Import New Dashboard](/grafana_new_dashboard.png)
