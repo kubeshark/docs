@@ -111,6 +111,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'CPU & Memory Consumption', link: 'en/performance' },
       { text: 'Air-gap Support', link: 'en/air_gapped' },
       { text: 'Security Context & RBAC', link: 'en/permissions' },
+      { text: 'Prometheus Metrics & Grafana Dashboard', link: 'en/metrics' },
       { text: 'Installing Older Releases', link: 'en/tag_release' },
       // { text: 'PF_RING', link: 'en/pf_ring' },
       // { text: 'Configuration', link: 'en/config' },
