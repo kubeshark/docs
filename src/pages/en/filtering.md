@@ -4,7 +4,7 @@ description: The filter input enables filtering results using Kubeshark Filter L
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark Filter Language (KFL)** is a language that enables you filter traffic that matches a boolean expression. For example; to only see the items with HTTP reponse status codes (`400` – `499`), enter:
+**Kubeshark Filter Language (KFL)** is a language that enables you filter traffic that matches a boolean expression. For example; to only see the items with HTTP response status codes (`400` – `499`), enter:
 
 ```python
 http and response.status == r"4.*"
@@ -13,6 +13,12 @@ http and response.status == r"4.*"
 and click the **Apply** button. Your traffic stream will look like this:
 
 ![Filter example](/filter-applied.png)
+
+## KFL vs. Pod Targeting (Display vs. Capture Filters)
+
+KFL should not be confused with [Pod Targeting](/en/pod_targeting) as they serve different purposes. KFL statements only affect the data presented in the Dashboard, whereas Pod Targeting determines which pods are targeted and, consequently, which traffic is tapped.
+
+For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Pod Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
 
 ## Queryable UI Elements
 

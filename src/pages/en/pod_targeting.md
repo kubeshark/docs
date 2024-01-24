@@ -28,6 +28,12 @@ tap:
 
 The rest of the traffic will be discarded.
 
+## KFL vs. Pod Targeting (Display vs. Capture Filters)
+
+KFL should not be confused with [Pod Targeting](/en/pod_targeting) as they serve different purposes. KFL statements only affect the data presented in the Dashboard, whereas Pod Targeting determines which pods are targeted and, consequently, which traffic is tapped.
+
+For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Pod Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
+
 ## Using the Dashboard
 
 > Feature available from the next patch release
