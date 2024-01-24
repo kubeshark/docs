@@ -11,7 +11,7 @@ Think [Wireshark](https://www.wireshark.org/) re-invented for [Kubernetes](https
 
 **Kubeshark** offers real-time, cluster-wide, identity-aware, protocol-level visibility into API traffic, empowering its users to see with their own eyes what's happening in all (hidden) corners of their K8s clusters.
 
-Observe all traffic, including payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP), DNS, Websockets, TLS, mTLS, TCP and ICMP.
+Observe all traffic, including payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP), DNS, TLS, mTLS, TCP (to diagnose TCP errors) and ICMP.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
@@ -35,7 +35,7 @@ Visit the following sections to read more about the use-cases Kubeshark can assi
 - [Redis](https://redis.io/topics/protocol)
 - [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
 - [ICMP](https://datatracker.ietf.org/doc/html/rfc792)
-- [TCP](https://datatracker.ietf.org/doc/html/rfc9293)
+- [TCP](https://datatracker.ietf.org/doc/html/rfc9293) (to diagnose TCP errors)
 
 **Kubeshark** recognizes [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html), [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/), and [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/).
 
