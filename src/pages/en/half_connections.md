@@ -7,12 +7,15 @@ mascot: Hello
 
 **Kubeshark** is useful for detecting various network-related errors, such as:
 
-- [Connection errors](#tcp-connection-errors)
-- [Timeout errors](#timeout-errors)
-- [Packet loss](#packet-loss)
-- [ICMP issues](#icmp)
-- [Dissection errors](#dissection-errors)
-- [Half connections](#half-connections)
+- [TCP (Connection) Errors](#tcp-connection-errors)
+- [Timeout Errors](#timeout-errors)
+- [Packet Loss](#packet-loss)
+- [ICMP](#icmp)
+- [Dissection Errors](#dissection-errors)
+- [L4 Stream Capture Timeout](#l4-stream-capture-timeout)
+- [Half Connections](#half-connections)
+- [Error Filter](#error-filter)
+- [Tip: Error Dashboard](#tip-error-dashboard)
 
 In addition to offering details about detected errors, **Kubeshark** allows you to record raw traffic for in-depth analysis using tools such as Wireshark
 
@@ -33,7 +36,13 @@ Connection errors, identified as part of the TCP protocol, include:
 
 ## Timeout Errors
 
-**Kubeshark**'s L4 stream capture times out after 10 seconds. If an L4 stream capture doesn't complete within this timeframe, the stream is marked stale and dropped.
+**Kubeshark**'s L4 stream capture times out after 10 seconds. If an L4 stream capture doesn't complete within this timeframe, the stream is marked stale and dropped. THe timeout time is configurable and can be set using this configuration value:
+
+```yaml
+tap:
+    tcpStreamChannelTimeoutMs: 10000 # in milliseconds
+```
+or use: `--set tap.tcpStreamChannelTimeoutMs=10000`
 
 ## Packet Loss
 
@@ -88,6 +97,11 @@ Dissection errors are reported by **Kubeshark** protocol parsers:
 |---|---|
 | unexpected EOF | TCP connection closed unexpectedly. |
 | Parser error | **Kubeshark**'s application layer protocol parser reports an invalid payload according to the protocol definition. |
+
+## L4 Stream Capture Timeout
+Kubeshark will drop entire Layer 4 (L4) streams if not all packets are captured before the process times out.
+
+The default timeout is set to 10 seconds. This can be modified by setting the `tap.tcpStreamChannelTimeoutMs ` parameter.
 
 ## Half Connections
 

@@ -14,24 +14,13 @@ Linux kernel with version 4.4 and quite matured since then.
 
 > **Disclaimer**: Intercepting TLS using eBPF is challenging due to the multitude of languages and library versions and variations. There isn't a one-size-fits-all solution, and custom configuration may be required. Contact us to learn more. [Contact-us](https://kubeshark.co/contact-us) if you'd like to validate that Kubeshark support your TLS use-case.
 
-## Capturing Unencrypted TLS Traffic
-
-To deploy Kubeshark with TLS sniffing capability, simply add the `--tls` option:
-
-```shell
-kubeshark tap --tls -n sock-shop
-```
-
-Kubeshark supports the most commonly used encryption/decryption
-library [OpenSSL](https://www.openssl.org/) library and Go's custom implementation [crypto/tls](https://pkg.go.dev/crypto/tls) package.
+TLS payload is marked with an open lock icon to the left of the entry. You can use the helper `tls` as a KFL query to view all the TLS traffic.
 
 ![TLS Traffic Example](/tls_traffic.png)
 
-> Note: By default the capturing unencrypted TLS traffic. Only `--tls` option enables it.
-
 ### OpenSSL
 
-It attaches [uprobe](https://docs.kernel.org/trace/uprobetracer.html)(s)
+Kubeshark attaches [uprobe](https://docs.kernel.org/trace/uprobetracer.html)(s)
 to [`SSL_read`](https://www.openssl.org/docs/man1.1.1/man3/SSL_read.html) and [`SSL_write`](https://www.openssl.org/docs/man1.1.1/man3/SSL_write.html)
 functions to simply reads the incoming unencrypted response and outgoing encrypted request in any TLS/SSL connection.
 

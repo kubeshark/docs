@@ -15,14 +15,6 @@ Observe all traffic, including payloads, entering, exiting, and traversing conta
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
-## Kubeshark Use-cases
-
-Visit the following sections to read more about the use-cases Kubeshark can assist with:
-- [Deep Network Observability](/en/traffic_investigation)
-- [Traffic Recording & Offline Analysis](/en/cloud_forensics)
-- [Collaborative Incident Diagnosis](/en/collaborative_incident_diagnosis)
-- [Incident Detection & Response](/en/actionable_detection)
-
 ## API Traffic Analysis
 
 **Kubeshark** employs various packet [capture technologies (e.g. eBPF, AF_XDP, PF_RING)](/en/performance#packet-processing-library) and leverages [custom kernel modules](https://en.wikipedia.org/wiki/Loadable_kernel_module) to capture cluster-wide L4 (TCP and UDP) traffic, directing it into distributed PCAP storage, and dissecting the following application layer protocols:
@@ -45,6 +37,18 @@ Using [extended BPF (eBPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter
 
 **Kubeshark** recognizes service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/), and other service mesh implementations that utilize [Envoy Proxy](https://www.envoyproxy.io/) underneath.
 
-## Actionable Detection Using Scripts & L4/L7 Hooks
+## Traffic Recording & Offline Analysis
 
-With the combination of a [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers), and [jobs](/en/automation_jobs), **Kubeshark** can detect unusual network behaviors and activate actions supported by available integrations such as [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), [Elasticsearch](/en/integrations_elastic), and more.
+When issues are not immediately apparent during observation, you have the option to record traffic either on a schedule or in response to specific events or behaviors. This traffic is captured in PCAP format and stored in immutable file storage, allowing for extended retention and offline analysis at your convenience.
+
+You can tailor traffic recording to capture specific patterns, enabling detailed offline analysis of this recorded data.
+
+## Collaborative API Debugging
+
+Kubeshark provides developers with secure, direct access to live API traffic, facilitating the real-time diagnosis of production incidents. This feature significantly reduces the reliance on DevOps teams to replicate bug evidence and performance issues.
+
+Developers can access Kubeshark via their browser using a secure TLS connection, authenticating with their corporate identity. This ensures access is restricted to authorized information and functionality only.
+
+## Monitoring & Alerts Using L4/L7 Hooks
+
+Kubeshark leverages a mix of [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers), and [jobs](/en/automation_jobs) to identify unusual network activities and trigger responses through various integrations, including [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), and [Elasticsearch](/en/integrations_elastic), among others. This enables proactive monitoring and immediate alerting on potential issues.

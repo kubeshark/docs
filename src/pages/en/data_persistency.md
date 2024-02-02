@@ -20,4 +20,4 @@ Having said the above, **Kubeshark** will still record traffic the same way with
 
 It is recommended to export recorded traffic to external data stores, such as Google Cloud Storage (GCS) or AWS S3, to store traffic for extended periods in immutable data stores.
 
-> Read more in the [AWS S3](http://localhost:3000/en/integrations_aws_s3) and [GCS](http://localhost:3000/en/integrations_gcs) sections.
+> Read more in the [AWS S3](/en/integrations_aws_s3) and [GCS](/en/integrations_gcs) sections.

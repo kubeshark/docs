@@ -4,6 +4,8 @@ description: Optimizing resource consumption through pod targeting
 layout: ../../layouts/MainLayout.astro
 ---
 
+Pod Targeting allows users to concentrate exclusively on critical pods, while also managing CPU and memory usage effectively.
+
 ## Processing Traffic Consumes CPU and Memory
 
 **Kubeshark**'s resource consumption is directly related to the amount of traffic it processes. This becomes a significant issue in busy clusters. [Limiting CPU and memory consumption](/en/performance#container-memory-and-cpu-limitations)] doesn't guarantee efficient operation if the allocated resources are insufficient for the traffic volume that **Kubeshark** needs to handle.
@@ -35,8 +37,6 @@ KFL should not be confused with [Pod Targeting](/en/pod_targeting) as they serve
 For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Pod Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
 
 ## Using the Dashboard
-
-> Feature available from the next patch release
 
 You can dynamically set the *Pod Targeting* properties from the dashboard. To operate the *Pod Targeting* dialog window, press the `kube` button located to the right of the *Pod Targeting* section.
 

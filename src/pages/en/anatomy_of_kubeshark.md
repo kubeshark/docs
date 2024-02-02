@@ -16,19 +16,6 @@ mascot: Bookworm
 
 **Kubeshark** does not require any prerequisites such as CNI, service mesh, or coding. It functions without the need for a proxy or sidecar, and does not necessitate any changes to existing architecture.
 
-**Kubeshark** is comprised of four software components that integrate seamlessly:
-
-## CLI
-
-The CLI, a binary distribution of the Kubeshark client, is written in the [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint.
-
-Once downloaded, you can simply use the `tap` command to begin monitoring cluster-wide API traffic:
-
-```shell
-kubeshark tap                                       - tap all pods in all namespaces
-kubeshark tap -n sock-shop "(catalo*|front-end*)"   - tap only pods that match the regex in a certain namespace
-```
-
 ## Cluster Architecture
 
 ![Full Architecture](/full-architecture.png)
@@ -76,19 +63,9 @@ Each Worker pod includes two services:
 
 ### Sniffer
 
-The Sniffer is the main container in the Worker pod responsible for capturing packets by one of the available means.
-
-#### AF_PACKET
-
-AF_PACKET is a socket type in the Linux socket API that provides direct access to network packets at the link-layer level.
-
-Kubeshark uses this library to request packets from the Linux kernel. Availability of this library is very common among Linux kernels.
-
-#### PF_RING
-
-PF_RING is a high-speed packet capture and processing framework. It supports various packet capture methods, including kernel bypass techniques. PF_RING aims to overcome the limitations of the traditional Linux networking stack, offering acceleration mechanisms for high-speed packet capture and analysis. It is frequently used in high-performance scenarios.
-
-PF_RING knows when it is available via a kernel module.
+The Sniffer is the main container in the Worker pod responsible for capturing packets by one of the available means:
+1. AF_PACKET
+2. PF_RING
 
 ### Tracer
 
@@ -100,16 +77,13 @@ This functionality is performed by the Tracer container. Tracer deployment is op
 
 > Read more about TLS/eBPF capabilities in the [eBPF & Encryption](/en/encrypted_traffic) section.
 
-### Distributed PCAP-based Storage
+## CLI
 
-Kubeshark employs distributed PCAP-based storage, with each Worker storing captured Layer 4 (L4) streams in the root file system of its node.
+The CLI, a binary distribution of the Kubeshark client, is written in the [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint.
 
-Each Worker Pod captures packets from all network interfaces, reassembles TCP streams, and, if dissectable, temporarily stores them as [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) files. The traffic collected is then transmitted to the [**Hub**](#hub) via WebSocket.
+Once downloaded, you can simply use the `tap` command to begin monitoring cluster-wide API traffic:
 
-**Kubeshark** temporarily stores raw packets and dissects them on-demand based on [filtering criteria](/en/filtering). Storage is controlled by the `tap.storageLimit` property. This property indirectly controls the time-window the packet is available for viewing.
-
-**Service Name**: `kubeshark-worker-daemon-set-<id>`
-
-### Low Network Overhead
-
-To minimize potential network overhead, only a selected portion of the traffic is sent over the network upon request.
+```shell
+kubeshark tap                                       - tap all pods in all namespaces
+kubeshark tap -n sock-shop "(catalo*|front-end*)"   - tap only pods that match the regex in a certain namespace
+```

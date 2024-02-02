@@ -5,23 +5,64 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Kubeshark exports a range of proprietary metrics such as:
-- kubeshark_received_packets_total
-- kubeshark_dropped_packets_total
-- kubeshark_processed_bytes_total
-- and more
+> For most up-to-date details, visit the [metrics section](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/metrics.md) in the repo.
 
-We plan to introduce additional metrics in the near future.
+# Metrics
 
-> For more details, visit the [metrics section](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/metrics.md) in the repo.
+Kubeshark provides metrics from `worker` components.
+It can be useful for monitoring and debugging purpose.
 
-You can also import a ready-to-use Grafana dashboard from [here](https://github.com/kubeshark/scripts/blob/master/grafana/metrics.json).
+## Configuration
 
-### Kubeshark Specific Grafana Dashboard
+By default, Kubeshark uses port `49100` to expose metrics via service `kubeshark-worker-metrics`.
 
-To monitor Kubeshark on your local Grafana dashboard, incorporating proprietary metrics, as well as CPU and memory KPIs, you can import the [Kubeshark-specific Grafana dashboard](https://github.com/kubeshark/scripts/blob/master/grafana/metrics.json). It's customizable to suit your needs.
+In case you use [kube-prometheus-stack] (https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) community Helm chart, additional scrape configuration for Kubeshark worker metrics endpoint can be configured with values:
 
-![Kubeshark specific Grafana Dashboard](/grafana-metrics.png)
+```
+prometheus:
+  enabled: true
+  prometheusSpec:
+    additionalScrapeConfigs: |
+      - job_name: 'kubeshark-worker-metrics'
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+          - source_labels: [__meta_kubernetes_pod_node_name]
+            target_label: node
+          - source_labels: [__meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: ^metrics$
+          - source_labels: [__address__, __meta_kubernetes_endpoint_port_number]
+            action: replace
+            regex: ([^:]+)(?::\d+)?
+            replacement: $1:49100
+            target_label: __address__
+          - action: labelmap
+            regex: __meta_kubernetes_service_label_(.+)
+```
+
+
+## Available metrics
+
+| Name | Type | Description | 
+| --- | --- | --- | 
+| kubeshark_received_packets_total | Counter | Total number of packets received | 
+| kubeshark_dropped_packets_total | Counter | Total number of packets dropped | 
+| kubeshark_processed_bytes_total | Counter | Total number of bytes processed |
+| kubeshark_tcp_packets_total | Counter | Total number of TCP packets | 
+| kubeshark_dns_packets_total | Counter | Total number of DNS packets | 
+| kubeshark_icmp_packets_total | Counter | Total number of ICMP packets | 
+| kubeshark_reassembled_tcp_payloads_total | Counter | Total number of reassembled TCP payloads |
+| kubeshark_matched_pairs_total | Counter | Total number of matched pairs | 
+| kubeshark_dropped_tcp_streams_total | Counter | Total number of dropped TCP streams | 
+| kubeshark_live_tcp_streams | Gauge | Number of live TCP streams |
+
+## Ready-to-use Dashboard
+
+You can import a ready-to-use dashboard from [Grafana's Dashboards Portal](https://grafana.com/grafana/dashboards/20359-kubeshark-dashboard-v1-0-003/).
+
 
 ## TL;DR
 
@@ -64,7 +105,3 @@ prometheus:
           - action: labelmap
             regex: __meta_kubernetes_service_label_(.+)
 ```
-### Import Kubeshark Specific Dashboard into Grafana
-
-Navigate to the dashboards section in Grafana and import a new dashboard by pasting the JSON content from [here](https://github.com/kubeshark/scripts/blob/master/grafana/metrics.json).
-![Import New Dashboard](/grafana_new_dashboard.png)
