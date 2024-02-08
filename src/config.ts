@@ -61,7 +61,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Service Map', link: 'en/service_map' },
       // { text: 'Dashboard', link: 'en/ui' },
       { text: 'Filtering Language (KFL)', link: 'en/filtering' },
-      { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
+      { text: 'eBPF & TLS', link: 'en/encrypted_traffic' },
       { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       { text: 'Pod Targeting', link: 'en/pod_targeting' },
       { text: 'Traffic Retention', link: 'en/traffic_retention' },
