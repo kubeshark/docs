@@ -45,7 +45,7 @@ The **Hub** is a Kubernetes deployment that acts as a gateway to the [**Workers*
 - Accepting WebSocket connections along with their respective filters.
 - Establishing WebSocket connections to the Workers.
 - Receiving processed traffic from the Workers.
-- Streaming results back to the requestors.
+- Streaming results back to the requesters.
 - Managing Worker states via HTTP requests.
 
 **Service Name**: `kubeshark-hub`

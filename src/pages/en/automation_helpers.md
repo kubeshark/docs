@@ -387,10 +387,10 @@ var snapshot = pcap.snapshot(dir);
 Returns the full path of a given TCP/UDP stream then you can supply this file path
 to other helpers that accept a file path as argument such as; [`vendor.s3.put`](#vendors3putregion-string-keyid-string-accesskey-string-bucket-string-path-string-string).
 
-> It's <ins>advised against modifiying these files</ins> using helpers like [`file.write`](#filewritepath-string-content-string), [`file.append`](#fileappendpath-string-content-string), [`file.move`](#filemoveoldpath-string-newpath-string) or [`file.delete`](#filedeletepath-string)
+> It's <ins>advised against modifying these files</ins> using helpers like [`file.write`](#filewritepath-string-content-string), [`file.append`](#fileappendpath-string-content-string), [`file.move`](#filemoveoldpath-string-newpath-string) or [`file.delete`](#filedeletepath-string)
 > because the TCP/UDP streams are internally tracked, written and updated files
 > that emerge from the Kubernetes network traffic capture.
-> <ins>Modifiying these files can break the core functionality of Kubeshark.</ins>
+> <ins>Modifying these files can break the core functionality of Kubeshark.</ins>
 
 ##### Example:
 
