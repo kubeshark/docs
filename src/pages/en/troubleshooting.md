@@ -136,7 +136,7 @@ If you get something like this in your console log:
 script Hub: error="got response with status code: 418, 
 body: {\"EnabledFeatures\":[\"Ingress\"]}"
 ```
-It means your Pro license if out-of-date. You can simply update it by using: 
+It means your Pro license if out-of-date. You can simply update it by using:
 ```shell
 kubeshark pro
 ```
@@ -148,6 +148,52 @@ There were some reports on incompatibility between certain versions of Kubernete
 ## Openshift
 
 There were some reports where Kubeshark wasn't running out of the box on Openshift. We plan to make sure it runs flawlessly on Openshift, but we haven't gotten to that yet.
+
+
+
+# Dynatrace
+
+There was one report about `CrashLoopBackOff` status of `kubeshark-worker-daemon-set` pods on the cluster on which Dynatrace deployed with full observability (full-stack) which can be either [classic](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/installation/classic-full-stack) or [cloud-native](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/installation/cloud-native-fullstack) . At least on OpenShift. This can be solved by [exlusion of Kubeshark from Dynatrace OneAgent monitoring](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/guides/operation/annotate#exclude-specific-namespaces-from-being-monitored) by one of below ways.
+
+> However **PLEASE NOTE** that exclusion is possible **only** in **`cloud-native`** Dynatrace deployment, and **IMPOSSIBLE** in `classic`
+
+## Only `kubeshark-worker-daemon-set` pods exclusion
+
+```shell
+helm install kubeshark kubeshark/kubeshark --set tap.excludeWorkerFromDynatrace=true
+```
+
+## Whole `kubeshark` namespace exclusion
+
+Add below to `spec` key of CR of `DynaKube` CRD
+
+```yaml
+  namespaceSelector:
+    matchExpressions:
+    - key: "name"
+      operator: NotIn
+      values:
+      - "kubeshark" # or whatever namespace Kubeshark is deployed in
+```
+
+This can be done on Dynatrace [cloud-native](https://docs.dynatrace.com/docs/setup-and-configuration/setup-on-k8s/installation/cloud-native-fullstack) deployment by either
+
+* Editing manifest file (if Dynatrace is already deployed)
+
+* or by editing above CR e.g. via `kubectl` or `oc` (OpenShift) like below:
+
+  1. Get the name of CR:
+
+     ```shell
+     kubectl get dynakube -n dynatrace
+
+  2. Edit CR name :
+
+     ```shell
+     kubectl edit <CR_NAME_GOTTEN_ABOVE> -n dynatrace
+     ```
+
+  3. Redeploy Kubeshark if the problem still persists
 
 ## Well That Didn't Work
 
