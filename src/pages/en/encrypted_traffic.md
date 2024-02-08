@@ -39,6 +39,6 @@ We [`kprobe`](https://www.kernel.org/doc/html/latest/trace/kprobes.html) certain
 
 While the methods explained in here sounds a little bit complicated the TLS sniffer has little to no performance impact thanks to the efficient eBPF in-kernel virtual machine of Linux and our carefully written C code. In any case, Linux kernel does not allow injecting a huge number of instructions for probing purposes. So, the kernel itself guarantees no slowdown or crash.
 
-## TLS capture in action
+## TLS Capture in Action
 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/18d9f744402a4b37b1e14c8fd7401aab?sid=0e136344-33af-4739-9899-c41ec0ca0de9" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
