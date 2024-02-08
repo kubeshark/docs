@@ -62,7 +62,7 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Dashboard', link: 'en/ui' },
       { text: 'Filtering Language (KFL)', link: 'en/filtering' },
       { text: 'eBPF & Encryption', link: 'en/encrypted_traffic' },
-      { text: 'Half & Erroneous Connection Analysis', link: 'en/half_connections' },
+      { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       { text: 'Pod Targeting', link: 'en/pod_targeting' },
       { text: 'Traffic Retention', link: 'en/traffic_retention' },
     ],

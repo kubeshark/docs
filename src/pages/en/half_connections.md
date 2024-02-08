@@ -1,5 +1,5 @@
 ---
-title: Half & Erroneous Connection Analysis
+title: Network Error Detection & Analysis 
 description: Kubeshark is useful for detecting various network-related errors
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
