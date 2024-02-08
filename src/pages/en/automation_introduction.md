@@ -61,6 +61,6 @@ This example schedules the function *exampleJob* to run every 5 minutes:
 jobs.schedule("example-job", "0 */5 * * * *", exampleJob)
 ```
 
-Jobs can be added and removed on-demand and in real-time based on programable decisions.
+Jobs can be added and removed on-demand and in real-time based on programmable decisions.
 
 > Read more in the [jobs](/en/automation_jobs) section.

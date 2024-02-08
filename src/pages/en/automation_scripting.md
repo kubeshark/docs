@@ -31,7 +31,7 @@ jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTot
 
 ## Scripts Folder
 
-Develope your scripts locally in your environment (e.g. VS Code, GitHub) and simply add your scripts folder to the [scripts section](/en/config#scripts) in **Kubeshark**'s configuration file .
+Develop your scripts locally in your environment (e.g. VS Code, GitHub) and simply add your scripts folder to the [scripts section](/en/config#scripts) in **Kubeshark**'s configuration file .
 
 ```yaml
 scripting:
@@ -50,12 +50,12 @@ You can edit, add, delete scripts directly in the **workers**. Any changes you m
 
 ![Scripting Editor](/script-editor.png)
 
-To access the dashboard's script editor and edit the scripts in the **workers**, press the scrips button located at the top right corner.
+To access the dashboard's script editor and edit the scripts in the **workers**, press the scripts button located at the top right corner.
 ![Scripting Button](/scripting-button.png)
 
 The **CLI** monitors the scripts folder by default and updates the **workers** on any changes. You can use the `kubeshark scripts` command to explicitly monitor the folder for changes, especially if you don't use the **CLI**.
 
-The following command wil transmit the content of any folder to the **workers**:
+The following command will transmit the content of any folder to the **workers**:
 
 ```shell
 kubeshark scripts --set scripting.source="/path/to/scripts/folder/"
@@ -100,7 +100,7 @@ vendor.influxdb(
 
 - **Function:** When variables and functions are declared within a function.
 - **Script:** When variables and functions are declared outside functions , at the specific script level and can maintain a state across the specific script's functions.
-- **Global** When you use the object `this` you can decares scrips and function at the global level accessible by all scripts.
+- **Global** When you use the object `this` you can declare scripts and functions at the global level accessible by all scripts.
 
 ## Script Examples Dropdown
 

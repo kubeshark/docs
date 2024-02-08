@@ -136,14 +136,14 @@ We suggest keeping the OAuth token as an [environment variables](/en/config#scri
 
 When you have a certain channel you'd like to send message to, you can obtain its Channel ID by pressing the down arrow that is adjacent to the channel name.
 
-![Slack Chanel Down Arrow](/slack-channel-down-arrow.png)
+![Slack Channel Down Arrow](/slack-channel-down-arrow.png)
 
 Now, copy the channel ID at the bottom of the about section.
 
-![Slack Chanel About](/slack-channel-about.png)
+![Slack Channel About](/slack-channel-about.png)
 
 #### Adding Kubeshark to the Channel
 
 Last required action is to add Kubeshark to the channel. This can be achieved by calling the Bot using `@Kubeshark`
 
-![Slack Chanel Add](/slack-adding-to-channel.png)
+![Slack Channel Add](/slack-adding-to-channel.png)

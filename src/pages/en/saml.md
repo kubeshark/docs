@@ -8,7 +8,7 @@ mascot: Cute
 SAML integration provides the following benefits:
 1. Authentication using corporate identities
 2. Role-based traffic visibility authorization
-3. Role-based feature accessability
+3. Role-based feature accessibility
 
 ## SAML Configuration Clause
 
@@ -52,7 +52,7 @@ For example, in [Auth0](https://auth0.com/), it looks like this:
 
 ![IDP App Metadata](/app_metadata.png)
 
-Each `role` is assigned a set of rules that govern the users feature accessability and traffic visibility.
+Each `role` is assigned a set of rules that govern the users feature accessibility and traffic visibility.
 
 ## Filter Authorization Rules
 

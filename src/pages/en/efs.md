@@ -113,7 +113,7 @@ aws sts get-caller-identity \
   --output text
 ```
 
-Get **IAM OIDC (OpenID Connec) provider** and save for further usage omitting `https://` at the beginning and `%` at the end:
+Get **IAM OIDC (OpenID Connect) provider** and save for further usage omitting `https://` at the beginning and `%` at the end:
 
 ```shell
 oc get authentication.config.openshift.io cluster \
@@ -333,7 +333,7 @@ parameters:
 
 #### Statically provisioned
 
-In this case EFS file system ID should be specified during Kubeshark deployment (e.g. via `--set` in Helm). Can be helpful e.g. if some infrastructure has requirement (e.g. defined by organziation) to use only some directrory pre-created specially for Kubeshark with specific permissions on the EFS file system which is used for other EFS persistent volume claims as well
+In this case EFS file system ID should be specified during Kubeshark deployment (e.g. via `--set` in Helm). Can be helpful e.g. if some infrastructure has requirement (e.g. defined by organization) to use only some directory pre-created specially for Kubeshark with specific permissions on the EFS file system which is used for other EFS persistent volume claims as well
 
 ```yaml
 apiVersion: storage.k8s.io/v1

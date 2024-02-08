@@ -16,8 +16,8 @@ The risk of packet loss is particularly high in high-throughput or high-bandwidt
 When the operating system (OS) is busy (e.g., high CPU usage, performing other resource-intensive tasks), the efficiency of the kernel in processing these packets decreases.
 This increased load can slow down the packet processing, leading to buffer overflows and subsequent packet loss.
 
-### Significant Memeory Consumption
-As packet drop number grows so does the Worker memeory consumption and the liklihood of the Worker pod getting OOM killed.
+### Significant Memory Consumption
+As packet drop number grows so does the Worker memory consumption and the likelihood of the Worker pod getting OOM killed.
 
 ## Kernel Version Specific Kernel Module Files
 All popular kernel module files are stored in this [Docker image](https://docker.io/kubeshark/pf-ring-module:all).
