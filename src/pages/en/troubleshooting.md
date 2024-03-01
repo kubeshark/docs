@@ -145,6 +145,18 @@ kubeshark pro
 
 There were some reports on incompatibility between certain versions of Kubernetes and Calico. We don't have enough information to suggest a course of action.
 
+## High volume of Kubeshark-related audit log events
+
+Instances have been documented where the volume of audit logs significantly increased following the installation of Kubeshark, as noted the [issue](https://github.com/kubeshark/kubeshark/issues/1500).
+While we were unable to replicate this behavior in our testing environments, it's important to address if you encounter this issue.
+To mitigate such an increase in audit log volume related to Kubeshark events, you can disable auditing for these specific events with the following rule:
+
+```yaml
+  - level: None
+    userGroups: ["system:serviceaccounts"]
+    users: ["system:serviceaccount:default:kubeshark-service-account"]
+```
+
 ## Openshift
 
 There were some reports where Kubeshark wasn't running out of the box on Openshift. We plan to make sure it runs flawlessly on Openshift, but we haven't gotten to that yet.
