@@ -1,65 +1,68 @@
 ---
+
 title: Install with CLI
-description: Install and run Kubeshark inside your Kubernetes cluster in seconds using a lightweight CLI option.
+description: Quickly install and run Kubeshark in your Kubernetes cluster using a streamlined CLI option.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
+> For Helm-based installations, refer to the [Helm](/en/install_helm) section.
 
-You can install **Kubeshark** using two main methods:
-1. [CLI](#cli)
-2. [Helm](/en/install_helm)
-
-The quickest way to get started would be to download the **Kubeshark** CLI [latest release](https://github.com/kubeshark/kubeshark/releases/latest), running `kubeshark tap` and pointing your browser to `localhost:8899`. 
+The fastest way to start with **Kubeshark** is by downloading the [latest release](https://github.com/kubeshark/kubeshark/releases/latest) of the CLI, executing `kubeshark tap`, and navigating your browser to `localhost:8899`.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
-Based on your use-case, see below additional installation methods like [Helm](/en/install_helm), [Homebrew](/en/install#homebrew) and more:
+Installing **Kubeshark** via CLI offers functionality akin to using the `helm install` command but does not require Helm to be installed.
 
-## Shell Script
-
-You can use a shell script to download the right binary for your operating system and CPU architecture:
-```shell
-sh <(curl -Ls https://kubeshark.co/install)
-```
-Alternatively, you can download the right binary directly from [the latest release](https://github.com/kubeshark/kubeshark/releases/latest).
+For alternative installation methods such as [Helm](/en/install_helm), [Homebrew](/en/install#homebrew), and others based on your needs, see below:
 
 ## Homebrew
 
-Install using Homebrew:
+Installing **Kubeshark** with [Homebrew](https://formulae.brew.sh/formula/kubeshark) is straightforward:
 ```shell
-brew tap kubeshark/kubeshark
 brew install kubeshark
 ```
-While this option is there, due to demand we invest more in the shell script and the Helm options. For this reason, we do not recommend using Homebrew. 
 
-## Build from the Source
+## Shell Script
 
-You can clone the [Kubeshark GitHub](https://github.com/kubeshark/kubeshark) repository and follow the [instructions in the README file](https://github.com/kubeshark/kubeshark#building-from-source) to build the CLI from the source:
+To download the appropriate binary for your system:
 ```shell
-git clone kubeshark/kubeshark
-cd kubeshark & make
+sh <(curl -Ls https://kubeshark.co/install)
 ```
+> The actual script is [here](https://github.com/kubeshark/kubeshark/blob/master/install.sh)
+
+Alternatively, you can directly download the suitable binary from the [latest release](https://github.com/kubeshark/kubeshark/releases/latest).
+
+## Build from Source
+
+Clone the [Kubeshark GitHub repository](https://github.com/kubeshark/kubeshark) and follow the [build instructions in the README](https://github.com/kubeshark/kubeshark#building-from-source):
+```shell
+git clone https://github.com/kubeshark/kubeshark
+cd kubeshark && make
+```
+
 ## Tap (Run)
 
-To run the CLI, use the `tap` command. For example:
+To initiate **Kubeshark**, use the `tap` command, for example:
 ```shell
 kubeshark tap
 ```
+This command not only installs **Kubeshark** but also launches the dashboard. You can exit the dashboard and terminate the CLI session with `^C` at any time. Use the `proxy` command to reconnect and reopen the dashboard.
+
+Terminating the CLI session with `^C` does not stop or remove **Kubeshark**; it merely disconnects the dashboard. **Kubeshark** remains active until you run the `clean` command.
+
 ## Proxy
 
-When **Kubeshark** starts, to expose the dashboard port, it automatically starts a kube-proxy. If kube-proxy creation fails, it defaults to port-forward. Both kube-proxy and port-forward solutions can break after some time. You can always use: 
+The `proxy` command facilitates dashboard access, whether you installed **Kubeshark** via Helm or CLI. It sets up a `kube-proxy` or, if unavailable, defaults to `port-forward`.
+
 ```shell
 kubeshark proxy
 ```
-To re-establish a kube-proxy (or port-forward).
-
-You can also, safely exit (use ^C) **Kubeshark**. It will continue to run in the background. Here again, you can use the `kubehsark proxy` command to re-establish a kube-proxy (or port-forward).
 
 ## Clean
 
-To clean all relics of **Kubeshark** from your cluster when using the CLI:
+To completely remove **Kubeshark** from your cluster when using the CLI:
 ```shell
 kubeshark clean
 ```
 
-Exiting **Kubeshark** using ^C only breaks the kube-proxy / port-forward connection and does not remove **Kubeshark** from the cluster. Only `clean` command does.
+The `clean` command mirrors the `helm uninstall` functionality, eliminating the need for Helm. Note: Exiting **Kubeshark** with ^C only severs the dashboard connection and does not uninstall **Kubeshark**. Use the `clean` command for complete removal.

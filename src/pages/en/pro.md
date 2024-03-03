@@ -1,63 +1,46 @@
 ---
-title: Pro vs. Enterprise vs. Community
+title: Consumption-Based Pricing
 description: Exploring the Differences Between Pro, Enterprise, and Community Editions
 layout: ../../layouts/MainLayout.astro
 ---
+**Kubeshark** introduces a consumption-based pricing structure, offering initial complimentary capacity. Once this capacity is exceeded, charges are incurred based on the volume of API calls processed by **Kubeshark**. This model ensures that customers pay only for their actual usage, with costs directly tied to the amount of traffic handled by the system.
 
-## Getting Started
+A single license can be used across any number of clusters without restriction to specific ones. The selected pricing tier may introduce limitations, such as on the number of nodes, API call capacity, and requirements for time and internet connectivity.
 
-We suggest starting with a one-month Pro license, using one of these methods:
+> An API call is defined as any protocol-level message captured, dissected, and reassembled by **Kubeshark**.
 
-1. Run `kubeshark pro` and follow the on-screen instructions.
-2. Visit **Kubeshark**'s [Admin Console](https://console.kubeshark.co/).
+## COMMUNITY
 
-If you enjoy using **Kubeshark**, you can subscribe to the Pro edition. Subscriptions to the Pro edition are processed via a credit card with either monthly or annual installments. All subscription activities are managed through **Kubeshark**'s [Admin Console](https://console.kubeshark.co/).
+The COMMUNITY edition is offered at no cost and supports clusters of up to two nodes without imposing any capacity limits or licensing requirements. Clusters that exceed two nodes are eligible for a complimentary PRO license, available [here](https://console.kubeshark.co/), which includes 1,000,000 API calls per month at no additional charge.
 
-[Contact us](https://kubeshark.co/contact-us) to inquire about a more flexible licensing model or to learn more about the Enterprise edition.
+For users operating larger clusters or requiring on-demand service, the ON-DEMAND tier is advisable to ensure sufficient capacity is always available. This tier also comes with a free trial that provides an extra 10 million API calls as complimentary capacity.
 
-## Tier Comparison
+Should additional capacity be necessary, please [reach out to us](https://kubeshark.co/contact-us).
 
-Different companies have varying needs. **Kubeshark** offers three distinct editions, each tailored to meet the varied demands of different use cases and company types.
+> To get started with the COMMUNITY edition, [install **Kubeshark**](/en/install).
 
-For a detailed comparison of features across editions, visit our [pricing page](https://kubeshark.co/pricing).
+## ON-DEMAND
 
-### Community Edition
+- Priced at $0.01 per 1,000 API calls, with billing typically occurring monthly or based on usage.
+- A free trial offering 10 million API calls is included.
+- Pricing is transparent, with no hidden charges or obligatory commitments.
+- A 30-day, no-questions-asked refund policy is provided.
+- Capacity monitoring is facilitated through the [Admin Console](https://console.kubeshark.co/).
 
-The Community Edition is free of charge and primarily targets small development and testing clusters. It is available for on-demand use without requiring a license.
+![Available Capacity](/capacity.png)
 
-> To start using the Community Edition, [install Kubeshark](/en/install).
+- Consumption specifics can be accessed in the dashboard footer.
 
-## Pro Edition
+![Counting API calls](/items.png)
 
-The Pro Edition is suitable for clusters of up to 20 nodes in environments with active internet connectivity. It includes a one-month free license, with the option to upgrade using a credit card.
+- This tier necessitates an active internet connection.
 
-> To start using the Pro Edition, run `kubeshark pro` in your terminal or visit the [Admin Console](https://console.kubeshark.co/).
+> Subscribe to the ON-DEMAND tier [here](https://console.kubeshark.co/?term=ON-DEMAND).
+ 
+## Enterprise
 
-## Enterprise Edition
+Tailored for larger organizations managing multiple clusters, whether managed on their own or not, the Enterprise Edition is equipped for demanding settings. It features enhanced speed/throughput, support for air-gapped environments, and SAML/SSO integration.
 
-Designed for larger organizations managing multiple, either managed or self-managed, clusters, the Enterprise Edition of **Kubeshark** is equipped with features suitable for demanding environments. These include:
-- Enhanced high-speed/high-throughput capabilities
-- Support for air-gapped environments
-- SAML/SSO integration
+Enterprise clients gain access to dedicated support services, including rapid assistance through Slack, on-demand Zoom calls, premium onboarding processes, and a commitment to ensuring smooth operations across all clusters.
 
-Enterprise Edition users also benefit from dedicated support, ensuring swift assistance through Slack, on-demand Zoom calls, premium onboarding services, and a commitment to seamless operations across all clusters.
-
-[Contact us](https://kubeshark.co/contact-us) for a demo of the Enterprise Edition and a complimentary trial license.
-
-### SAML/SSO/Authorization
-
-The Enterprise Edition enables developers to access **Kubeshark** through their corporate Identity Provider (IDP) without requiring `kubectl` privileges. Authorization is based on group or organizational affiliation, with network traffic visibility controlled by namespace and pod regex rules aligned with their roles.
-
-### Air-gapped Support
-
-This edition enables the full feature set even in the absence of Internet connectivity, facilitating the local storage of Docker images, scripts, and kernel modules.
-
-### Dedicated Support
-
-Enterprise users receive immediate support through Slack, access to on-demand Zoom calls, premium onboarding, and a guarantee of smooth operations across all clusters.
-
-### High-speed Networks
-
-The Enterprise Edition enhances packet capture and processing speeds, significantly minimizing the overhead typically associated with kernel-level packet handling.
-
-> [Contact us](https://kubeshark.co/contact-us) for more information about the Enterprise Edition.
+> For a demonstration of the Enterprise Edition and to obtain a complimentary trial license, [contact us](https://kubeshark.co/contact-us).

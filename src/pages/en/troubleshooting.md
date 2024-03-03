@@ -3,14 +3,13 @@ title: Troubleshooting
 description: Troubleshooting the problems that you face while using Kubeshark.
 layout: ../../layouts/MainLayout.astro
 ---
+**Kubeshark** installation aims to be straightforward, yet due to the diverse range of Kubernetes (K8s) versions and configurations, some troubleshooting may be required to get started.
 
-**Kubeshark** installation should be pretty straight forward, however due to the many K8s versions and configurations, getting started can require some troubleshooting.
-
-## Versions Incompatibility 
+## Versions Incompatibility
 
 ### CLI
 
-When using the CLI, most problems can be resolved by simply re-installing the CLI using the following script or by any other means listed in the [installation page](/en/install):
+Most issues encountered with the CLI can often be resolved by reinstalling it. This can be done using the script provided below or through other methods detailed on the [installation page](/en/install):
 
 ```shell
 sh <(curl -Ls https://kubeshark.co/install)
@@ -18,80 +17,44 @@ sh <(curl -Ls https://kubeshark.co/install)
 
 ### Helm
 
-Use the following commands to update KUbeshark's Helm repo:
+To update **Kubeshark**'s Helm repository, utilize the following commands:
 
 ```shell
-helm uninstall kubeshark -n kubeshark
-helm search repo kubeshark
+helm uninstall **Kubeshark** -n **Kubeshark**
+helm search repo **Kubeshark**
 helm repo update
-helm search repo kubeshark
-helm install kubeshark kubeshark/kubeshark -n kubeshark --create-namespace
-```
-
-## Config File Incompatibility
-
-It is highly recommended to upgrade the config file, if used, every time you upgrade the CLI. The following command will upgrade the config file and merge any existing properties into the new config file structure:
-
-```shell
-kubeshark config -r
+helm search repo **Kubeshark**
+helm install **Kubeshark** **Kubeshark**/**Kubeshark** -n **Kubeshark** --create-namespace
 ```
 
 ## Workers OOMKilled
 
-Getting frequent OOMKilled is frustrating!
+Frequent OOMKilled errors indicate that the cluster is overburdened relative to the resources allocated to **Kubeshark**. Consult our [performance page](/en/performance) for guidance on optimizing resource consumption.
 
-At this time we don't have memory and CPU guardrails, causing Workers (and sometime the Hub) to get OOMKilled due to inefficient use of resources and or high traffic load. 
+### Use Debug Logs
 
-While this section will provide a few remedies, know that we are committed to helping you get started even at high loads. If you're unable to find the proper configuration that enables smooth running, contact us and we'll get you there fast!
+Running **Kubeshark** in debug mode captures essential KPIs in the logs. Analyzing these logs, or better, sharing them with us, can often elucidate unexpected performance issues.
 
-Workers' performance is a function of the **traffic throughput**, **memory** and **CPU**. If you get this triangle right, in all likelihood everything will function well.
-
-If you see memory **or CPU** levels reach maximum capacity, consider allocating more resources. If you can't, consider reducing the traffic throughput by using the Pods filter.
-
-**CLI Pods Filter**:
-
+Enable debug logs with the following methods:
 ```shell
-kubeshark tap "(pod1.*|pod2.*)"
-```
-
-**Config File Pod Filter**:
-
-```shell
-tap:
-    regex: "(pod1.*|pod2.*)"
-```
-
-**Helm Value**:
-
-```shell
---set tap.regex="(pod1.*|pod2.*)"
-```
-
-### Use Debug Logs 
-
-When run in debug mode, Kubeshark will store all relevant KPIs in the logs. Viewing this log information or better yet, send it to us, will likely show the reason for any weird performance behavior.
-
-Various ways to enable logs:
-```shell
-kubeshark tap -d / --debug
+**Kubeshark** tap -d / --debug
 --set tap.debug=true
 ```
 
-To dump the log files, run:
+To extract log files, execute:
 ```shell
-kubeshark logs
+**Kubeshark** logs
 ```
 
 ## Ports Range
 
-**Kubeshark**'s default config uses ports 30001,8898 and 8899. Some K8s distributions like K3s and Microk8s do not allow this port range and require changing these ports. Luckily it's very easy to do.
+**Kubeshark** defaults to using ports 30001, 8898, and 8899. Certain Kubernetes distributions, like K3s and Microk8s, restrict this port range, necessitating adjustments. Configuring different ports is straightforward:
 
-If you aren't using a config file already, please use the following command:
+If you haven't already configured **Kubeshark**, start with:
 ```shell
-kubeshark config -r
+**Kubeshark** config -r
 ```
-The above command will create a config file located here: `~/.kubeshark/config.yaml`.
-Edit the file and change the port ranges like this:
+This command generates a configuration file at `~/.kubeshark/config.yaml`. Modify this file to adjust the port settings as follows:
 ```shell
     proxy:
         worker:
@@ -103,53 +66,11 @@ Edit the file and change the port ranges like this:
             port: 30002
             srvport: 30002
 ```
-Change the port numbers to any numbers you choose as long as they are in the allowed range.
+Ensure the new port numbers fall within the permissible range.
 
-## Browser Not Installed Or Found
+## High Volume of **Kubeshark**-Related Audit Log Events
 
-Running the CLI results in launching the locally installed browser. When such a browser isn't installed or can't be found by **Kubeshark**, like in the case of a fresh Ubuntu installation, it may make sense to run **Kubeshark** headless, like this:
-```shell
-kubeshark tap --set headless=true
-```
-> Read more options to set the headless config [here](/en/config#run-kubeshark-headless).
-
-## Fragile Proxy Connection
-
-K8s proxy creates a tunnel. This solution, while common can break often. If the proxy connection breaks, a message will appear in the console log with instructions how to restart the proxy connection:
-```shell
-kubeshark proxy
-```
-
-## Proxy Host
-
-When using the CLI, the tap command creates a K8s proxy to the front-end container. For security reasons, the default proxy host IP is 127.0.0.1. That might not work for some configurations. For example if you have two NICs or if you're using a headless VM. In any event you can set the correct IP by changing the proxy host config. For example using this line:
-
-```shell
-kubeshark tap --proxy-host 0.0.0.0
-```
-
-## Got Response With Status Code: 418
-
-If you get something like this in your console log:
-```shell
-2023-06-04T11:05:34+03:00 WRN hub.go:215 > Failed creating 
-script Hub: error="got response with status code: 418, 
-body: {\"EnabledFeatures\":[\"Ingress\"]}"
-```
-It means your Pro license if out-of-date. You can simply update it by using: 
-```shell
-kubeshark pro
-```
-
-## CNI and K8s Version Incompatibility
-
-There were some reports on incompatibility between certain versions of Kubernetes and Calico. We don't have enough information to suggest a course of action.
-
-## High volume of Kubeshark-related audit log events
-
-Instances have been documented where the volume of audit logs significantly increased following the installation of Kubeshark, as noted the [issue](https://github.com/kubeshark/kubeshark/issues/1500).
-While we were unable to replicate this behavior in our testing environments, it's important to address if you encounter this issue.
-To mitigate such an increase in audit log volume related to Kubeshark events, you can disable auditing for these specific events with the following rule:
+Some users have reported a surge in audit log events following **Kubeshark** installation, as discussed in [issue #1500](https://github.com/kubeshark/kubeshark/issues/1500). Although this behavior was not replicated in our test environments, it's crucial to address if experienced. Reducing **Kubeshark**-related audit log volumes can be achieved by disabling auditing for specific events as shown below:
 
 ```yaml
   - level: None
@@ -159,12 +80,12 @@ To mitigate such an increase in audit log volume related to Kubeshark events, yo
 
 ## Openshift
 
-There were some reports where Kubeshark wasn't running out of the box on Openshift. We plan to make sure it runs flawlessly on Openshift, but we haven't gotten to that yet.
+There have been instances where **Kubeshark** did not operate seamlessly on Openshift. While ensuring optimal performance on Openshift is a goal, it remains a work in progress.
 
-## Well That Didn't Work
+## Well, That Didn't Work
 
-If you were unable to find a solution to your problem, there're other means to enable you to get going in no time.
+If the provided solutions do not resolve your issue, other resources are available to assist promptly:
 
-- [Report a bug](https://github.com/kubeshark/kubeshark/issues) by opening a ticket on GitHub.
-- [Join our Slack channel](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA) and seek support from the community. We're usually there and try to be first to respond.
-- [Get dedicated and timely support from the project team](https://kubeshark.co/contact-us).
+- [Report a bug](https://github.com/kubeshark/kubeshark/issues) by creating a GitHub ticket.
+- [Join our Slack channel](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA) for community support. We strive to be responsive and helpful.
+- [Contact the project team directly](https://kubeshark.co/contact-us) for dedicated and timely assistance.

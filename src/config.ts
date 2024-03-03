@@ -99,8 +99,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Webhook', link: 'en/integrations_webhook' },
       { text: 'K8s Lens', link: 'en/integrations_lens' },
     ],
-    'Editions': [
-      { text: 'Pro & Enterprise', link: 'en/pro' },
+    'Commercial': [
+      { text: 'Tiers', link: 'en/pro' },
       // { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
       { text: 'License', link: 'en/license' },
     ],
