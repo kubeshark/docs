@@ -103,11 +103,12 @@ export const SIDEBAR: Sidebar = {
       { text: 'Tiers', link: 'en/pro' },
       // { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
       { text: 'License', link: 'en/license' },
+      { text: 'Security & Compliance', link: 'en/security' },
     ],
     'DevOps Stuff': [
       { text: 'CPU & Memory Consumption', link: 'en/performance' },
       { text: 'Air-gap Support', link: 'en/air_gapped' },
-      { text: 'Security Context & RBAC', link: 'en/permissions' },
+      { text: 'CPU & Memory Consumption', link: 'en/performance' },
       { text: 'Prometheus Metrics & Grafana Dashboard', link: 'en/metrics' },
       { text: 'Installing Older Releases', link: 'en/tag_release' },
       // { text: 'PF_RING', link: 'en/pf_ring' },
