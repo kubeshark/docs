@@ -111,7 +111,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'CPU & Memory Consumption', link: 'en/performance' },
       { text: 'Prometheus Metrics & Grafana Dashboard', link: 'en/metrics' },
       { text: 'Installing Older Releases', link: 'en/tag_release' },
-      // { text: 'PF_RING', link: 'en/pf_ring' },
+      { text: 'PF_RING', link: 'en/pf_ring' },
       // { text: 'Configuration', link: 'en/config' },
       { text: 'EKS, ALB, Ingress & TLS', link: 'en/aws_ingress_auth' },
       { text: 'EKS & IRSA', link: 'en/irsa' },
