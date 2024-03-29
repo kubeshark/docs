@@ -1,8 +1,12 @@
 ---
-title: Filtering
+title: Kubeshark Filtering Language (KFL)
 description: The filter input enables filtering results using Kubeshark Filter Language (KFL).
 layout: ../../layouts/MainLayout.astro
 ---
+
+> KFL is a rich filtering language (not a query language)
+
+Inspired by Wireshark's display filters. Its primary purpose is to filter network traffic according to specific rules. Instead of searching for the needle in the haystack, it filters out the haystack to reveal the needle.
 
 **Kubeshark Filter Language (KFL)** is a language that enables you filter traffic that matches a boolean expression. For example; to only see the items with HTTP response status codes (`400` – `499`), enter:
 
