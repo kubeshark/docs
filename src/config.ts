@@ -55,6 +55,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
       { text: 'Install with CLI', link: 'en/install' },  
       { text: 'Install with Helm', link: 'en/install_helm' },   
+      { text: 'Getting Support', link: 'en/support' },   
     ],
     'Network Analysis': [
       { text: 'Network Sniffing', link: 'en/network_sniffing' },
