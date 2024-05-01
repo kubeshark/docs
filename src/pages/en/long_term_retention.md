@@ -24,6 +24,9 @@ For example:
 ![image](/s3-nodes.jpg)
 ![image](/s3-gzs.jpg)
 
+## Content of the Tar File
+Each tar file includes all JSON files and PCAP files that belong to the traffic recording.
+
 ## Use Specific Auth Credentials
 
 - **S3_BUCKET**: The name of the S3 bucket
