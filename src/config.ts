@@ -71,6 +71,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Traffic Recorder', link: 'en/traffic_recorder' },
       { text: 'Offline Analysis', link: 'en/offline_analysis' },
       { text: 'Recordings Management', link: 'en/recordings_management' },
+      { text: 'Long Term Retention', link: 'en/long_term_retention' },
       // { text: 'PCAP & API metadata', link: 'en/pcap' },
       { text: 'Data Persistency', link: 'en/data_persistency' },
     ],
