@@ -5,18 +5,22 @@ layout: ../../layouts/MainLayout.astro
 ---
 Recordings' content can be automatically uploaded to an immutable data store for long-term retention. Data may be stored in either Amazon S3 or Google Cloud Storage (GCS). Uploads can be triggered automatically at the end of a recording or on-demand at the user's discretion.
 
-To enable either automatic or on-demand uploads, simply add the appropriate credentials. Once the proper credentials are in place, the recording content will be uploaded either when the recording ends or at the end of each recording window.
+To enable either automatic or on-demand uploads, simply add the appropriate credentials. Once the proper credentials are in place, the recording's content will be uploaded:
+1. When the recording ends
+2. Once an hour
+3. On-demand at the user's discretion
 
 ## Triggering an Upload On-demand
-Users can utilize the Jobs dashboard to initiate an on-demand upload of the tar files. Simply press the `Run All Jobs` button to tar and upload all accumulated content.
+Users can utilize the Jobs dashboard to initiate an on-demand upload of the `tar` files. Simply press the `Run All Jobs` button to compress and upload all accumulated content.
+
 ![Run All Jobs](/s3-jobs.jpg)
 
-## Hourly Upload
-By default, content is uploaded hourly and at the end of the recording window.
+## Automatic Upload
+By default, content is uploaded hourly and at the end of the recording window, as long as the proper crednetials are in place.
 
-## Content in the Bucket
+## Bucket Content
 
-Within the bucket, you can expect a folder per node, where each folder contains a tar file for each recording upload, following this pattern:
+Within the bucket, you can expect a folder per node, where each folder contains a `tar` file for each upload, following this pattern:
 
 `<node>/<recording-name>_kubeshark_<timestamp>.gz.tar`
 
@@ -38,6 +42,7 @@ Each tar file includes all JSON files and PCAP files that belong to the traffic 
 
 ### Configuration Example
 
+In either `config.yaml` or `values.yaml`, the environment variable should look something like this:
 ```shell
 scripting:
   env:
@@ -58,6 +63,7 @@ In scenarios using shared authentication (e.g., IRSA, kube2iam), the S3 helper w
 
 ## GCS
 
+Uploading to GCS requires the following credentials:
 - **GCS_BUCKET**: GCS Bucket
 - **GCS_SA_KEY_JSON**: GCS Key JSON
 
