@@ -1,13 +1,11 @@
 ---
-title: Traffic Retention
+title: Data Time To Live (TTL)
 description: Provides real-time Kubernetes network visibility and forensics by capturing and monitoring all traffic and payloads within and across containers, pods, nodes, and clusters.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-**Kubeshark** captures all Layer 4 (UDP and TCP) streams, temporarily storing each stream in a separate PCAP file on the root file system of each cluster node.
-
-Following successful analysis, all API information (e.g., headers, path, payload) is stored in a dedicated JSON file for each request/response pair.
+All API information (e.g., headers, path, payload) is stored in a dedicated JSON file for each request/response pair. JSON and PCAP files are stored locally with a TTL for each file type. 
 
 ## PCAP - Network Traces
 
@@ -93,21 +91,3 @@ To adjust the limit:
 ```yaml
 --set tap.storagelimit=1Gi
 ```
-
-## Traffic Recorder
-
-Designed to retain selected network traffic (PCAP and JSONs) longer without straining storage.
-
-> More details in the [Traffic Recorder](/en/traffic_recorder) section.
-
-## Data Persistency
-
-Kubeshark defaults to ephemeral storage, risking data loss upon pod restarts. Optional persistent volume claims can safeguard data.
-
-> Details in the [Data Persistency](/en/data_persistency) section.
-
-## Long-Term Immutable Traffic Retention
-
-For extended retention, it's advised to export traffic to external data stores like GCS or AWS S3.
-
-> See [AWS S3](/en/integrations_aws_s3) and [GCS](/en/integrations_gcs) sections for more.

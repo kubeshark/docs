@@ -11,20 +11,31 @@ A single license can be used across any number of clusters without restriction t
 
 ## COMMUNITY
 
-The COMMUNITY edition is offered at no cost and supports clusters of up to two nodes without imposing any capacity limits or licensing requirements. Clusters that exceed two nodes are eligible for a complimentary PRO license, available [here](https://console.kubeshark.co/), which includes 1,000,000 API calls per month at no additional charge.
-
-For users operating larger clusters or requiring on-demand service, the ON-DEMAND tier is advisable to ensure sufficient capacity is always available. This tier also comes with a free trial that provides an extra 10 million API calls as complimentary capacity.
+The COMMUNITY edition is offered at no cost and supports clusters of up to two nodes without imposing any capacity limits or licensing requirements. Clusters that exceed two nodes are eligible for a complimentary PRO license, available upon sign up. The Complimentary PRO license includes 100,000 API calls per month at no cost.
 
 Should additional capacity be necessary, please [reach out to us](https://kubeshark.co/contact-us).
 
 > To get started with the COMMUNITY edition, [install **Kubeshark**](/en/install).
 
-## ON-DEMAND
+## PRO FIXED-PRICE
 
-- Priced at $0.01 per 1,000 API calls, with billing typically occurring monthly or based on usage.
-- A free trial offering 10 million API calls is included.
+**Predictable budget, based on the number of nodes.**
+
+- Our PRO license is our most popular license.
+- Unmetered use, for unlimited number of nodes.
+- Priced at $10 per node per month, paid annually.
+- This tier necessitates an active internet connection.
+  
+## PRO ON-DEMAND
+
+**Most useful option for on-demand usage.**
+
+Same as the PRO, only billed on-demand with no upfront fees.
+
+- A single license is valid for unlimited nodes & clusters.
+- Priced at $0.1 per 1,000 API calls, with billing typically occurring monthly or based on usage.
 - Pricing is transparent, with no hidden charges or obligatory commitments.
-- A 30-day, no-questions-asked refund policy is provided.
+- Users can use a credit card via [Stripe](https://console.kubeshark.co/?term=ON-DEMAND) or subscribe through an [AWS marketplace subscription](https://aws.amazon.com/marketplace/pp/prodview-2pnxmkjuvsvs2) subscription.
 - Capacity monitoring is facilitated through the [Admin Console](https://console.kubeshark.co/).
 
 ![Available Capacity](/capacity.png)

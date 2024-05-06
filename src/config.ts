@@ -57,15 +57,14 @@ export const SIDEBAR: Sidebar = {
       { text: 'Install with Helm', link: 'en/install_helm' },   
       { text: 'Getting Support', link: 'en/support' },   
     ],
-    'Network Analysis': [
-      { text: 'Network Sniffing', link: 'en/network_sniffing' },
+    'Basic Functionality': [
+      // { text: 'Network Sniffing', link: 'en/network_sniffing' },
+      { text: 'Dashboard', link: 'en/ui' },
       { text: 'Service Map', link: 'en/service_map' },
-      // { text: 'Dashboard', link: 'en/ui' },
       { text: 'Filtering Language (KFL)', link: 'en/filtering' },
       { text: 'eBPF & TLS', link: 'en/encrypted_traffic' },
       { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       { text: 'Pod Targeting', link: 'en/pod_targeting' },
-      { text: 'Traffic Retention', link: 'en/traffic_retention' },
     ],
     'Traffic Recording': [
       { text: 'Traffic Recorder', link: 'en/traffic_recorder' },
@@ -108,6 +107,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Security & Compliance', link: 'en/security' },
     ],
     'DevOps Stuff': [
+      { text: 'Data Time To Live (TTL)', link: 'en/traffic_retention' },
       { text: 'CPU & Memory Consumption', link: 'en/performance' },
       { text: 'Air-gap Support', link: 'en/air_gapped' },
       { text: 'CPU & Memory Consumption', link: 'en/performance' },

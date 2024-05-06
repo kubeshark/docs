@@ -11,7 +11,7 @@ Think [Wireshark](https://www.wireshark.org/) re-invented for [Kubernetes](https
 
 **Kubeshark** offers real-time, cluster-wide, identity-aware, protocol-level visibility into API traffic, empowering its users to see with their own eyes what's happening in all (hidden) corners of their K8s clusters.
 
-Observe all traffic, including payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP), DNS, TLS, mTLS, TCP (to diagnose TCP errors) and ICMP.
+Observe all traffic, including **encrypted traffic (TLS)** and payloads, entering, exiting, and traversing containers, pods, namespaces, nodes, and clusters, with support for REST, GraphQL, gRPC, Redis, Kafka, RabbitMQ (AMQP) and DNS.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
@@ -33,7 +33,7 @@ Observe all traffic, including payloads, entering, exiting, and traversing conta
 
 Using [extended BPF (eBPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter), **Kubeshark** traces function calls in both the kernel and user spaces.
 
-**Kubeshark** can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using eBPF **without actually performing decryption**. In essence, it hooks into entry and exit points of certain functions within the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
+**Kubeshark** can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster **without actually performing decryption**. In essence, it hooks into entry and exit points of certain functions within the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
 
 **Kubeshark** recognizes service mesh solutions like [Istio](https://istio.io/), [Linkerd](https://linkerd.io/), and other service mesh implementations that utilize [Envoy Proxy](https://www.envoyproxy.io/) underneath.
 

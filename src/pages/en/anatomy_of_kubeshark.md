@@ -20,11 +20,11 @@ mascot: Bookworm
 
 ![Full Architecture](/full-architecture.png)
 
-Workers are deployed, one per node, at the node level, to sniff traffic and listen to requests on port `30001` on each node.
+Workers are deployed, as nodes daemonsets, to sniff traffic. Workers listen to requests coming usually from the Hub on port `30001` on each node.
 
-The Hub is a single container deployed at the Control Plane level. It consolidates information received from all the Workers and listens to requests on port `8898`.
+The Hub is a single container deployed at the Control Plane level. It consolidates information received from all the Workers and listens to requests on port `8898` coming usually from the dashboard.
 
-The Front is a single container deployed at the Control Plane level. It communicates with the Hub to receive consolidated information and serves the dashboard. It listens to requests on port `8899`.
+The Front (Dashboard) is a single container deployed at the Control Plane level. It communicates with the Hub to receive consolidated information and serves the dashboard. It listens to requests on port `8899`.
 
 > All ports are configurable.
 
@@ -64,22 +64,22 @@ Each Worker pod includes two services:
 ### Sniffer
 
 The Sniffer is the main container in the Worker pod responsible for capturing packets by one of the available means:
-1. AF_PACKET
-2. PF_RING
+1. eBPF via the Tracer (for modern kernels with cgroup V2 is enabled)
+2. PF_RING (where PF_RING kernel module is found)
+3. AF_PACKET (available with most kernels)
+4. `libpcap` (If the above didn't work)
+
+The Sniffer attempts to find the best packet capture method starting from eBPF all the way to `libpcap`. Each method has a different performance impact, packet drop rate and functionality.
 
 ### Tracer
-
-Kubeshark can sniff [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using eBPF **without actually doing decryption**. It hooks into entry and exit points in certain functions inside the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
 
 Kubeshark offers tracing of kernel-space and user-space functions using [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/) (Extended Berkeley Packet Filter). eBPF is an in-kernel virtual machine running programs passed from user space, first introduced into the Linux kernel with version 4.4 and has matured since then.
 
 This functionality is performed by the Tracer container. Tracer deployment is optional and can be enabled and disabled using the `tap.tls` configuration value. When set to `false`, Tracer won't get deployed.
 
-> Read more about TLS/eBPF capabilities in the [eBPF & Encryption](/en/encrypted_traffic) section.
+## CLI (kubeshark)
 
-## CLI
-
-The CLI, a binary distribution of the Kubeshark client, is written in the [Go](https://go.dev/) language. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint.
+The CLI, a binary distribution of the Kubeshark client, is written in the [Go](https://go.dev/) language and usually goes under the name `kubeshark`. It is an optional component that offers a lightweight on-demand option to use **Kubeshark** that doesn't leave any permanent footprint.
 
 Once downloaded, you can simply use the `tap` command to begin monitoring cluster-wide API traffic:
 

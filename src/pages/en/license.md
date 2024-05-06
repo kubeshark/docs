@@ -9,7 +9,7 @@ Kubeshark is a collection of five different projects, each with its own license.
 
 |Project |Type|Version|Link
 |---|---|---|---|
-|CLI|Apache|2.0|[Link](https://github.com/kubeshark/kubeshark/blob/master/LICENSE)|   
+|Kubeshark (CLI)|Apache|2.0|[Link](https://github.com/kubeshark/kubeshark/blob/master/LICENSE)|   
 |Front-end|BSL|1.1|[Link](/en/bsl_1_1)|   
 |Hub|BSL|1.1|[Link](/en/bsl_1_1)|   
 |Worker|BSL|1.1|[Link](/en/bsl_1_1)|  
