@@ -6,11 +6,17 @@ layout: ../../layouts/MainLayout.astro
 
 **Air-gapped Environment Support is an Enterprise Feature**
 
-Kubeshark requires a valid Enterprise license to operate in an air-gapped environment.
+Kubeshark requires a valid ENTERPRISE license to operate in an air-gapped environment.
+
+## Getting a Trial ENTERPRISE License
+
+To get an ENTERPRISE license, you first need an account in the [Admin Console](https://console.kubeshark.co/), which is used to manage licenses. By default, a complimentary PRO license will be provisioned upon sign-up. 
+
+> A PRO license requires an active internet connection and cannot function properly in an air-gapped environment.
+
+Once you have an account, reach out to us using the [contact-us](https://kubeshark.co/contact-us) form and let us know the email used to create the account in the [Admin Console](https://console.kubeshark.co/). We will convert the complimentary PRO license to an ENTERPRISE license and notify you once the license is ready to use.
 
 To retrieve your license, please log in to the [Admin Console](https://console.kubeshark.co/) and follow the instructions to properly set your license.
-
-Please [contact us](https://kubeshark.co/contact-us) if you would like to receive a complimentary trial license.
 
 ## Docker Registry
 
@@ -44,6 +50,3 @@ Alternatively, you can add the following directives to your command line as a se
 --set tap.docker.registry=<local-registry-address> \
 --set-json 'tap.docker.imagePullSecrets=["<secret>"]'
 ```
-## Notes:
-
-- For instructions on using PF-RING in an air-gapped environment, please [contact us](https://kubeshark.co/contact-us).
