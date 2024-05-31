@@ -4,11 +4,28 @@ description:
 layout: ../../layouts/MainLayout.astro
 ---
 
-The Traffic Recorder allows for the execution of multiple individual recording jobs. Each job independently records traffic based on a [KFL](/en/filtering) statement and operates on its own schedule. Any of these recordings can be analyzed using a rich filtering language at the user's discretion.
+## Getting Started Quickly
 
-## Start a Recording Job
-To initiate a recording job, click the recording button located next to the KFL statement box.
+To quickly and seamlessly start a recording job, follow these steps:
+1. Click the recording button located next to the KFL statement box.
 ![Traffic Recorder Button](/record_button.png)
+2. Make sure the `Start Time` is blank. If it's not blank, press the `X` to blank the `Start Time` and cause the recording to start imidiately.
+3. Press CREATE.
+4. After a few minutes, use `record("<recording-name>")` in the KFL box to see the content of the recording up to that point.
+
+## Storage
+
+Storage limits are set by `tap.storageLimit`, defaulting to `500Mi`. Exceeding this limit triggers pod eviction, purging storage, and restarting the pod.
+
+The `500Mi` default value is suitable for real-time streaming but less so for traffic recording. Storing sizable recorded traffic over long periods can cause eviction.
+
+We strongly recommend extending the storage limit (e.g., to 5Gi). To adjust the limit:
+
+```yaml
+--set tap.storageLimit=5Gi
+```
+
+The **Traffic Recorder** allows for the execution of multiple individual recording jobs. Each job independently records traffic based on a [KFL](/en/filtering) statement and operates on its own schedule. Any of these recordings can be analyzed using a rich filtering language at the user's discretion.
 
 ### Recording Job Properties
 Configure the recording job properties through the recording job dialog window by setting the following parameters:

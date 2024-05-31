@@ -5,6 +5,10 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
+TTL can be controlled. However, increasing TTLs will proportionally increase memory consumption. 
+
+>Please consider using the [Traffic Recorder](/en/traffic_recorder) for medium to long-term retention.
+
 All API information (e.g., headers, path, payload) is stored in a dedicated JSON file for each request/response pair. JSON and PCAP files are stored locally with a TTL for each file type. 
 
 ## PCAP - Network Traces
@@ -80,9 +84,10 @@ tap:
 ```
 or by using: `--set tap.misc.jsonTTL=5m`
 
-## Storage
 
 Increasing PCAP TTL in busy clusters can quickly fill storage, necessitating an increase in storage capacity.
+
+## Storage
 
 Storage limits are set by `tap.storagelimit`, defaulting to `500Mi`. Exceeding this limit triggers pod eviction, purging storage and restarting the pod:
 
