@@ -5,14 +5,16 @@ layout: ../../layouts/MainLayout.astro
 ---
 
 ## Topics
+- [Topics](#topics)
 - [Resource Consumption](#resource-consumption)
 - [Kubeshark Operations](#kubeshark-operations)
-- [Resource Limitations: Container Memory and CPU Limitations](#container-memory-and-cpu-limitations)
-- [Resource Limitations: Worker Storage Limitation](#worker-storage-limitation)
-- [Predictable Consumption: Pod Targeting](#pod-targeting)
-- [Predictable Consumption: Traffic Sampling](#traffic-sampling)
-- [Tracer](#tracer)
-- [PF-RING](#af-packet-and-pf-ring)
+- [Resource Limitations](#resource-limitations)
+  - [Container Memory and CPU Limitations](#container-memory-and-cpu-limitations)
+  - [Worker Storage Limitation](#worker-storage-limitation)
+  - [OOMKilled and Evictions](#oomkilled-and-evictions)
+- [Predictable Consumption](#predictable-consumption)
+  - [Pod Targeting](#pod-targeting)
+  - [Traffic Sampling](#traffic-sampling)
 - [The Browser](#the-browser)
 
 ## Resource Consumption
@@ -85,6 +87,8 @@ Utilizing Pod Targeting can significantly optimize resource consumption:
 
 > Read more in the [Pod Targeting](/en/pod_targeting) section
 
+> **Hint:** If you enter a rule that filters out all pods (e.g., a non-existing namespace), you're effectively shutting down Kubeshark, causing minimal to no resource consumption. The limiting rule can be deleted when there's a need to process traffic (e.g., during an incident or when actively working on a bug).
+
 ### Traffic Sampling
 
 `TrafficSampleRate` is a number representing a percentage between 0 and 100. This number causes Kubeshark to randomly select L4 streams, not exceeding the set percentage.
@@ -96,24 +100,6 @@ For example, this configuration will cause Kubeshark to process only 20% of traf
 tap:
   trafficSampleRate: 20
 ```
-
-
-## Tracer
-
-The Tracer is responsible for TLS interception and can consume a significant amount of CPU, especially during the first few minutes of operation. This high consumption is a result of utilizing [eBPF](/en/encrypted_traffic) to scan all processes on the host for TLS library invocations. CPU usage should diminish after a few minutes. Disabling the Tracer is recommended if there is no TLS traffic in the cluster or if processing TLS traffic is not a requirement.
-
-Disable the Tracer with these settings:
-
-```yaml
-tap:
-  tls: false
-```
-
-## AF-PACKET and PF-RING
-
-AF-PACKET relies on the Linux kernel to receive network packets. When the kernel becomes busy, an increasing number of packets are dropped, leading to significant memory consumption and potentially causing Worker pods to be OOMKilled.
-
-PF-RING, a popular kernel extension, provides access to network packets without going through the kernel. As it is more efficient, the likelihood of packet drops reduces, thereby mitigating the risk of elevated memory consumption.
 
 ## The Browser
 

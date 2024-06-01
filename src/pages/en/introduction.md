@@ -17,7 +17,7 @@ Observe all traffic, including **encrypted traffic (TLS)** and payloads, enterin
 
 ## API Traffic Analysis
 
-**Kubeshark** employs various packet [capture technologies (e.g. eBPF, AF_XDP, PF_RING)](/en/performance#packet-processing-library) and leverages [custom kernel modules](https://en.wikipedia.org/wiki/Loadable_kernel_module) to capture cluster-wide L4 (TCP and UDP) traffic, directing it into distributed PCAP storage, and dissecting the following application layer protocols:
+**Kubeshark** employs various packet capture technologies (e.g. [eBPF](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter), [AF_PACKET](https://manpages.org/af_packet/7), [AF_XDP](https://www.kernel.org/doc/html/next/networking/af_xdp.html), [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/)) to capture cluster-wide L4 (TCP and UDP) traffic, directing it into distributed PCAP storage, and dissecting the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)
@@ -26,10 +26,11 @@ Observe all traffic, including **encrypted traffic (TLS)** and payloads, enterin
 - [Apache Kafka](https://kafka.apache.org/protocol)
 - [Redis](https://redis.io/topics/protocol)
 - [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
-- [ICMP](https://datatracker.ietf.org/doc/html/rfc792)
+- [ICMP](https://datatracker.ietf.org/doc/html/rfc792) (to diagnose TCP errors)
 - [TCP](https://datatracker.ietf.org/doc/html/rfc9293) (to diagnose TCP errors)
-
-**Kubeshark** recognizes [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html), [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/), and [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/).
+- [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html)
+- [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/); and 
+- [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/)
 
 Using [extended BPF (eBPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter), **Kubeshark** traces function calls in both the kernel and user spaces.
 
@@ -39,16 +40,12 @@ Using [extended BPF (eBPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter
 
 ## Traffic Recording & Offline Analysis
 
-When issues are not immediately apparent during observation, you have the option to record traffic either on a schedule or in response to specific events or behaviors. This traffic is captured in PCAP format and stored in immutable file storage, allowing for extended retention and offline analysis at your convenience.
-
-You can tailor traffic recording to capture specific patterns, enabling detailed offline analysis of this recorded data.
+When issues are not immediately apparent during observation, you have the option to record traffic either on a schedule or in response to specific events or behaviors. This traffic is captured in becomes available for offline analysis at the user's discretion. Traffic can optionally upload to an immutable file storage (e.g. AWS S3, GCS), allowing for extended retention.
 
 ## Collaborative API Debugging
 
-Kubeshark provides developers with secure, direct access to live API traffic, facilitating the real-time diagnosis of production incidents. This feature significantly reduces the reliance on DevOps teams to replicate bug evidence and performance issues.
-
-Developers can access Kubeshark via their browser using a secure TLS connection, authenticating with their corporate identity. This ensures access is restricted to authorized information and functionality only.
+Developers can access **Kubeshark** via their browser using a secure TLS connection, authenticating with their corporate identity. This ensures access is restricted to authorized information and functionality only.
 
 ## Monitoring & Alerts Using L4/L7 Hooks
 
-Kubeshark leverages a mix of [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers), and [jobs](/en/automation_jobs) to identify unusual network activities and trigger responses through various integrations, including [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), and [Elasticsearch](/en/integrations_elastic), among others. This enables proactive monitoring and immediate alerting on potential issues.
+**Kubeshark** leverages a mix of [scripting language](/en/automation_scripting), [hooks](/en/automation_hooks), [helpers](/en/automation_helpers), and [jobs](/en/automation_jobs) to identify unusual network activities and trigger responses through various integrations, including [Slack](/en/integrations_slack), [AWS S3](/en/integrations_aws_s3), [InfluxDB](/en/integrations_influxdb), and [Elasticsearch](/en/integrations_elastic), among others. This enables proactive monitoring and immediate alerting on potential issues.
