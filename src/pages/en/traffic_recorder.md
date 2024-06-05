@@ -90,3 +90,5 @@ tap:
         pcapTTL: 30s
     storageLimit: 5Gi
 ```
+
+> No need to change the JSON TTL for the Traffic Recorder to work optimally.
