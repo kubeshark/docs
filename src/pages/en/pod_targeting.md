@@ -1,24 +1,24 @@
 ---
 
-title: Traffic Targeting (aka Pod Targeting)  
+title: Traffic & Pod Targeting
 description: Optimizing resource consumption through pod targeting  
 layout: ../../layouts/MainLayout.astro  
 
 ---
 
-Traffic Targeting provides means to concentrate exclusively on critical traffic while also managing CPU and memory usage effectively.
+Traffic & Pod Targeting provides the means to concentrate exclusively on critical traffic while effectively managing CPU and memory usage.
 
 ## Pod Targeting
 
 Pod Targeting enables the targeting of specific pods using pod regex (**reg**ular **ex**pression) and a list of namespaces. It monitors Kubernetes events to track pods that match these criteria across nodes and replicas, tapping into their traffic from launch until termination.
 
-## Explicit BPF Expression
+## Explicit BPF Expression (Traffic Targeting)
 
 Another way to target specific traffic is by using an explicit BPF expression written in [BPF syntax](https://biot.com/capstats/bpf.html). This BPF expression will be used to target traffic, and any Pod Targeting rules will be ignored. Examples of BPF expressions include: `net 10.10.0.0/16 or host 12.13.14.15`.
 
-> Setting an explicit BPF expression that overrides other rules is available only when AF_PACKET is used as a packet capture library. Read [here](http://localhost:3000/en/packet_capture#af_packet) to learn how to explicitly set AF_PACKET as the packet capture library.
+> Setting an explicit BPF expression that overrides other rules is available only when AF_PACKET is used as a packet capture library. Read [here](/en/packet_capture#af_packet) to learn how to explicitly set AF_PACKET as the packet capture library.
 
-## Dynamically Changing The Rules
+## Dynamically Changing The Traffic Targeting Rules
 
 You can dynamically set the *Pod Targeting* properties and the *BPF expression* from the dashboard. To operate the *Pod Targeting* dialog window, press the `kube` button located to the right of the *Pod Targeting* section.
 
