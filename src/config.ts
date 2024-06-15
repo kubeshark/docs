@@ -64,7 +64,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Filtering Language (KFL)', link: 'en/filtering' },
       { text: 'TLS (eBPF)', link: 'en/encrypted_traffic' },
       { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
-      { text: 'Pod Targeting', link: 'en/pod_targeting' },
+      { text: 'Traffic & Pod Targeting', link: 'en/pod_targeting' },
       { text: 'Packet Capture (eBPF, AF_PACKET)', link: 'en/packet_capture' },
     ],
     'Traffic Recording': [
@@ -103,7 +103,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'Commercial': [
       { text: 'COMMUNITY vs PRO vs ENTERPRISE', link: 'en/pro' },
-      // { text: 'Upgrading & Downgrading', link: 'en/pro_upgrade' },
+      { text: 'The License Key', link: 'en/how_to_use_the_license' },
       { text: 'License', link: 'en/license' },
       { text: 'Security & Compliance', link: 'en/security' },
     ],

@@ -1,19 +1,26 @@
 ---
 
-title: Pod Targeting
-description: Optimizing resource consumption through pod targeting
-layout: ../../layouts/MainLayout.astro
+title: Traffic Targeting (aka Pod Targeting)  
+description: Optimizing resource consumption through pod targeting  
+layout: ../../layouts/MainLayout.astro  
+
 ---
 
-Pod Targeting allows users to concentrate exclusively on critical pods while also managing CPU and memory usage effectively.
+Traffic Targeting provides means to concentrate exclusively on critical traffic while also managing CPU and memory usage effectively.
 
-Pod Targeting allows **Kubeshark** to process traffic from specific pods only, discarding traffic from non-targeted pods.
+## Pod Targeting
 
-**Kubeshark** enables the targeting of specific pods using pod regex (**reg**ular **ex**pression) and a list of namespaces. It monitors Kubernetes events to track pods that match these criteria across nodes and replicas, tapping into their traffic from launch until termination.
+Pod Targeting enables the targeting of specific pods using pod regex (**reg**ular **ex**pression) and a list of namespaces. It monitors Kubernetes events to track pods that match these criteria across nodes and replicas, tapping into their traffic from launch until termination.
 
-## Using the Dashboard
+## Explicit BPF Expression
 
-You can dynamically set the *Pod Targeting* properties from the dashboard. To operate the *Pod Targeting* dialog window, press the `kube` button located to the right of the *Pod Targeting* section.
+Another way to target specific traffic is by using an explicit BPF expression written in [BPF syntax](https://biot.com/capstats/bpf.html). This BPF expression will be used to target traffic, and any Pod Targeting rules will be ignored. Examples of BPF expressions include: `net 10.10.0.0/16 or host 12.13.14.15`.
+
+> Setting an explicit BPF expression that overrides other rules is available only when AF_PACKET is used as a packet capture library. Read [here](http://localhost:3000/en/packet_capture#af_packet) to learn how to explicitly set AF_PACKET as the packet capture library.
+
+## Dynamically Changing The Rules
+
+You can dynamically set the *Pod Targeting* properties and the *BPF expression* from the dashboard. To operate the *Pod Targeting* dialog window, press the `kube` button located to the right of the *Pod Targeting* section.
 
 ![Activate Pod Targeting](/pod_targeting_cta.png)
 
@@ -35,9 +42,9 @@ These Grafana panels show the implications on CPU and memory consumption:
 
 ![Pod Targeting Changes](/pod_targeting_grafana.png)
 
-## Configuration
+## Starting with Default Traffic Targeting Rules
 
-Optionally, the rules can be set in the configuration (e.g., values.yaml). For instance, the following configuration directs **Kubeshark** to process only traffic associated with pods matching the regex `catal.*` in the `ks-load` or `sock-shop` namespaces:
+Default rules can be set in the configuration (e.g., values.yaml). For instance, the following configuration directs **Kubeshark** to process only traffic associated with pods matching the regex `catal.*` in the `ks-load` or `sock-shop` namespaces:
 
 ```yaml
 tap:
@@ -47,10 +54,19 @@ tap:
   - sock-shop
 ```
 
-The rest of the traffic will be discarded.
+Setting a BPF expression will override any existing Pod Targeting rules.
 
-## KFL vs. Pod Targeting (Display vs. Capture Filters)
+```yaml
+tap:
+  regex: catal.*
+  namespaces:
+  - ks-load
+  - sock-shop
+  bpfOverride: net 10.10.0.0/16
+```
 
-[KFL](/en/filtering) should not be confused with Pod Targeting as they serve different purposes. KFL statements only affect the data presented in the Dashboard, whereas Pod Targeting determines which pods are targeted and, consequently, which traffic is tapped.
+## KFL vs. Traffic Targeting (Display vs. Capture Filters)
 
-For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Pod Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
+[KFL](/en/filtering) should not be confused with Traffic Targeting as they serve different purposes. KFL statements only affect the data presented in the Dashboard, whereas Traffic Targeting determines which pods are targeted and, consequently, which traffic is tapped.
+
+For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Traffic Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
