@@ -28,7 +28,3 @@ Or
 ```shell
 kubectl exec <kubeshark-worker-pod-name> -c sniffer -- tshark -i data/<node-name>/ksdump.pcap -w traffic.pcap
 ```
-
----
-
-This version corrects the typos and improves the clarity of the instructions.
