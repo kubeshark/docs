@@ -66,6 +66,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       { text: 'Traffic & Pod Targeting', link: 'en/pod_targeting' },
       { text: 'Packet Capture (eBPF, AF_PACKET)', link: 'en/packet_capture' },
+      { text: 'PCAP Dumper (Capturing Raw Traffic)', link: 'en/raw_traffic_capture' },
     ],
     'Traffic Recording': [
       { text: 'Traffic Recorder', link: 'en/traffic_recorder' },
