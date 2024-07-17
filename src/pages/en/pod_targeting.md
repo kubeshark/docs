@@ -70,3 +70,44 @@ tap:
 [KFL](/en/filtering) should not be confused with Traffic Targeting as they serve different purposes. KFL statements only affect the data presented in the Dashboard, whereas Traffic Targeting determines which pods are targeted and, consequently, which traffic is tapped.
 
 For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Traffic Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
+
+# VERY USEFUL TIP
+
+## Start Kubeshark Without Processing Traffic
+
+While it is tempting to unleash Kubeshark on a very busy cluster, this can cause Kubeshark to process all traffic across all pods, immediately consuming significant amounts of memory. This action is likely to result in multiple OOMKilled events.
+
+We recommend starting Kubeshark without processing traffic at all and gradually adding pods or namespaces that are of interest, monitoring consumption, and adding more resources when necessary. 
+
+When Kubeshark is not in use, we recommend shutting down traffic capture and processing.
+
+### Shutdown Traffic Capture
+
+> We are working to significantly simplify this operation.
+
+The same properties can be set using the UI.
+
+#### Use a Pod Targeting Rule That Results In An Empty Pod List
+
+```yaml
+tap:
+  namespaces:
+  - gibrish
+```
+or
+
+```yaml
+--set tap.namespaces[0]=gibrish
+```
+
+#### Use an Impossible BPF Expression
+
+```yaml
+tap:
+  bpfOverride: ether[0] == 255
+```
+or
+
+```yaml
+--set tap.bpfOverride="ether[0] == 255"
+```

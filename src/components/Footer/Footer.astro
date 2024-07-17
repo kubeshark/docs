@@ -1,5 +1,15 @@
 ---
 import AvatarList from './AvatarList.astro';
+import Intercom from '@intercom/messenger-js-sdk';
+
+Intercom({
+  app_id: 'ulyaoqvr',
+  user_id: "docs", // IMPORTANT: Replace "user.id" with the variable you use to capture the user's ID
+  name: "name", // IMPORTANT: Replace "user.name" with the variable you use to capture the user's name
+  email: "alon@gmail.com", // IMPORTANT: Replace "user.email" with the variable you use to capture the user's email
+  created_at: 1704067200, // IMPORTANT: Replace "user.createdAt" with the variable you use to capture the user's sign-up date in a Unix timestamp (in seconds) e.g. 1704067200
+});
+
 type Props = {
 	path: string;
 };
@@ -17,3 +27,5 @@ const { path } = Astro.props as Props;
 		border-top: 3px solid var(--theme-divider);
 	}
 </style>
+
+
