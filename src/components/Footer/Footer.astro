@@ -1,16 +1,9 @@
 ---
 import AvatarList from './AvatarList.astro';
-import Intercom from '@intercom/messenger-js-sdk';
-
 type Props = {
 	path: string;
 };
 const { path } = Astro.props as Props;
-
-Intercom({
-  app_id: 'ulyaoqvr'
-});
-
 ---
 
 <footer>
