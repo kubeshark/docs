@@ -1,5 +1,5 @@
 ---
-title: Kubeshark Filtering Language (KFL)
+title: Display Filters (KFL - Kubeshark Filtering Language)
 description: The filter input enables filtering results using Kubeshark Filter Language (KFL).
 layout: ../../layouts/MainLayout.astro
 ---
@@ -20,7 +20,7 @@ and click the **Apply** button. Your traffic stream will look like this:
 
 ## KFL vs. Pod Targeting (Display vs. Capture Filters)
 
-KFL should not be confused with [Pod Targeting](/en/pod_targeting) as they serve different purposes. KFL statements only affect the data presented in the Dashboard, whereas Pod Targeting determines which pods are targeted and, consequently, which traffic is tapped.
+KFL should not be confused with [Pod Targeting](/en/pod_targeting) as they serve different purposes. KFL statements only affect the data presented in the Dashboard, hence they are referred as Display FIlters. Pod Targeting rules constitute CApture Filters. These rules determine which pods are targeted and, consequently, which traffic is tapped.
 
 For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Pod Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
 

@@ -1,22 +1,16 @@
 ---
-title: Installing in an Air-gapped Environment 
-description: 
+title: Installing in an Air-gapped Environment  
+description: Installing in clusters where there's no internet connectivity  
 layout: ../../layouts/MainLayout.astro
 ---
 
 **Air-gapped Environment Support is an Enterprise Feature**
 
-Kubeshark requires a valid ENTERPRISE license to operate in an air-gapped environment.
+Kubeshark requires a valid ENTERPRISE license to operate in an air-gapped environment. Any environment that does not allow free communication to https://api.kubeshark.co/ is considered an air-gapped environment.
 
-## Getting a Trial ENTERPRISE License
-
-To get an ENTERPRISE license, you first need an account in the [Admin Console](https://console.kubeshark.co/), which is used to manage licenses. By default, a complimentary PRO license will be provisioned upon sign-up. 
+[Contact us](https://kubeshark.co/contact-us) to get an ENTERPRISE license.
 
 > A PRO license requires an active internet connection and cannot function properly in an air-gapped environment.
-
-Once you have an account, reach out to us using the [contact-us](https://kubeshark.co/contact-us) form and let us know the email used to create the account in the [Admin Console](https://console.kubeshark.co/). We will convert the complimentary PRO license to an ENTERPRISE license and notify you once the license is ready to use.
-
-To retrieve your license, please log in to the [Admin Console](https://console.kubeshark.co/) and follow the instructions to properly set your license.
 
 ## Docker Registry
 
@@ -27,8 +21,15 @@ To pull a specific version or the latest of the following Docker images from `do
 
 Then, push these images to your local Docker registry and update the appropriate configuration, including the registry address and, if necessary, the secret for pulling images from your local repository.
 
-## Disabling Internet-Dependent Features
-While not mandatory, in air-gapped environments, it is advisable to disable Telemetry.
+## Turn Off Features Requiring Internet Connectivity
+
+To turn off the various features that require internet connectivity, set the `internetConnectivity` helm value to `false`.
+
+```yaml
+internetConnectivity: false
+```
+
+Or `--set internetConnectivity=false`
 
 ## Configuration Example
 
@@ -39,13 +40,13 @@ tap:
   docker:
     registry: <local-registry-address>
     imagePullSecrets: [ <secret> ]
-  telemetry:
-    enabled: false
+internetConnectivity: false
 license: <your-enterprise-license>
 ```
+
 Alternatively, you can add the following directives to your command line as a second option:
 ```yaml
---set tap.telemetry.enabled=false \
+--set internetConnectivity=false \
 --set license=<your-enterprise-license> \
 --set tap.docker.registry=<local-registry-address> \
 --set-json 'tap.docker.imagePullSecrets=["<secret>"]'

@@ -1,16 +1,32 @@
 ---
-
-title: Traffic & Pod Targeting
-description: Optimizing resource consumption through pod targeting  
-layout: ../../layouts/MainLayout.astro  
-
+title: Capture Filters
+description: Optimizing resource consumption through pod targeting
+layout: ../../layouts/MainLayout.astro
 ---
 
-Traffic & Pod Targeting provides the means to concentrate exclusively on critical traffic while effectively managing CPU and memory usage.
+Resource consumption (e.g., CPU and memory) is key in Kubernetes. **Kubeshark**'s resource consumption is linearly dependent on the amount of traffic it processes. There are many ways to control resource consumption, and this `Capture Filters` feature is one of them.
+
+Capture Filters can help you focus on traffic of interest and avoid processing traffic that isn't of interest.
+
+Pods in Kubernetes launch and terminate dynamically on nodes scheduled by Kubernetes. To process relevant traffic only, **Kubeshark** monitors Kubernetes events, especially pod start and termination events, so it can start processing the pods' traffic when they start on the node they start on. If pods terminate and start elsewhere, **Kubeshark** will process the traffic for the pod on the new node.
+
+The results per pod of interest are:
+1. Identifying the node the pod runs on
+2. Identifying the relevant pod IPs as there can be several (e.g., pod IP, service IP, multi-NIC IP, etc.)
+3. Capturing traffic on the target node related to the target IPs
+4. Processing captured traffic
 
 ## Pod Targeting
 
 Pod Targeting enables the targeting of specific pods using pod regex (**reg**ular **ex**pression) and a list of namespaces. It monitors Kubernetes events to track pods that match these criteria across nodes and replicas, tapping into their traffic from launch until termination.
+
+## Namespace Targeting
+
+**Kubeshark** will monitor Kubernetes events and process traffic for all pods that are part of the target namespaces across all nodes in the cluster.
+
+### Excluding Namespaces
+
+The opposite operation to targeting namespaces is excluding namespaces. Explicitly ignore traffic from pods that are part of the excluded namespaces list.
 
 ## Explicit BPF Expression (Traffic Targeting)
 
@@ -52,6 +68,8 @@ tap:
   namespaces:
   - ks-load
   - sock-shop
+  excludeNamespaces:
+  - kube-system
 ```
 
 Setting a BPF expression will override any existing Pod Targeting rules.
