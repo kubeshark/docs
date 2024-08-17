@@ -4,7 +4,13 @@ description: Pod-to-pod connection analysis detects and analyzes connections bet
 layout: ../../layouts/MainLayout.astro
 ---
 
-> Use the following [Helm](/en/install_helm) value `--set-json 'tap.enabledDissectors=["http","dns","tcp"]'` to enable the `tcp` dissector together with `dns` and `http` (as an example).
+This functionality is particularly useful for answering the following questions:
+
+1. Which pod is attempting to connect to a specific external IP or service?
+2. Why is a certain pot-to-service connection failing?
+3. Why am I not seeing certain traffic?
+
+> Use the following [Helm](/en/install_helm) value `--set-json 'tap.enabledDissectors=["http","dns","tcp","icmp"]'` to enable the `tcp` dissector together with `dns`, `icmp` and `http` (as an example).
 
 Pod-to-pod connection analysis enables you to detect every connection between pods and external services. It displays all connections and allows the user to search for specific ones. Regardless of the protocol or encryption, as long as it runs over TCP, it will appear in the **Kubeshark** Dashboard. This feature is also helpful for answering the question: "Why am I not seeing traffic?"
 
@@ -28,7 +34,7 @@ tap:
   #- amqp
   - dns
   - http
-  # - icmp
+  - icmp
   # - kafka
   # - redis
   # - sctp
@@ -36,7 +42,7 @@ tap:
   - tcp # this dissector is disabled by default
   # - ws
 ```
-Alternatively, you can use a [Helm](/en/install_helm) command line argument indicating the protocols you'd like to process. In this example, **Kubeshark** will process `http`, `dns` and `tcp` only:
+Alternatively, you can use a [Helm](/en/install_helm) command line argument indicating the protocols you'd like to process. In this example, **Kubeshark** will process `http`, `dns`, `icmp` and `tcp` only:
 
 ```yaml
 --set-json 'tap.enabledDissectors=["http","dns","tcp"]'
@@ -62,15 +68,19 @@ The following image shows that enabling this functionality increases CPU levels.
 
 ![One pod performance](/one_pod_perf.png)
 
+## Useful Display Filter Queries
+
+- Show all cluster=>external traffic: `dst.namespace==""`
+- Show all traffic between two namespaces (e.g. ns1<=>n2): `(src.namespace=="ns1" and dst.namespace=="ns2") or (src.namespace=="ns2" and dst.namespace=="ns1")`
+- Show traffic going to an external domain: `dst.name=="www.domain.com"`
+
 ## What to Expect
 
 Pod-to-pod connection analysis by inspecting all TCP packets is a new feature that we plan to improve in subsequent releases. Our goals include:
 
 1. Making it easier to enable/disable this functionality.
 2. Reducing resource consumption to normal levels, allowing this functionality to work in busy production clusters.
-3. Enhancing the insights derived from such analysis.
+3. adding significant insights derived from such analysis.
 4. Adding UDP to the analysis.
 
-**ETA:** Next few weeks.
-
-> The `dns` dissector can also help in this analysis by showing all DNS traffic, usually indicating an intent to make a connection.
+> The `dns` and `icmp` dissector can also help in this analysis, usually indicating an intent to make a connection or an issue in the network.
