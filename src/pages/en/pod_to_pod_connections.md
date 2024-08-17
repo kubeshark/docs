@@ -4,7 +4,9 @@ description: Pod-to-pod connection analysis detects and analyzes connections bet
 layout: ../../layouts/MainLayout.astro
 ---
 
-Pod-to-pod connection analysis enables you to detect every connection between pods and external services. It displays all connections and allows the user to search for specific ones. Regardless of the protocol or encryption, as long as it runs over TCP, it will appear in the Kubeshark Dashboard. This feature is also helpful for answering the question: "Why am I not seeing traffic?"
+> Use the following [Helm](/en/install_helm) value `--set-json 'tap.enabledDissectors=["http","dns","tcp"]'` to enable the `tcp` dissector together with `dns` and `http` (as an example).
+
+Pod-to-pod connection analysis enables you to detect every connection between pods and external services. It displays all connections and allows the user to search for specific ones. Regardless of the protocol or encryption, as long as it runs over TCP, it will appear in the **Kubeshark** Dashboard. This feature is also helpful for answering the question: "Why am I not seeing traffic?"
 
 For example, the following image illustrates a namespace connectivity map, showing the connection between namespaces in the cluster and connection to external services. In this case, two external services, `grafana.com` and `gorest.co.in`, are clearly marked with a red rectangle.
 
@@ -33,6 +35,11 @@ tap:
   # - syscall
   - tcp # this dissector is disabled by default
   # - ws
+```
+Alternatively, you can use a [Helm](/en/install_helm) command line argument indicating the protocols you'd like to process. In this example, **Kubeshark** will process `http`, `dns` and `tcp` only:
+
+```yaml
+--set-json 'tap.enabledDissectors=["http","dns","tcp"]'
 ```
 
 To disable, remove the dissector from the list.

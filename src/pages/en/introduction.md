@@ -25,12 +25,12 @@ Observe all traffic, including **encrypted traffic (TLS)** and payloads, enterin
 - [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html)
 - [Apache Kafka](https://kafka.apache.org/protocol)
 - [Redis](https://redis.io/topics/protocol)
-- [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
-- [ICMP](https://datatracker.ietf.org/doc/html/rfc792)
-- [TCP](https://datatracker.ietf.org/doc/html/rfc9293) (to diagnose TCP errors)
 - [gRPC over HTTP/2](https://grpc.github.io/grpc/core/md_doc__p_r_o_t_o_c_o_l-_h_t_t_p2.html)
 - [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/); and 
 - [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/)
+- [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
+- [ICMP](https://datatracker.ietf.org/doc/html/rfc792)
+- [TCP](https://datatracker.ietf.org/doc/html/rfc9293)
 - [SCTP](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) (partial support)
 
 Using [extended BPF (eBPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter), **Kubeshark** traces function calls in both the kernel and user spaces.

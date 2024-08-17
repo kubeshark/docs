@@ -37,3 +37,11 @@ tap:
   # - tcp
   # - ws
 ```
+
+Alternatively, you can use a [Helm](/en/install_helm) command line argument indicating the protocols you'd like to process. In this example, **Kubeshark** will process `http`, `dns` and `tcp` only:
+
+```yaml
+--set-json 'tap.enabledDissectors=["http","dns","tcp"]'
+```
+
+To disable, remove the dissector from the list.
