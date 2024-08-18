@@ -65,7 +65,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Capture Filters', link: 'en/pod_targeting' },
       { text: 'Protocol Support', link: 'en/protocols' },
       { text: 'TLS/HTTPS (eBPF)', link: 'en/encrypted_traffic' },
-      { text: 'Pod-to-pod Connection Analysis', link: 'en/pod_to_pod_connections' },
+      { text: 'Pod-to-pod   Connection Analysis', link: 'en/pod_to_pod_connections' },
       { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       { text: 'Packet Capture (eBPF, AF_PACKET)', link: 'en/packet_capture' },
       // { text: 'PCAP Dumper (Capturing Raw Traffic)', link: 'en/raw_traffic_capture' },
