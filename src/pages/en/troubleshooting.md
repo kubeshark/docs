@@ -25,7 +25,7 @@ If you're not seeing the SSL/TLS traffic you expect, there could be two issues:
 
 Even if, for any reason, **Kubeshark** cannot display the (un)encrypted traffic in clear text, you can still view the encrypted traffic within the Kubernetes context. To see the raw TCP and encrypted traffic, use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling).
 
-## Workers or Hub Gets OOMKilled
+## Workers or Hub Get OOMKilled
 
 Frequent OOMKilled errors indicate that the cluster is overburdened relative to the resources allocated to **Kubeshark**. By default, **Kubeshark** imposes resource limitations suitable for small dev/test clusters. We recommend either utilizing [capture filters](/en/pod_targeting0) or [increasing resource limitations](/en/performance#resource-limitations), or preferably both. Consult our [performance page](/en/performance) for guidance on optimizing resource consumption.
 
