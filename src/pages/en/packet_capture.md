@@ -51,10 +51,6 @@ LIBPCAP is an older, yet fully functional option for packet capture.
 
 Kubeshark provides support for additional packet capture methods, however, at this point, using one of these is safe for specific use-cases.
 
-**Pros**: Widely supported by most OSs and kernel versions, doesn't require elevated security capabilities.
-
-**Cons**: Taps only the network interface and not the OS, and no support for XDP. Least performant. Doesn't provide pod-name/IP resolution, instead has to rely on Kubernetes event-based pod-name/IP resolution.
-
 ## Which Method Was Used
 
 How to learn which packet capture option was used to capture the specific traffic:  
