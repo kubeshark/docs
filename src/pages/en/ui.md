@@ -9,7 +9,7 @@ mascot:
 
 ![**Kubeshark** UI](/ui-full.png)
 
-## Targeted Pods (Pods that are Tapped)
+## Capture Filters (Targeted Pods)
 
 ![Targeted PODs](/targets.png)
 
@@ -21,9 +21,9 @@ Accessible via the **Service Map** button, the [Service Map](/en/service_map) up
 
 ![Service Map Button](/service-map-button.png)
 
-## Filter Input
+## Display Filter
 
-The filter input is used to enter the [Kubeshark Filter Language (KFL)](/en/filtering#kfl-syntax-reference) statements. Queries are used to find specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter http and response.status == r"4.*" and select Apply. Your traffic stream will look like this:
+The filter input is used to enter the [Kubeshark Filter Language (KFL)](/en/filtering#kfl-syntax-reference) statements. Queries are used to filter in specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter `http and response.status == r"4.*"` and select Apply. Your traffic stream will look like this:
 
 ![Kubeshark UI](/ks-filter-applied.png)
 

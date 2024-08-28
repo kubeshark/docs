@@ -64,16 +64,16 @@ Each Worker pod includes two services:
 ### Sniffer
 
 The Sniffer is the main container in the Worker pod responsible for capturing packets by one of the available means:
-1. eBPF via the Tracer (for modern kernels with cgroup V2 is enabled)
-2. PF_RING (where PF_RING kernel module is found)
-3. AF_PACKET (available with most kernels)
+1. AF_PACKET (available with most kernels)
+2. eBPF via the Tracer (for modern kernels with cgroup V2 is enabled)
+3. PF_RING (where PF_RING kernel module is found)
 4. `libpcap` (If the above didn't work)
 
-The Sniffer attempts to find the best packet capture method starting from eBPF all the way to `libpcap`. Each method has a different performance impact, packet drop rate and functionality.
+The Sniffer attempts to find the best packet capture method starting from AF_PACKET all the way to `libpcap`. Each method has a different performance impact, packet drop rate and functionality.
 
 ### Tracer
 
-Kubeshark offers tracing of kernel-space and user-space functions using [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/) (Extended Berkeley Packet Filter). eBPF is an in-kernel virtual machine running programs passed from user space, first introduced into the Linux kernel with version 4.4 and has matured since then.
+**Kubeshark** offers tracing of kernel-space and user-space functions using [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/) (Extended Berkeley Packet Filter). eBPF is an in-kernel virtual machine running programs passed from user space, first introduced into the Linux kernel with version 4.4 and has matured since then.
 
 This functionality is performed by the Tracer container. Tracer deployment is optional and can be enabled and disabled using the `tap.tls` configuration value. When set to `false`, Tracer won't get deployed.
 
