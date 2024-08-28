@@ -23,7 +23,7 @@ The eBPF option requires the following security capabilities:
 - SYS_RESOURCE
 - IPC_LOCK
 
-> The eBPF packet capture option resembles, yet is different from the [eBPF-based TLS packet capture](/en/packet_capture#tls-packet-capture) support.
+> The eBPF packet capture option is different from the [eBPF-based TLS packet capture](/en/packet_capture#tls-packet-capture).
 
 ## AF_PACKET
 
