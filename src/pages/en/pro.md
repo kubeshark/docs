@@ -1,5 +1,5 @@
 ---
-title: COMMUNITY, PRO & ENTERPRISE  
+title: Community, Pro & Enterprise  
 description: Exploring the Differences Between Pro, Enterprise, and Community Editions  
 layout: ../../layouts/MainLayout.astro
 ---
