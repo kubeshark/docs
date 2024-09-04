@@ -107,7 +107,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'K8s Lens', link: 'en/integrations_lens' },
     ],
     'Commercial': [
-      { text: 'COMMUNITY vs PRO vs ENTERPRISE', link: 'en/pro' },
+      { text: 'Community vs Pro vs Enterprise', link: 'en/pro' },
       { text: 'The License Key', link: 'en/how_to_use_the_license' },
       { text: 'License', link: 'en/license' },
       { text: 'Security & Compliance', link: 'en/security' },
