@@ -14,23 +14,17 @@ The COMMUNITY edition is offered at no cost and supports clusters of up to two n
 
 ## COMPLIMENTARY (FREE) PRO LICENSE
 
-Clusters that exceed two nodes are eligible for a complimentary (free) PRO license, available upon sign-up. The complimentary PRO license includes 100,000 API calls per month at no cost.
+Clusters that exceed two nodes are eligible for a complimentary (free) PRO license, available upon sign-up. The complimentary PRO license includes 100,000 API calls, as a free trial, at no cost.
 
 Should additional capacity be necessary, please [reach out to us](https://kubeshark.co/contact-us).
 
 > To get started with the complimentary PRO edition on any size cluster, simply sign up using the dashboard.
 
-## PRO 
+## SINGLE-CLUSTER, UNLIMITED PRO LICENSE
 
-The PRO plan supports an unlimited number of clusters, each with a maximum number of nodes. The minimum cost of the plan is determined according to the maximum number of nodes the plan should support, starting at $10 per node per month. The plan imposes a monthly API call processing limit based on spending tiers.
+The Single-Cluster Unlimited PRO plan is available on our website and supports clusters with up to 20 nodes. Additional plans, such as multi-cluster or on-demand options, are available upon request.
 
-The PRO plan is highly flexible and enables users to decide their budget based on how busy their clusters are and how frequently they plan to use Kubeshark.
-
-Our [pricing section](https://kubeshark.co/pricing#license-selection) includes a few ready-to-consume self-served plans. You can always start with the smallest plan and upgrade when necessary.
-
-We also have options for unlimited usage plans at a fixed budget.
-
-[Contact us](https://kubeshark.co/contact-us) to learn more about the available plans or request a plan that is tailored to your needs.
+Let me know if you'd like any further adjustments!
 
 ## ENTERPRISE   
 
