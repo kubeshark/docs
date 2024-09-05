@@ -4,11 +4,11 @@ description: Custom-logic scripts use hooks and helpers to trigger actions, supp
 layout: ../../layouts/MainLayout.astro
 ---
 
-Custom-logic scripts use [hooks](/en/automation_hooks) and [helpers](/en/automation_helpers) to trigger actions, supported by the available integrations, and based on programmatic decisions and/or on a schedule.
+Custom-logic scripts use [hooks](/en/automation_hooks) and [helpers](/en/automation_helpers) to trigger actions, supported by available integrations, based on programmatic decisions and/or a schedule.
 
-**Kubeshark** scripting language is based on [Javascript ES5](https://262.ecma-international.org/5.1/).
+**Kubeshark**'s scripting language is based on [JavaScript ES5](https://262.ecma-international.org/5.1/).
 
-The following script example calculates the number of packets and overall traffic processed per minute using an L4 network hook ([`onPacketCaptured`](/en/automation_hooks#onpacketcapturedinfo-object)), some helpers and a job.
+The following script example calculates the number of packets and overall traffic processed per minute using an L4 network hook ([`onPacketCaptured`](/en/automation_hooks#onpacketcapturedinfo-object)), some helpers, and a job.
 
 ```js
 var packetCount = 0;
@@ -29,42 +29,34 @@ function logPacketCountTotalBytes() {
 jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTotalBytes);
 ```
 
-## Scripts Folder
+## Script Storage
 
-Develop your scripts locally in your environment (e.g. VS Code, GitHub) and simply add your scripts folder to the [scripts section](/en/config#scripts) in **Kubeshark**'s configuration file .
+You can develop and manage scripts locally in a folder and use **Kubeshark**'s CLI to watch for any changes in the scripts.
+
+### When Using Helm
+
+**Kubeshark** looks for scripts in the `kubeshark-config-map`. You can use the CLI to watch the scripts folder and update the `kubeshark-config-map` with every change.  
+First, ensure the availability of a port-forward connection to **Kubeshark**, then use the CLI to monitor the scripts folder.
+
+```shell
+kubectl port-forward svc/kubeshark-front 8899:80
+kubeshark scripts --set scripting.source=/absolute/path/to/scripts/folder
+```
+
+> We are actively working on simplifying this process.
+
+### When Using the CLI
+
+Develop your scripts locally in your environment (e.g. VS Code, GitHub) and add your scripts folder to the [scripts section](/en/config#scripts) in **Kubeshark**'s configuration file:
 
 ```yaml
 scripting:
   source: "/path/to/scripts/folder/"
 ```
 
-## Scripts Runtime
-
-All scripts are transmitted to the **workers** and executed inside the K8s cluster at the node-level.
-
-![Local Scripts Folder](/local-scripts-folder.png)
-
-**Kubeshark** provides the option to view and make temporary changes to the scripts currently executed by the **workers**.
-
-You can edit, add, delete scripts directly in the **workers**. Any changes you make are **not** persistent and will apply for as long **Kubeshark** is running.
-
-![Scripting Editor](/script-editor.png)
-
-To access the dashboard's script editor and edit the scripts in the **workers**, press the scripts button located at the top right corner.
-![Scripting Button](/scripting-button.png)
-
-The **CLI** monitors the scripts folder by default and updates the **workers** on any changes. You can use the `kubeshark scripts` command to explicitly monitor the folder for changes, especially if you don't use the **CLI**.
-
-The following command will transmit the content of any folder to the **workers**:
-
-```shell
-kubeshark scripts --set scripting.source="/path/to/scripts/folder/"
-```
-
-
 ## Environment Variables
 
-You can use the `env` configuration directive to provide environment variables for your scripts to use.
+You can use the `env` configuration directive to provide environment variables for your scripts.
 
 ```yaml
 scripting:
@@ -80,7 +72,7 @@ scripting:
   source: "/User.."
 ```
 
-To use any of the env variables in a script, use the prefix: `env.*`. For example:
+To use any of the environment variables in a script, use the prefix: `env.*`. For example:
 
 ```js
 vendor.influxdb(
@@ -96,14 +88,14 @@ vendor.influxdb(
 
 ## Scopes
 
-**Kubeshark** scripts supports the following scopes:
+**Kubeshark** scripts support the following scopes:
 
 - **Function:** When variables and functions are declared within a function.
-- **Script:** When variables and functions are declared outside functions , at the specific script level and can maintain a state across the specific script's functions.
-- **Global** When you use the object `this` you can declare scripts and functions at the global level accessible by all scripts.
+- **Script:** When variables and functions are declared outside functions, at the script level, and can maintain a state across the specific script's functions.
+- **Global:** When using the object `this`, scripts and functions are declared at the global level, accessible by all scripts.
 
 ## Script Examples Dropdown
 
-**Kubeshark** comes with numerous script examples representing certain use-cases as part of its dashboard. Use the Examples dropdown list to access the list of script examples.
+**Kubeshark** comes with numerous script examples for various use cases as part of its dashboard. Use the Examples dropdown list to access the list of script examples.
 
 ![Script Examples](/script-examples.png)
