@@ -12,7 +12,7 @@ layout: ../../layouts/MainLayout.astro
 
 **License**: License to use the Licensed Work. License can be obtained either by browsing to https://kubeshark.co/pricing, https://console.kubeshark.co/ or by running `kubeshark pro` from the terminal.
 
-**Change Date**: December 31st, 2026
+**Change Date**: December 31st, 2028
 
 **Change License**: Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0), as published by the Apache Foundation.
 
