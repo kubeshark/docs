@@ -31,7 +31,10 @@ Observe all traffic, including **encrypted traffic (TLS)** and payloads, enterin
 - [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
 - [ICMP](https://datatracker.ietf.org/doc/html/rfc792)
 - [TCP](https://datatracker.ietf.org/doc/html/rfc9293)
-- [SCTP](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol) (partial support)
+- [UDP](https://datatracker.ietf.org/doc/html/rfc768)
+- [SCTP](https://en.wikipedia.org/wiki/Stream_Control_Transmission_Protocol)
+- [Websocket](https://datatracker.ietf.org/doc/html/rfc6455)
+- [TLS](https://datatracker.ietf.org/doc/html/rfc5246)
 
 Using [extended BPF (eBPF)](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter), **Kubeshark** traces function calls in both the kernel and user spaces.
 

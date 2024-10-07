@@ -65,7 +65,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Display Filters (KFL)', link: 'en/filtering' },
       { text: 'Capture Filters', link: 'en/pod_targeting' },
       { text: 'Protocol Support', link: 'en/protocols' },
-      { text: 'TLS/HTTPS (eBPF)', link: 'en/encrypted_traffic' },
+      { text: 'TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'Pod-to-pod   Connection Analysis', link: 'en/pod_to_pod_connections' },
       { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       { text: 'Packet Capture (eBPF, AF_PACKET)', link: 'en/packet_capture' },
@@ -79,6 +79,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Long Term Retention', link: 'en/long_term_retention' },
       // { text: 'PCAP & API metadata', link: 'en/pcap' },
       { text: 'Data Persistency', link: 'en/data_persistency' },
+      { text: 'PCAP Dumper', link: 'en/pcapdump' },
     ],
     'Collaboration': [
       { text: 'Ingress', link: 'en/ingress' }, 
@@ -97,6 +98,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
     ],
     'Integrations': [
+      { text: 'Prometheus', link: 'en/metrics' },
       { text: 'Necessary Credentials', link: 'en/integrations_credentials' },
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
       { text: 'Elasticsearch', link: 'en/integrations_elastic' },
@@ -116,7 +118,6 @@ export const SIDEBAR: Sidebar = {
       { text: 'Data Time To Live (TTL)', link: 'en/traffic_retention' },
       { text: 'CPU & Memory Consumption', link: 'en/performance' },
       { text: 'Internet Connectivity', link: 'en/air_gapped' },
-      { text: 'Prometheus Metrics & Grafana Dashboard', link: 'en/metrics' },
       { text: 'Installing Older Releases', link: 'en/tag_release' },
       { text: 'PF_RING', link: 'en/pf_ring' },
       // { text: 'Configuration', link: 'en/config' },

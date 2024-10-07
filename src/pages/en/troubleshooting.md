@@ -10,9 +10,11 @@ layout: ../../layouts/MainLayout.astro
 
 Use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling) to see all TCP traffic. If the traffic isn't visible, **Kubeshark** isn't capturing it for some reason (e.g., capture filters).
 
+Examine the [traffic dumped and recorded](/en/pcapdump) by **Kubeshark**. If the traffic you're looking for isn't there, it might be a permission or network policy issue.
+
 ## I Don't See HTTP/2 Traffic
 
-HTTP/2 sometimes runs on long-lived connections. **Kubeshark** must start processing the traffic before the long-lived connection is established. It cannot process an existing long-lived connection. This can happen if you start Kubeshark after the long-lived connection has already been established.
+HTTP/2 sometimes runs on long-lived connections. **Kubeshark** must start processing the traffic before the long-lived connection is established. It cannot process an existing long-lived connection. This can happen if you start **Kubeshark** after the long-lived connection has already been established.
 
 To see the raw TCP and possibly the HTTP/2 packets, use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling).
 
@@ -23,7 +25,7 @@ If you're not seeing the SSL/TLS traffic you expect, there could be two issues:
 1. The TLS connection started before the Workers started. **Kubeshark** cannot tap into an ongoing TLS connection; it needs to process the handshake to show (un)encrypted traffic in clear text.
 2. The SSL library or method isn't supported. There are numerous SSL/TLS libraries and methods used to encrypt and decrypt traffic. **Kubeshark** uses eBPF with specific method implementations to support the most common ones. You can read more about how **Kubeshark** processes TLS traffic in the [TLS/HTTPS (eBPF)](/en/encrypted_traffic) section.
 
-Even if, for any reason, **Kubeshark** cannot display the (un)encrypted traffic in clear text, you can still view the encrypted traffic within the Kubernetes context. To see the raw TCP and encrypted traffic, use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling).
+Even if, for any reason, **Kubeshark** cannot display the (un)encrypted traffic in clear text, you can still view the encrypted traffic within the Kubernetes context. To see the raw TCP and encrypted traffic, use the [`tcp` and/or `tls` dissectors](/en/pod_to_pod_connections#enabling-and-disabling).
 
 ## Workers or Hub Get OOMKilled
 
@@ -31,11 +33,11 @@ Frequent OOMKilled errors indicate that the cluster is overburdened relative to 
 
 ## Worker Pods Get Evicted
 
-On busy clusters, the Worker pods can quickly consume the default 500MB storage limit, leading to pod eviction and restarts. This issue can be exacerbated if you're recording traffic, as more files are stored for longer retention periods.
+On busy clusters, the Worker pods can quickly consume the default 5GB storage limit, leading to pod eviction and restarts. This issue can be exacerbated if you're recording traffic, as more files are stored for longer retention periods.
 
-If storage exceeds its limit, the pod is evicted. The storage limit is controlled by setting the `tap.storageLimit` configuration value. To increase this limit, provide a different value (e.g., setting it to 5GB with `--set tap.storagelimit=50Gi`).
+If storage exceeds its limit, the pod is evicted. The storage limit is controlled by setting the `tap.storageLimit` configuration value. To increase this limit, provide a different value (e.g., setting it to 50GB with `--set tap.storagelimit=50Gi`).
 
-Another aternative is to not store PCAP files, by setting the `pcapTTL` and `pcapErrorTTL` to zero. This can also be useful if the PCAP files are of no interest.
+Another alternative is to not store PCAP files by setting `pcapTTL` and `pcapErrorTTL` to zero. This can also be useful if the PCAP files are of no interest.
 
 ```yaml
 --set tap.storageLimit=50Gi
@@ -43,7 +45,9 @@ Another aternative is to not store PCAP files, by setting the `pcapTTL` and `pca
 --set tap.misc.pcapErrorTTL=0
 ```
 
-## I Don't See Traffic in the Dashboard, and the Counters are Zero
+Remember also that if you continuously dump PCAP traffic using the [pcapdump](/en/pcapdump) utility, it also consumes storage.
+
+## I Don't See Traffic in the Dashboard, and the Counters Are Zero
 
 ![Counters stuck at zero](/zero-counters.png)
 
@@ -92,10 +96,6 @@ Some users have reported a surge in audit log events following **Kubeshark** ins
     userGroups: ["system:serviceaccounts"]
     users: ["system:serviceaccount:default:kubeshark-service-account"]
 ```
-
-## OpenShift
-
-There have been instances where **Kubeshark** did not operate seamlessly on OpenShift. While ensuring optimal performance on OpenShift is a goal, it remains a work in progress.
 
 ## Well, That Didn't Work
 

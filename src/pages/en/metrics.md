@@ -5,12 +5,37 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-> For most up-to-date details, visit the [metrics section](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/metrics.md) in the repo.
+Kubeshark can export pre-existing aas well as custom Prometheus metrics. Almost anything can be experted as a custom metric from Kubeshark. See below a list of available metrics out of the box.
 
-# Metrics
+## Custom Metrics
 
-Kubeshark provides metrics from `worker` components.
-It can be useful for monitoring and debugging purpose.
+You can use the `prometheus.metric` helper to export custom metrics. See example below:
+
+### Example
+
+In this example, we export a metric named `dns_counter` that counts the number of DNS requests.
+We use the [`onItemCaptured` hook](/en/automation_hooks#onitemcaptureddata-object) to increase a counter, that was initially set to zero, whenever a DNS message is intercepted.
+We then use [`jobs`](/en/automation_jobs), to schedule a job that expert the metric every 15 seconds.
+
+```js
+// DNS request counter as custom Prometheus metric
+var counter = 0;
+
+function onItemCaptured(data) {
+  // Check if it's a DNS request
+  if (data.Protocol.Name === "dns") {
+    counter++;
+  }
+}
+
+function reportToProm (){
+  prometheus.metric("dns_counter", "Total number of DNS requests", 1, counter);
+  console.log(counter); 
+}
+
+// Report to Prometheus every 15 seconds
+jobs.schedule("example-job", "*/15 * * * * *", reportToProm)
+```
 
 ## Configuration
 
@@ -44,7 +69,13 @@ prometheus:
 ```
 
 
-## Available metrics
+## Existing Metrics
+
+Existing metrics csn be useful to monitor Kubeshark
+
+> For most up-to-date details, visit the [metrics section](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/metrics.md) in the repo.
+
+### Available Metrics
 
 | Name | Type | Description | 
 | --- | --- | --- | 
