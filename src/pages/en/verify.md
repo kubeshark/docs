@@ -37,3 +37,31 @@ Especially when using **Kubeshark** for the first time, make sure you’re captu
 ### Troubleshooting
 
 If you follow the above guidance and **Kubeshark** is still not functioning as expected, consult our [troubleshooting page](/en/troubleshooting).
+
+
+## Suggested Configuration Values
+
+```yaml
+tap:
+    disableTlsLog: true
+    stopped: false
+    resources:
+        hub:
+            limits:
+            memory: 2750Mi
+        sniffer:
+            limits:
+                cpu: 1750m
+                memory: 2750Mi
+        tracer:
+            limits:
+                memory: 750Mi
+        storageLimit: 10Gi
+    ingress:
+        enabled: true
+        className: nginx
+        host: <your-ingress-host>
+        annotations:
+            cert-manager.io/cluster-issuer: letsencrypt
+            kubernetes.io/tls-acme: "true"
+```

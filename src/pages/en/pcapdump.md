@@ -1,16 +1,16 @@
 ---
-title: PCAP Dumper (pcapdump)
+title: Continuos PCAP Recording (pcapdump)
 description: 
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** can automatically and continuously record and store all captured traffic while managing a time window and storage limits. This means you can export recorded traffic to your local folder at any time for retention or further analysis with Wireshark. This process happens automatically, regardless of whether anyone is actively using the dashboard.
+**Kubeshark** can automatically and continuously record and store all captured traffic while managing a time window and storage limits. This means you can export recorded traffic to your local folder at any time for retention or further analysis with [Wireshark](https://www.wireshark.org/). This process can optionally happen automatically, regardless of whether anyone is actively using the dashboard.
 
-This extends to all TCP, UDP, SCTP, and [TLS](/en/encrypted_traffic) traffic.
+This extends to all TCP, UDP, SCTP, [TLS](/en/encrypted_traffic) and Envoy/Istio related traffic.
 
 ## Export PCAP Files Locally
 
-The `kubeshark` CLI allows you to copy all PCAP files from all nodes and merge them into a single PCAP file, which can then be analyzed using tools like [Wireshark](https://www.wireshark.org/).
+The `kubeshark` CLI allows you to export all saved PCAP files from all nodes and merge them into a single PCAP file, which can then be analyzed using tools like [Wireshark](https://www.wireshark.org/).
 
 ```shell
 kubeshark pcapdump --dest=/tmp                                  # Copy all PCAP files to a local destination
@@ -19,9 +19,9 @@ kubeshark pcapdump                                              # Copy all PCAP 
 
 ## Automatic & Continuous
 
-The `pcapdump` operation can be configured to start automatically when **Kubeshark** is deployed and [traffic capture](/en/on_off_switch) is enabled. It runs as long as **Kubeshark** is active or until the `pcapdump` operation is explicitly stopped.
+The `pcapdump` operation is configured to start automatically by default when **Kubeshark** is deployed and [traffic capture](/en/on_off_switch) is enabled. It runs as long as **Kubeshark** is active or until the `pcapdump` operation is explicitly stopped.
 
-> Note: Traffic capture is set to `stopped` by default. You can change this by setting `tap.stopped=false`.
+> Note: Traffic capture is set to `stopped` by default. You can change this by setting `-- set tap.stopped=false`.
 
 ## Capture Filters
 
@@ -73,6 +73,13 @@ kubeshark pcapdump --enable=true --maxSize=500MB --maxTime=2h   # Set properties
 
 While `pcapdump` and the [Traffic Recorder](/en/traffic_recorder) share similarities, they serve different purposes.
 
-`pcapdump` is analogous to TCPdump: a simple way to capture PCAP traffic for analysis in Wireshark. However, with only PCAP files, you miss out on the Kubernetes context (e.g., pod, service, namespace names).
+`pcapdump` is analogous to TCPdump: a simple way to capture PCAP traffic for analysis in [Wireshark](https://www.wireshark.org/). However, with only PCAP files, you miss out on the Kubernetes context (e.g., pod, service, namespace names).
 
-On the other hand, the Traffic Recorder allows you to work within the **Kubeshark** dashboard and store traffic for offline analysis, including the Kubernetes context.
+On the other hand, the [Traffic Recorder](/en/traffic_recorder) allows you to work within the **Kubeshark** dashboard and store traffic for offline analysis, including the Kubernetes context.
+
+## Troubleshooting
+
+If you see the following log message in the Worker, you are likely not recording all traffic.
+```yaml
+2024-10-08T23:26:11Z WRN source/pcap_dumper.go:468 > Packet channel is full, dropping current batch of packets
+```

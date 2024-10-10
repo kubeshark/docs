@@ -29,30 +29,29 @@ function logPacketCountTotalBytes() {
 jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTotalBytes);
 ```
 
-## Script Storage
+## Scripts Storage
 
-You can develop and manage scripts locally in a folder and use **Kubeshark**'s CLI to watch for any changes in the scripts.
+Scripts are stored in `kubeshark-config-map`. You can develop and manage scripts locally in a folder and use the `kubeshark scripts` command to synchronize files to the config map and watch for any changes in the scripts.
 
-### When Using Helm
+> Scripts code should be compliant with [JavaScript ES5](https://262.ecma-international.org/5.1/) and each file should have a `.js`` suffix
 
-**Kubeshark** looks for scripts in the `kubeshark-config-map`. You can use the CLI to watch the scripts folder and update the `kubeshark-config-map` with every change.  
-First, ensure the availability of a port-forward connection to **Kubeshark**, then use the CLI to monitor the scripts folder.
+Example:
 
-```shell
-kubectl port-forward svc/kubeshark-front 8899:80
-kubeshark scripts --set scripting.source=/absolute/path/to/scripts/folder
+``` shell
+ kubeshark scripts --set scripting.source=/path/to/your/local/folder
 ```
 
-> We are actively working on simplifying this process.
+## Viewing and Editing Scripts in the Dashboard
 
-### When Using the CLI
+While the scripts are stored in `kubeshark-config-map`, they can be viewed and edited in the Dashboard by accessing the Scripting section:
 
-Develop your scripts locally in your environment (e.g. VS Code, GitHub) and add your scripts folder to the [scripts section](/en/config#scripts) in **Kubeshark**'s configuration file:
+![Accessing the Scripting Dashboard](/scripting_menu.png)
 
-```yaml
-scripting:
-  source: "/path/to/scripts/folder/"
-```
+### Script Examples Dropdown
+
+**Kubeshark** comes with numerous script examples for various use cases as part of its dashboard. Use the Examples dropdown list to access the list of script examples.
+
+![Script Examples](/script-examples.png)
 
 ## Environment Variables
 
@@ -69,7 +68,6 @@ scripting:
     INFLUXDB_MEASUREMENT: "st.."
     INFLUXDB_ORGANIZATION: "a.."
     INFLUXDB_BUCKET: "al.."
-  source: "/User.."
 ```
 
 To use any of the environment variables in a script, use the prefix: `env.*`. For example:
@@ -93,9 +91,3 @@ vendor.influxdb(
 - **Function:** When variables and functions are declared within a function.
 - **Script:** When variables and functions are declared outside functions, at the script level, and can maintain a state across the specific script's functions.
 - **Global:** When using the object `this`, scripts and functions are declared at the global level, accessible by all scripts.
-
-## Script Examples Dropdown
-
-**Kubeshark** comes with numerous script examples for various use cases as part of its dashboard. Use the Examples dropdown list to access the list of script examples.
-
-![Script Examples](/script-examples.png)

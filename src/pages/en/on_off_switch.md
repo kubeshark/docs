@@ -4,8 +4,6 @@ description: The dynamic on/off switch, if set to on, Kubeshark will function as
 layout: ../../layouts/MainLayout.astro  
 ---
 
-**Availability**: v52.3.75
-
 Resource consumption (e.g., CPU and memory) is key in Kubernetes. **Kubeshark**'s resource consumption is linearly dependent on the amount of traffic it processes. There are many ways to control resource consumption, and this ON/OFF switch is one of them.
 
 Stopping and starting traffic capturing enables controlling **Kubeshark**'s resource consumption. When traffic capture is stopped, **Kubeshark** is dormant in your cluster, processing no traffic and consuming almost no resources.
@@ -20,7 +18,12 @@ This value can be changed dynamically via the dashboard by pressing the `Enable 
 
 ## Using a Helm Value
 
-By setting `--set tap.stopped=true`, you're instructing **Kubeshark** not to process any traffic, making it dormant in your cluster, ready to start once this value changes to `false`.
+By setting `--set tap.stopped=true`, you're instructing **Kubeshark** not to process any traffic by default, making it dormant in your cluster, ready to start once this value changes to `false`.
+When you want **Kubeshark** to process traffic continuously, flag should be set to `false`: `--set tap.stopped=false`. Or in the `values.yaml`:
+```yaml
+tap:
+    stopped: false
+```
 
 ## Default Configuration
 

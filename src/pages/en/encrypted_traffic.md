@@ -5,40 +5,58 @@ layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 
-**Using eBPF to sniff encrypted traffic**
+**Kubeshark** can detect TLS traffic and display [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security). In most cases, **Kubeshark** can also show the unencrypted payload.
 
-Kubeshark can sniff the [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security) in your cluster using eBPF **without actually doing decryption**. It hooks into entry and exit points in certain functions inside the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package.
+## Detecting Encrypted Traffic
 
-Kubeshark offers tracing kernel-space and user-space functions using [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/) (Extended Berkeley Packet Filter). eBPF is an in-kernel virtual machine running programs passed from user space. It's first introduced into Linux kernel with version 4.4 and quite matured since then.
+Before attempting to display encrypted traffic in clear text, **Kubeshark** detects and marks TLS TCP packets, identifying various TLS-related messages (e.g., `ClientHello` and `ServerHello`).
 
-TLS payload is marked with an open lock icon to the left of the entry. You can use the helper `tls` as a KFL query to view all the TLS traffic.
+> TLS traffic is marked with an open lock icon to the left of the entry. You can use the helper `tls` as a KFL query to filter and view all TLS traffic.
 
 ![TLS Traffic Example](/tls_traffic.png)
 
-### OpenSSL
+#### TLS 1.x Items
 
-Kubeshark attaches [uprobe](https://docs.kernel.org/trace/uprobetracer.html)(s)
-to [`SSL_read`](https://www.openssl.org/docs/man1.1.1/man3/SSL_read.html) and [`SSL_write`](https://www.openssl.org/docs/man1.1.1/man3/SSL_write.html) functions to simply reads the incoming unencrypted response and outgoing encrypted request in any TLS/SSL connection.
+At the very least, **Kubeshark** will display the [ClientHello](https://datatracker.ietf.org/doc/html/rfc8446#section-4.1.2) and [ServerHello](https://datatracker.ietf.org/doc/html/rfc8446#section-4.1.3) TLS messages and related information.
 
-Languages like Python, Java, PHP, Ruby and Node.js use OpenSSL library for their encryption/decryption work. So, pretty much any program or service that's doing encrypted communication (using TLS) falls into this category.
+![TLS 1.x Items](/tlx_item.png)
 
-### Go
+#### TLS TCP Packets
 
-Go is a little bit more complicated than OpenSSL but the basic principle is the same.
+In addition to the TLS messages mentioned above, **Kubeshark** shows all encrypted TCP packets within Kubernetes contexts, including information such as namespaces, pod and service names, IPs, ports, and more.
 
-Go language has two ABIs; **ABI0** and **ABIInternal**. We support both **amd64** and **arm64** so that translates into
-a good number of offsets to handle.
+## Displaying Unencrypted Payloads
 
-We basically probe the [`crypto/tls.(*Conn).Read`](https://github.com/golang/go/blob/go1.17.6/src/crypto/tls/conn.go#L1263) and [`crypto/tls.(*Conn).Write`](https://github.com/golang/go/blob/go1.17.6/src/crypto/tls/conn.go#L1099) just like OpenSLL's `SSL_read` / `SSL_write`. In addition to that we dismantle the targeted Go binaries using Capstone to get the offsets of `ret` mnemonics. Because `uretprobe` does not function properly in Go thanks to its unique ABI.
+**Kubeshark** can display the unencrypted payload in clear text by utilizing eBPF. It hooks into entry and exit points in specific functions within the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package. If **Kubeshark** detects TLS termination via one of these libraries, the entire message is reassembled into a request-response pair, similar to HTTP, allowing you to view encrypted traffic in clear text.
 
-Lastly, we keep track of the Goroutine ID by using some offsets that we learn by looking at the DWARF table.
+![eBPF TLS](/ebpf_tls.png)
 
-### Kernel
+## TL;DR - Use of eBPF
 
-We [`kprobe`](https://www.kernel.org/doc/html/latest/trace/kprobes.html) certain tracepoints in the kernel for reasons like doing address resolution (by learning IP and port number for both source and destination) or for matching request-response pairs.
+**Kubeshark** traces both kernel-space and user-space functions using [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/) (Extended Berkeley Packet Filter). eBPF is an in-kernel virtual machine that runs programs passed from user space. First introduced in Linux kernel version 4.4, it has since matured significantly.
 
-While the methods explained in here sounds a little bit complicated the TLS sniffer has little to no performance impact thanks to the efficient eBPF in-kernel virtual machine of Linux and our carefully written C code. In any case, Linux kernel does not allow injecting a huge number of instructions for probing purposes. So, the kernel itself guarantees no slowdown or crash.
+#### OpenSSL
+
+Kubeshark attaches [uprobes](https://docs.kernel.org/trace/uprobetracer.html) to [`SSL_read`](https://www.openssl.org/docs/man1.1.1/man3/SSL_read.html) and [`SSL_write`](https://www.openssl.org/docs/man1.1.1/man3/SSL_write.html), capturing unencrypted incoming responses and outgoing encrypted requests in any TLS/SSL connection.
+
+Languages like Python, Java, PHP, Ruby, and Node.js use the OpenSSL library for encryption/decryption tasks, so any program or service using TLS for encrypted communication falls into this category.
+
+#### Go
+
+Go's encryption process is a bit more complex than OpenSSL, but the underlying principle is similar.
+
+Go has two ABIs: **ABI0** and **ABIInternal**, and **Kubeshark** supports both **amd64** and **arm64**, which translates into a significant number of offsets to handle.
+
+We probe [`crypto/tls.(*Conn).Read`](https://github.com/golang/go/blob/go1.17.6/src/crypto/tls/conn.go#L1263) and [`crypto/tls.(*Conn).Write`](https://github.com/golang/go/blob/go1.17.6/src/crypto/tls/conn.go#L1099), much like OpenSSL's `SSL_read` and `SSL_write`. Additionally, we disassemble targeted Go binaries using Capstone to locate the offsets of `ret` instructions, as `uretprobe` does not work properly in Go due to its unique ABI.
+
+Finally, we track the Goroutine ID using offsets identified in the DWARF table.
+
+#### Kernel
+
+We use [`kprobes`](https://www.kernel.org/doc/html/latest/trace/kprobes.html) on certain kernel tracepoints to perform tasks such as address resolution (learning the IP and port for both source and destination) and matching request-response pairs.
+
+While these methods may sound complex, **Kubeshark's** TLS sniffer has minimal performance impact due to the efficient eBPF in-kernel virtual machine and our carefully written C code. Furthermore, the Linux kernel limits the number of instructions allowed for probing purposes, ensuring there is no significant slowdown or crash risk.
 
 ## TLS Capture in Action
-<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/18d9f744402a4b37b1e14c8fd7401aab?sid=0e136344-33af-4739-9899-c41ec0ca0de9" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/18d9f744402a4b37b1e14c8fd7401aab?sid=0e136344-33af-4739-9899-c41ec0ca0de9" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
