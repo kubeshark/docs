@@ -17,17 +17,17 @@ For each pod, we have two types of communication:
 
 #### L4 Layer
 
-**Kubeshark** will show all L4 traffic, including encrypted and mTLS traffic.
+**Kubeshark** will show all L4 traffic related to Istio, including encrypted and mTLS traffic.
 
 #### L7 Layer
 
-#### **`service`** <==> `sidecar`: Protocol Support
+#### **`container`** <==> `sidecar`: Protocol Support
 
 Protocol messages will be visible, and **Kubeshark** will show all reassembled API calls based on its protocol support.
 
-#### **`service`** <==> `sidecar`: TLS / HTTPS
+#### **`container`** <==> `sidecar`: TLS / HTTPS
 
-**Kubeshark** will display the **`service`** <==> `sidecar` traffic in clear text (decrypted), which includes the original service ingress and egress traffic, based on **Kubeshark**'s TLS termination library support.
+**Kubeshark** will display the **`container`** <==> `sidecar` traffic in clear text (decrypted), which includes the original service ingress and egress traffic, based on **Kubeshark**'s TLS termination library support.
 
 > Read more about TLS termination library support in the [TLS/HTTPS section](/en/encrypted_traffic).
 
@@ -37,4 +37,4 @@ When mTLS is not in STRICT mode, this traffic will be visible.
 
 #### `sidecar` <==> `sidecar`: mTLS (Encrypted)
 
-When mTLS is in STRICT mode, the mTLS traffic will show as encrypted, and there will be no attempt to decrypt it, as it is assumed to be a duplicate of the original **`service`** <==> `sidecar` traffic.
+When mTLS is in STRICT mode, the mTLS traffic will show as encrypted, and there will be no attempt to decrypt it, as it is assumed to be a duplicate of the original **`container`** <==> `sidecar` traffic.
