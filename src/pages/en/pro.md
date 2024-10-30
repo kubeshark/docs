@@ -8,13 +8,13 @@ layout: ../../layouts/MainLayout.astro
 
 ## Community (Free)
 
-The Community edition is offered at no cost and supports clusters of up to two nodes, without imposing any capacity limits or licensing requirements.
+The Community edition is offered at no cost and supports clusters of up to 4 nodes, without imposing any capacity limits or licensing requirements.
 
 > To get started with the Community edition, [install **Kubeshark**](/en/install).
 
 ## Complimentary (Free) Pro License
 
-Clusters exceeding two nodes are eligible for a complimentary Pro license upon sign-up. This license includes 100,000 API calls as a free trial, with no additional cost.
+Clusters exceeding 4 nodes are eligible for a complimentary Pro license upon sign-up. This license includes 100,000 API calls as a free trial, with no additional cost.
 
 If more capacity is required, please [contact us](https://kubeshark.co/contact-us).
 
