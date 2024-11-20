@@ -8,7 +8,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## Direct Packet Capture
 
-**Kubeshark**'s [Worker](/en/anatomy_of_kubeshark#worker) works at the Kubernetes Node level and uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) and [UDP](https://en.wikipedia.org/wiki/User_Datagram_Protocol) traffic in your cluster using one of [libpcap](https://www.tcpdump.org/), [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html), [AF_XDP](https://www.kernel.org/doc/html/next/networking/af_xdp.html) and [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/). 
+**Kubeshark**'s [Worker](/en/anatomy_of_kubeshark#worker) works at the Kubernetes Node level and uses direct packet capture to sniff the [TCP](https://en.wikipedia.org/wiki/Transmission_Control_Protocol) and [UDP](https://en.wikipedia.org/wiki/User_Datagram_Protocol) traffic in your cluster using one of [libpcap](https://www.tcpdump.org/) or [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html. 
 
 The **Worker** continuously captures TCP and UDP packets and saves locally in a local [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) storage that is limited in size.
 

@@ -17,7 +17,7 @@ Observe all traffic, including **encrypted traffic (TLS)** and payloads, enterin
 
 ## API Traffic Analysis
 
-**Kubeshark** employs various packet capture technologies (e.g. [eBPF](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter), [AF_PACKET](https://manpages.org/af_packet/7), [AF_XDP](https://www.kernel.org/doc/html/next/networking/af_xdp.html), [PF_RING](https://www.ntop.org/products/packet-capture/pf_ring/)) to capture cluster-wide L4 (TCP and UDP) traffic, directing it into distributed PCAP storage, and dissecting the following application layer protocols:
+**Kubeshark** employs various packet capture technologies (e.g. [eBPF](https://en.wikipedia.org/wiki/Berkeley_Packet_Filter), [AF_PACKET](https://manpages.org/af_packet/7)) to capture cluster-wide L4 (TCP and UDP) traffic, directing it into distributed PCAP storage, and dissecting the following application layer protocols:
 
 - [HTTP/1.0](https://datatracker.ietf.org/doc/html/rfc1945)
 - [HTTP/1.1](https://datatracker.ietf.org/doc/html/rfc2616)

@@ -65,9 +65,8 @@ Each Worker pod includes two services:
 
 The Sniffer is the main container in the Worker pod responsible for capturing packets by one of the available means:
 1. AF_PACKET (available with most kernels)
-2. eBPF via the Tracer (for modern kernels with cgroup V2 is enabled)
-3. PF_RING (where PF_RING kernel module is found)
-4. `libpcap` (If the above didn't work)
+2. eBPF via the Tracer (for modern kernels > 5.4)
+3. `libpcap` (If the above didn't work)
 
 The Sniffer attempts to find the best packet capture method starting from AF_PACKET all the way to `libpcap`. Each method has a different performance impact, packet drop rate and functionality.
 

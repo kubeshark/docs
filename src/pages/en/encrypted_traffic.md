@@ -27,7 +27,7 @@ In addition to the TLS messages mentioned above, **Kubeshark** shows all encrypt
 
 ## Displaying Unencrypted Payloads
 
-**Kubeshark** can display the unencrypted payload in clear text by utilizing eBPF. It hooks into entry and exit points in specific functions within the [OpenSSL](https://www.openssl.org/) library and Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package. If **Kubeshark** detects TLS termination via one of these libraries, the entire message is reassembled into a request-response pair, similar to HTTP, allowing you to view encrypted traffic in clear text.
+**Kubeshark** can display the unencrypted payload in clear text by utilizing eBPF. It hooks into entry and exit points in specific functions within the [OpenSSL](https://www.openssl.org/) library, Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package and Google's [BoringSSL](https://github.com/google/boringssl). If **Kubeshark** detects TLS termination via one of these libraries, the entire message is reassembled into a request-response pair, similar to HTTP, allowing you to view encrypted traffic in clear text.
 
 ![eBPF TLS](/ebpf_tls.png)
 
