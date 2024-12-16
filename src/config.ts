@@ -99,6 +99,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
     ],
     'Integrations': [
+      { text: 'Log Aggregation', link: 'en/integration_kubeshark_logs' },
       { text: 'Prometheus', link: 'en/metrics' },
       { text: 'Necessary Credentials', link: 'en/integrations_credentials' },
       { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },

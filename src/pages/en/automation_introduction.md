@@ -1,46 +1,76 @@
 ---
-title: Automated Network Analysis
+title: Automation
 description: Automation can help analyze vast amounts of data, and flag only data of interest for further analysis by people or external systems.
 layout: ../../layouts/MainLayout.astro
 ---
-Automation enables you to analyze vast amounts of data, and flag only data of interest for further analysis by people or external systems.
+## High-Level Overview
 
-Things you can automate with **Kubeshark**:
+Automation leverages`scripts`, `hooks` and `helpers` to enable users to ask questions, build custom reports and metrics, and create automations—all based on the information available in the network.
 
-- **Detection** of suspicious network behaviors
-- **Alerts** (e.g. to Slack)
-- **Telemetry** messages to external systems (e.g. Grafana)
-- **Forensics** in the form of network snapshots (PCAPs) uploaded to an immutable datastore
+![GenAI-Assisted Network Observability](/networkprocessor.png)
 
+#### Examples of Questions: 
+- Identify the top 5 DNS consumers.
+- Report the theoretical impact of network policies on live pods.
+- Show pods and processes with external connections.
+- Highlight pods with no network activity (likely candidates for cost optimization).
+- Report API latency anomalies.
 
-![Automated Network Analysis](/automation.png)
+#### Examples of Automations:
+- Export traffic for API security scanning.
+- Record traffic and upload it to an immutable datastore. 
 
-## Scripting
+#### Custom Report Templates
 
-**Kubeshark** supports a scripting language that is based on [Javascript ES5](https://262.ecma-international.org/5.1/).
+Some examples are already available and ready to use in the **Kubeshark** dashboard.
 
-In addition to its rich capabilities as a modern programming language, **Kubeshark**'s scripting language can trigger actions based on programmatic decisions and/or based on a schedule.
+![Script Templates](/templates.png)
 
-> Read more in the [scripting](/en/automation_scripting) section.
+---
+
+## Scripts
+
+A script includes ES5 JavaScript code that comprises:
+1. **Hooks** - Triggered upon the occurrence of certain events.
+2. **Helpers** - Invoke integrations and specific **Kubeshark** functions. 
+3. **General code** - Used for calculations and storing information in memory.
+
+Scripts are used to process network traffic, perform calculations, and trigger actions that may result in creating custom metrics, exporting logs, generating reports, or building automations.
+
+---
 
 ## Hooks
 
-Among other hooks, **Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new protocol-level message is dissected.
+`Hooks` are functions designed to process traffic. They are called when specific events occur and provide a way to invoke user-created JavaScript code from **Kubeshark**'s Go backend. 
 
-For example, the following function leverages the OSI L7 hook [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) and will log every dissected protocol message to the console:
+The simplest example is the `onItemCaptured` hook, which is triggered every time a new API call is processed and reassembled. The example below prints the metadata for every API call:
 
 ```js
 function onItemCaptured(data) {
+  // Prints the API call metadata
   console.log("Msg:", JSON.stringify(data));
 }
 ```
-> Read more in the  [hooks](/en/automation_hooks) section.
+
+Hooks operate continuously in the backend, regardless of the dashboard state (whether open or closed).
+
+### Hook Examples
+
+Below is a list of some `hooks` and their descriptions.
+
+| Hook            | Event                                   | Runnable on    | Description                                                                                                                                                 | 
+|------------------|-----------------------------------------|----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| onItemCaptured   | API call reassembly                    | Workers        | Invoked for every emitted item representing a reassembled message. This hook works inline and should include quick actions like calculations or assignments. |
+| onHubAction      | `hub.action(action, object)` is invoked | Hub            | Used for moving objects from Workers to the Hub for further processing, consolidating map objects, or offloading computations to the Hub.                  |
+| onPodEvent       | On every pod event (e.g., restart)     | Hub and Workers | Triggered on pod events, enabling custom functionality, such as capturing a snapshot of pod traffic before a crash.                                         |
+
+---
 
 ## Helpers
 
-Helpers are used to trigger actions that are related to the supported integrations (e.g. Slack, AWS S3).
+`Helpers` are used to trigger actions related to supported integrations (e.g., Slack, AWS S3). They provide a way to invoke **Kubeshark**'s Go backend from user-created JavaScript code.
 
-Below is an example for a helper that uploads an object to a Webhook:
+Below is an example of a helper that uploads an object to a webhook:
 
 ```js
 vendor.webhook(
@@ -49,18 +79,13 @@ vendor.webhook(
   JSON.stringify(data)
 );
 ```
-> Read more in the [helpers](/en/automation_helpers) section.
 
-## Jobs
+### Helper Examples
 
-Jobs are functions that are automated to run on a schedule.
+Below is a list of some `helpers` and their descriptions.
 
-This example schedules the function *exampleJob* to run every 5 minutes:
-
-```js
-jobs.schedule("example-job", "0 */5 * * * *", exampleJob)
-```
-
-Jobs can be added and removed on-demand and in real-time based on programmable decisions.
-
-> Read more in the [jobs](/en/automation_jobs) section.
+| Helper               | Usage                         | Runnable on     | Description                                                                                                                        | 
+|-----------------------|-------------------------------|-----------------|------------------------------------------------------------------------------------------------------------------------------------|
+| console.log           | Print text to the Console     | Hub and Workers | A commonly used `helper` to print log messages or create custom reports.                                                          |
+| jobs.schedule         | Schedule jobs                | Hub and Workers | Schedules a function to run at specified intervals using a cron expression. Suitable for handling complex or time-consuming tasks. |
+| vendor.kinesis.put    | Export traffic to AWS Kinesis | Hub and Workers | Exports data to a Kinesis stream, enabling external systems to process it for tasks like security or API scanning.                 |
