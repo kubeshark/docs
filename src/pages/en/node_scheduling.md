@@ -9,14 +9,14 @@ Node scheduling can be very beneficial when you want to control Kubeshark's reso
 
 For example, if you want to have Kubeshark installed and running in the cluster on a single node or on no nodes at all on idle, and unleash its power when nessasery.
 
-We use K8s' [nodeSelector](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector) as the mechanism and can set the various conditions in the  `nodeselectorterms` Kubeshark config property.
+We use K8s' [nodeSelector](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector) as the mechanism and can set the various conditions in the  `nodeSelectorTerms` Kubeshark config property.
 
 ## Using the CLI
 When we set this example in `~/.kubeshark/config.yaml`:
 
 ```shell
 tap:
-  nodeselectorterms:
+  nodeSelectorTerms:
   - matchExpressions:
       - key: kubeshark-active
         operator: In
@@ -42,6 +42,6 @@ Use the following option when you install Kubeshark with Helm:
 
 ```shell
 helm install kubeshark kubeshark/kubeshark  \
---set-json 'tap.nodeselectorterms=[{"matchExpressions": [ {"key":"kubeshark-active", "operator": "In", "values": ["true" ] } ] }]'
+--set-json 'tap.nodeSelectorTerms=[{"matchExpressions": [ {"key":"kubeshark-active", "operator": "In", "values": ["true" ] } ] }]'
 ```
 
