@@ -55,11 +55,11 @@ When issues aren't immediately apparent during observation, you can schedule tra
 
 ## Automatic Distributed Tracing
 
-**Kubeshark** allows you to inspect all API calls and network traces, enriched with information related to:
+**Kubeshark** allows you to inspect all aspects of each API call, including latency, throughput, and bandwidth, in addition to inspecting its complete payload. You can further evaluate complete traces and create a mix of spans within the traces using a rich query language. Each span or trace is enriched with information related to:
 
-1. **Network context:** Examine entire payloads—including encrypted ones—not just headers.
-2. **Kubernetes context:** Understand spans and traces within the Kubernetes environment, including identities, labels, namespaces, and more.
-3. **Linux operating system context:** Access details such as process IDs, names, paths, and socket information.
+1. **Network context:** Examine entire payloads—including encrypted ones—not just headers.  
+2. **Kubernetes context:** Understand spans and traces within the Kubernetes environment, including identities, labels, namespaces, and more.  
+3. **Linux operating system context:** Access details such as process IDs, names, paths, and socket information.  
 
 ![Automatic Distributed Tracing](/spans.png)
 
