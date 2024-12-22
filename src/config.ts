@@ -62,7 +62,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Dashboard', link: 'en/ui' },
       { text: 'TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'Service Map', link: 'en/service_map' },
-      { text: 'Running Headless', link: 'en/headless' },
+      // { text: 'Running Headless', link: 'en/headless' },
       { text: 'Display Filters (KFL)', link: 'en/filtering' },
       { text: 'Capture Filters', link: 'en/pod_targeting' },
       { text: 'Protocol Support', link: 'en/protocols' },

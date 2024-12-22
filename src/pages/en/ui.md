@@ -9,11 +9,11 @@ mascot:
 
 ![**Kubeshark** UI](/ui-full.png)
 
-## Capture Filters (Targeted Pods)
+## Targeted Pods
 
 ![Targeted PODs](/targets.png)
 
-At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date list of Pods that are being tapped. As **Kubeshark** follows dynamically started and stopped Pods, this list can change in real-time.
+At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date list of Pods that are being targeted. As **Kubeshark** follows dynamically started and stopped Pods, this list can change in real-time.
 
 ## Service Map
 

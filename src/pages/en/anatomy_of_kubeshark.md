@@ -24,7 +24,7 @@ Once **Kubeshark** is deployed, access to the dashboard can be provided using on
 
 **Kubeshark** further supports integration with corporate Identity Providers (IDPs) using SAML for authentication and authorization.
 
-> For more information, refer to the [dashboard documentation](/en/ui).
+> Checkout the [live demo portal](https://demo.kubeshark.co), running on EKS using Ingress over HTTPS connected to an IDP and many other features live.  
 
 ## Hub
 

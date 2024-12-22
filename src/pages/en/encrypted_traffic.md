@@ -5,29 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 
-**Kubeshark** can detect TLS traffic and display [encrypted traffic (TLS)](https://en.wikipedia.org/wiki/Transport_Layer_Security). In most cases, **Kubeshark** can also show the unencrypted payload.
-
-## Detecting Encrypted Traffic
-
-Before attempting to display encrypted traffic in clear text, **Kubeshark** detects and marks TLS TCP packets, identifying various TLS-related messages (e.g., `ClientHello` and `ServerHello`).
-
-> TLS traffic is marked with an open lock icon to the left of the entry. You can use the helper `tls` as a KFL query to filter and view all TLS traffic.
-
-![TLS Traffic Example](/tls_traffic.png)
-
-#### TLS 1.x Items
-
-At the very least, **Kubeshark** will display the [ClientHello](https://datatracker.ietf.org/doc/html/rfc8446#section-4.1.2) and [ServerHello](https://datatracker.ietf.org/doc/html/rfc8446#section-4.1.3) TLS messages and related information.
-
-![TLS 1.x Items](/tlx_item.png)
-
-#### TLS TCP Packets
-
-In addition to the TLS messages mentioned above, **Kubeshark** shows all encrypted TCP packets within Kubernetes contexts, including information such as namespaces, pod and service names, IPs, ports, and more.
-
-## Displaying Unencrypted Payloads
-
-**Kubeshark** can display the unencrypted payload in clear text by utilizing eBPF. It hooks into entry and exit points in specific functions within the [OpenSSL](https://www.openssl.org/) library, Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package and Google's [BoringSSL](https://github.com/google/boringssl). If **Kubeshark** detects TLS termination via one of these libraries, the entire message is reassembled into a request-response pair, similar to HTTP, allowing you to view encrypted traffic in clear text.
+**Kubeshark** detects [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) traffic and displays the unencrypted payload in clear text by utilizing [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/). It hooks into entry and exit points in specific functions within the [OpenSSL](https://www.openssl.org/) library, Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package and Google's [BoringSSL](https://github.com/google/boringssl). When TLS termination is detected via one of these libraries, the entire message is reassembled into a request-response pair, similar to HTTP, allowing you to view encrypted traffic in clear text.
 
 ![eBPF TLS](/ebpf_tls.png)
 
@@ -60,3 +38,20 @@ While these methods may sound complex, **Kubeshark's** TLS sniffer has minimal p
 ## TLS Capture in Action
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/18d9f744402a4b37b1e14c8fd7401aab?sid=0e136344-33af-4739-9899-c41ec0ca0de9" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
+
+
+## Detecting Encrypted Traffic
+
+Before attempting to display encrypted traffic in clear text, **Kubeshark** detects and marks TLS TCP packets, identifying various TLS-related messages (e.g., `ClientHello` and `ServerHello`).
+
+> TLS traffic is marked with an open lock icon to the left of the entry. You can use the helper `tls` as a KFL query to filter and view all TLS traffic.
+
+![TLS Traffic Example](/tls_traffic.png)
+
+#### TLS 1.x Items
+
+At the very least, **Kubeshark** will display the [ClientHello](https://datatracker.ietf.org/doc/html/rfc8446#section-4.1.2) and [ServerHello](https://datatracker.ietf.org/doc/html/rfc8446#section-4.1.3) TLS messages and related information.
+
+#### TLS TCP Packets
+
+In addition to the TLS messages mentioned above, **Kubeshark** shows all encrypted TCP packets within Kubernetes contexts, including information such as namespaces, pod and service names, IPs, ports, and more.

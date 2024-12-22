@@ -9,7 +9,7 @@ mascot: Cute
 Install **Kubeshark** using one of the following methods:  
 - [Helm](#helm): Recommended  
 - [K8s Manifest](#k8s-manifest): Use `kubectl apply`  
-- [Homebrew](#homebrew): For macOS users running [KinD](https://kind.sigs.k8s.io/) or [Minikube](https://minikube.sigs.k8s.io/docs/)  
+- [Homebrew](#homebrew): Use `brew install` 
 - [Build from source](#build-from-source): For those who prefer to build locally rather than download  
 - [Shell script](#shell-script): For dev/test clusters, runs on any OS  
 
@@ -30,7 +30,7 @@ helm uninstall kubeshark
 
 Each release includes a complete K8s manifest that can be customized or used as is:  
 ```shell  
-export TAG=v52.3.92  
+export TAG=v52.3.92  # as an example
 kubectl apply -f https://raw.githubusercontent.com/kubeshark/kubeshark/refs/$TAG/manifests/complete.yaml  
 kubectl port-forward service/kubeshark-front 8899:80  
 
