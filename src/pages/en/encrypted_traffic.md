@@ -1,11 +1,11 @@
 ---
-title: Tracing Encrypted Traffic (TLS)
+title: Decrypting TLS
 description: In certain situations, Kubeshark can sniff the encrypted traffic (TLS) in your cluster using eBPF without actually doing decryption.
 layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 
-**Kubeshark** detects [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) traffic and displays the unencrypted payload in clear text by utilizing [eBPF](https://prototype-kernel.readthedocs.io/en/latest/bpf/). It hooks into entry and exit points in specific functions within the [OpenSSL](https://www.openssl.org/) library, Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package and Google's [BoringSSL](https://github.com/google/boringssl). When TLS termination is detected via one of these libraries, the entire message is reassembled into a request-response pair, similar to HTTP, allowing you to view encrypted traffic in clear text.
+**Kubeshark** can display [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) traffic in clear text for `non-stripped` applications when using [OpenSSL](https://www.openssl.org/), Go's [crypto/tls](https://pkg.go.dev/crypto/tls) package, or Google's [BoringSSL](https://github.com/google/boringssl) as the TLS termination, provided they are utilized as shared libraries. When TLS termination is detected via one of these libraries, the entire message is reassembled into a request-response pair, similar to HTTP, allowing you to view encrypted traffic in clear text.
 
 ![eBPF TLS](/ebpf_tls.png)
 

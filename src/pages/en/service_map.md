@@ -1,5 +1,5 @@
 ---
-title: Identity-aware Service Map
+title: Service Map in the Context of Kubernetes
 description: Kubeshark offers a Service Dependency Graph that visualizes the relationships within your Kubernetes cluster.
 layout: ../../layouts/MainLayout.astro
 ---

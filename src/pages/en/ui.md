@@ -5,65 +5,73 @@ layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 
-**Kubeshark** dashboard is made out of a [React](https://reactjs.org/) application and communicates via a websocket with the [Hub](/en/anatomy_of_kubeshark#hub). The dashboard displays the captured traffic in a browser.
+The dashboard's main purpose is to display real-time traffic streams based on backend and display filters.
 
 ![**Kubeshark** UI](/ui-full.png)
 
-## Targeted Pods
+## Backend Filters & List of Targeted Pods
 
-![Targeted PODs](/targets.png)
+The backend filters generate a list of pods that **Kubeshark** targets. Traffic from pods not targeted by the backend filters is discarded.
 
-At the top of the screen in a blue top panel, **Kubeshark** lists an up-to-date list of Pods that are being targeted. As **Kubeshark** follows dynamically started and stopped Pods, this list can change in real-time.
+![Targeted Pods](/targets.png)
 
-## Service Map
+The list of targeted pods is generated through [backend filtering](/en/pod_targeting). Since **Kubeshark** dynamically follows pods that are started or stopped, this list can change in real-time.
 
-Accessible via the **Service Map** button, the [Service Map](/en/service_map) updates in real-time and can analyze dependencies of a system-wide or a subset of traffic.
+## Display Filters & KFL
 
-![Service Map Button](/service-map-button.png)
+Display filters help filter traffic based on a KFL statement. The dashboard does not show traffic filtered out by the display filters. Each query is specific to a browser tab, allowing you to open multiple tabs, each with a different display filter. Additionally, users can open different browser windows with different display filters to view distinct perspectives of the same cluster.
 
-## Display Filter
+> **Note:** Backend filters apply across all clients, dashboards, users, and browser windows.
 
-The filter input is used to enter the [Kubeshark Filter Language (KFL)](/en/filtering#kfl-syntax-reference) statements. Queries are used to filter in specific elements in traffic or reduce the amount of traffic that is interrogated. For example, to only see HTTP responses starting with the number 4, enter `http and response.status == r"4.*"` and select Apply. Your traffic stream will look like this:
+The display filter input accepts [Kubeshark Filter Language (KFL)](/en/filtering#kfl-syntax-reference) statements. These queries help focus on specific traffic elements or reduce the volume of traffic being interrogated. For instance, to view only HTTP responses with status codes starting with `4`, use the query `http and response.status == r"4.*"` and select "Apply." Your traffic stream will then appear like this:
 
 ![Kubeshark UI](/ks-filter-applied.png)
 
-You can also filter by timestamp, integer, and even queryable UI elements (below). A syntax cheatsheet is available next to the query box.
+You can also filter by timestamp, integers, and queryable UI elements. A syntax cheatsheet is available next to the query box.
 
-> **NOTE:** Read the [filtering](/en/filtering) section to learn more about filtering.
+> **Note:** Refer to the [filtering](/en/filtering) section for more details.
 
 ### Queryable UI Elements
 
-When you hover over UI elements and they display a green plus sign, it means this element can be added to your query. Selecting an element with the green plus sign will add this element to the KFL in the query box. Selecting this queryable element...
+Hovering over UI elements with a green plus sign indicates that the element can be added to your query. Selecting these queryable elements appends them to the KFL statement in the query box. For example:
 
 ![Filter UI example](/filter-ui-example.png)
 
-... adds response.status == 201 to your KFL statement, and only displays HTTP 201 responses in the live traffic streaming.
+...adds `response.status == 201` to your KFL statement, displaying only HTTP 201 responses in the live traffic stream.
 
-## Dashboard URL
+### Dashboard URL
 
-Once you run a query, the query gets added to the dashboard's URL. This is helpful if you'd like to bookmark or store the query for further use.
+Once you run a query, the query gets added to the dashboard's URL. This feature allows you to bookmark or share queries for future use.
 
 ![Dashboard URL](/web-ui-url.png)
 
+The browser URL includes the display filter and serves as a reference. You can share the URL with colleagues to provide them with the same view.
+
+## Service Map in the Context of Kubernetes
+
+The [Service Map](/en/service_map) updates in real-time and analyzes system-wide or subset traffic dependencies.
+
+![Service Dependency Graph](/new-service-map.png)
+
 ## Streaming Traffic
 
-The left-pane shows the streaming traffic entries captured by the **Workers** and transmitted in real-time through the **Hub** to the dashboard. Each entry includes mostly metadata like: protocol, response code, method, source and destination IPs and Pods.
+The left pane displays streaming traffic entries captured by the **Workers** and transmitted in real-time through the **Hub** to the dashboard. Each entry includes metadata such as the protocol, response code, method, source and destination IPs, and pods.
 
 ![Streaming Traffic Entry](/entry.png)
 
-Streaming will continue until either:
-- The user selected to stop streaming
-- **Kubeshark** presents historical traffic
+Streaming continues until:
+- The user opts to stop streaming.
+- **Kubeshark** transitions to presenting historical traffic.
 
-Here's an example for a query that will show the streaming traffic:
+Here’s an example query to display streaming traffic:
 
 ```
 timestamp >= now()
 ```
 
-The above query is the default query when the dashboard is opened.
+This is the default query when the dashboard is opened.
 
-Here's an example query that matches the HTTP traffic with response status code `500`:
+Example query to match HTTP traffic with response status code `500`:
 
 ```
 http and response.status == 500
@@ -71,34 +79,32 @@ http and response.status == 500
 
 ### Stop
 
-Scrolling up indicates you'd like to view historical traffic entries and therefore streaming will stop. The same operation can be obtained by pressing the pause button at the top of the left-pane.
+Scrolling up indicates that you wish to view historical traffic entries, which stops streaming. Alternatively, you can stop streaming by pressing the pause button at the top of the left pane.
 
 ![Stop Streaming](/stop-streaming.png)
 
-When streaming is stopped it doesn't mean traffic capture is stopped. Traffic capture continues and is stored, until **Kubeshark** is stopped.
+Stopping streaming does not halt traffic capture. Traffic continues to be captured and stored until **Kubeshark** is stopped.
 
 ### Continue
 
-To continue viewing streaming traffic, press the play button at the top of the right panel.
+To resume streaming traffic, press the play button at the top of the right pane.
 
 ![Continue Streaming](/play.png)
 
 ## Traffic Entry Panel
 
-The right panel shows the complete information related to a selected captured traffic entry.
-
-It includes the metadata related to the protocol, the method, source and destination IPs and Pods, as well as some performance KPIs like request and response sizes and elapsed time.
+The right pane displays detailed information about a selected traffic entry. This includes metadata related to the protocol, method, source and destination IPs, and pods. Performance KPIs such as request and response sizes and elapsed time are also shown.
 
 ![Traffic Entry](/traffic-entry.png)
 
-### TCP stream Information
+### TCP Stream Information
 
-Captured traffic entry belongs to a TCP stream. A TCP stream can include one or more request-response pairs. The TCP stream block includes information about the TCP stream in which the captured traffic entry belongs to. Information includes the request-response pair index, the Node, the Worker and the name of the TCP stream.
+Each captured traffic entry belongs to a TCP stream, which may include multiple request-response pairs. The TCP stream block provides details such as the request-response pair index, node, worker, and TCP stream name.
 
 ![TCP Stream](/tcp-stream.png)
 
-### Traffic Entry Meta Data and Payload
+### Traffic Entry Metadata and Payload
 
-The right panel includes the captured traffic request-response headers and payload and presented in a human readable way.
+The right pane also includes the request-response headers and payload for the captured traffic, presented in a human-readable format.
 
 ![Traffic Payload](/traffic-payload.png)

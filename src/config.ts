@@ -73,8 +73,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Envoy/Istio Support', link: 'en/envoy' },
     ],
     'Traffic Recording': [
-      { text: 'Continuos PCAP Recording', link: 'en/pcapdump' },
-      { text: 'Traffic Recorder', link: 'en/traffic_recorder' },
+      { text: 'L4 (TCP/UDP) Recorder', link: 'en/pcapdump' },
+      { text: 'Full-context Traffic Recorder', link: 'en/traffic_recorder' },
       { text: 'Offline Analysis', link: 'en/offline_analysis' },
       { text: 'Recordings Management', link: 'en/recordings_management' },
       { text: 'Long Term Retention', link: 'en/long_term_retention' },
