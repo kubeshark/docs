@@ -38,6 +38,8 @@ Monitor all traffic, including **encrypted (TLS)** data and payloads, as they en
 - [GraphQL over HTTP/1.1](https://graphql.org/learn/serving-over-http/)
 - [GraphQL over HTTP/2](https://graphql.org/learn/serving-over-http/)
 - [LDAP](https://datatracker.ietf.org/doc/html/rfc4511)
+- [RADIUS](https://datatracker.ietf.org/doc/html/rfc2865)
+- [DIAMETER](https://datatracker.ietf.org/doc/html/rfc6733)
 - [ICMP](https://datatracker.ietf.org/doc/html/rfc792)
 - [DNS](https://www.iana.org/assignments/dns-parameters/dns-parameters.xhtml)
 - [UDP](https://datatracker.ietf.org/doc/html/rfc768)
