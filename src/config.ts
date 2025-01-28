@@ -60,7 +60,7 @@ export const SIDEBAR: Sidebar = {
     'Basic Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Dashboard', link: 'en/ui' },
-      { text: 'TLS/HTTPS', link: 'en/encrypted_traffic' },
+      { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'Service Map', link: 'en/service_map' },
       // { text: 'Running Headless', link: 'en/headless' },
       { text: 'Display Filters (KFL)', link: 'en/filtering' },
@@ -87,7 +87,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Sensitive Data Redaction', link: 'en/redaction' },  
       { text: 'SSO, SAML, Authorization ', link: 'en/saml' }, 
     ],
-    'Automation': [
+    'Network Insights': [
       { text: 'Introduction', link: 'en/automation_introduction' },
       { text: 'Scripting', link: 'en/automation_scripting' },
       { text: 'Hooks', link: 'en/automation_hooks' },

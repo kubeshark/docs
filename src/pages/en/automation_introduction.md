@@ -1,13 +1,20 @@
 ---
-title: Automation
+title: GenAI-Assisted Network Insights
 description: Automation can help analyze vast amounts of data, and flag only data of interest for further analysis by people or external systems.
 layout: ../../layouts/MainLayout.astro
 ---
+
 ## High-Level Overview
 
-Automation leverages`scripts`, `hooks` and `helpers` to enable users to ask questions, build custom reports and metrics, and create automations—all based on the information available in the network.
+The Kubernetes network is a critical source of insights, carrying APIs and data that define the business logic of the application.
+
+GenAI-Assisted Network Insights leverages the latest advancements in Generative AI and a purpose-trained custom LLM, enabling users to ask questions, create custom automations, generate reports, and define metrics—all based on the data available within the network.
+
+Users can interact with a GenAI assistant to ask and refine questions, as well as create custom automations using natural language. The assistant generates ready-to-run code that is fully compatible with Kubeshark, a tool for network observability. Once executed, this code processes network data in real time, producing custom reports or triggering specific actions.
 
 ![GenAI-Assisted Network Observability](/networkprocessor.png)
+
+> See a quick, very limited, demo [here](https://chatgpt.com/g/g-675613a0221c8191beb0fae0f5967d15-ask-kubeshark-anything-demo).
 
 #### Examples of Questions: 
 - Identify the top 5 DNS consumers.
@@ -89,3 +96,7 @@ Below is a list of some `helpers` and their descriptions.
 | console.log           | Print text to the Console     | Hub and Workers | A commonly used `helper` to print log messages or create custom reports.                                                          |
 | jobs.schedule         | Schedule jobs                | Hub and Workers | Schedules a function to run at specified intervals using a cron expression. Suitable for handling complex or time-consuming tasks. |
 | vendor.kinesis.put    | Export traffic to AWS Kinesis | Hub and Workers | Exports data to a Kinesis stream, enabling external systems to process it for tasks like security or API scanning.                 |
+
+## GenAI Availability
+
+The Kubernetes network is a critical source of insights, as it carries APIs and data that define the business logic of the application.

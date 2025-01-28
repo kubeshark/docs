@@ -4,14 +4,17 @@ description:
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** provides cluster-wide recording of all L$ supported protocols (e.g. TCP, UDP, and SCTP) packets, including [decrypted TLS](http://localhost:3000/en/encrypted_traffic) and mTLS traffic. This operation resembles the popular [tcpdump](https://www.tcpdump.org/). This functionality can be used on clusters of any size without the need for a specific license.
+**Kubeshark** provides cluster-wide recording of all L4 supported protocols (e.g., TCP, UDP, and SCTP) traffic, including [decrypted TLS](http://localhost:3000/en/encrypted_traffic) and mTLS traffic. This functionality is similar to the popular [tcpdump](https://www.tcpdump.org/).  
+
+> This functionality is free of charge, with no limitations on cluster size, and does not require a license.
 
 **Kubeshark** automatically and continuously records and stores all captured traffic, managing both time window and storage limits. This enables you to export recorded traffic to your local folder at any time for retention or further analysis using [Wireshark](https://www.wireshark.org/).
 
 To export the recorded traffic locally, follow these steps:
 
-1. Ensure **Kubeshark** is installed and running.
-2. Use one of the following commands:
+1. Verify that the **Kubeshark** CLI is installed.  
+2. Confirm that **Kubeshark** is deployed and running.  
+3. Execute one of the following commands:  
 
 ```shell
 kubeshark pcapdump --dest=/tmp            # Export all PCAP files to a specified local directory

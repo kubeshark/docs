@@ -55,23 +55,6 @@ The Worker storage limit is set by `tap.storageLimit`, defaulting to `500Mi`. Ex
 
 PCAP and JSON file storage space on the Workers can quickly fill up and surpass the storage limitation, causing Worker pod eviction. When Worker pods are evicted, all stored data is discarded and the recording content will appear empty. 
 
-#### Missing PCAP Files
-
-In busy clusters, message processing times that include dissection and reassembling can extend. When processing time surpasses either JSON or PCAP TTL, the specific file will be discarded by the time processing completes. This is especially concerning in the case of PCAP TTL, which by default is very short and is set to 10s. This behavior can be identified in the scripting console window. For example:
-
-```shell
-[ip-10-0-51-87.ec2.internal-0:ERROR] Tue, 04 Jun 2024 23:06:06 GMT: Failed recording (example) Error: open 
-/app/data/ip-10-0-51-87.ec2.internal/pcaps/000000000144_udp.pcap: 
-no such file or directory
-```
-Go to the scripting dashboard to see the console:
-
-![Access the Scripting Console](/scripting-console.jpg)
-
-When the PCAP files are no longer available, the PCAP download button is disabled:
-
-![PCAP disabled button](/pcap-disabled.jpg)
-
 ### Suggested Configuration Values
 
 Tuning the configuration and finding the right values is up to the user and largely depends on the available resources and how busy the cluster is.

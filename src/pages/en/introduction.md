@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-**Gain unparalleled insight into every aspect of your Kubernetes (K8s) cluster!**
+**Gain deep insight into every aspect of your Kubernetes (K8s) cluster!**
 
 **Kubeshark** equips SREs, DevOps, and security teams with:
 
