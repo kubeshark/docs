@@ -64,6 +64,15 @@ This functionality, performed by the Tracer container, includes:
 
 Tracer deployment is optional and can be enabled or disabled using the `tap.tls` configuration value. When set to `false`, the Tracer won't be deployed.
 
+### **Data Retention**  
+
+Workers process data primarily in-memory, with some data stored on the local Workers' disk, which is **ephemeral by default**. Stored data is discarded after a pre-configured TTL (e.g., 10s, 5m). The entire Workers' storage is purged when the Workers' pods are evicted or uninstalled.  
+
+> Read more about the TTL strategy [here](https://docs.kubeshark.co/en/traffic_retention).  
+
+Unless explicitly triggered by the user (e.g., through [scripting](/en/automation_scripting) and [integrations](/en/integration_kubeshark_logs)), **no data leaves the premises**.  
+
+
 ## CLI (kubeshark)
 
 The CLI, a binary distribution of the **Kubeshark** client, is written in the [Go](https://go.dev/) language and typically named `kubeshark`. It is an optional component that offers a lightweight, on-demand option to use **Kubeshark** without leaving any permanent footprint.
