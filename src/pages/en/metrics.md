@@ -4,46 +4,87 @@ description: Learn how to integrate Kubeshark metrics with Grafana for enhanced 
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
+## Custom Metrics from Network Information
 
-Kubeshark can export pre-existing aas well as custom Prometheus metrics. Almost anything can be experted as a custom metric from Kubeshark. See below a list of available metrics out of the box.
+You can create custom metrics using information gathered from network traffic and export them to Prometheus. Hooks are used to monitor the traffic and can be utilized to create custom metrics. A helper is available to export metrics to Prometheus, typically as part of a scheduled job, ensuring minimal impact on CPU and memory consumption.
 
-## Custom Metrics
+**Examples of custom metrics:**
+1. Count DNS requests per pod.
+2. Count status codes per API call.
+3. Count occurrences of a specific pattern (e.g., when a response field is empty).
 
-You can use the `prometheus.metric` helper to export custom metrics. See example below:
+## Creating a Custom Metric (Best Practice)
 
-### Example
+It is recommended to create custom metrics using one of the available hooks.
 
-In this example, we export a metric named `dns_counter` that counts the number of DNS requests.
-We use the [`onItemCaptured` hook](/en/automation_hooks#onitemcaptureddata-object) to increase a counter, that was initially set to zero, whenever a DNS message is intercepted.
-We then use [`jobs`](/en/automation_jobs), to schedule a job that expert the metric every 15 seconds.
-
-```js
-// DNS request counter as custom Prometheus metric
-var counter = 0;
+**Example:**
+```javascript
+var dnsCounts = {};
 
 function onItemCaptured(data) {
-  // Check if it's a DNS request
-  if (data.Protocol.Name === "dns") {
-    counter++;
+  if (data.protocol && data.protocol.name === "dns" && data.src && data.src.name) {
+    var podName = data.src.name;
+    if (!dnsCounts[podName]) {
+      dnsCounts[podName] = 0;
+    }
+    dnsCounts[podName]++;
   }
 }
-
-function reportToProm (){
-  prometheus.metric("dns_counter", "Total number of DNS requests", 1, counter);
-  console.log(counter); 
-}
-
-// Report to Prometheus every 15 seconds
-jobs.schedule("example-job", "*/15 * * * * *", reportToProm)
 ```
+
+## Prometheus Metrics Helper
+
+**Kubeshark** can export both pre-existing and custom Prometheus metrics. Almost any network-based event can be turned into a custom metric. See below for a list of built-in metrics. A [script](/en/automation_scripting) can also be used to calculate and export custom metrics using the `prometheus.metric` helper.
+
+**Example:**
+```javascript
+prometheus.metric(
+  _metric_name_,          // Metric name
+  "Metric description",   // Metric description
+  1,                      // Metric type: 1 - Counter, 2 - Gauge, 3 - Untyped (float)
+  64,                     // Value
+  {                       // Labels
+    s_metric: "dnscounts",
+    s_pod: podName 
+  }
+);
+```
+
+## Exporting Custom Metrics
+
+It is recommended to export custom metrics as part of a scheduled job to ensure efficient resource utilization.
+
+**Example:**
+```javascript
+jobs.schedule("export-metrics", "*/10 * * * * *", function () {
+  for (var podName in dnsCounts) {
+    prometheus.metric(
+      "dnscounts_" + podName,
+      "DNS request count per pod",
+      1,
+      dnsCounts[podName],
+      { s_metric: "dnscounts", s_pod: podName }
+    );
+  }
+});
+```
+## Visualizing in Grafana
+
+Once the script is executed, you can use the following PromQL query to display the custom metric on the Grafana dashboard:
+
+```javascript
+rate({s_metric="dnscounts"}[$__rate_interval])
+```
+
+![Custom Metric in Grafana](/custom-metric-prom.png)
 
 ## Configuration
 
-By default, Kubeshark uses port `49100` to expose metrics via service `kubeshark-worker-metrics`.
+By default, **Kubeshark** uses port `49100` to expose metrics through the service `kubeshark-worker-metrics`.
 
-In case you use [kube-prometheus-stack] (https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) community Helm chart, additional scrape configuration for Kubeshark worker metrics endpoint can be configured with values:
+If you are using the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) community Helm chart, you can configure additional scraping for Kubeshark using the following configuration:
 
-```
+```yaml
 prometheus:
   enabled: true
   prometheusSpec:
@@ -68,38 +109,51 @@ prometheus:
             regex: __meta_kubernetes_service_label_(.+)
 ```
 
-
 ## Existing Metrics
 
-Existing metrics csn be useful to monitor Kubeshark
+Existing metrics provide essential insights for monitoring **Kubeshark**.
 
-> For most up-to-date details, visit the [metrics section](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/metrics.md) in the repo.
+> For the most up-to-date details, visit the [metrics section](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/metrics.md) in the repository.
 
 ### Available Metrics
 
-| Name | Type | Description | 
-| --- | --- | --- | 
-| kubeshark_received_packets_total | Counter | Total number of packets received | 
-| kubeshark_dropped_packets_total | Counter | Total number of packets dropped | 
-| kubeshark_processed_bytes_total | Counter | Total number of bytes processed |
-| kubeshark_tcp_packets_total | Counter | Total number of TCP packets | 
-| kubeshark_dns_packets_total | Counter | Total number of DNS packets | 
-| kubeshark_icmp_packets_total | Counter | Total number of ICMP packets | 
-| kubeshark_reassembled_tcp_payloads_total | Counter | Total number of reassembled TCP payloads |
-| kubeshark_matched_pairs_total | Counter | Total number of matched pairs | 
-| kubeshark_dropped_tcp_streams_total | Counter | Total number of dropped TCP streams | 
-| kubeshark_live_tcp_streams | Gauge | Number of live TCP streams |
+| Name                                      | Type    | Description                                   |
+|-------------------------------------------|---------|-----------------------------------------------|
+| kubeshark_received_packets_total          | Counter | Total number of packets received             |
+| kubeshark_dropped_packets_total           | Counter | Total number of packets dropped              |
+| kubeshark_processed_bytes_total           | Counter | Total number of bytes processed              |
+| kubeshark_tcp_packets_total               | Counter | Total number of TCP packets                  |
+| kubeshark_dns_packets_total               | Counter | Total number of DNS packets                  |
+| kubeshark_icmp_packets_total              | Counter | Total number of ICMP packets                 |
+| kubeshark_reassembled_tcp_payloads_total  | Counter | Total number of reassembled TCP payloads     |
+| kubeshark_matched_pairs_total             | Counter | Total number of matched pairs                |
+| kubeshark_dropped_tcp_streams_total       | Counter | Total number of dropped TCP streams          |
+| kubeshark_live_tcp_streams                | Gauge   | Number of live TCP streams                   |
 
 ## Ready-to-use Dashboard
 
-You can import a ready-to-use dashboard from [Grafana's Dashboards Portal](https://grafana.com/grafana/dashboards/20359-kubeshark-dashboard-v1-0-003/).
-
+You can import a ready-to-use dashboard from [Grafana's Dashboards Portal](https://grafana.com/grafana/dashboards/21332-kubeshark-dashboard-v3-10/).
 
 ## TL;DR
 
+### Metric
+
+A time-series data stream identified by a name and a set of key-value pairs (called **labels**). Supported metric types:
+- **Counter**: A cumulative value that only increases (e.g., number of requests).
+- **Gauge**: A value that can increase or decrease (e.g., memory usage).
+- **Untyped**: A metric that does not strictly conform to the semantics of other metric types and is essentially a floating-point value (float64).
+
+**Example of a metric:**
+```plaintext
+http_requests_total{method="POST", handler="/api"}
+```
+
+- `http_requests_total` is the metric name.
+- `{method="POST", handler="/api"}` are the labels.
+
 ### Install Prometheus Community Version
 
-```yaml
+```bash
 helm upgrade -i prometheus prometheus-community/kube-prometheus-stack \
 --namespace prometheus --create-namespace \
 -f kube_prometheus_stack.yaml
@@ -107,8 +161,7 @@ helm upgrade -i prometheus prometheus-community/kube-prometheus-stack \
 kubectl port-forward -n prometheus svc/prometheus-grafana 8080:80
 ```
 
-Example `kube_prometheus_stack.yaml` file:
-
+**Example `kube_prometheus_stack.yaml` file:**
 ```yaml
 grafana:
   additionalDataSources: []

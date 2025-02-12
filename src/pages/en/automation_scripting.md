@@ -4,11 +4,70 @@ description: Custom-logic scripts use hooks and helpers to trigger actions, supp
 layout: ../../layouts/MainLayout.astro
 ---
 
-Custom-logic scripts use [hooks](/en/automation_hooks) and [helpers](/en/automation_helpers) to trigger actions, supported by available integrations, based on programmatic decisions and/or a schedule.
+**Custom-logic scripts** leverage hooks and helpers to trigger actions, supported by available integrations, and are executed based on programmatic decisions or scheduled tasks.
 
-**Kubeshark**'s scripting language is based on [JavaScript ES5](https://262.ecma-international.org/5.1/).
+**Kubeshark**'s scripting language is based on [JavaScript ES5](https://262.ecma-international.org/5.1/). A script comprises the following components:
 
-The following script example calculates the number of packets and overall traffic processed per minute using an L4 network hook ([`onPacketCaptured`](/en/automation_hooks#onpacketcapturedinfo-object)), some helpers, and a job.
+1. **Hooks** - Triggered by specific events.
+2. **Helpers** - Used to call integrations and specific **Kubeshark** functions.
+3. **General code** - Performs calculations and stores information in memory.
+
+Scripts process network traffic, perform calculations, and trigger actions to create custom metrics, export logs, generate reports, or automate workflows.
+
+## Hooks
+
+`Hooks` are functions that process network traffic when specific events occur. They allow the execution of user-defined JavaScript code within **Kubeshark**'s Golang backend.
+
+One of the simplest hooks is `onItemCaptured`, which is triggered every time an API call is processed and reassembled. The example below prints the metadata of every API call:
+
+```js
+function onItemCaptured(data) {
+  // Prints the API call metadata
+  console.log("Msg:", data);
+}
+```
+
+Hooks run continuously in the background, independent of the dashboard’s state (open or closed).
+
+### Hook Examples
+
+The table below shows common `hooks` and their descriptions:
+
+| Hook              | Event                                    | Runnable on     | Description                                                                                   |
+|------------------|------------------------------------------|-----------------|-----------------------------------------------------------------------------------------------|
+| onItemCaptured    | API call reassembly                     | Workers         | Triggered for each reassembled message. Suitable for quick actions like calculations or data assignments. |
+| onHubAction       | `hub.action(action, object)` invocation | Hub             | Used for moving objects from workers to the Hub, consolidating objects, or offloading tasks.  |
+| onPodEvent        | Pod events (e.g., restarts)             | Hub and Workers | Triggered by pod events, allowing actions such as capturing snapshots before crashes.         |
+
+---
+
+## Helpers
+
+`Helpers` trigger actions related to integrations, such as Slack or AWS services, and provide a mechanism to interact with **Kubeshark**'s Golang backend.
+
+Below is an example of using a helper to send an object to a webhook:
+
+```js
+vendor.webhook(
+  "POST",
+  "https://webhook.site/a42ca96d-4984-45dc-8f72-a601448399dc",
+  JSON.stringify(data)
+);
+```
+
+### Helper Examples
+
+The table below provides common `helpers` and their descriptions:
+
+| Helper               | Usage                            | Runnable on     | Description                                                                                   |
+|---------------------|----------------------------------|-----------------|-----------------------------------------------------------------------------------------------|
+| console.log          | Print text to the console        | Hub and Workers | Used for logging messages or generating custom reports.                                       |
+| jobs.schedule        | Schedule jobs                    | Hub and Workers | Schedules a function using a cron expression, suitable for time-consuming tasks.              |
+| vendor.kinesis.put   | Export traffic to AWS Kinesis    | Hub and Workers | Sends data to a Kinesis stream for external analysis, such as security monitoring or API scanning. |
+
+## Complete Script Example
+
+The example below calculates the number of packets and total traffic processed per minute using an L4 network hook (`onPacketCaptured`), helpers, and a scheduled job:
 
 ```js
 var packetCount = 0;
@@ -31,31 +90,30 @@ jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTot
 
 ## Scripts Storage
 
-Scripts are stored in `kubeshark-config-map`. You can develop and manage scripts locally in a folder and use the `kubeshark scripts` command to synchronize files to the config map and watch for any changes in the scripts.
+Scripts are stored in `kubeshark-config-map`. They can be developed and managed locally and synced using the `kubeshark scripts` command, which automatically detects changes.
 
-> Scripts code should be compliant with [JavaScript ES5](https://262.ecma-international.org/5.1/) and each file should have a `.js`` suffix
+> Ensure the script code complies with [JavaScript ES5](https://262.ecma-international.org/5.1/) and that script files have a `.js` suffix.
 
-Example:
-
-``` shell
- kubeshark scripts --set scripting.source=/path/to/your/local/folder
+**Example:**
+```shell
+kubeshark scripts --set scripting.source=/path/to/your/local/folder
 ```
 
 ## Viewing and Editing Scripts in the Dashboard
 
-While the scripts are stored in `kubeshark-config-map`, they can be viewed and edited in the Dashboard by accessing the Scripting section:
+Scripts stored in `kubeshark-config-map` can be viewed and edited directly in the **Kubeshark** dashboard under the Scripting section:
 
 ![Accessing the Scripting Dashboard](/scripting_menu.png)
 
-### Script Examples Dropdown
+### Script Examples
 
-**Kubeshark** comes with numerous script examples for various use cases as part of its dashboard. Use the Examples dropdown list to access the list of script examples.
+**Kubeshark** provides a variety of script examples within its dashboard. These examples can be accessed via the Examples dropdown list:
 
 ![Script Examples](/script-examples.png)
 
 ## Environment Variables
 
-You can use the `env` configuration directive to provide environment variables for your scripts.
+Use the `env` configuration to define environment variables for scripts.
 
 ```yaml
 scripting:
@@ -70,8 +128,9 @@ scripting:
     INFLUXDB_BUCKET: "al.."
 ```
 
-To use any of the environment variables in a script, use the prefix: `env.*`. For example:
+To reference these variables in scripts, use the `env.*` prefix.
 
+**Example:**
 ```js
 vendor.influxdb(
   env.INFLUXDB_URL,
@@ -86,8 +145,8 @@ vendor.influxdb(
 
 ## Scopes
 
-**Kubeshark** scripts support the following scopes:
+**Kubeshark** scripts support the following variable scopes:
 
-- **Function:** When variables and functions are declared within a function.
-- **Script:** When variables and functions are declared outside functions, at the script level, and can maintain a state across the specific script's functions.
-- **Global:** When using the object `this`, scripts and functions are declared at the global level, accessible by all scripts.
+- **Function Scope:** Variables and functions declared within a function.
+- **Script Scope:** Variables and functions declared outside functions and accessible within the same script.
+- **Global Scope:** Variables and functions declared using `this` are accessible globally by all scripts.

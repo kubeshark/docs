@@ -20,6 +20,10 @@ All security and compliance-related topics listed in this document pertain to Ku
 
 **Kubeshark** is self-hosted and operates 100% on-premises. Designed to run in air-gapped environments, it does not require any internet connection, and absolutely no Data leaves the premises. As such, the Vendor is not exposed to the Data in any way.
 
+## No Access to Vendor
+
+By design, the Vendor's employees have no access to the product or the data it generates once deployed in the customer's environment. 
+
 ## Local Container Registry
 
 All containers comprising **Kubeshark** are stored in a local container repository and can be scanned for vulnerabilities based on the organization's security policies. The containers can be downloaded or built locally if necessary.
