@@ -4,17 +4,49 @@ description:
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** provides cluster-wide recording of all L4 supported protocols (e.g., TCP, UDP, and SCTP) traffic, including [decrypted TLS](http://localhost:3000/en/encrypted_traffic) and mTLS traffic. This functionality is similar to the popular [tcpdump](https://www.tcpdump.org/).  
+## TL;DR
 
-> This functionality is free of charge, with no limitations on cluster size, and does not require a license.
+```
+kubeshark tap --set headless=true   # start recording
+                                    # wait as long as you'd like
+kubeshark pcapdump --time=5m        # take a snapshot of the last 5 minutes     
+```
+
+## Now, In Detail
+
+**Kubeshark** provides cluster-wide recording of all L4-supported protocols (e.g., TCP, UDP, and SCTP) traffic, including [decrypted TLS](http://localhost:3000/en/encrypted_traffic) and mTLS traffic. This functionality is similar to the popular [tcpdump](https://www.tcpdump.org/).  
+
+> This functionality is free of charge, with no limitations on cluster size and does not require a license.
 
 **Kubeshark** automatically and continuously records and stores all captured traffic, managing both time window and storage limits. This enables you to export recorded traffic to your local folder at any time for retention or further analysis using [Wireshark](https://www.wireshark.org/).
 
 To export the recorded traffic locally, follow these steps:
 
-1. Verify that the **Kubeshark** CLI is installed.  
-2. Confirm that **Kubeshark** is deployed and running.  
-3. Execute one of the following commands:  
+## Running Kubeshark
+
+### CLI Installation
+
+First, you'd need to verify that the **Kubeshark** CLI is installed. YOu can install **Kubeshark** using Homebrew (e.g. `brew install kubeshark`) or using any other supported method.  
+
+> Read [here](/en/install) about ways to install **Kubeshark**.
+
+### Running with a License
+
+If you have a license, you can run **Kubeshark** via any of the [supported methods](/en/install).
+
+### Running Without a License
+
+Using the dashboard will require a valid license key. If you only need to record traffic and do not require the dashboard, you can run **Kubeshark** in headless mode:
+
+```shell
+kubeshark tap --set headless=true
+```
+
+Running **Kubeshark** in headless mode will not open the dashboard and does not require a license key.
+
+## Take a Snapshot
+
+You can take a snapshot of the recorded traffic using one of the following commands:  
 
 ```shell
 kubeshark pcapdump --dest=/tmp            # Export all PCAP files to a specified local directory
@@ -22,7 +54,10 @@ kubeshark pcapdump --dest=/tmp --time=5m  # Export the last 5 minutes of recorde
 kubeshark pcapdump                        # Export all PCAP files to the current directory
 kubeshark pcapdump --time=5m              # Export the last 5 minutes of recorded traffic to the current directory
 ```
-> The `kubeshark` CLI can be [installed using homebrew](/en/install#homebrew) or [downloaded from GitHub](https://github.com/kubeshark/kubeshark/releases)
+
+> The `kubeshark` CLI can be [installed using Homebrew](/en/install#homebrew) or [downloaded from GitHub](https://github.com/kubeshark/kubeshark/releases).
+
+The result of running any of these commands is a single PCAP file downloaded to the directory where the command is executed (or where the `dest` flag is pointing).
 
 ## Advanced Options
 
@@ -39,10 +74,10 @@ Example capture filter configuration:
 ```yaml
 tap:
   regex: .*front                    # Capture traffic for pods matching the regex
-  namespaces:                       # From the specified namespaces
+  namespaces:                        # From the specified namespaces
     - ns1
     - ns2
-  excludedNamespaces:               # Exclude traffic from these namespaces
+  excludedNamespaces:                # Exclude traffic from these namespaces
     - ns3
   bpfOverride: "net 0.0.0.0/0"      # Override with a custom BPF expression
 ```
@@ -74,4 +109,5 @@ While `pcapdump` and the [Traffic Recorder](/en/traffic_recorder) serve similar 
 
 - **`pcapdump`**: A lightweight, tcpdump-like utility for capturing PCAP traffic for external analysis in [Wireshark](https://www.wireshark.org/). It primarily stores Layer 4 (L4) traffic without Kubernetes context (e.g., pod, service, or namespace names).
 
-- [**Traffic Recorder**](/en/traffic_recorder): Integrated with the **Kubeshark** dashboard, it enables traffic capture and storage for offline analysis. It captures both Layer 4 (L4) and Layer 7 (L7) traffic, along with Kubernetes context. 
+- [**Traffic Recorder**](/en/traffic_recorder): Integrated with the **Kubeshark** dashboard, it enables traffic capture and storage for offline analysis. It captures both Layer 4 (L4) and Layer 7 (L7) traffic, along with Kubernetes context.
+
