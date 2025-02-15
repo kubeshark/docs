@@ -31,11 +31,11 @@ helm uninstall kubeshark
 Each release includes a complete K8s manifest that can be customized or used as is:  
 ```shell  
 export TAG=v52.3.92  # as an example
-kubectl apply -f https://raw.githubusercontent.com/kubeshark/kubeshark/refs/$TAG/manifests/complete.yaml  
+kubectl apply -f https://raw.githubusercontent.com/kubeshark/kubeshark/refs/tags/$TAG/manifests/complete.yaml  
 kubectl port-forward service/kubeshark-front 8899:80  
 
 # cleanup  
-kubectl delete -f https://raw.githubusercontent.com/kubeshark/kubeshark/refs/$TAG/manifests/complete.yaml  
+kubectl delete -f https://raw.githubusercontent.com/kubeshark/kubeshark/refs/tags/$TAG/manifests/complete.yaml  
 ```  
 
 You can choose a `tag` from: https://github.com/kubeshark/kubeshark/tags.  
