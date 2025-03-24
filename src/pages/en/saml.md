@@ -70,7 +70,7 @@ Once you run `helm install kubeshark kubeshark/kubeshark -f ./values.yaml`, Kube
 1. Open your Kubeshark dashboard <br/>(available by accessing your [**Ingress**](/en/ingress) host or `http://0.0.0.0:8899`)
 2. You will be directed to a Dex IdP login page.
 
-Note:
+**Note**:
 The number of available login options depends on a Dex IdP instance configuration.
 
 Example of a Dex IdP login page:
