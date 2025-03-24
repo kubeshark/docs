@@ -34,7 +34,7 @@ OAuth2 callback URL is: <br/>
 
 Use chosen OAuth2 callback URL to replace `<your-kubeshark-host>` in Step 3.
 
-**3. Add this static client to your Dex IdP configuration (`config.yaml`):**
+**3. Add this static client to your Dex IdP instance configuration (`config.yaml`):**
 ```yaml
 staticClients:
    - id: kubeshark
