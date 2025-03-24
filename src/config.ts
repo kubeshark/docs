@@ -81,12 +81,6 @@ export const SIDEBAR: Sidebar = {
       // { text: 'PCAP & API metadata', link: 'en/pcap' },
       { text: 'Data Persistency', link: 'en/data_persistency' },
     ],
-    'Collaboration': [
-      { text: 'Ingress', link: 'en/ingress' }, 
-      // { text: 'Authentication', link: 'en/authentication' },
-      { text: 'Sensitive Data Redaction', link: 'en/redaction' },  
-      { text: 'Auth: SSO, OIDC, SAML', link: 'en/saml' },
-    ],
     'Network Insights': [
       { text: 'Introduction', link: 'en/automation_introduction' },
       { text: 'Scripting', link: 'en/automation_scripting' },
@@ -96,6 +90,14 @@ export const SIDEBAR: Sidebar = {
       { text: 'Jobs', link: 'en/automation_jobs' },
       { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' },
       { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
+    ],
+    'Central Hosting': [
+      { text: 'Ingress', link: 'en/ingress' }, 
+      // { text: 'Authentication', link: 'en/authentication' },
+      { text: 'Sensitive Data Redaction', link: 'en/redaction' },  
+      { text: 'SAML', link: 'en/saml' },
+      { text: 'OIDC w/ DEX', link: 'en/oidc' },
+      { text: 'Reverse Proxy w/ a Custom Path', link: 'en/custom_path' },
     ],
     'Integrations': [
       { text: 'Log Aggregation', link: 'en/integration_kubeshark_logs' },
