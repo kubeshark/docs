@@ -85,7 +85,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Ingress', link: 'en/ingress' }, 
       // { text: 'Authentication', link: 'en/authentication' },
       { text: 'Sensitive Data Redaction', link: 'en/redaction' },  
-      { text: 'SSO, SAML, Authorization ', link: 'en/saml' }, 
+      { text: 'Auth: SSO, OIDC, SAML', link: 'en/saml' },
     ],
     'Network Insights': [
       { text: 'Introduction', link: 'en/automation_introduction' },
