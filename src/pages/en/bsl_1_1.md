@@ -42,13 +42,15 @@ This Grant outlines the terms and conditions for limited production use of the L
 
 **3. Use in Production:**
 
-3.1 Any use of the Licensed Work requires obtaining a License.
+3.1 Any use of the Licensed Work requires obtaining an Enterprise License.
 
-3.2 Licensee may choose to use the Licensed Work in a production environment at their own discretion, despite the active development status in condition, once Licensee has obtained an appropriate license from the Licensor.
+3.2 An Enterprise POC license, a trial or a Community license do not qualify as an Enterprise license and do not grant permission to use the Licensed Work in prodction.
 
-3.3 If Licensee decides to use the Licensed Work in a production environment, Licensee assumes all risks and responsibilities associated with such use.
+3.3 Licensee may choose to use the Licensed Work in a production environment at their own discretion, despite the active development status in condition, once Licensee has obtained an appropriate license from the Licensor.
 
-3.4 Licensee agrees that Licensor, shall not be held liable for any damages, losses, or liabilities arising from the use of the Product in a production environment, including but not limited to any interruptions, failures, or data inaccuracies.
+3.4 If Licensee decides to use the Licensed Work in a production environment, Licensee assumes all risks and responsibilities associated with such use.
+
+3.5 Licensee agrees that Licensor, shall not be held liable for any damages, losses, or liabilities arising from the use of the Product in a production environment, including but not limited to any interruptions, failures, or data inaccuracies.
 
 **4. Governing Law and Jurisdiction:**
 
