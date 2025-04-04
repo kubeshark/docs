@@ -39,7 +39,19 @@ tap:
       clientSecret: <your client password>
       refreshTokenLifetime: "3960h" # 165 days
       oauth2StateParamExpiry: "10m"
+      bypassSslCaCheck: false
 ```
+
+---
+
+**Note:**<br/>
+Set `tap.auth.dexOidc.bypassSslCaCheck: true` 
+to allow Kubeshark communication with Dex IdP having an unknown SSL Certificate Authority.
+
+This setting allows you to prevent such SSL CA-related errors:<br/>
+`tls: failed to verify certificate: x509: certificate signed by unknown authority`
+
+---
 
 After configuring the values file, install Kubeshark with the following command:
 
