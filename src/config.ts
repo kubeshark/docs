@@ -91,7 +91,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Logs & Alerts', link: 'en/automation_logs_alerts' },
       { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
     ],
-    'Central Hosting': [
+    'Collaboration': [
       { text: 'Ingress', link: 'en/ingress' }, 
       // { text: 'Authentication', link: 'en/authentication' },
       { text: 'Sensitive Data Redaction', link: 'en/redaction' },  
