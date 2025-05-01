@@ -6,72 +6,84 @@ layout: ../../layouts/MainLayout.astro
 
 ## Getting Started Quickly
 
-To quickly and seamlessly start a recording job, follow these steps:
-1. Click the recording button located next to the KFL statement box.
-![Traffic Recorder Button](/record_button.png)
-2. Make sure the `Start Time` is blank. If it's not blank, press the `X` to blank the `Start Time` and cause the recording to start imidiately.
-3. Press CREATE.
-4. After a few minutes, use `record("<recording-name>")` in the KFL box to see the content of the recording up to that point.
+To start a recording job quickly and seamlessly, follow these steps:
 
-> Kubeshark default configuration is not optimal for using the Traffic Recorder, especially in busy clusters. Read more about it in the [configuration section](/en/traffic_recorder#troubleshooting--configuration-tuning).
+1. Click the **recording button** located next to the KFL statement box.  
+   ![Traffic Recorder Button](/record_button.png)
+2. Ensure the `Start Time` field is empty. If it's not, click the `X` to clear it. This will start the recording immediately.
+3. Click **CREATE**.
+4. Wait a few minutes, then return to the recording dialog to view the captured traffic.
 
-The **Traffic Recorder** allows for the execution of multiple individual recording jobs. Each job independently records traffic based on a [KFL](/en/filtering) statement and operates on its own schedule. Any of these recordings can be analyzed using a rich filtering language at the user's discretion.
+> The default **Kubeshark** configuration is not optimized for the Traffic Recorder, especially in busy clusters. For best results, review the [configuration section](/en/traffic_recorder#troubleshooting--configuration-tuning).
+
+The **Traffic Recorder** supports multiple concurrent recording jobs. Each job captures traffic independently, based on a specific [KFL](/en/filtering) statement and schedule. Recordings can be filtered and analyzed using Kubeshark’s advanced query language.
+
+---
 
 ### Recording Job Properties
-Configure the recording job properties through the recording job dialog window by setting the following parameters:
 
-| Property | Value Examples | Description |
-| --- | --- | --- |
-| KFL Statement | `http or dns` | The pattern used to filter and record traffic. |
-| Name | `my_recording_no_15` | The job's name, which also serves as the recording folder's name. This name can later be used to access the recorded content. |
-| Start Time | `08:45 UTC` <br /> `<leave-empty>` | The scheduled start time of the job, in UTC timezone. Leave blank to start immediately. |
-| Daily Iterations | 0 - forever<br />1 - once<br />n - days | Set to `1` for a single run, or enter a number to run for that many days. To run indefinitely, set to `0`. |
-| Duration | `60` <br /> `1440` | The length of time, in minutes, traffic will be recorded once the job starts. |
-| Expiration | `1440` <br /> `4320` | To conserve storage space, this setting allows the traffic folder to expire and be deleted after a specified time. |
+Configure recording job settings in the recording dialog window using the following parameters:
+
+| Property         | Example Values                         | Description                                                                 |
+|------------------|----------------------------------------|-----------------------------------------------------------------------------|
+| KFL Statement     | `http or dns`                          | The KFL pattern used to filter and record traffic.                          |
+| Name              | `my_recording_no_15`                   | The name of the job and the corresponding folder. Used to retrieve data.   |
+| Start Time        | `08:45 UTC` or leave empty             | Scheduled start time in UTC. Leave empty to start immediately.             |
+| Daily Iterations  | `1` (once), `0` (forever), `n` (days)  | Number of days the job should run. Use `1` for once or `0` to run forever. |
+| Duration          | `60`, `1440`                           | Duration in minutes to record traffic after the job starts.                |
+| Expiration        | `1440`, `4320`                         | Time in minutes before the recording folder is deleted to free storage.    |
 
 ![Traffic Recorder Dialog](/recording_dialog.png)
 
-## Behavior-based Recording
+---
 
-KFL statements can identify K8s elements like pods and namespaces but can also describe traffic patterns. For example:
+## Behavior-Based Recording
+
+KFL statements can filter traffic by Kubernetes attributes (e.g., pods, namespaces) and behavior. For example:
+
 ```yaml
 (response.status == 500) and 
 (request.headers["User-Agent"] == "kube-probe/1.27+") and 
 (src.name == "kube-prometheus-stack-prometheus-node-exporter")
 ```
-In this scenario, record L4 streams that include API traffic from a specific service, with certain characteristics and API status code `500`.
 
-> Go next to [Recorded Traffic Offline Analysis](/en/offline_analysis)
+This captures L4 streams for API traffic that meets specific criteria, such as being initiated by a known service and returning HTTP status code `500`.
+
+> Next: [Recorded Traffic Offline Analysis](/en/offline_analysis)
+
+---
 
 ## Troubleshooting & Configuration Tuning
 
-Out of the box, Kubeshark is optimally configured to view real-time streaming traffic in small clusters. The default configuration is not optimal for using the Traffic Recorder, especially in busy clusters. Misconfiguration can result in Worker pod eviction and loss of recorded PCAP traffic.
+By default, **Kubeshark** is optimized for real-time traffic viewing in small clusters. However, the **Traffic Recorder** requires tuning for performance in busy or large-scale environments. Incorrect configuration can lead to Worker pod eviction and loss of PCAP data.
+
+---
 
 ### Signs of Misconfiguration
 
 #### Eviction
 
-The Worker storage limit is set by `tap.storageLimit`, defaulting to `500Mi`. Exceeding this limit triggers pod eviction, purging storage, and restarting the pod. 
+The `tap.storageLimit` default is `500Mi`. When exceeded, the Worker pod is evicted, its storage is purged, and it is restarted.
 
-PCAP and JSON file storage space on the Workers can quickly fill up and surpass the storage limitation, causing Worker pod eviction. When Worker pods are evicted, all stored data is discarded and the recording content will appear empty. 
+Large volumes of PCAP or JSON data can exceed this limit quickly, especially in busy clusters. Once evicted, all recorded data is lost, and the recording will appear empty.
+
+---
 
 ### Suggested Configuration Values
 
-Tuning the configuration and finding the right values is up to the user and largely depends on the available resources and how busy the cluster is.
-
-Here's an example of suggested configuration; however, feel free to provide much larger values or play with different values to find the most efficient configuration for your cluster.
+Tuning depends on your available resources and traffic volume. Below is a sample configuration—feel free to increase values as needed for your environment.
 
 ```yaml
 --set tap.storageLimit=5Gi --set tap.misc.pcapTTL=30s
 ```
 
-or
+or as YAML:
 
 ```yaml
 tap:
-    misc:
-        pcapTTL: 30s
-    storageLimit: 5Gi
+  misc:
+    pcapTTL: 30s
+  storageLimit: 5Gi
 ```
 
-> No need to change the JSON TTL for the Traffic Recorder to work optimally.
+> There's no need to adjust JSON TTL settings for the Traffic Recorder to function effectively.
