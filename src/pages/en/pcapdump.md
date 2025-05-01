@@ -16,38 +16,15 @@ The snapshot includes all Layer 4 (L4) supported protocols—such as TCP, UDP, a
 
 ## Configuration Options
 
-### Capture Filters
+See the [Capture Filters](/en/pod_targeting) section to learn more about how to set proper capture filters.
 
-Traffic capture in **Kubeshark** is based on configurable [capture filters](/en/pod_targeting). Captured traffic is stored as local PCAP files on the node’s disk, with retention and storage limits managed automatically.
-
-Example configuration:
-
-```yaml
-tap:
-  regex: .*front                   # Capture traffic for pods matching this regex
-  namespaces:                      # Include these namespaces
-    - ns1
-    - ns2
-  excludedNamespaces:              # Exclude these namespaces
-    - ns3
-  bpfOverride: "net 0.0.0.0/0"     # Use a custom BPF expression
-```
-
-> Learn more in the [capture filters documentation](/en/pod_targeting).
-
----
-
-### Time Window and Storage Management
+Specific traffic snapshot (`pcapdump`) properties can be set in the `settings` section or in the Helm values.
 
 **Kubeshark** handles retention automatically by deleting old files outside the defined time window or beyond the allocated storage quota.
 
 For example, with a 24-hour time window and a 50 MB storage limit, **Kubeshark** retains only the files recorded in the last 24 hours and within the 50 MB cap. Older or excess files are removed automatically.
 
----
-
-### Configuration
-
-> The default settings are generally sufficient, but they can be customized via Helm values if needed.
+![Traffic Snapshot Settings](/pcapdump_settings.png)
 
 Example `pcapdump` configuration:
 
