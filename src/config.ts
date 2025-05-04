@@ -84,6 +84,7 @@ export const SIDEBAR: Sidebar = {
     'Network Agents': [
       { text: 'Introduction', link: 'en/automation_introduction' },
       { text: 'Agent Logic', link: 'en/automation_scripting' },
+      { text: 'Activating Agents', link: 'en/agents_run' },
       // { text: 'Hooks', link: 'en/automation_hooks' },
       // { text: 'Helpers', link: 'en/automation_helpers' },
       // // { text: 'Wrappers', link: 'en/automation_wrappers' },
