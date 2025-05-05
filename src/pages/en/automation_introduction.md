@@ -10,11 +10,13 @@ Users can create and use an unlimited number of **Network Agents**, each designe
 
 Agents can detect anomalies and threats, generate reports, export metrics, traces, and logs, enforce network policies, record traffic, and more.
 
-### Active Connection to an LLM
+### Optional Connection to a Custom LLM
 
 Connecting to an external LLM is **optional** and can be fully disabled to support air-gapped environments.
-You can still get help creating new Agents without any connection between **Kubeshark** and an external LLM.
-If enabled, each **Network Agent** maintains a persistent connection with an LLM. This connection allows:
+
+Agent will run and you can still get help creating new Agents without any connection between **Kubeshark** and an external LLM.
+
+If enabled, each **Network Agent** will maintain a persistent connection with a custom LLM. This connection will allow:
 
 1. Continuous, bidirectional communication—typically sending data objects (JSON maps) over time and receiving actionable insights.
    **Example use case:** detect anomalies across a time range.

@@ -4,8 +4,10 @@ description: A guide for creating, editing, and managing custom network agents i
 layout: ../../layouts/MainLayout.astro
 ---
 
-You can use an existing agent template, extend a template, or build a new one using our GenAI assistant.
+You can use an existing agent template, extend a template, or build a new one using our Custom GPT.
+
 Each **Network Agent** has its own logic, defined by a [JavaScript script](/en/automation_scripting), which you can inspect, approve, or customize.
+
 **Network Agents** observe traffic using [hooks](/en/automation_hooks) and can trigger actions via [helpers](/en/automation_helpers).
 
 ## New Agent Creation

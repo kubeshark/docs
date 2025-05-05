@@ -99,7 +99,7 @@ jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTot
 
 ## Script Storage
 
-Scripts are stored in the `kubeshark-config-map`. They can be developed locally and synced using the `kubeshark scripts` command, which automatically detects changes.
+Scripts are stored in the `kubeshark-config-map`. They can be developed locally and synced using the [`kubeshark scripts` command](/en/automation_scripts_cmd), which automatically detects changes.
 
 > Scripts must be compliant with [JavaScript ES5](https://262.ecma-international.org/5.1/) and use the `.js` file extension.
 
