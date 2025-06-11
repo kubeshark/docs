@@ -6,6 +6,29 @@ layout: ../../layouts/MainLayout.astro
 
 **Kubeshark** installation aims to be straightforward, but due to the diverse range of Kubernetes (K8s) versions and configurations, some troubleshooting may be required.
 
+
+## Troubleshooting
+
+### No Data Displayed for Specific Pods
+
+If no data is shown, validate pod targeting. Common root causes include:
+
+1. The pod is no longer running.
+2. No Worker is present on the node hosting the pod.
+3. Pod targeting filters are excluding the pod.
+
+* Confirm that the Worker is active on the node and running correctly.
+* Restart the Worker if necessary.
+* Review logs for relevant errors or warnings.
+
+### Pod is Targeted but No Data is Displayed
+
+Potential causes include Worker malfunction, traffic capture issues, or protocol parsing limitations.
+
+* Check for traffic visibility on the node. If none appears, restart the Worker.
+* Enable protocol dissectors (e.g., TCP) to validate packet inspection.
+* Determine whether the traffic is encrypted, which may limit visibility.
+
 ## I Don't See the Traffic I'm Looking For
 
 Use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling) to see all TCP traffic. If the traffic isn't visible, **Kubeshark** isn't capturing it for some reason (e.g., capture filters).
