@@ -115,7 +115,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
     ],
     'Commercial': [
-      { text: 'Community vs Pro vs Enterprise', link: 'en/pro' },
+      // { text: 'Community vs Pro vs Enterprise', link: 'en/pro' },
       { text: 'The License Key', link: 'en/how_to_use_the_license' },
       { text: 'License', link: 'en/license' },
       { text: 'Security & Compliance', link: 'en/security' },
