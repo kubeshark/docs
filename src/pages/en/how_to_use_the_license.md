@@ -7,6 +7,18 @@ mascot: Hello
 
 A license key belongs to a named user (the **Licensee**). The license key is an encrypted string that is automatically added to the Licensee's account when they subscribe to a plan. This key includes information related to the Licensee's plan, such as node limit, API call limit, plan expiration date, edition, etc.
 
+## Types of License
+
+### Single-Cluster License
+
+A single-cluster license key can be used only on a single specific cluster that is identified by a unique ID. This license can not be tranfered to a different cluster, without resetting the license. 
+THe license will include a node limit that should be higher than the maximum node coumnt of the cluster (considering control plane, auto-scaling, spot instances, etc)
+
+### Multi-Cluster License
+
+An unlimited-cluster license is a single linces key that can be used on any cluster, as long as the number of nodes in the cluster doesn't surpase the license node limit.
+
+
 ## Applying a License Key to a Specific Cluster
 
 To use a license key in a cluster, the Licensee should log in to **Kubeshark**'s dashboard on the specific cluster. There is no limit on the number of clusters the Licensee can log in to and apply their license.
