@@ -1,31 +1,43 @@
 ---
-title: ON/OFF Switch (Dormant Feature)  
-description: The dynamic on/off switch, if set to on, Kubeshark will function as expected, and if set to off, Kubeshark will lay dormant and consume almost no resources. This is especially useful if you want to have Kubeshark installed but not actually processing traffic and consuming resources, yet ready to start on command (manual or automated).  
-layout: ../../layouts/MainLayout.astro  
+title: ON/OFF Switch (Dormant Feature)
+description: Enables precise control over **Kubeshark**’s activity to manage resource consumption by toggling traffic capture on or off. When off, **Kubeshark** remains installed but dormant, consuming minimal resources until reactivated manually or automatically.
+layout: ../../layouts/MainLayout.astro
 ---
 
-Resource consumption (e.g., CPU and memory) is key in Kubernetes. **Kubeshark**'s resource consumption is linearly dependent on the amount of traffic it processes. There are many ways to control resource consumption, and this ON/OFF switch is one of them.
+Resource consumption, especially CPU and memory, is critical in Kubernetes environments. **Kubeshark**’s usage scales linearly with the volume of network traffic it processes. While there are multiple ways to manage this, the ON/OFF switch provides a straightforward and effective option.
 
-Stopping and starting traffic capturing enables controlling **Kubeshark**'s resource consumption. When traffic capture is stopped, **Kubeshark** is dormant in your cluster, processing no traffic and consuming almost no resources.
+Enabling or disabling traffic capture directly controls **Kubeshark**’s resource usage. When capture is stopped, **Kubeshark** remains in a dormant state within the cluster—processing no traffic and consuming minimal resources.
 
-**Kubeshark**'s Helm template supports a Helm value named `tap.stopped`, which controls whether **Kubeshark** is in a `stopped` state or not.
+**Kubeshark**’s Helm template includes a Helm value, `tap.capture.stopped`, that determines whether **Kubeshark** starts in a `stopped` state.
 
 ## Changing the Value Dynamically via the Dashboard
 
-This value can be changed dynamically via the dashboard by pressing the `Enable Traffic Capture` button. You can also see an indication of the state of traffic capturing at the top fold.
+This setting can be updated in real-time through the dashboard by clicking the `Enable Traffic Capture` button. The current capture state is also displayed prominently at the top of the dashboard.
 
 ![The On/Off button](/on-off.png)
 
 ## Using a Helm Value
 
-By setting `--set tap.stopped=true`, you're instructing **Kubeshark** not to process any traffic by default, making it dormant in your cluster, ready to start once this value changes to `false`.
-When you want **Kubeshark** to process traffic continuously, flag should be set to `false`: `--set tap.stopped=false`. Or in the `values.yaml`:
+Setting `--set tap.capture.stopped=true` ensures **Kubeshark** starts in a dormant state, ready to process traffic once the value is changed to `false`.
+To have **Kubeshark** capture traffic continuously, set the flag to `false` either via command line:
+`--set tap.capture.stopped=false`
+or in the `values.yaml` file:
+
 ```yaml
 tap:
-    stopped: false
+    capture:
+        stopped: false
 ```
 
-## Default Configuration
+## Inactivity Timeout
 
-The `tap.stopped` Helm value is set to `true` by default; however, you can change this by adding this value to your `values.yaml` file or by adding it to the CLI when running either Helm or the `kubeshark` CLI. As long as it is set to `false`, **Kubeshark** will start processing traffic from the get-go.
+An additional Helm value automatically transitions **Kubeshark** into dormant mode when no activity is detected. Activity is defined as one of the following:
 
+* At least one dashboard session open with streaming enabled
+* An active traffic recording
+* An active Network Agent
+
+If none of these conditions are met, **Kubeshark** will enter dormant mode after the period defined by the `tap.capture.stopAfter` Helm value. By default, this timeout is 5 minutes.
+
+To disable inactivity-based dormancy, set:
+`tap.capture.stopAfter=0`
