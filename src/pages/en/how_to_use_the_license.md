@@ -12,7 +12,7 @@ A license key belongs to a named user (the **Licensee**). The license key is an 
 ### Single-Cluster License
 
 A single-cluster license key can be used only on a single specific cluster that is identified by a unique ID. This license can not be tranfered to a different cluster, without resetting the license. 
-THe license will include a node limit that should be higher than the maximum node coumnt of the cluster (considering control plane, auto-scaling, spot instances, etc)
+THe license will include a node limit that should be higher than the maximum node count of the cluster (considering control plane, auto-scaling, spot instances, etc)
 
 ### Multi-Cluster License
 
