@@ -16,7 +16,7 @@ THe license will include a node limit that should be higher than the maximum nod
 
 ### Multi-Cluster License
 
-An unlimited-cluster license is a single linces key that can be used on any cluster, as long as the number of nodes in the cluster doesn't surpase the license node limit.
+An unlimited-cluster license is a single license key that can be used on any cluster, as long as the number of nodes in the cluster doesn't surpass the license node limit.
 
 
 ## Applying a License Key to a Specific Cluster
