@@ -41,7 +41,7 @@ helm install kubeshark kubeshark/kubeshark -n kubeshark --create-namespace \
 --set-json 'tap.annotations={"eks.amazonaws.com/role-arn":"arn:aws:iam::74.....50:role/s3-role"}' \
 --set tap.ingress.enabled=true \
 --set tap.ingress.host=demo.kubeshark.io \
---set "tap.ingress.auth.approveddomains={kubeshark.co}" \
+--set "tap.ingress.auth.approveddomains={kubehq.com}" \
 --set tap.release.namespace=kubeshark \
 --set tap.resources.worker.limits.memory=2Gi
 ```

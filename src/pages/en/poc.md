@@ -4,7 +4,7 @@ description: This checklist provides a step-by-step guide for users running a PO
 layout: ../../layouts/MainLayout.astro
 ---
 
-> [Contact-us](https://kubeshark.co/contact-us) to start your POC now.
+> [Contact-us](https://kubehq.com/contact-us) to start your POC now.
 
 **Kubeshark** is pleased to offer POC licenses to qualifying users.
 The goal of the POC is to validate that **Kubeshark** operates effectively within the user's environment, can process specific workloads, and provides a tangible, hands-on experience.

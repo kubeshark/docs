@@ -24,7 +24,7 @@ Once **Kubeshark** is deployed, access to the dashboard can be provided using on
 
 **Kubeshark** further supports integration with corporate Identity Providers (IDPs) using SAML for authentication and authorization.
 
-> Checkout the [live demo portal](https://demo.kubeshark.co), running on EKS using Ingress over HTTPS connected to an IDP and many other features live.  
+> Checkout the [live demo portal](https://demo.kubehq.com), running on EKS using Ingress over HTTPS connected to an IDP and many other features live.  
 
 ## Hub
 
@@ -68,7 +68,7 @@ Tracer deployment is optional and can be enabled or disabled using the `tap.tls`
 
 Workers process data primarily in-memory, with some data stored on the local Workers' disk, which is **ephemeral by default**. Stored data is discarded after a pre-configured TTL (e.g., 10s, 5m). The entire Workers' storage is purged when the Workers' pods are evicted or uninstalled.  
 
-> Read more about the TTL strategy [here](https://docs.kubeshark.co/en/traffic_retention).  
+> Read more about the TTL strategy [here](https://docs.kubehq.com/en/traffic_retention).  
 
 Unless explicitly triggered by the user (e.g., through [scripting](/en/automation_scripting) and [integrations](/en/integration_kubeshark_logs)), **no data leaves the premises**.  
 
