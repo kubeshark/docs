@@ -4,7 +4,7 @@ description: Elasticsearch integration enables persistent storage and search in 
 layout: ../../layouts/MainLayout.astro
 ---
 
-> This integration is part of the [Pro edition](https://kubehq.com/pricing).
+> This integration is part of the [Pro edition](https://www.kubehq.com/pricing).
 
 This integration enables you to send schema-free JSON documents directly to any [Elasticsearch](https://en.wikipedia.org/wiki/Elasticsearch) local or cloud-hosted instance by using the [`vendor.elastic`](/en/automation_helpers#vendorelasticurl-string-index-string-data-object-username-string-password-string-cloudid-string-apikey-string-servicetoken-string-certificatefingerprint-string) helper.
 

@@ -55,7 +55,7 @@ kubeshark clean
 
 To download the appropriate binary for your system:  
 ```shell  
-sh <(curl -Ls https://kubehq.com/install)  
+sh <(curl -Ls https://www.kubehq.com/install)  
 kubeshark tap  
 
 # cleanup  

@@ -8,7 +8,7 @@ layout: ../../layouts/MainLayout.astro
 
 Kubeshark requires a valid ENTERPRISE license to operate in an air-gapped environment. Any environment that does not allow free communication to https://api.kubehq.com/ is considered an air-gapped environment.
 
-[Contact us](https://kubehq.com/contact-us) to get an ENTERPRISE license.
+[Contact us](https://www.kubehq.com/contact-us) to get an ENTERPRISE license.
 
 > A PRO license requires an active internet connection and cannot function properly in an air-gapped environment.
 

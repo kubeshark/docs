@@ -9,7 +9,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## SAML
 
-To integrate your organization's SAML provider, begin by signing up on the [Kubeshark's console](https://console.kubehq.com/). Afterward, reach out to us on [Slack](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA), use our [contact-us](https://kubehq.com/contact-us) form or send an email to info@kubehq.com with the following details:
+To integrate your organization's SAML provider, begin by signing up on the [Kubeshark's console](https://console.kubehq.com/). Afterward, reach out to us on [Slack](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA), use our [contact-us](https://www.kubehq.com/contact-us) form or send an email to info@kubehq.com with the following details:
 
 1. Company name (tenant name)
 2. Approved corporate domains list
