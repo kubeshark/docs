@@ -91,4 +91,4 @@ If there's an issue, it should become apparent in the Hub's logs.
 
 ### Well, That Didn't Work
 
-If the above remedies did not work for you, [contact us](https://kubehq.com/contact-us) and we'll get you started quickly. Worst case scenario, we'll convert your PRO license to an ENTERPRISE license, which doesn't require any internet connection.  
+If the above remedies did not work for you, [contact us](https://www.kubehq.com/contact-us) and we'll get you started quickly. Worst case scenario, we'll convert your PRO license to an ENTERPRISE license, which doesn't require any internet connection.  
