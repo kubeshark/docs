@@ -59,6 +59,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'Basic Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
+      { text: 'Cluster-wide PCAP Export', link: 'en/v2/pcap_export' },
       { text: 'Dashboard', link: 'en/ui' },
       { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'Service Map', link: 'en/service_map' },
