@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://docs.kubeshark.co/sitemap-index.xml
+Sitemap: https://docs.kubehq.com/sitemap-index.xml

@@ -12,5 +12,5 @@ export default defineConfig({
     // Sitemap
     sitemap(),
   ],
-  site: `https://docs.kubeshark.co`
+  site: `https://docs.kubehq.com`
 });
