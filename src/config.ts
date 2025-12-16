@@ -61,7 +61,7 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Cluster-wide PCAP Export', link: 'en/v2/pcap_export' },
       { text: 'L4 to L7 Mapping', link: 'en/v2/l4_to_l7' },
-      { text: 'L7 API Dissection', link: 'en/v2/API_dissection' },
+      // { text: 'L7 API Dissection', link: 'en/v2/API_dissection' },
     ],
     'V1.00': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
