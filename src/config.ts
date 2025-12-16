@@ -57,9 +57,14 @@ export const SIDEBAR: Sidebar = {
       { text: 'Best Practices', link: 'en/best_practice' },   
       // { text: 'Getting Support', link: 'en/support' },   
     ],
-    'Basic Functionality': [
+    'V2.00': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Cluster-wide PCAP Export', link: 'en/v2/pcap_export' },
+      { text: 'L4 to L7 Mapping', link: 'en/v2/l4_to_l7' },
+      { text: 'L7 API Dissection', link: 'en/v2/API_dissection' },
+    ],
+    'V1.00': [
+      // { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Dashboard', link: 'en/ui' },
       { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'Service Map', link: 'en/service_map' },
