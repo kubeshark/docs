@@ -7,7 +7,9 @@ mascot: Hello
 
 > This feature is part of **Kubeshark** V2.00, scheduled to release in early 2026.
 
-Imagine having a cluster-wide [TCPDump](https://www.tcpdump.org/)-like capability—exporting a single [PCAP](https://www.ietf.org/archive/id/draft-gharris-opsawg-pcap-01.html) file that consolidates traffic from multiple nodes, all accessible with a single click.
+An alternative to deploying [tcpdump](https://www.tcpdump.org/), copying files, and manually opening them in [Wireshark](https://www.wireshark.org/).
+Kubeshark can be set to continuously capture and retain all raw TCP/UDP packets, including decrypted TLS traffic, alongside relevant [Kubernetes](https://kubernetes.io/) and Linux OS events.
+Users can download a cluster-wide [PCAP](https://www.ietf.org/archive/id/draft-gharris-opsawg-pcap-01.html) file on demand for any selected past time window and open it directly in [Wireshark](https://www.wireshark.org/).
 
 1. Go to the **Snapshots** tab
 2. Create a new snapshot
@@ -17,7 +19,7 @@ Imagine having a cluster-wide [TCPDump](https://www.tcpdump.org/)-like capabilit
 
 ![The Snapshots Tab](/snapshots.png)
 
-Once the snapshot is ready, click the PCAP file to export its contents and open it in Wireshark.
+Once the snapshot is ready, click the PCAP file to export its contents and open it in [Wireshark](https://www.wireshark.org/).
 
 ![Opening the PCAP in Wireshark](/wireshark.png)
 
