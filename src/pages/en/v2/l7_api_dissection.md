@@ -7,7 +7,7 @@ mascot: Hello
 
 > This feature is part of **Kubeshark** V2.00, scheduled to release in early 2026.
 
-**Kubeshark** performs API dissection on raw traffic, reconstructing the API context by correlating information from all layers.
+**Kubeshark** performs L7/API dissection to enrich captured traffic and payloads with full [Kubernetes](https://kubernetes.io/) context (e.g., workload identities, node, namespace, pod, and service names) and API context (e.g., request/response matching, endpoint and status codes, headers, and payloads).
 
 ![API Dissection](/api_context.png)
 

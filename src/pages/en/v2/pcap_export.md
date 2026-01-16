@@ -8,7 +8,7 @@ mascot: Hello
 > This feature is part of **Kubeshark** V2.00, scheduled to release in early 2026.
 
 An alternative to deploying [tcpdump](https://www.tcpdump.org/), copying files, and manually opening them in [Wireshark](https://www.wireshark.org/).
-Kubeshark can be set to continuously capture and retain all raw TCP/UDP packets, including decrypted TLS traffic, alongside relevant [Kubernetes](https://kubernetes.io/) and Linux OS events.
+Kubeshark can be set to continuously capture and retain all raw TCP/UDP packets, **including decrypted TLS traffic**, alongside relevant [Kubernetes](https://kubernetes.io/) and Linux OS events.
 Users can download a cluster-wide [PCAP](https://www.ietf.org/archive/id/draft-gharris-opsawg-pcap-01.html) file on demand for any selected past time window and open it directly in [Wireshark](https://www.wireshark.org/).
 
 1. Go to the **Snapshots** tab
