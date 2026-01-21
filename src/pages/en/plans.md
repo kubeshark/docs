@@ -18,16 +18,16 @@ The Community edition is designed for very small workloads. It supports up to **
 
 The Micro edition offers an affordable license that supports workloads of up to **120 pods** across clusters with up to **6 nodes**. The license is personal, requires authentication, and can be used across multiple clusters.
 
-> Subscribe to the Micro edition [here](https://console.kubehq.com/?tab=micro)
+> Subscribe to the Micro edition [here](https://console.kubeshark.com/?tab=micro)
 
 ## Enterprise
 
-The Enterprise edition includes the complete feature set and is fully customizable to meet your organization's unique requirements and budget. [Contact us](https://www.kubehq.com/contact-us) to request a suitable license.
+The Enterprise edition includes the complete feature set and is fully customizable to meet your organization's unique requirements and budget. [Contact us](https://kubeshark.com/contact-us) to request a suitable license.
 
 ### Request an Enterprise POC License
 
 > A proof-of-concept (POC) license is available for qualified users.
 
-To request a POC license, start by creating an account in the [Admin Console](https://console.kubehq.com/), which is used for license management.
+To request a POC license, start by creating an account in the [Admin Console](https://console.kubeshark.com/), which is used for license management.
 
 Once your license is provisioned, activation will be required. Instructions will be sent to your email. Activation is handled by our Customer Success team and is available only to eligible users.

@@ -12,7 +12,7 @@ Type the following command in your terminal to upgrade from community edition to
 kubeshark pro
 ```
 
-A browser window will open and you will be asked to sign up or in to the [Kubeshark Cloud Console](https://console.kubehq.com).
+A browser window will open and you will be asked to sign up or in to the [Kubeshark Cloud Console](https://console.kubeshark.com).
 
 ![Kubeshark Console Auth Screen](/auth.png)
 
