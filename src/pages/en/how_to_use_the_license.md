@@ -39,7 +39,7 @@ Licensees can remove their license key from a cluster by performing two steps:
 
 You can avoid having to log in to set your license by setting the license key in the configuration.
 
-You can get your license key by visiting **Kubeshark**'s [Admin Console](https://console.kubehq.com/). Copy and paste your license key where appropriate:
+You can get your license key by visiting **Kubeshark**'s [Admin Console](https://console.kubeshark.com/). Copy and paste your license key where appropriate:
 
 Use via command line:
 
@@ -55,7 +55,7 @@ license: <your-license>
 
 ## An Active Internet Connection is Required
 
-Other than using the ENTERPRISE plan, **Kubeshark** needs an active internet connection, specifically to https://api.kubehq.com, for **Kubeshark** to work properly. This will not work when there is no internet connection. You can check the Hub's logs to see if there is a problem connecting to the API server. If you don't have an active internet connection, we recommend using our ENTERPRISE plan or at the very least converting your PRO license to an ENTERPRISE one. 
+Other than using the ENTERPRISE plan, **Kubeshark** needs an active internet connection, specifically to https://api.kubeshark.com, for **Kubeshark** to work properly. This will not work when there is no internet connection. You can check the Hub's logs to see if there is a problem connecting to the API server. If you don't have an active internet connection, we recommend using our ENTERPRISE plan or at the very least converting your PRO license to an ENTERPRISE one. 
 
 ## Troubleshooting
 
@@ -91,4 +91,4 @@ If there's an issue, it should become apparent in the Hub's logs.
 
 ### Well, That Didn't Work
 
-If the above remedies did not work for you, [contact us](https://www.kubehq.com/contact-us) and we'll get you started quickly. Worst case scenario, we'll convert your PRO license to an ENTERPRISE license, which doesn't require any internet connection.  
+If the above remedies did not work for you, [contact us](https://kubeshark.com/contact-us) and we'll get you started quickly. Worst case scenario, we'll convert your PRO license to an ENTERPRISE license, which doesn't require any internet connection.  
