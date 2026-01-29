@@ -11,8 +11,6 @@ mascot: Hello
 
 ![API Dissection](/api_context.png)
 
-Read more about the motivation to perform API dissection.
-
 ## The API Context (L7)
 
 **The problem**: [Kubernetes](https://kubernetes.io/) is distributed and multilayered, with critical information scattered across the network, the nodes’ operating systems, and the control plane.
@@ -58,3 +56,5 @@ API components are parsed according to protocol specifications. For example, in 
 - Headers
 - Payload
 - Response status code
+
+![API Payload](/api_payload.png)

@@ -13,7 +13,7 @@ The primary purpose of the dashboard is to display real-time traffic streams usi
 
 ---
 
-## Backend Filters & Targeted Pods
+## Targeted Pods
 
 **Kubeshark** targets specific pods based on their attributes. [Backend filters](/en/pod_targeting) define the criteria used to generate the list of targeted pods. This list can include future pods (e.g., pods that haven’t started yet but match the filter criteria). Since **Kubeshark** dynamically tracks pod lifecycle events, the targeted pod list updates in real time.
 
