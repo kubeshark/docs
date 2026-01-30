@@ -70,7 +70,7 @@ Non-enterprise users will see instructions on how to log in to obtain their lice
 
 The Subscription tab displays your license attributes:
 
-- Edition (Community, Micro, Enterprise)
+- Edition (Community, Pro, Enterprise)
 - Subscription status
 - Node limit
 - Pod limit

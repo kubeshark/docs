@@ -1,33 +1,63 @@
 ---
-title: Community, Micro & Enterprise
-description: Overview of the available **Kubeshark** plans—Community, Micro, and Enterprise editions.
+title: Community vs Pro vs Enterprise
+description: Overview of the available Kubeshark editions—Community, Pro, and Enterprise.
 layout: ../../layouts/MainLayout.astro
 ---
 
-Available plans:
-
-* **Community**: Free — ideal for very small workloads.
-* **Micro**: For dev/test clusters.
-* **Enterprise**: Fully customizable — tailored to your organization's needs and budget.
-
 ## Community (Free)
 
-The Community edition is designed for very small workloads. It supports up to **60 pods** across clusters with a maximum of **3 nodes**.
+The Community edition is designed for small workloads:
 
-## Micro
+- Up to **3 nodes** or **60 pods**
+- Single-user license
+- Requires internet connectivity
+- Community support
 
-The Micro edition offers an affordable license that supports workloads of up to **120 pods** across clusters with up to **6 nodes**. The license is personal, requires authentication, and can be used across multiple clusters.
+## Pro (Starting at $20/month)
 
-> Subscribe to the Micro edition [here](https://console.kubeshark.com/?tab=micro)
+The Pro edition offers volume-based pricing for any cluster size. Choose a tier based on your usage needs:
+
+| Tier | Monthly Price | Daily API Capacity | Monthly Capacity |
+|------|---------------|-------------------|------------------|
+| Pro 1M | $20 | 1M API calls | ~30M API calls |
+| Pro 7M | $100 | 7M API calls | ~210M API calls |
+| Pro 20M | $200 | 20M API calls | ~600M API calls |
+
+> The $200 tier provides 20x the capacity of the $20 tier at only 10x the price.
+
+**Key features:**
+- **Unlimited** cluster size and pods on all tiers
+- Single-user license requiring authentication
+- Use across **any number of clusters** — log in to use your license, log out when done
+- Requires internet connectivity
+- Community support
+
+**On-demand capacity:** Additional capacity can be purchased at **$5 per 1M API calls** when you exceed your daily limit.
+
+> API capacity is measured in dissected API calls that appear in the dashboard.
+
+Subscribe to the Pro edition at the [License Portal](https://console.kubeshark.com/?tab=pro)
 
 ## Enterprise
 
-The Enterprise edition includes the complete feature set and is fully customizable to meet your organization's unique requirements and budget. [Contact us](https://kubeshark.com/contact-us) to request a suitable license.
+The Enterprise edition includes the complete feature set:
 
-### Request an Enterprise POC License
+- **Unlimited** cluster size and pods
+- **Unlimited** consumption
+- **Unlimited** users across organization
+- **Air-gapped** cluster support (no internet required)
+- AI-powered root cause analysis
+- Dedicated support (Slack, Zoom, premium onboarding)
 
-> A proof-of-concept (POC) license is available for qualified users.
+[Contact us](https://kubeshark.com/contact-us) to request a suitable license.
 
-To request a POC license, start by creating an account in the [Admin Console](https://console.kubeshark.com/), which is used for license management.
+## Feature Comparison
 
-Once your license is provisioned, activation will be required. Instructions will be sent to your email. Activation is handled by our Customer Success team and is available only to eligible users.
+| Feature | Community | Pro | Enterprise |
+|---------|-----------|-----|------------|
+| Real-time protocol visibility | Yes | Yes | Yes |
+| TLS decryption | Yes | Yes | Yes |
+| Traffic recording & offline analysis | Yes | Yes | Yes |
+| Air-gapped support | No | No | Yes |
+| AI root cause analysis | No | No | Yes |
+| Dedicated support | No | No | Yes |

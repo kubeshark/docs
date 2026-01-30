@@ -17,8 +17,8 @@ Out enterprise pricing starts at $20 per node per month.
 
 ### Obtaining an Enterprise POC License
 
-To obtain an Enterprise POC license, you’ll first need an account in the [Admin Console](https://console.kubeshark.com/), which is used to manage licenses. By default, a complimentary Pro license will be provisioned upon sign-up.
+To obtain an Enterprise POC license, you'll first need an account in the [License Portal](https://console.kubeshark.com/), which is used to manage licenses. By default, a complimentary Pro license will be provisioned upon sign-up.
 
-Once your account is created, contact us using the [contact-us](https://kubeshark.com/contact-us) form, and provide the email address used to create the Admin Console account. We’ll convert your complimentary Pro license to an Enterprise license and notify you once it’s ready.
+Once your account is created, contact us using the [contact-us](https://kubeshark.com/contact-us) form, and provide the email address used to create the License Portal account. We'll convert your complimentary Pro license to an Enterprise license and notify you once it's ready.
 
-To retrieve your license, log in to the [Admin Console](https://console.kubeshark.com/) and follow the provided instructions to properly set it up.
+To retrieve your license, log in to the [License Portal](https://console.kubeshark.com/) and follow the provided instructions to properly set it up.
