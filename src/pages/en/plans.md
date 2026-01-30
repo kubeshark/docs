@@ -1,33 +1,58 @@
 ---
-title: Community, Micro & Enterprise
-description: Overview of the available **Kubeshark** plans—Community, Micro, and Enterprise editions.
+title: Community vs Pro vs Enterprise
+description: Overview of the available Kubeshark editions—Community, Pro, and Enterprise.
 layout: ../../layouts/MainLayout.astro
 ---
 
-Available plans:
-
-* **Community**: Free — ideal for very small workloads.
-* **Micro**: For dev/test clusters.
-* **Enterprise**: Fully customizable — tailored to your organization's needs and budget.
-
 ## Community (Free)
 
-The Community edition is designed for very small workloads. It supports up to **60 pods** across clusters with a maximum of **3 nodes**.
+The Community edition is designed for small workloads:
 
-## Micro
+- Up to **3 nodes** or **60 pods**
+- Single-user license
+- Requires internet connectivity
+- Community support
 
-The Micro edition offers an affordable license that supports workloads of up to **120 pods** across clusters with up to **6 nodes**. The license is personal, requires authentication, and can be used across multiple clusters.
+## Pro ($20/month)
 
-> Subscribe to the Micro edition [here](https://console.kubeshark.com/?tab=micro)
+The Pro edition offers volume-based pricing for larger workloads:
+
+- **Unlimited** cluster size and pods
+- Volume-based pricing (1M-20M dissected API calls daily)
+- Single-user license, multi-cluster capable
+- Requires internet connectivity
+- Community support
+
+> Subscribe to the Pro edition at the [License Portal](https://console.kubeshark.com/)
 
 ## Enterprise
 
-The Enterprise edition includes the complete feature set and is fully customizable to meet your organization's unique requirements and budget. [Contact us](https://kubeshark.com/contact-us) to request a suitable license.
+The Enterprise edition includes the complete feature set:
 
-### Request an Enterprise POC License
+- **Unlimited** cluster size and pods
+- **Unlimited** consumption
+- **Unlimited** users across organization
+- **Air-gapped** cluster support (no internet required)
+- AI-powered root cause analysis
+- Dedicated support (Slack, Zoom, premium onboarding)
 
-> A proof-of-concept (POC) license is available for qualified users.
+[Contact us](https://kubeshark.com/contact-us) to request a suitable license.
 
-To request a POC license, start by creating an account in the [Admin Console](https://console.kubeshark.com/), which is used for license management.
+## Feature Comparison
+
+| Feature | Community | Pro | Enterprise |
+|---------|-----------|-----|------------|
+| Real-time protocol visibility | Yes | Yes | Yes |
+| TLS decryption | Yes | Yes | Yes |
+| Traffic recording & offline analysis | Yes | Yes | Yes |
+| Air-gapped support | No | No | Yes |
+| AI root cause analysis | No | No | Yes |
+| Dedicated support | No | No | Yes |
+
+## Request an Enterprise POC License
+
+A proof-of-concept (POC) license is available for qualified users.
+
+To request a POC license, start by creating an account in the [License Portal](https://console.kubeshark.com/).
 
 Once your license is provisioned, activation will be required. Instructions will be sent to your email. Activation is handled by our Customer Success team and is available only to eligible users.

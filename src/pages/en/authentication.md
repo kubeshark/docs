@@ -9,11 +9,11 @@ layout: ../../layouts/MainLayout.astro
 
 ## SAML
 
-To integrate your organization's SAML provider, begin by signing up on the [Kubeshark's console](https://console.kubeshark.com/). Afterward, reach out to us on [Slack](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA), use our [contact-us](https://kubeshark.com/contact-us) form or send an email to info@kubeshark.com with the following details:
+To integrate your organization's SAML provider, begin by signing up on the [License Portal](https://console.kubeshark.com/). Afterward, reach out to us on [Slack](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA), use our [contact-us](https://kubeshark.com/contact-us) form or send an email to info@kubeshark.com with the following details:
 
 1. Company name (tenant name)
 2. Approved corporate domains list
-3. The email of the tenant admin who registered on [Kubeshark's console](https://console.kubeshark.com/)
+3. The email of the tenant admin who registered on the [License Portal](https://console.kubeshark.com/)
 
 After receiving your details, we'll set you up as a tenant admin and provide you with a link to configure your SAML settings.
 
