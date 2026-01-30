@@ -36,7 +36,7 @@ The Pro edition offers volume-based pricing for any cluster size. Choose a tier 
 
 > API capacity is measured in dissected API calls that appear in the dashboard.
 
-Subscribe to the Pro edition at the [License Portal](https://console.kubeshark.com/)
+Subscribe to the Pro edition at the [License Portal](https://console.kubeshark.com/?tab=pro)
 
 ## Enterprise
 
