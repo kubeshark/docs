@@ -53,3 +53,23 @@ Update your billing information:
 - Add or remove credit cards
 - Change your default payment method
 - View billing history and invoices
+
+## Enterprise Features
+
+### Downloadable License Keys for Air-Gapped Clusters
+
+Enterprise users can download their license keys directly from the portal for use in air-gapped environments. This allows Kubeshark to operate in clusters without internet connectivity.
+
+### Organization-Wide Dashboard Access
+
+When a license key is configured locally in the cluster, all users within your organization can access the Kubeshark dashboard without requiring individual authentication. This simplifies access management for teams.
+
+### Optional IDP Authentication
+
+For organizations requiring additional access control, Kubeshark supports authentication through your Identity Provider (IDP). This allows you to:
+
+- Enforce your existing authentication policies
+- Manage user access through your organization's IDP
+- Maintain audit trails of dashboard access
+
+See [SAML](/en/saml) and [OIDC](/en/oidc) documentation for configuration details.
