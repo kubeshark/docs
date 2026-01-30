@@ -118,9 +118,8 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
     // ],
     'Commercial': [
+      { text: 'License Portal & License Key', link: 'en/license_portal' },
       { text: 'Community vs. Micro vs. Enterprise', link: 'en/plans' },
-      { text: 'The License Key', link: 'en/how_to_use_the_license' },
-      { text: 'License Portal', link: 'en/license_portal' },
       { text: 'License', link: 'en/license' },
       { text: 'Security & Compliance', link: 'en/security' },
       { text: 'POC Checklist', link: 'en/poc' },
