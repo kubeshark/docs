@@ -44,7 +44,7 @@ While these methods may sound complex, **Kubeshark's** TLS sniffer has minimal p
 
 Before attempting to display encrypted traffic in clear text, **Kubeshark** detects and marks TLS TCP packets, identifying various TLS-related messages (e.g., `ClientHello` and `ServerHello`).
 
-> TLS traffic is marked with an open lock icon to the left of the entry. You can use the helper `tls` as a KFL query to filter and view all TLS traffic.
+> TLS traffic is marked with an open lock icon to the left of the entry. You can use `tls` as a [KFL2](/en/v2/kfl2) query to filter and view all TLS traffic.
 
 ![TLS Traffic Example](/tls_traffic.png)
 
