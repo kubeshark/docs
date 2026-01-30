@@ -55,14 +55,14 @@ const sidebar = SIDEBAR[langCode];
 
 	.nav-groups {
 		height: 100%;
-		padding: 2rem 0;
+		padding: 1.5rem 0;
 		overflow-x: visible;
 		overflow-y: auto;
 		max-height: 100vh;
 	}
 
 	.nav-groups > li + li {
-		margin-top: 2rem;
+		margin-top: 1rem;
 	}
 
 	.nav-groups > :first-child {
@@ -74,26 +74,36 @@ const sidebar = SIDEBAR[langCode];
 		margin-bottom: var(--theme-navbar-height);
 	}
 
-	.nav-group-title {
-		font-size: 1rem;
+	.nav-group h2 {
+		font-size: 0.8rem;
 		font-weight: 700;
-		padding: 0.1rem 1rem;
+		padding: 0.5rem 1rem 0.35rem;
 		text-transform: uppercase;
-		margin-bottom: 0.5rem;
+		letter-spacing: 0.05em;
+		color: var(--theme-text);
+		margin-bottom: 0.15rem;
+		border-bottom: 1px solid var(--theme-divider);
+		margin-left: 0.5rem;
+		margin-right: 0.5rem;
+		padding-left: 0.5rem;
+		cursor: default;
 	}
 
 	.nav-link a {
-		font-size: 1rem;
-		margin: 1px;
-		padding: 0.3rem 1rem;
+		font-size: 0.9rem;
+		margin: 0;
+		padding: 0.35rem 1rem;
 		font: inherit;
-		color: inherit;
+		color: var(--theme-text-light);
 		text-decoration: none;
 		display: block;
+		border-radius: 6px;
+		transition: all 0.15s ease;
 	}
 
 	.nav-link a:hover,
 	.nav-link a:focus {
+		color: var(--theme-text);
 		background-color: var(--theme-bg-hover);
 	}
 
