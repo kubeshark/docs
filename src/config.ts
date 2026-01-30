@@ -72,7 +72,7 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Pod-to-pod   Connection Analysis', link: 'en/pod_to_pod_connections' },
       // { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       // { text: 'PCAP Dumper (Capturing Raw Traffic)', link: 'en/raw_traffic_capture' },
-      { text: 'On/Off Switch (Dormant)', link: 'en/on_off_switch' },
+      { text: 'Enabling / Disabling L7 API Dissection', link: 'en/on_off_switch' },
       // { text: 'Envoy/Istio Support', link: 'en/envoy' },
     ],
     // 'Traffic Recording': [
