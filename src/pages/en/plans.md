@@ -60,11 +60,3 @@ The Enterprise edition includes the complete feature set:
 | Air-gapped support | No | No | Yes |
 | AI root cause analysis | No | No | Yes |
 | Dedicated support | No | No | Yes |
-
-## Request an Enterprise POC License
-
-A proof-of-concept (POC) license is available for qualified users.
-
-To request a POC license, start by creating an account in the [License Portal](https://console.kubeshark.com/).
-
-Once your license is provisioned, activation will be required. Instructions will be sent to your email. Activation is handled by our Customer Success team and is available only to eligible users.
