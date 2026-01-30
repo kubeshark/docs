@@ -8,11 +8,11 @@ Harness the information that is carried across K8s network traffic, to understan
 
 ![Grafana](/grafana.png)
 
-## Identity-aware Service Map
+## Workload Map
 
-Understand your cluster and service dependencies with **Kubeshark**'s identity-aware service map.
+Understand your cluster and service dependencies with **Kubeshark**'s Workload Map.
 
-> Read more in the [Service Map](/en/service_map) section.
+> Read more in the [Workload Map](/en/v2/service_map) section.
 
 ## Metrics & Logs
 
