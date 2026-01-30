@@ -8,19 +8,19 @@ layout: ../../layouts/MainLayout.astro
 
 ### DNS Log
 
-Use **Kubeshark** to view a DNS log and export into a PCAP file. To view only DNS entries, use: `dns` in the [filter](/en/filtering) input. Use the [export to PCAP button](/en/pcap#manual-pcap-export) to export the DNS traffic to a PCAP file.
+Use **Kubeshark** to view a DNS log and export into a PCAP file. To view only DNS entries, use: `dns` in the [filter](/en/v2/kfl2) input. Use the [export to PCAP button](/en/pcap#manual-pcap-export) to export the DNS traffic to a PCAP file.
 
 ![DNS Log](/dns-log.png)
 
 ### DNS Investigation
 
-As with any other protocol supported by **Kubeshark**, you can use a KFL query in conjunction with any property in the DNS payload to trace down the root of any incident.
+As with any other protocol supported by **Kubeshark**, you can use a [KFL2](/en/v2/kfl2) query in conjunction with any property in the DNS payload to trace down the root of any incident.
 
 ![DNS Investigation](/dns-investigation.png)
 
 ### Service-to-DNS Connectivity Map
 
-Use the **Service Map** in conjunction with a DNS KFL query `dns` to see all the services that are connected all the DNS providers in the cluster (e.g. kube-dns).
+Use the **Service Map** in conjunction with a DNS [KFL2](/en/v2/kfl2) query `dns` to see all the services that are connected to all the DNS providers in the cluster (e.g. kube-dns).
 
 ![DNS Service Map](/dns-map.png)
 

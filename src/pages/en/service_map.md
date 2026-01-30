@@ -17,7 +17,7 @@ To access the **Service Map**, click its button located in the upper right corne
 
 ## Focus on Specific Parts of the Cluster
 
-Dense clusters can yield cluttered **Service Maps**. With **Kubeshark**, you can zero in on particular sections of your cluster by pairing it with a [KFL filter](/en/filtering), narrowing down your analysis to specific segments of your cluster's traffic.
+Dense clusters can yield cluttered **Service Maps**. With **Kubeshark**, you can zero in on particular sections of your cluster by pairing it with a [KFL2 filter](/en/v2/kfl2), narrowing down your analysis to specific segments of your cluster's traffic.
 
 ## View Real-Time Changes
 

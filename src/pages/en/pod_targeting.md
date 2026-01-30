@@ -4,29 +4,66 @@ description: Optimizing resource consumption through pod targeting
 layout: ../../layouts/MainLayout.astro
 ---
 
-Resource consumption (e.g., CPU and memory) is key in Kubernetes. **Kubeshark**'s resource consumption is linearly dependent on the amount of traffic it processes. There are many ways to control resource consumption, and this `Capture Filters` feature is one of them.
+Capture filters provide rules to filter in workloads of interest and discard the rest, resulting in significant reduction in compute resource consumption.
 
-Capture Filters can help you focus on traffic of interest and avoid processing traffic that isn't of interest.
+Rules include:
+- Pod name regex
+- Namespaces to include and exclude
+- Explicit BPF statement
+  
+Capture Filters impact both [raw traffic capture](/en/v2/pcap_export) and [L7 API dissection](/en/v2/l7_api_dissection). Using these filters wisely can significantly reduce compute resource consumption, as consumption is directly correlated with the number of workloads being captured and dissected.
 
-Pods in Kubernetes launch and terminate dynamically on nodes scheduled by Kubernetes. To process relevant traffic only, **Kubeshark** monitors Kubernetes events, especially pod start and termination events, so it can start processing the pods' traffic when they start on the node they start on. If pods terminate and start elsewhere, **Kubeshark** will process the traffic for the pod on the new node.
+For example, running **Kubeshark** on an entire cluster without filters can consume significant compute resources, even though most workloads may not be of interest. By focusing on specific workloads, **Kubeshark** captures and dissects only the targeted traffic, significantly reducing compute resource consumption.
 
-The results per pod of interest are:
-1. Identifying the node the pod runs on
-2. Identifying the relevant pod IPs as there can be several (e.g., pod IP, service IP, multi-NIC IP, etc.)
-3. Capturing traffic on the target node related to the target IPs
-4. Processing captured traffic
+> For another method to control resource consumption, see [Enabling / Disabling L7 API Dissection](/en/on_off_switch).
 
-## Pod Targeting
+Capture Filters help you focus on traffic of interest and avoid processing traffic that isn't relevant.
 
-Pod Targeting enables the targeting of specific pods using pod regex (**reg**ular **ex**pression) and a list of namespaces. It monitors Kubernetes events to track pods that match these criteria across nodes and replicas, tapping into their traffic from launch until termination.
+## Setting Default Capture Filter Rules
 
-## Namespace Targeting
+Default rules can be set in the Helm configuration (e.g., values.yaml):
 
-**Kubeshark** will monitor Kubernetes events and process traffic for all pods that are part of the target namespaces across all nodes in the cluster.
+```yaml
+tap:
+  regex: .*
+  namespaces: []
+  excludedNamespaces: []
+  bpfOverride: ""
+```
 
-### Excluding Namespaces
+For example, to process only traffic from pods matching `catal.*` in the `sock-shop` namespace while excluding `kube-system`:
 
-The opposite operation to targeting namespaces is excluding namespaces. Explicitly ignore traffic from pods that are part of the excluded namespaces list.
+```yaml
+tap:
+  regex: catal.*
+  namespaces:
+    - sock-shop
+  excludedNamespaces:
+    - kube-system
+  bpfOverride: ""
+```
+
+Setting a BPF expression will override the regex and namespace rules:
+
+```yaml
+tap:
+  regex: .*
+  namespaces: []
+  excludedNamespaces: []
+  bpfOverride: "net 10.10.0.0/16 or host 12.13.14.15"
+```
+## Dynamically Changing Capture Filter Rules
+
+You can dynamically set capture filter rules from the dashboard by opening the Settings dialog. The Capture Filters dialog provides the following options:
+
+- **By Regex** - Filter pods by name using a regular expression
+- **By BPF Override** - Set an explicit BPF expression to override other rules
+- **By Namespaces** - Include only pods from specific namespaces
+- **By Excluded Namespaces** - Exclude pods from specific namespaces
+
+![Capture Filters Dialog](/capture_filters_dialog.png)
+
+> **Note:** Applied targeting rules are cluster-wide.
 
 ## Explicit BPF Expression (Traffic Targeting)
 
@@ -34,19 +71,6 @@ Another way to target specific traffic is by using an explicit BPF expression wr
 
 > Setting an explicit BPF expression that overrides other rules is available only when AF_PACKET is used as a packet capture library. Read [here](/en/packet_capture#af_packet) to learn how to explicitly set AF_PACKET as the packet capture library.
 
-## Dynamically Changing The Traffic Targeting Rules
-
-You can dynamically set the *Pod Targeting* properties and the *BPF expression* from the dashboard. To operate the *Pod Targeting* dialog window, press the `kube` button located to the right of the *Pod Targeting* section.
-
-![Activate Pod Targeting](/pod_targeting_cta.png)
-
-In the dialog window, you can set the namespaces and the pod regex:
-
-![Operate Pod Targeting Dialog](/pod_targeting_open.png)
-
-The following video demonstrates the behavior:
-
-<div style="position: relative; padding-bottom: 51.875%; height: 0;"><iframe src="https://www.loom.com/embed/458f924403e94a0e8d80f2b81b1252b7?sid=b505561a-2831-4f41-8d02-8936109afa4a" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
 ## Processing Traffic Consumes CPU and Memory
 
@@ -58,33 +82,9 @@ These Grafana panels show the implications on CPU and memory consumption:
 
 ![Pod Targeting Changes](/pod_targeting_grafana.png)
 
-## Starting with Default Traffic Targeting Rules
 
-Default rules can be set in the configuration (e.g., values.yaml). For instance, the following configuration directs **Kubeshark** to process only traffic associated with pods matching the regex `catal.*` in the `ks-load` or `sock-shop` namespaces:
+## KFL2 vs. Capture Filters (Display vs. Capture Filters)
 
-```yaml
-tap:
-  regex: catal.*
-  namespaces:
-  - ks-load
-  - sock-shop
-  excludeNamespaces:
-  - kube-system
-```
+[KFL2 (Display Filters)](/en/v2/kfl2) should not be confused with Capture Filters as they serve different purposes. KFL2 statements only affect the data presented in the Dashboard, whereas Capture Filters determine which pods are targeted and, consequently, which traffic is captured.
 
-Setting a BPF expression will override any existing Pod Targeting rules.
-
-```yaml
-tap:
-  regex: catal.*
-  namespaces:
-  - ks-load
-  - sock-shop
-  bpfOverride: net 10.10.0.0/16
-```
-
-## KFL vs. Traffic Targeting (Display vs. Capture Filters)
-
-[KFL](/en/filtering) should not be confused with Traffic Targeting as they serve different purposes. KFL statements only affect the data presented in the Dashboard, whereas Traffic Targeting determines which pods are targeted and, consequently, which traffic is tapped.
-
-For those familiar with Wireshark, KFL can be likened to Wireshark's Display Filters, and Traffic Targeting to Wireshark's BPF (Berkeley Packet Filter) filters.
+For those familiar with Wireshark, KFL2 can be likened to Wireshark's Display Filters, and Capture Filters to Wireshark's BPF (Berkeley Packet Filter) filters.

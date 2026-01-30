@@ -25,33 +25,33 @@ The active list of targeted pods appears in the blue dialog window at the top of
 
 ---
 
-## Display Filters & KFL
+## Display Filters (KFL2)
 
 Display filters differ significantly from backend filters. While backend filters affect all of **Kubeshark**, display filters only impact a specific dashboard tab.
 
-Display filters use the **Kubeshark Filter Language (KFL)** to control what traffic is shown in the UI. Each query is local to the browser tab where it's applied, allowing multiple tabs (or even browser windows) to show different filtered views of the same cluster.
+Display filters use **[KFL2 (Kubeshark Filter Language 2)](/en/v2/kfl2)** to control what traffic is shown in the UI. KFL2 uses CEL (Common Expression Language) syntax. Each query is local to the browser tab where it's applied, allowing multiple tabs (or even browser windows) to show different filtered views of the same cluster.
 
 > **Note:** Backend filters apply globally across all users, dashboards, and browser sessions.
 
-KFL queries help narrow the traffic scope or focus on specific elements. For example, to display only HTTP responses with status codes starting with `4`, use:
+KFL2 queries help narrow the traffic scope or focus on specific elements. For example, to display only HTTP responses with 4xx status codes, use:
 
 ```
-http and response.status == r"4.*"
+http && status_code >= 400 && status_code < 500
 ```
 
 Click **Apply**, and the filtered traffic stream will appear as shown:
 
 ![Kubeshark UI](/ks-filter-applied.png)
 
-You can also filter by timestamp, numeric values, and UI-based query elements. A syntax cheatsheet is available next to the query input box.
+You can also filter by timestamp, numeric values, and UI-based query elements.
 
-> Learn more in the [filtering section](/en/filtering).
+> Learn more in the [Display Filters (KFL2)](/en/v2/kfl2) section.
 
 ---
 
 ### Queryable UI Elements
 
-Hovering over UI elements with a green plus sign indicates that they are **queryable**. Clicking them appends a corresponding filter to the KFL statement.
+Hovering over UI elements with a green plus sign indicates that they are **queryable**. Clicking them appends a corresponding filter to the KFL2 statement.
 
 For example:
 

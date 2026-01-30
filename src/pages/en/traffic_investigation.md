@@ -14,9 +14,9 @@ Whether you are resolving issues with your infrastructure, analyzing potential t
 
 ![Protocol-level visibility](/ui-full.png)
 
-## Kubeshark Filter Language (KFL)
+## Kubeshark Filter Language (KFL2)
 
-As K8s network is massive, [filtering](/en/filtering) enables you to find the \`needle in the haystack\`.
+As K8s network is massive, [KFL2 filtering](/en/v2/kfl2) enables you to find the \`needle in the haystack\`.
 
 Here are a few examples:
 
@@ -38,7 +38,7 @@ When you'd like to analyze the traffic at a specific node or set of nodes.
 
 **Kubeshark** offers an instant, identity-aware **Service Map** that updates in real-time, and can be used to focus your analysis on specific parts of the cluster. 
 
-In conjunction with its filtering language ([KFL](/en/filtering#kfl-syntax-reference)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.
+In conjunction with its filtering language ([KFL2](/en/v2/kfl2)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.
 
 For example, the following query will analyze the ingress traffic of two pods and the egress traffic of a third pod:
 
