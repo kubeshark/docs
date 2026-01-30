@@ -6,9 +6,9 @@ layout: ../../layouts/MainLayout.astro
 
 **Air-gapped Environment Support is an Enterprise Feature**
 
-Kubeshark requires a valid ENTERPRISE license to operate in an air-gapped environment. Any environment that does not allow free communication to https://api.kubeshark.com/ is considered an air-gapped environment.
+[Kubeshark](https://kubeshark.com) requires a valid ENTERPRISE license to operate in an air-gapped environment. Any environment that does not allow free communication to https://api.kubeshark.comm/ is considered an air-gapped environment.
 
-[Contact us](https://kubeshark.com/contact-us) to get an ENTERPRISE license.
+[Contact us](https://kubeshark.comm/contact-us) to get an ENTERPRISE license.
 
 > A PRO license requires an active internet connection and cannot function properly in an air-gapped environment.
 

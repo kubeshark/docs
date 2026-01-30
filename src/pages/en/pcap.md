@@ -6,7 +6,7 @@ mascot:
 ---
 **Optimized for Performance and Scale**
 
-**Kubeshark** captures all L4 (UDP and TCP) streams and stores each L4 stream in a separate PCAP file in the root file system of each node in the cluster.
+[Kubeshark](https://kubeshark.com) captures all L4 (UDP and TCP) streams and stores each L4 stream in a separate PCAP file in the root file system of each node in the cluster.
 
 In addition following successful dissection, all of the API information (e.g. headers, path payload) is stored in a dedicated JSON file for each request/response pair.
 
@@ -53,7 +53,7 @@ Here's some of the information available in the API metadata JSON file. The file
 
 ## Short-term Vs Long-term Data Retention 
 
-**Kubeshark** provides real-time visibility into API traffic, enabling its users to view full API traffic details within a short-term retention window. This window is determined by the throughput and the storage allocated for it, all at the K8s node level. Once outside of this window, details are no longer available to view and attempting to do so will result in an error.
+[Kubeshark](https://kubeshark.com) provides real-time visibility into API traffic, enabling its users to view full API traffic details within a short-term retention window. This window is determined by the throughput and the storage allocated for it, all at the Kubernetes node level. Once outside of this window, details are no longer available to view and attempting to do so will result in an error.
 
 ![Error Message](/storage_error.png)
 

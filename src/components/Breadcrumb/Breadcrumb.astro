@@ -1,0 +1,77 @@
+---
+import { SIDEBAR } from '../../config';
+
+export interface Props {
+  currentPage: string;
+}
+
+const { currentPage } = Astro.props;
+
+// Find the current page in the sidebar to determine its section
+function findBreadcrumb(currentPage: string) {
+  const normalizedPath = currentPage.replace(/^\//, '').replace(/\/$/, '');
+
+  for (const [section, links] of Object.entries(SIDEBAR.en)) {
+    for (const link of links) {
+      if (link.link === normalizedPath) {
+        return {
+          section,
+          page: link.text,
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
+const breadcrumb = findBreadcrumb(currentPage);
+---
+
+{breadcrumb && (
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/en/introduction">Docs</a>
+    <span class="breadcrumb-separator" aria-hidden="true">/</span>
+    <span class="breadcrumb-section">{breadcrumb.section}</span>
+    <span class="breadcrumb-separator" aria-hidden="true">/</span>
+    <span class="breadcrumb-current" aria-current="page">{breadcrumb.page}</span>
+  </nav>
+)}
+
+<style>
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--theme-text-light);
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb a {
+    color: var(--theme-text-light);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--theme-text-accent);
+    text-decoration: underline;
+  }
+
+  .breadcrumb-separator {
+    color: var(--theme-text-light);
+    opacity: 0.5;
+    user-select: none;
+  }
+
+  .breadcrumb-section {
+    color: var(--theme-text-light);
+  }
+
+  .breadcrumb-current {
+    color: var(--theme-text);
+    font-weight: 500;
+  }
+</style>

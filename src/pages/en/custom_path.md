@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-If you're hosting Kubeshark behind a reverse proxy and want it to be accessible via a custom path, you need to configure it accordingly.
+If you're hosting [Kubeshark](https://kubeshark.com) behind a reverse proxy and want it to be accessible via a custom path, you need to configure it accordingly.
 
 For example, suppose you deploy a reverse proxy at the following address:  
 `https://my.domain.com/`
@@ -14,9 +14,9 @@ You then forward traffic to different applications based on custom paths, such a
 
 - `https://my.domain.com/app1` → App 1  
 - `https://my.domain.com/app2` → App 2  
-- `https://my.domain.com/custom-kubeshark-path` → Kubeshark
+- `https://my.domain.com/custom-kubeshark-path` → [Kubeshark](https://kubeshark.com)
 
-To make Kubeshark work properly under a custom path, you **must** set a Helm value with the desired base path.
+To make [Kubeshark](https://kubeshark.com) work properly under a custom path, you **must** set a Helm value with the desired base path.
 
 > **Note:** The custom path **must** be prefixed with `/`.
 

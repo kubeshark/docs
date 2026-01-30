@@ -5,27 +5,27 @@ layout: ../../layouts/MainLayout.astro
 ---
 **Full code transparency with fair limitation on commercial exploitation**
 
-Kubeshark is a collection of five different projects, each with its own license.  
+[Kubeshark](https://kubeshark.com) is a collection of five different projects, each with its own license.  
 
 |Project |Type|Version|Link
 |---|---|---|---|
-|Kubeshark (CLI)|Apache|2.0|[Link](https://github.com/kubeshark/kubeshark/blob/master/LICENSE)|   
+|[Kubeshark](https://kubeshark.com) (CLI)|Apache|2.0|[Link](https://github.com/kubeshark/kubeshark/blob/master/LICENSE)|   
 |Front-end|BSL|1.1|[Link](/en/bsl_1_1)|   
 |Hub|BSL|1.1|[Link](/en/bsl_1_1)|   
 |Worker|BSL|1.1|[Link](/en/bsl_1_1)|  
 |Tracer|GPL|3.0|[Link](https://github.com/kubeshark/tracer/blob/master/LICENSE)|  
 
-When using Kubeshark the least permissive license takes dominance. In this case its [BSL 1.1](/en/bsl_1_1).
+When using [Kubeshark](https://kubeshark.com) the least permissive license takes dominance. In this case its [BSL 1.1](/en/bsl_1_1).
 
 ## Code Access
 
-Kubeshark's source code is fully open and accessible to authenticated and approved users, under the terms of the [BSL 1.1](/en/bsl_1_1) license. While we grant users the liberty to view, use, and modify the source code, much like traditional open-source licenses, we introduce a reasonable limitation on commercial exploitation for a certain period. This allows the project ample opportunity to grow and accrue resources.
+[Kubeshark](https://kubeshark.com)'s source code is fully open and accessible to authenticated and approved users, under the terms of the [BSL 1.1](/en/bsl_1_1) license. While we grant users the liberty to view, use, and modify the source code, much like traditional open-source licenses, we introduce a reasonable limitation on commercial exploitation for a certain period. This allows the project ample opportunity to grow and accrue resources.
 
 ## TL;DR - Why Did We chose This License Strategy
 
 ### Code Transparency 
 
-When creating the code for Kubeshark, it was clear to us that the code needs to be transparent as no modern organization, SRE or DevOp will seriously consider code they can't look into. When we evaluated options of closed and semi-closed codebase, we realized that the best option for the user would be source code that is completely available.
+When creating the code for [Kubeshark](https://kubeshark.com), it was clear to us that the code needs to be transparent as no modern organization, SRE or DevOp will seriously consider code they can't look into. When we evaluated options of closed and semi-closed codebase, we realized that the best option for the user would be source code that is completely available.
 
 BSL 1.1 grants users the freedom to view, use, and modify the source code, just like traditional open source licenses. However, it introduces a fair limitation on commercial exploitation for a specific period, giving the project a chance to grow and generate resources.
 

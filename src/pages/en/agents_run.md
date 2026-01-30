@@ -1,6 +1,6 @@
 ---
 title: Activating Network Agents
-description: This guide explains how to activate **Kubeshark** Network Agents automatically or on demand, using templates, scripts, or the Dashboard.
+description: This guide explains how to activate Kubeshark Network Agents automatically or on demand, using templates, scripts, or the Dashboard.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -8,11 +8,11 @@ layout: ../../layouts/MainLayout.astro
 
 1. Using Agent templates
 2. Using the [`kubeshark scripts` command](/en/automation_scripts_cmd)
-3. Via the **Kubeshark** Dashboard
+3. Via the [Kubeshark](https://kubeshark.com) Dashboard
 
 ## Activating Agents Using Agent Templates
 
-**Kubeshark** provides fully functional Agent templates. These can be used as-is to fulfill automation tasks, customized, or used as inspiration to create new agents.
+[Kubeshark](https://kubeshark.com) provides fully functional Agent templates. These can be used as-is to fulfill automation tasks, customized, or used as inspiration to create new agents.
 
 ![Automatic activation of the Redact Sensitive Data Agent](/redact_agent.png)
 
@@ -20,7 +20,7 @@ layout: ../../layouts/MainLayout.astro
 
 To automatically run one or more Agent templates, add the agent name(s) to the `scripting.active` Helm value.
 
-For example, to activate the `Redact Sensitive Data` agent each time **Kubeshark** starts:
+For example, to activate the `Redact Sensitive Data` agent each time [Kubeshark](https://kubeshark.com) starts:
 
 ```yaml
 scripting:
@@ -47,8 +47,8 @@ scripting:
 
 ## Running from the UI
 
-You can also run agents directly from the **Kubeshark** UI.
-**Note:** Scripts created in the UI are not persistent and will be lost when **Kubeshark** restarts.
+You can also run agents directly from the [Kubeshark](https://kubeshark.com) UI.
+**Note:** Scripts created in the UI are not persistent and will be lost when [Kubeshark](https://kubeshark.com) restarts.
 
 To run a script:
 

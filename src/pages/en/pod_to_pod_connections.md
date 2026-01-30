@@ -16,9 +16,9 @@ To analyze pod-to-pod connections, follow these steps:
 1. Ensure the TCP dissector is enabled by following the instructions in the [protocols section](/en/protocols#dynamically-configuring-available-dissectors).
 2. Enter the `tcp` KFL alias in the display filter box.
 
-The above instructions will cause **Kubeshark** to analyze and show only TCP packets.
+The above instructions will cause [Kubeshark](https://kubeshark.com) to analyze and show only TCP packets.
 
-Pod-to-pod connection analysis enables you to detect every connection between pods and external services. It displays all connections and allows the user to search for specific ones. Regardless of the protocol or encryption, as long as it runs over TCP, it will appear in the **Kubeshark** Dashboard.
+Pod-to-pod connection analysis enables you to detect every connection between pods and external services. It displays all connections and allows the user to search for specific ones. Regardless of the protocol or encryption, as long as it runs over TCP, it will appear in the [Kubeshark](https://kubeshark.com) Dashboard.
 
 For example, the following image illustrates a namespace connectivity map, showing the connection between namespaces in the cluster and connections to external services. In this case, two external services, `grafana.com` and `gorest.co.in`, are clearly marked with a red rectangle.
 
@@ -48,7 +48,7 @@ The following image shows that enabling this functionality increases CPU levels.
 - Show all traffic between two namespaces (e.g., ns1<=>ns2): `(src.namespace=="ns1" and dst.namespace=="ns2") or (src.namespace=="ns2" and dst.namespace=="ns1")`
 - Show traffic going to an external domain: `dst.name=="www.domain.com"`
 
-> You can experience this functionality in our [live demo portal](https://kubeshark.kubeshark.com/) by entering `tcp` in the display filter.
+> You can experience this functionality in our [live demo portal](https://kubeshark.kubeshark.comm/) by entering `tcp` in the display filter.
 
 ## What to Expect
 

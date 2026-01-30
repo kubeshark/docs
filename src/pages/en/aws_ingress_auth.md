@@ -62,7 +62,7 @@ tap:
 
 ## Install Kubeshark with Adjusted Configuration
 
-1. Install Kubeshark using the adjusted Helm Chart for the AWS ALB. Use the following command:
+1. Install [Kubeshark](https://kubeshark.com) using the adjusted Helm Chart for the AWS ALB. Use the following command:
 
 ```bash
 helm install kubeshark kubeshark/kubeshark -f <path-to-custom-values.yaml>

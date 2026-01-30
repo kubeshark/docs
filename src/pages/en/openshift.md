@@ -4,7 +4,7 @@ description:
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** is designed to run seamlessly on Openshift, but we recommend deploying **Kubeshark** in its own dedicated namespace. For instance:
+[Kubeshark](https://kubeshark.com) is designed to run seamlessly on Openshift, but we recommend deploying [Kubeshark](https://kubeshark.com) in its own dedicated namespace. For instance:
 ```yaml
 kubectl create namespace kubeshark
 kubeshark tap -s kubeshark

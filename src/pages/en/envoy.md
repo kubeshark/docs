@@ -3,7 +3,7 @@ title: Istio & Envoy Support
 description: Explore the various ways to receive support.
 layout: ../../layouts/MainLayout.astro
 ---
-Tracing traffic and connections in an Istio-enabled cluster can be complex due to mTLS. **Kubeshark** provides full support for Istio/Envoy with one small caveat.
+Tracing traffic and connections in an Istio-enabled cluster can be complex due to mTLS. [Kubeshark](https://kubeshark.com) provides full support for Istio/Envoy with one small caveat.
 
 ![Istio enabled cluster](/envoy_description.png)
 
@@ -17,17 +17,17 @@ For each pod, we have two types of communication:
 
 #### L4 Layer
 
-**Kubeshark** will show all L4 traffic related to Istio, including encrypted and mTLS traffic.
+[Kubeshark](https://kubeshark.com) will show all L4 traffic related to Istio, including encrypted and mTLS traffic.
 
 #### L7 Layer
 
 #### **`container`** <==> `sidecar`: Protocol Support
 
-Protocol messages will be visible, and **Kubeshark** will show all reassembled API calls based on its protocol support.
+Protocol messages will be visible, and [Kubeshark](https://kubeshark.com) will show all reassembled API calls based on its protocol support.
 
 #### **`container`** <==> `sidecar`: TLS / HTTPS
 
-**Kubeshark** will display the **`container`** <==> `sidecar` traffic in clear text (decrypted), which includes the original service ingress and egress traffic, based on **Kubeshark**'s TLS termination library support.
+[Kubeshark](https://kubeshark.com) will display the **`container`** <==> `sidecar` traffic in clear text (decrypted), which includes the original service ingress and egress traffic, based on [Kubeshark](https://kubeshark.com)'s TLS termination library support.
 
 > Read more about TLS termination library support in the [TLS/HTTPS section](/en/encrypted_traffic).
 

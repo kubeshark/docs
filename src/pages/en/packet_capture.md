@@ -5,7 +5,7 @@ description:
 layout: ../../layouts/MainLayout.astro  
 ---
 
-**Kubeshark** supports numerous packet capture options catering to a wide range of kernel versions and available capabilities. Each option has its own pros and cons. Having a variety of options to choose from guarantees traffic capture is performant and robust.
+[Kubeshark](https://kubeshark.com) supports numerous packet capture options catering to a wide range of kernel versions and available capabilities. Each option has its own pros and cons. Having a variety of options to choose from guarantees traffic capture is performant and robust.
 
 ## eBPF
 
@@ -27,7 +27,7 @@ The eBPF option requires the following security capabilities:
 
 ## AF_PACKET
 
-Kubeshark uses AF_PACKET as the default packet capture option.  
+[Kubeshark](https://kubeshark.com) uses AF_PACKET as the default packet capture option.  
 To set explicitly, use: `--set packetCapture=af_packet`.
 
 AF_PACKET operates at the network interface level. It is a mature and reliable mechanism that is available by default in most operating systems and supported in most kernel versions. AF_PACKET is a good enough option in most cases.
@@ -49,7 +49,7 @@ LIBPCAP is an older, yet fully functional option for packet capture.
 
 ## PF-RING, AF_XDP
 
-Kubeshark provides support for additional packet capture methods, however, at this point, using one of these is safe for specific use-cases.
+[Kubeshark](https://kubeshark.com) provides support for additional packet capture methods, however, at this point, using one of these is safe for specific use-cases.
 
 ## Which Method Was Used
 
@@ -60,4 +60,4 @@ The request-response pair metadata includes information related to the packet ca
 
 ## TLS Packet Capture
 
-**Kubeshark** uses eBPF to intercept TLS traffic. This packet capture option resembles, yet is different from the eBPF traffic capture option mentioned above. This option is enabled by default. Not using this option will disable TLS packet capture. It also uses the same security capabilities. It has wider OS and kernel version support.
+[Kubeshark](https://kubeshark.com) uses eBPF to intercept TLS traffic. This packet capture option resembles, yet is different from the eBPF traffic capture option mentioned above. This option is enabled by default. Not using this option will disable TLS packet capture. It also uses the same security capabilities. It has wider OS and kernel version support.

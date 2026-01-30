@@ -6,7 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## Running Kubeshark at a steady state
 
-Running Kubeshark at a steady state, without using the Dashboard should require very little resources in terms of CPU and memory. In this state, Kubeshark captures all traffic and save it to the Worker nodes local storage. 
+Running [Kubeshark](https://kubeshark.com) at a steady state, without using the Dashboard should require very little resources in terms of CPU and memory. In this state, [Kubeshark](https://kubeshark.com) captures all traffic and save it to the Worker nodes local storage. 
 
 ## Using the Dashboard
 

@@ -71,7 +71,7 @@ wrapper.kflPcapS3(data, {
 });
 ```
 
-**Kubeshark** uploads the compressed PCAP repositories to AWS S3, making them available
+[Kubeshark](https://kubeshark.com) uploads the compressed PCAP repositories to AWS S3, making them available
 in your AWS S3 console:
 
 ![S3 FIles](/kfl-pcap-s3.png)
@@ -170,6 +170,6 @@ The file looks something like this:
   }
 }
 ```
-You can view the content of the repository using  **Kubeshark** with the `kubeshark tap --pcap <pcap-repo-name>`
+You can view the content of the repository using  [Kubeshark](https://kubeshark.com) with the `kubeshark tap --pcap <pcap-repo-name>`
 
 > Read more in the [PCAP](/en/pcap#view-the-pcap-snapshot) section

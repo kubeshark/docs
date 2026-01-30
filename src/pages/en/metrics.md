@@ -34,7 +34,7 @@ function onItemCaptured(data) {
 
 ## Prometheus Metrics Helper
 
-**Kubeshark** can export both pre-existing and custom Prometheus metrics. Almost any network-based event can be turned into a custom metric. See below for a list of built-in metrics. A [script](/en/automation_scripting) can also be used to calculate and export custom metrics using the `prometheus.metric` helper.
+[Kubeshark](https://kubeshark.com) can export both pre-existing and custom Prometheus metrics. Almost any network-based event can be turned into a custom metric. See below for a list of built-in metrics. A [script](/en/automation_scripting) can also be used to calculate and export custom metrics using the `prometheus.metric` helper.
 
 **Example:**
 ```javascript
@@ -80,9 +80,9 @@ rate({s_metric="dnscounts"}[$__rate_interval])
 
 ## Configuration
 
-By default, **Kubeshark** uses port `49100` to expose metrics through the service `kubeshark-worker-metrics`.
+By default, [Kubeshark](https://kubeshark.com) uses port `49100` to expose metrics through the service `kubeshark-worker-metrics`.
 
-If you are using the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) community Helm chart, you can configure additional scraping for Kubeshark using the following configuration:
+If you are using the [kube-prometheus-stack](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack) community Helm chart, you can configure additional scraping for [Kubeshark](https://kubeshark.com) using the following configuration:
 
 ```yaml
 prometheus:
@@ -111,7 +111,7 @@ prometheus:
 
 ## Existing Metrics
 
-Existing metrics provide essential insights for monitoring **Kubeshark**.
+Existing metrics provide essential insights for monitoring [Kubeshark](https://kubeshark.com).
 
 > For the most up-to-date details, visit the [metrics section](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/metrics.md) in the repository.
 

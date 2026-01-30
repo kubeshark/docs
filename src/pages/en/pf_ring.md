@@ -6,11 +6,11 @@ layout: ../../layouts/MainLayout.astro
 
 [PF-RING](https://www.ntop.org/products/packet-capture/pf_ring/) is a high-performance traffic processing library, offering superior performance compared to [AF_PACKET](https://man7.org/linux/man-pages/man7/packet.7.html). It is particularly well-suited for high-speed network environments.
 
-The integration of PF_RING with Kubeshark is depicted in the following diagram:
+The integration of PF_RING with [Kubeshark](https://kubeshark.com) is depicted in the following diagram:
 
 ![Worker's Architecture](/worker-architecture.png)
 
-Due to PF_RING's requirement for specific support based on the Node's kernel version, and the vast variety of kernel versions, Kubeshark's support for PF_RING cannot be universally guaranteed.
+Due to PF_RING's requirement for specific support based on the Node's kernel version, and the vast variety of kernel versions, [Kubeshark](https://kubeshark.com)'s support for PF_RING cannot be universally guaranteed.
 
 ## Adding Support for Your Kernel Version
 
@@ -55,4 +55,4 @@ git commit -S -m "Add PF_RING module for kernel 5.10.210-201.852.amzn2.x86_64"
 git push origin add-module-<version>
 ```
 
-After creating the PR, wait for it to be reviewed and merged. Following the merge, a GitHub Action pipeline will construct a new `kubeshark/pf-ring-module:all` image, enabling Kubeshark to support PF_RING for your kernel version.
+After creating the PR, wait for it to be reviewed and merged. Following the merge, a GitHub Action pipeline will construct a new `kubeshark/pf-ring-module:all` image, enabling [Kubeshark](https://kubeshark.com) to support PF_RING for your kernel version.

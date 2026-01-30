@@ -6,7 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## The Worker DaemonSet
 
-Kubeshark's Worker DaemonSet is a critical component designed to monitor network traffic within the Kubernetes cluster. To function effectively, it requires specific capabilities that go beyond the standard set. These capabilities are essential for enabling network sniffing and detailed traffic analysis. The security context for the Worker DaemonSet is defined as follows:
+[Kubeshark](https://kubeshark.com)'s Worker DaemonSet is a critical component designed to monitor network traffic within the Kubernetes cluster. To function effectively, it requires specific capabilities that go beyond the standard set. These capabilities are essential for enabling network sniffing and detailed traffic analysis. The security context for the Worker DaemonSet is defined as follows:
 
 #### Capabilities
 
@@ -33,11 +33,11 @@ This configuration can be changed via the `values.yaml`.
 
 ## Service Account
 
-Kubeshark utilizes a dedicated Service Account named `kubeshark-service-account` for all its components. This account is specifically configured to provide the necessary access permissions for Kubeshark's operations within the Kubernetes environment, ensuring secure and efficient performance.
+[Kubeshark](https://kubeshark.com) utilizes a dedicated Service Account named `kubeshark-service-account` for all its components. This account is specifically configured to provide the necessary access permissions for [Kubeshark](https://kubeshark.com)'s operations within the Kubernetes environment, ensuring secure and efficient performance.
 
 ## Cluster Role
 
-The Cluster Role in Kubeshark is designed to grant broad permissions across the entire Kubernetes cluster. This role is crucial for Kubeshark to access and monitor various Kubernetes resources at a cluster-wide level. The Cluster Role Binding, detailed below, outlines these permissions:
+The Cluster Role in [Kubeshark](https://kubeshark.com) is designed to grant broad permissions across the entire Kubernetes cluster. This role is crucial for [Kubeshark](https://kubeshark.com) to access and monitor various Kubernetes resources at a cluster-wide level. The Cluster Role Binding, detailed below, outlines these permissions:
 
 ```yaml
 rules:
@@ -58,7 +58,7 @@ rules:
 
 ## Namespace Specific Role
 
-Within the specific namespace where Kubeshark is deployed, a Role Binding is used to grant targeted permissions for namespace-level resources. This ensures Kubeshark's access to essential configurations and secrets within its operational namespace:
+Within the specific namespace where [Kubeshark](https://kubeshark.com) is deployed, a Role Binding is used to grant targeted permissions for namespace-level resources. This ensures [Kubeshark](https://kubeshark.com)'s access to essential configurations and secrets within its operational namespace:
 
 ```yaml
 rules:
@@ -66,8 +66,8 @@ rules:
       - ""           # Core API group
       - v1           # Version 1 of the core API group
     resourceNames:
-      - kubeshark-secret      # Specific secret for Kubeshark
-      - kubeshark-config-map  # Specific config map for Kubeshark
+      - kubeshark-secret      # Specific secret for [Kubeshark](https://kubeshark.com)
+      - kubeshark-config-map  # Specific config map for [Kubeshark](https://kubeshark.com)
     resources:
       - secrets       # Access to secrets resource
       - configmaps    # Access to configmaps resource
@@ -77,4 +77,4 @@ rules:
       - update        # Permission to update resources
 ```
 
-These permissions are integral for Kubeshark's self-configuration and adaptive operation within the Kubernetes environment.
+These permissions are integral for [Kubeshark](https://kubeshark.com)'s self-configuration and adaptive operation within the Kubernetes environment.

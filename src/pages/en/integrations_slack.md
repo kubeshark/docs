@@ -51,7 +51,7 @@ function onItemCaptured(data) {
 
 ```
 
-**Kubeshark** supports two message sending methods:
+[Kubeshark](https://kubeshark.com) supports two message sending methods:
 
 1. Using an [incoming webhook](https://api.slack.com/messaging/webhooks). See [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string) helper.
 2. Using an auth token and a channel ID. See [`vendor.slackBot`](/en/automation_helpers#vendorslackbottoken-string-channelid-string-pretext-string-text-string-color-string-fields-object-files-object) helper.
@@ -66,7 +66,7 @@ Start [here](https://api.slack.com/apps) and press the **Create New App** button
 
 ![Create Slack App](/slack-create-app.png)
 
-To make it easy we provided short manifest that is sufficient for **Kubeshark** to send messages to a Slack channel.
+To make it easy we provided short manifest that is sufficient for [Kubeshark](https://kubeshark.com) to send messages to a Slack channel.
 
 Choose to create an app from a manifest:
 
@@ -80,13 +80,13 @@ Copy the manifest from below and paste to the Slack Manifest window. Be sure to 
 
 ```yaml
 display_information:
-  name: Kubeshark
+  name: [Kubeshark](https://kubeshark.com)
   description: The API Traffic Analyzer for Kubernetes
   background_color: "#1c50d4"
-  long_description: Think Wireshark re-invented for K8s, Kubeshark provides deep visibility and real-time monitoring of all traffic going in, out and across containers, pods, namespaces, nodes, and clusters, elevating your ability to debug, troubleshoot, and protect your K8s clusters.
+  long_description: Think Wireshark re-invented for Kubernetes, [Kubeshark](https://kubeshark.com) provides deep visibility and real-time monitoring of all traffic going in, out and across containers, pods, namespaces, nodes, and clusters, elevating your ability to debug, troubleshoot, and protect your Kubernetes clusters.
 features:
   bot_user:
-    display_name: Kubeshark
+    display_name: [Kubeshark](https://kubeshark.com)
     always_online: true
 oauth_config:
   scopes:
@@ -118,7 +118,7 @@ vendor.slack(
   "#ff0000"
 );
 ```
-As the Webhook is a confidential piece of information, we highly recommend to keep it in the **Kubeshark** configuration file.
+As the Webhook is a confidential piece of information, we highly recommend to keep it in the [Kubeshark](https://kubeshark.com) configuration file.
 
 ### Using an Auth Token and a Channel ID
 
@@ -130,7 +130,7 @@ To obtain the OAuth Token, go to the new Slack App page and hop over to the `OAu
 
 ![Slack OAuth Token](/slack-oauth.png)
 
-We suggest keeping the OAuth token as an [environment variables](/en/config#scripts) in the **Kubeshark** configuration file.
+We suggest keeping the OAuth token as an [environment variables](/en/config#scripts) in the [Kubeshark](https://kubeshark.com) configuration file.
 
 #### Obtaining the Channel ID 
 
@@ -144,6 +144,6 @@ Now, copy the channel ID at the bottom of the about section.
 
 #### Adding Kubeshark to the Channel
 
-Last required action is to add Kubeshark to the channel. This can be achieved by calling the Bot using `@Kubeshark`
+Last required action is to add [Kubeshark](https://kubeshark.com) to the channel. This can be achieved by calling the Bot using `@[Kubeshark](https://kubeshark.com)`
 
 ![Slack Channel Add](/slack-adding-to-channel.png)

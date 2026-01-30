@@ -4,7 +4,7 @@ description: What to expect and how to control the short-term traffic retention
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** provides real-time visibility into API traffic, enabling its users to view full API traffic details within a short-term retention window. This window is determined by the throughput and the storage allocated for it, all at the K8s node level. Once outside of this window, details are no longer available to view and attempting to do so will result in an error.
+[Kubeshark](https://kubeshark.com) provides real-time visibility into API traffic, enabling its users to view full API traffic details within a short-term retention window. This window is determined by the throughput and the storage allocated for it, all at the Kubernetes node level. Once outside of this window, details are no longer available to view and attempting to do so will result in an error.
 
 ![Error Message](/storage_error.png)
 

@@ -8,7 +8,7 @@ Compared to [port-forward](https://kubernetes.io/docs/tasks/access-application-c
 
 ## Pre-requisites
 
-It's important to understand that **Kubeshark** uses a WebSocket connection, that isn't supported out of the box for some load balancers.
+It's important to understand that [Kubeshark](https://kubeshark.com) uses a WebSocket connection, that isn't supported out of the box for some load balancers.
 
 Ingress can be enabled by setting the `tap.ingress.enabled` to `true`.
 
@@ -25,7 +25,7 @@ helm upgrade -i kubeshark kubeshark/kubeshark --set tap.ingress.enabled=false
 
 ## Setting Up TLS Using Cert-manager
 
-1. Ensure that cert-manager is installed in your K8s cluster. If not, follow the cert-manager installation instructions for your environment. You are going to need an Issuer or Cluster Issuer in your cluster.
+1. Ensure that cert-manager is installed in your Kubernetes cluster. If not, follow the cert-manager installation instructions for your environment. You are going to need an Issuer or Cluster Issuer in your cluster.
 
 2. Open your customized `values.yaml` file and locate the `tap.ingress.tls` section.
 
@@ -73,7 +73,7 @@ tap:
 helm upgrade kubeshark kubeshark/kubeshark -f <path-to-custom-values.yaml>
 ```
 
-Now you have successfully enabled ingress for **Kubeshark** via CLI, set up TLS using cert-manager, and defined a custom ingress class.
+Now you have successfully enabled ingress for [Kubeshark](https://kubeshark.com) via CLI, set up TLS using cert-manager, and defined a custom ingress class.
 
 Make sure to adjust the commands and configurations according to your environment and the path to your customized `values.yaml` file.
 

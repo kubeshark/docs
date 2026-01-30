@@ -4,13 +4,13 @@ description:
 layout: ../../layouts/MainLayout.astro
 ---
 
-You can take a cluster-wide traffic snapshot based on the `pcapdump` configuration values. By default, **Kubeshark** allows you to create and download a snapshot of the last 60 minutes of cluster-wide traffic. This functionality is available through the recording dialog window.
+You can take a cluster-wide traffic snapshot based on the `pcapdump` configuration values. By default, [Kubeshark](https://kubeshark.com) allows you to create and download a snapshot of the last 60 minutes of cluster-wide traffic. This functionality is available through the recording dialog window.
 
 ![Cluster-wide traffic snapshot](/snapshot.png)
 
 The snapshot includes all Layer 4 (L4) supported protocols—such as TCP, UDP, and SCTP—including [decrypted TLS](/en/encrypted_traffic) and mTLS traffic. This functionality is similar to the popular [tcpdump](https://www.tcpdump.org/).
 
-**Kubeshark** automatically and continuously captures and stores traffic while managing both time window and storage constraints. This allows you to export recorded traffic to a local folder at any time for retention or further analysis using [Wireshark](https://www.wireshark.org/).
+[Kubeshark](https://kubeshark.com) automatically and continuously captures and stores traffic while managing both time window and storage constraints. This allows you to export recorded traffic to a local folder at any time for retention or further analysis using [Wireshark](https://www.wireshark.org/).
 
 ---
 
@@ -20,9 +20,9 @@ See the [Capture Filters](/en/pod_targeting) section to learn more about how to 
 
 Specific traffic snapshot (`pcapdump`) properties can be set in the `settings` section or in the Helm values.
 
-**Kubeshark** handles retention automatically by deleting old files outside the defined time window or beyond the allocated storage quota.
+[Kubeshark](https://kubeshark.com) handles retention automatically by deleting old files outside the defined time window or beyond the allocated storage quota.
 
-For example, with a 24-hour time window and a 50 MB storage limit, **Kubeshark** retains only the files recorded in the last 24 hours and within the 50 MB cap. Older or excess files are removed automatically.
+For example, with a 24-hour time window and a 50 MB storage limit, [Kubeshark](https://kubeshark.com) retains only the files recorded in the last 24 hours and within the 50 MB cap. Older or excess files are removed automatically.
 
 ![Traffic Snapshot Settings](/pcapdump_settings.png)
 
@@ -39,7 +39,7 @@ pcapdump:
 
 ## CLI Installation
 
-You can also take traffic snapshots using the **Kubeshark** CLI.
+You can also take traffic snapshots using the [Kubeshark](https://kubeshark.com) CLI.
 
 First, ensure the CLI is installed. You can install it via Homebrew (`brew install kubeshark`) or other supported methods.
 

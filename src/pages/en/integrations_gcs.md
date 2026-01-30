@@ -4,7 +4,7 @@ description: Kubeshark enables you to generate files (e.g. PCAPs) and upload the
 layout: ../../layouts/MainLayout.astro
 ---
 
-The GCS integration provides an immutable datastore option in case you want to export files outside of the K8s cluster.
+The GCS integration provides an immutable datastore option in case you want to export files outside of the Kubernetes cluster.
 
 You can read the [helper](/en/automation_helpers) section to learn more about the available GCS helpers.
 

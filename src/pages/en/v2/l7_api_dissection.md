@@ -5,9 +5,9 @@ layout: ../../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-> This feature is part of **Kubeshark** V2.00, scheduled to release in early 2026.
+> This feature is part of [Kubeshark](https://kubeshark.com) V2.00, scheduled to release in early 2026.
 
-**Kubeshark** performs L7/API dissection to enrich captured traffic and payloads with full [Kubernetes](https://kubernetes.io/) context (e.g., workload identities, node, namespace, pod, and service names) and API context (e.g., request/response matching, endpoint and status codes, headers, and payloads).
+[Kubeshark](https://kubeshark.com) performs L7/API dissection to enrich captured traffic and payloads with full [Kubernetes](https://kubernetes.io/) context (e.g., workload identities, node, namespace, pod, and service names) and API context (e.g., request/response matching, endpoint and status codes, headers, and payloads).
 
 ![API Dissection](/api_context.png)
 
@@ -35,7 +35,7 @@ Raw traffic includes IPs, ports, and raw packets. It lacks the API context, and 
 
 ### Workload Identities
 
-[Kubernetes](https://kubernetes.io/) orchestrates workload identities (e.g., service, pod, namespace). It's impossible to establish workload identities by inspecting raw packets alone. To establish workload identities, **Kubeshark** maintains a name-to-IP resolution table that enables correlating IP addresses to workload identities.
+[Kubernetes](https://kubernetes.io/) orchestrates workload identities (e.g., service, pod, namespace). It's impossible to establish workload identities by inspecting raw packets alone. To establish workload identities, [Kubeshark](https://kubeshark.com) maintains a name-to-IP resolution table that enables correlating IP addresses to workload identities.
 
 For each peer (e.g., source or destination), the following information is presented:
 - Service name

@@ -4,7 +4,7 @@ description: Kubeshark enables you to send metrics directly to any InfluxDB loca
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** enables you to send metrics directly to any [InfluxDB](https://www.influxdata.com/) local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
+[Kubeshark](https://kubeshark.com) enables you to send metrics directly to any [InfluxDB](https://www.influxdata.com/) local instance or cloud-hosted solution using the InfluxDB helper. You can then use InfluxDB's capabilities as a time-series database for reporting and further aggregation (e.g. to Grafana).
 
 ## Sending Identity-aware Latency Information
 
@@ -32,7 +32,7 @@ function onItemCaptured(data) {
   );
 }
 ```
-The example assumes the key properties that are required for authentication are stored in the **Kubeshark**'s configuration file as [environment variables](/en/config#scripts).
+The example assumes the key properties that are required for authentication are stored in the [Kubeshark](https://kubeshark.com)'s configuration file as [environment variables](/en/config#scripts).
 
 > See [`vendor.influxdb`](/en/automation_helpers#vendorinfluxdburl-string-token-string-organization-string-bucket-string-measurement-string-data-object-tags-object) for more info.
 
@@ -73,7 +73,7 @@ The **InfluxDB URL** is simply the instance's URL that can be copied from the br
 
 The other three properties (e.g. Measurement, Metrics, Tags) can be defined on the run.
 
-While you can created numerous metrics, queries and graphs, some properties are unlikely to change and therefore it is recommended to keep them in the **Kubeshark** configuration file under the environment variable section.
+While you can created numerous metrics, queries and graphs, some properties are unlikely to change and therefore it is recommended to keep them in the [Kubeshark](https://kubeshark.com) configuration file under the environment variable section.
 
 ### API Call Latency Query and a Graph
 

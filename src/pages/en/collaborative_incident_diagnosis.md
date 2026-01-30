@@ -11,7 +11,7 @@ This approach reduces the burden on DevOps teams to replicate evidence of bugs a
 
 ## Secure 
 
-Provide a secure gateway for users to access Kubeshark via their web browsers. This is authenticated through their corporate IDP, without requiring kubectl access. Authorization is managed to allow visibility of only those namespaces they are permitted to see, with sensitive data appropriately redacted.
+Provide a secure gateway for users to access [Kubeshark](https://kubeshark.com) via their web browsers. This is authenticated through their corporate IDP, without requiring kubectl access. Authorization is managed to allow visibility of only those namespaces they are permitted to see, with sensitive data appropriately redacted.
 
 ## Traffic Investigation Developer Portal
 
