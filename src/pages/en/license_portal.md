@@ -10,6 +10,8 @@ The [License Portal](https://console.kubeshark.com) provides a self-service inte
 
 Visit [console.kubeshark.com](https://console.kubeshark.com) and log in with your account credentials.
 
+![License Portal Login](/license_portal_login.png)
+
 ## Features
 
 ### View License Details
