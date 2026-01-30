@@ -14,15 +14,24 @@ Visit [console.kubeshark.com](https://console.kubeshark.com) and log in with you
 
 ## Features
 
-### View License Details
+### Subscription Tab
 
-The portal displays your current license attributes including:
+The Subscription tab displays your license attributes:
 
-- License key
-- Plan type (Community, Micro, Enterprise)
+- Edition (Community, Micro, Enterprise)
+- Subscription status
 - Node limit
-- Expiration date
-- Cluster assignment (single or multi-cluster)
+- Pod limit
+- Cluster type (single or unlimited)
+- Cluster IDs
+
+From this tab you can:
+
+- Upgrade to Pro
+- Downgrade to Community
+- Manage your Stripe subscription (change payment methods, cancel, modify plan)
+
+![Subscription Tab](/license_portal_subscription.png)
 
 ### Manage Your License Key
 
