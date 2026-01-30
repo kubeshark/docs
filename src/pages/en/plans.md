@@ -27,7 +27,8 @@ The Pro edition offers volume-based pricing for any cluster size. Choose a tier 
 
 **Key features:**
 - **Unlimited** cluster size and pods on all tiers
-- Single-user license, multi-cluster capable
+- Single-user license requiring authentication
+- Use across **any number of clusters** — log in to use your license, log out when done
 - Requires internet connectivity
 - Community support
 
