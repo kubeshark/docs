@@ -36,8 +36,6 @@ Customers requesting access to **Kubeshark**'s codebase are added to the **Kubes
 
 Sensitive Data can be redacted at the source, making it unavailable to Viewers.
 
-> Learn more about sensitive data redaction [here](/en/redaction).
-
 ## Traffic Segmentation
 
 **Kubeshark** can be configured to process Data from specific namespaces and pods using pod targeting rules. Only traffic from allowed namespaces and pods is processed. Kubeshark ignores traffic not matching the pod targeting rules.
@@ -58,6 +56,28 @@ To prevent unauthorized access, **Kubeshark** employs SAML to authenticate users
 
 The dashboard can be made available using Ingress with TLS encryption if necessary.
 
-## ISO 27001 & SOC2
+## SOC 2 Type II Certified
 
-Kubeshark is in the process of attaining both ISO 27001 and SOC2 certifications.
+Kubeshark has successfully completed a **SOC 2 Type II** audit, demonstrating our commitment to maintaining the highest standards of security for our customers.
+
+### About Our SOC 2 Type II Report
+
+- **Report Type:** SOC 2 Type II
+- **Trust Services Criteria:** Security
+- **Audit Period:** August 1, 2025 to October 31, 2025
+- **Auditor:** Decrypt Compliance PC (AICPA member)
+- **Opinion:** Unqualified - Controls were suitably designed and operated effectively
+
+A SOC 2 Type II report provides assurance that our security controls have been independently tested and verified to be operating effectively over an extended period, not just at a single point in time.
+
+### Requesting the SOC 2 Report
+
+Customers and prospective customers can request a copy of our SOC 2 Type II report by contacting us at [security@kubeshark.com](mailto:security@kubeshark.com). The report is provided under NDA.
+
+### Ongoing Compliance
+
+We are committed to maintaining our SOC 2 compliance on an annual basis. Our security program includes continuous monitoring, regular risk assessments, and annual penetration testing to ensure ongoing protection of customer data.
+
+## ISO 27001
+
+Kubeshark is in the process of attaining ISO 27001 certification.
