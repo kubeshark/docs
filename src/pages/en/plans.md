@@ -13,17 +13,29 @@ The Community edition is designed for small workloads:
 - Requires internet connectivity
 - Community support
 
-## Pro ($20/month)
+## Pro (Starting at $20/month)
 
-The Pro edition offers volume-based pricing for larger workloads:
+The Pro edition offers volume-based pricing for any cluster size. Choose a tier based on your usage needs:
 
-- **Unlimited** cluster size and pods
-- Volume-based pricing (1M-20M dissected API calls daily)
+| Tier | Monthly Price | Daily API Capacity | Monthly Capacity |
+|------|---------------|-------------------|------------------|
+| Pro 1M | $20 | 1M API calls | ~30M API calls |
+| Pro 7M | $100 | 7M API calls | ~210M API calls |
+| Pro 20M | $200 | 20M API calls | ~600M API calls |
+
+> The $200 tier provides 20x the capacity of the $20 tier at only 10x the price.
+
+**Key features:**
+- **Unlimited** cluster size and pods on all tiers
 - Single-user license, multi-cluster capable
 - Requires internet connectivity
 - Community support
 
-> Subscribe to the Pro edition at the [License Portal](https://console.kubeshark.com/)
+**On-demand capacity:** Additional capacity can be purchased at **$5 per 1M API calls** when you exceed your daily limit.
+
+> API capacity is measured in dissected API calls that appear in the dashboard.
+
+Subscribe to the Pro edition at the [License Portal](https://console.kubeshark.com/)
 
 ## Enterprise
 
