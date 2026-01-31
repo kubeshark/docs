@@ -62,7 +62,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'API (L7) Dissection', link: 'en/v2/l7_api_dissection' },
       { text: 'Dashboard', link: 'en/ui' },
       { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
-      { text: 'Workload L4 & L7 Connectivity Map', link: 'en/v2/service_map' },
+      { text: 'L4 & L7 Workload Map', link: 'en/v2/service_map' },
       { text: 'Cluster-wide PCAP Export', link: 'en/v2/pcap_export' },
       { text: 'L4 to L7 Mapping', link: 'en/v2/l4_to_l7' },
       // { text: 'Running Headless', link: 'en/headless' },
