@@ -59,6 +59,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
+      { text: 'Raw Capture', link: 'en/v2/raw_capture' },
       { text: 'API (L7) Dissection', link: 'en/v2/l7_api_dissection' },
       { text: 'Dashboard', link: 'en/ui' },
       { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
