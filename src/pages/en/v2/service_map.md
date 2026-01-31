@@ -1,5 +1,5 @@
 ---
-title: Workload Map
+title: Workload L4 & L7 Connectivity Map
 description: Kubeshark offers two distinct workflow maps that visualize the relationships within your Kubernetes cluster.
 layout: ../../../layouts/MainLayout.astro
 ---
