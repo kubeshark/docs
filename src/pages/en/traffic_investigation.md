@@ -34,9 +34,9 @@ When you'd like to analyze the traffic at a specific node or set of nodes.
 
 ![KFL Node](/kfl-node.png)
 
-## Identity-aware Service Map
+## Workload Map
 
-**Kubeshark** offers an instant, identity-aware **Service Map** that updates in real-time, and can be used to focus your analysis on specific parts of the cluster. 
+**Kubeshark** offers an instant [Workload Map](/en/v2/service_map) that updates in real-time, and can be used to focus your analysis on specific parts of the cluster.
 
 In conjunction with its filtering language ([KFL2](/en/v2/kfl2)), **Kubeshark** enables you to focus on specific parts of your cluster and reduce the scope of analysis to only a subset of your cluster's traffic.
 
@@ -44,7 +44,7 @@ For example, the following query will analyze the ingress traffic of two pods an
 
 ![Query a Subset of Traffic](/query-subset.png)
 
-The resulting query will show the following service map:
+The resulting query will show the following Workload Map:
 
 ![Service Map Subset](/service-map-subset.png)
 

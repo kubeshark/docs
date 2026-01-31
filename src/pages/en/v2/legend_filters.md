@@ -8,7 +8,7 @@ Legend Filters allow you to show and hide elements in visualizations by clicking
 
 ## Using Legend Filters
 
-In the Service Map (and soon other tabs), a legend appears with clickable items representing namespaces, nodes, and other elements. Click on any legend item to toggle its visibility.
+In the [Workload Map](/en/v2/service_map) (and soon other tabs), a legend appears with clickable items representing namespaces, nodes, and other elements. Click on any legend item to toggle its visibility.
 
 ![Legend Filters](/legend_filters.png)
 
@@ -24,11 +24,11 @@ Each legend item represents a category of elements (e.g., a namespace or node). 
 - **Filled icon** - Elements are visible
 - **Empty/outline icon** - Elements are hidden
 
-This allows you to quickly isolate specific namespaces or nodes in a complex service map, making it easier to focus on the traffic and connections you care about.
+This allows you to quickly isolate specific namespaces or nodes in a complex Workload Map, making it easier to focus on the traffic and connections you care about.
 
 ### Example Use Case
 
-In a cluster with many namespaces, you may want to focus on just one or two namespaces of interest. Instead of manually searching through a crowded service map:
+In a cluster with many namespaces, you may want to focus on just one or two namespaces of interest. Instead of manually searching through a crowded map:
 
 1. Click **Hide all** to hide everything
 2. Click on the one or two namespaces you want to see

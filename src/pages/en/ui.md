@@ -71,9 +71,9 @@ You can copy and share the URL with colleagues to give them the same real-time f
 
 ---
 
-## Service Map in Kubernetes Context
+## Workload Map
 
-The [Service Map](/en/service_map) updates live and provides a real-time visual of traffic dependencies within the cluster or a filtered subset.
+The [Workload Map](/en/v2/service_map) updates live and provides a real-time visual of traffic dependencies within the cluster or a filtered subset.
 
 ![Service Dependency Graph](/new-service-map.png)
 
