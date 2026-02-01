@@ -15,23 +15,27 @@ Think [Wireshark](https://www.wireshark.org/)—reimagined for [Kubernetes](http
 
 ## Why Kubeshark?
 
-<div class="feature-grid">
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
 
-### Real-Time Debugging
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Real-Time Debugging</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Diagnose issues as they happen with cluster-wide, real-time API visibility. See the exact requests and responses causing failures—no waiting, no log correlation, just immediate answers.</p>
+</div>
 
-Diagnose issues as they happen with cluster-wide, real-time API visibility. See the exact requests and responses causing failures—no waiting, no log correlation, just immediate answers.
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Performance Optimization</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Inspect network-level data to identify bottlenecks, slow API calls, and inefficient service communication patterns. Optimize your cluster performance with real data.</p>
+</div>
 
-### Performance Optimization
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Security Analysis</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Detect anomalies and investigate suspicious patterns across your entire cluster. Monitor for unauthorized access, data exfiltration, and policy violations in real-time.</p>
+</div>
 
-Inspect network-level data to identify bottlenecks, slow API calls, and inefficient service communication patterns. Optimize your cluster performance with real data.
-
-### Security Analysis
-
-Detect anomalies and investigate suspicious patterns across your entire cluster. Monitor for unauthorized access, data exfiltration, and policy violations in real-time.
-
-### Forensic Investigation
-
-When issues aren't caught in real-time, access complete traffic history to investigate what happened. Replay and analyze captured traffic to understand past incidents.
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Forensic Investigation</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">When issues aren't caught in real-time, access complete traffic history to investigate what happened. Replay and analyze captured traffic to understand past incidents.</p>
+</div>
 
 </div>
 

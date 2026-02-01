@@ -105,21 +105,23 @@ http and response.status == 500
 
 ---
 
-### Stop Streaming
+### Pause API Dissection
 
-Scrolling up within the traffic pane signals that you're reviewing historical data, which automatically pauses streaming. Alternatively, click the pause button at the top of the left pane.
+You can pause L7 API dissection directly from the dashboard by clicking the API Dissection button in the top-left corner. When dissection is active, a red stop button labeled "Pause API Dissection" is displayed:
 
-![Stop Streaming](/stop-streaming.png)
+![Pause API Dissection](/dissection-on.png)
 
-> Stopping the stream in the dashboard does **not** stop traffic capture. Traffic continues to be recorded until [Kubeshark](https://kubeshark.com) is shut down.
+> Pausing API dissection does **not** stop [Raw Capture](/en/v2/raw_capture). L4 traffic continues to be captured while dissection is paused.
 
 ---
 
-### Resume Streaming
+### Resume API Dissection
 
-To resume live streaming, click the play button at the top of the left pane.
+When API dissection is paused, a green play button labeled "Resume API Dissection" is displayed. Click it to resume dissection:
 
-![Continue Streaming](/play.png)
+![Resume API Dissection](/dissection-off.png)
+
+> Learn more about managing API dissection in [Enabling / Disabling L7 API Dissection](/en/on_off_switch).
 
 ---
 
