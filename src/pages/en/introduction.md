@@ -5,11 +5,13 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-Think [Wireshark](https://www.wireshark.org/)—reimagined for [Kubernetes](https://kubernetes.io/). Capture every packet, decode every API call, and investigate incidents with complete traffic history—all with minimal production overhead.
+Think [Wireshark](https://www.wireshark.org/)—reimagined for [Kubernetes](https://kubernetes.io/). Capture every packet, inspect every API call, and investigate ongoing and past incidents with complete traffic history—all with minimal production overhead.
 
-[Kubeshark](https://kubeshark.com) delivers cluster-wide, real-time, identity-aware visibility into API traffic, including encrypted (TLS) payloads, as it flows through your containers, pods, namespaces, nodes, and clusters.
+[Kubeshark](https://kubeshark.com) delivers cluster-wide, real-time, identity and protocol-aware, visibility into API (L7) and L4 (TCP, UDP, SCTP) traffic, including encrypted (TLS) payloads, as it flows through your containers, pods, namespaces, nodes, and clusters.
 
 ![Kubeshark UI](/kubeshark-ui.png)
+
+Investigate network data with AI-powered natural language prompts. Identify anomalies, detect security threats, optimize costs and improve performance, like never before.
 
 ---
 
@@ -17,24 +19,24 @@ Think [Wireshark](https://www.wireshark.org/)—reimagined for [Kubernetes](http
 
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Real-Time Debugging</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Diagnose issues as they happen with cluster-wide, real-time API visibility. See the exact requests and responses causing failures—no waiting, no log correlation, just immediate answers.</p>
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Real-Time API Visibility</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Inspect real-time, cluster-wide API calls with full Kubernetes and operating system contexts. Troubleshoot your applications, trace service dependencies, and accelerate root cause analysis.</p>
 </div>
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Performance Optimization</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Inspect network-level data to identify bottlenecks, slow API calls, and inefficient service communication patterns. Optimize your cluster performance with real data.</p>
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Complete Packet Retention</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">An alternative to <code style="font-size: 1.1rem;">tcpdump</code>. Kubeshark continuously captures cluster-wide traffic with minimal overhead—always on, zero setup. Export as PCAP for analysis in Wireshark.</p>
 </div>
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Security Analysis</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Detect anomalies and investigate suspicious patterns across your entire cluster. Monitor for unauthorized access, data exfiltration, and policy violations in real-time.</p>
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">AI-Powered Traffic Analysis</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Ask any question about your network data using natural language prompts. For example: "Which APIs violate their OAS specs?" or "What services show poor health?"—instant answers.</p>
 </div>
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
 <h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Forensic Investigation</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">When issues aren't caught in real-time, access complete traffic history to investigate what happened. Replay and analyze captured traffic to understand past incidents.</p>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Investigate ongoing or past incidents. Go back in time and replay the exact network state—every API call, payload, and error at the moment of the incident. Never lose a packet. Always have answers.</p>
 </div>
 
 </div>
