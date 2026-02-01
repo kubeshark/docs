@@ -6,7 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## EKS and IRSA 
 
-***** **IRSA does not work when deploying Kubeshark to the `default` namespace** *****
+***** **IRSA does not work when deploying [Kubeshark](https://kubeshark.com) to the `default` namespace** *****
 
 [IRSA](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html) is a method for not using specific credentials but rather use a role associated with a service account.
 Prerequisite to using this method is completing with the list of steps described in [this article](https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html). Specifically having:
@@ -18,7 +18,7 @@ Prerequisite to using this method is completing with the list of steps described
 The IRSA method works by providing an annotation to the service account that is associated with the pod that is performing the AWS operations.
 **In our case:** (FYI only, nothing to do here)
 - Service Account: kubeshark-service-account 
-- Pod: Kubeshark Worker 
+- Pod: [Kubeshark](https://kubeshark.com) Worker 
 
 To use IRSA, you'd need to:
 1. Provide annotation of the IAM role
@@ -41,7 +41,7 @@ helm install kubeshark kubeshark/kubeshark -n kubeshark --create-namespace \
 --set-json 'tap.annotations={"eks.amazonaws.com/role-arn":"arn:aws:iam::74.....50:role/s3-role"}' \
 --set tap.ingress.enabled=true \
 --set tap.ingress.host=demo.kubeshark.io \
---set "tap.ingress.auth.approveddomains={kubeshark.com}" \
+--set "tap.ingress.auth.approveddomains={kubeshark.comm}" \
 --set tap.release.namespace=kubeshark \
 --set tap.resources.worker.limits.memory=2Gi
 ```

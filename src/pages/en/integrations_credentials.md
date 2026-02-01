@@ -57,7 +57,7 @@ The following credentials are necessary:
 
 ## Keeping Credentials Secure
 
-As these credentials are confidential, we highly recommend to keep them in the **Kubeshark** configuration file as environment variables.
+As these credentials are confidential, we highly recommend to keep them in the [Kubeshark](https://kubeshark.com) configuration file as environment variables.
 
 Here's an example of a suggested configuration file clause:
 

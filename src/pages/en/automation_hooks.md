@@ -4,9 +4,9 @@ description: Provided hooks including OSI L4 and L7 hooks that enable running fu
 layout: ../../layouts/MainLayout.astro
 ---
 
-Hooks are pre-defined JavaScript functions in the scripting system that are being attached to a certain point in the network packet **capture - dissect - query** pipeline of **Kubeshark**.
+Hooks are pre-defined JavaScript functions in the scripting system that are being attached to a certain point in the network packet **capture - dissect - query** pipeline of [Kubeshark](https://kubeshark.com).
 
-**Kubeshark** provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new application-layer message is dissected.
+[Kubeshark](https://kubeshark.com) provides [OSI](https://en.wikipedia.org/wiki/OSI_model) L4 and L7 hooks that enable running functions whenever a packet is captured or a new application-layer message is dissected.
 
 Hooks function arguments with type **object** can be printed to console with the purpose of seeing the data structure of that argument, like;
 
@@ -25,9 +25,9 @@ function onPacketCaptured(info) {
   // Your code goes here
 }
 ```
-The `onPacketCaptured` is an OSI L4 network hook. It is called whenever a new network packet is captured by **Kubeshark**.
+The `onPacketCaptured` is an OSI L4 network hook. It is called whenever a new network packet is captured by [Kubeshark](https://kubeshark.com).
 
-On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that; a poorly optimized `onPacketCaptured` implementation can have a **performance impact** on the network traffic capture speed of **Kubeshark**. Therefore it's logical to not call certain helpers (e.g. [`console.log`](/en/automation_helpers#consolelogargs-string) or [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string)) and instead use this hook to aggregate data into a global variable and then handle the aggregated data in another hook or a job:
+On a **busy cluster**, the call frequency of this hook can go more than a **10000 times per second**. Because of that; a poorly optimized `onPacketCaptured` implementation can have a **performance impact** on the network traffic capture speed of [Kubeshark](https://kubeshark.com). Therefore it's logical to not call certain helpers (e.g. [`console.log`](/en/automation_helpers#consolelogargs-string) or [`vendor.slack`](/en/automation_helpers#vendorslackwebhookurl-string-pretext-string-text-string-color-string)) and instead use this hook to aggregate data into a global variable and then handle the aggregated data in another hook or a job:
 
 ```js
 var packetCount = 0;
@@ -81,7 +81,7 @@ function onItemCaptured(data) {
 }
 ```
 
-The hook `onItemCaptured` is an OSI L7 network hook that is called whenever a TCP/UDP stream is captured, reassembled and successfully dissected by one of the protocol parsers of **Kubeshark**.
+The hook `onItemCaptured` is an OSI L7 network hook that is called whenever a TCP/UDP stream is captured, reassembled and successfully dissected by one of the protocol parsers of [Kubeshark](https://kubeshark.com).
 
 This hook is triggered less compared to the `onPacketCaptured` hook, since multiple packets translate into a protocol-level message (e.g. an HTTP request-response pair, a Kafka publish, a Kafka consume or an AMQP exchange declare).
 
@@ -215,11 +215,11 @@ Here are some example values of the `data` argument that being used in
     },
     "queryString": {
       "bucket": "Metrics",
-      "org": "Kubeshark",
+      "org": "[Kubeshark](https://kubeshark.com)",
       "precision": "ns"
     },
-    "targetUri": "/api/v2/write?bucket=Metrics&org=Kubeshark&precision=ns",
-    "url": "/api/v2/write?bucket=Metrics&org=Kubeshark&precision=ns"
+    "targetUri": "/api/v2/write?bucket=Metrics&org=[Kubeshark](https://kubeshark.com)&precision=ns",
+    "url": "/api/v2/write?bucket=Metrics&org=[Kubeshark](https://kubeshark.com)&precision=ns"
   },
   "requestSize": 428,
   "response": {

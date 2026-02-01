@@ -4,18 +4,18 @@ description: Kubeshark configuration explained in detail.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml`.
+[Kubeshark](https://kubeshark.com) reads configuration elements both from the **CLI** and from a configuration file that can be located either in `$HOME/.kubeshark/config.yaml`.
 
 ## The Config Command
 
-`kubeshark config` - The `config` command generates a ​**​Kubeshark​**​ config file with default values.
+`kubeshark config` - The `config` command generates a ​**​[Kubeshark](https://kubeshark.com)​**​ config file with default values.
 `kubeshark config -r` will read the existing config file, if one exists, and will merge its values into a new config file and save to the config file location (`~/.kubeshark/config.yaml`).
 
 ## Popular Configuration Elements
 
 ### Dashboard IP and Accessibility
 
-For security reasons, the default address of the proxy host for the **Kubeshark** dashboard is set to `127.0.0.1` that allows opening only local connections.
+For security reasons, the default address of the proxy host for the [Kubeshark](https://kubeshark.com) dashboard is set to `127.0.0.1` that allows opening only local connections.
 
 ```shell
 tap:
@@ -30,11 +30,11 @@ kubeshark tap --proxy-host 0.0.0.0
 
 Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that access to the dashboard isn't encrypted or authenticated.
 
-When you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
+When you run [Kubeshark](https://kubeshark.com) on a remote server, make sure ports `8898`-`8899` are open for external connections.
 
 ### Kubeshark Resource Assignment Limits
 
-Use to change the amount of resources assigned to **Kubeshark**.
+Use to change the amount of resources assigned to [Kubeshark](https://kubeshark.com).
 
 ```shell
 tap:
@@ -53,7 +53,7 @@ tap:
 
 ### Run Kubeshark Headless
 
-By default, the **Kubeshark** dashboard opens automatically. If you are running **Kubeshark** on a headless machine and you'd like NOT to open the dashboard, set `headless` to true.
+By default, the [Kubeshark](https://kubeshark.com) dashboard opens automatically. If you are running [Kubeshark](https://kubeshark.com) on a headless machine and you'd like NOT to open the dashboard, set `headless` to true.
 
 ```shell
 headless: true
@@ -66,7 +66,7 @@ kubeshark tap --set headless=true
 
 ### Public IP and Headless
 
-This is a very popular option that enables running **Kubeshark** on a public IP and without opening the its dashboard.
+This is a very popular option that enables running [Kubeshark](https://kubeshark.com) on a public IP and without opening the its dashboard.
 
 ```shell
 tap:
@@ -78,13 +78,13 @@ Alternatively, use the shell config option:
 ```shell
 kubeshark tap --proxy-host 0.0.0.0 --set headless=true
 ```
-You can now access the **Kubeshark** dashboard from a remote server.
+You can now access the [Kubeshark](https://kubeshark.com) dashboard from a remote server.
 
-As stated above, when you run **Kubeshark** on a remote server, make sure ports `8898`-`8899` are open for external connections.
+As stated above, when you run [Kubeshark](https://kubeshark.com) on a remote server, make sure ports `8898`-`8899` are open for external connections.
 
 ### Scripts
 
-Information related to **Kubeshark**'s scripting engine. For example:
+Information related to [Kubeshark](https://kubeshark.com)'s scripting engine. For example:
 
 ```shell
 scripting:
@@ -100,7 +100,7 @@ scripting:
 scripting:
     source: "/path/to/script/folder"
 ```
-A path for the scripts folder. If not empty and pre-populated with scripts, all script will run when **Kubeshark** starts.
+A path for the scripts folder. If not empty and pre-populated with scripts, all script will run when [Kubeshark](https://kubeshark.com) starts.
 
 #### Environment Variables
 

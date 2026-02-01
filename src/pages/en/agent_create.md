@@ -1,6 +1,6 @@
 ---
 title: Creating Network Agents
-description: A guide for creating, editing, and managing custom network agents in **Kubeshark**, using templates, local scripts, and the GenAI-powered assistant.
+description: A guide for creating, editing, and managing custom network agents in Kubeshark, using templates, local scripts, and the GenAI-powered assistant.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -14,7 +14,7 @@ Each **Network Agent** has its own logic, defined by a [JavaScript script](/en/a
 
 ### Using an Agent Template
 
-**Kubeshark** provides fully functional Agent templates. These can be used as-is, customized to suit your needs, or used as inspiration for creating new agents.
+[Kubeshark](https://kubeshark.com) provides fully functional Agent templates. These can be used as-is, customized to suit your needs, or used as inspiration for creating new agents.
 
 ![Automatic activation of the Redact Sensitive Data Agent](/redact_agent.png)
 
@@ -22,13 +22,13 @@ Each **Network Agent** has its own logic, defined by a [JavaScript script](/en/a
 
 While there are multiple ways to create new Agents, the easiest method involves using our trained [OpenAI-based custom GPT](https://chatgpt.com/g/g-6815c948b00c81918f1157b5a3cc87b2-kubeshark-network-agent).
 
-> This GPT is not connected to your running instance of **Kubeshark** and has no awareness of your identity or usage history. It is a pure code-generation assistant actively trained by the **Kubeshark** team.
+> This GPT is not connected to your running instance of [Kubeshark](https://kubeshark.com) and has no awareness of your identity or usage history. It is a pure code-generation assistant actively trained by the [Kubeshark](https://kubeshark.com) team.
 
 ### Persistency
 
-Any Agent created in the dashboard will persist for the lifetime of the **Kubeshark** deployment. When **Kubeshark** is uninstalled, any Agent logic will be erased from memory.
+Any Agent created in the dashboard will persist for the lifetime of the [Kubeshark](https://kubeshark.com) deployment. When [Kubeshark](https://kubeshark.com) is uninstalled, any Agent logic will be erased from memory.
 
-To ensure Agent logic persistency, save locally in JS files and use the [`kubeshark scripts` command](/en/automation_scripts_cmd) to synchronize those with any running deployment of **Kubeshark**.
+To ensure Agent logic persistency, save locally in JS files and use the [`kubeshark scripts` command](/en/automation_scripts_cmd) to synchronize those with any running deployment of [Kubeshark](https://kubeshark.com).
 
 ## Post-Creation Agent Logic Modification
 
@@ -52,7 +52,7 @@ Simply highlight the code you want to have inspected or changed, and use our inl
 
 ### Local File Editing
 
-If you keep your files locally and use the [`kubeshark scripts` command](/en/automation_scripts_cmd) to synchronize them with your running deployment of **Kubeshark**, any changes to the local file will be reflected in **Kubeshark**.
+If you keep your files locally and use the [`kubeshark scripts` command](/en/automation_scripts_cmd) to synchronize them with your running deployment of [Kubeshark](https://kubeshark.com), any changes to the local file will be reflected in [Kubeshark](https://kubeshark.com).
 
 ### Autonomous Agent Logic Modification
 

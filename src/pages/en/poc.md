@@ -1,25 +1,25 @@
 ---
 title: Proof of Concept (POC) Checklist
-description: This checklist provides a step-by-step guide for users running a POC with **Kubeshark**, including prerequisites, configuration, and validation to ensure smooth functionality and resource efficiency.
+description: This checklist provides a step-by-step guide for users running a POC with Kubeshark, including prerequisites, configuration, and validation to ensure smooth functionality and resource efficiency.
 layout: ../../layouts/MainLayout.astro
 ---
 
-> [Contact-us](https://kubeshark.com/contact-us) to start your POC now.
+> [Contact-us](https://kubeshark.comm/contact-us) to start your POC now.
 
-**Kubeshark** is pleased to offer POC licenses to qualifying users.
-The goal of the POC is to validate that **Kubeshark** operates effectively within the user's environment, can process specific workloads, and provides a tangible, hands-on experience.
+[Kubeshark](https://kubeshark.com) is pleased to offer POC licenses to qualifying users.
+The goal of the POC is to validate that [Kubeshark](https://kubeshark.com) operates effectively within the user's environment, can process specific workloads, and provides a tangible, hands-on experience.
 
 ## POC Goals
 
 1. Verify compatibility with cluster environments (e.g., EKS, OpenShift, Tanzu), CNIs, etc.
-2. Confirm that **Kubeshark** can process the user's workloads
+2. Confirm that [Kubeshark](https://kubeshark.com) can process the user's workloads
 3. Evaluate resource consumption
 4. Validate core functionality
-5. Gain hands-on experience with some of **Kubeshark**'s advanced features
+5. Gain hands-on experience with some of [Kubeshark](https://kubeshark.com)'s advanced features
 
 ## POC Steps
 
-Installing **Kubeshark** should take only a few minutes.
+Installing [Kubeshark](https://kubeshark.com) should take only a few minutes.
 The following sequence of steps is recommended to achieve the goals outlined above.
 It is important to follow the order and ensure each step is completed before proceeding to the next.
 
@@ -28,7 +28,7 @@ It is important to follow the order and ensure each step is completed before pro
 3. Identify POC workloads
 4. Self-deploy and verify traffic visibility
 5. Apply the POC configuration, including the license
-6. Re-install and activate **Kubeshark** from dormant mode and verify workload visibility
+6. Re-install and activate [Kubeshark](https://kubeshark.com) from dormant mode and verify workload visibility
 7. Confirm stability of all components (e.g., Workers, Hub, Front), resource usage, and log cleanliness
 8. Explore advanced features
 
@@ -63,8 +63,8 @@ Preferably, these are in-house applications or workloads deployed specifically f
 
 ### 4. Preliminary Installation
 
-Follow the [installation instructions](/en/install#helm) to install **Kubeshark**. No further installation is required.
-Running **Kubeshark** without a license enables processing of up to 10,000 API calls, allowing compatibility validation before applying the POC license.
+Follow the [installation instructions](/en/install#helm) to install [Kubeshark](https://kubeshark.com). No further installation is required.
+Running [Kubeshark](https://kubeshark.com) without a license enables processing of up to 10,000 API calls, allowing compatibility validation before applying the POC license.
 
 To unlock full POC capabilities, apply the configuration in the next step.
 
@@ -74,7 +74,7 @@ Include the following configuration in your `values.yaml` file for Helm installa
 
 ```yaml
 tap:
-  stopped: true         # Start Kubeshark in dormant state
+  stopped: true         # Start [Kubeshark](https://kubeshark.com) in dormant state
   regex: <pod-regex>    # Regex or prefix to identify the POC workloads (e.g. `(pod1|pod2)`)
   namespaces:
   - <namespace-name-1>  # Namespace filters to target relevant workloads
@@ -84,11 +84,11 @@ license: <your-poc-license>
 
 ### 6. Re-install & Verify
 
-Re-install **Kubeshark** with the updated POC configuration and perform the following validations:
+Re-install [Kubeshark](https://kubeshark.com) with the updated POC configuration and perform the following validations:
 
 #### 6.1. Activate
 
-**Kubeshark** will start in dormant mode with minimal resource usage.
+[Kubeshark](https://kubeshark.com) will start in dormant mode with minimal resource usage.
 Activate it by pressing the red button. It should turn green.
 ![dormant button](/dormant.png)
 

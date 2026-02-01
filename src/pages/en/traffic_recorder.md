@@ -14,9 +14,9 @@ To start a recording job quickly and seamlessly, follow these steps:
 3. Click **CREATE**.
 4. Wait a few minutes, then return to the recording dialog to view the captured traffic.
 
-> The default **Kubeshark** configuration is not optimized for the Traffic Recorder, especially in busy clusters. For best results, review the [configuration section](/en/traffic_recorder#troubleshooting--configuration-tuning).
+> The default [Kubeshark](https://kubeshark.com) configuration is not optimized for the Traffic Recorder, especially in busy clusters. For best results, review the [configuration section](/en/traffic_recorder#troubleshooting--configuration-tuning).
 
-The **Traffic Recorder** supports multiple concurrent recording jobs. Each job captures traffic independently, based on a specific [KFL](/en/filtering) statement and schedule. Recordings can be filtered and analyzed using Kubeshark’s advanced query language.
+The **Traffic Recorder** supports multiple concurrent recording jobs. Each job captures traffic independently, based on a specific [KFL](/en/filtering) statement and schedule. Recordings can be filtered and analyzed using [Kubeshark](https://kubeshark.com)’s advanced query language.
 
 ---
 
@@ -55,7 +55,7 @@ This captures L4 streams for API traffic that meets specific criteria, such as b
 
 ## Troubleshooting & Configuration Tuning
 
-By default, **Kubeshark** is optimized for real-time traffic viewing in small clusters. However, the **Traffic Recorder** requires tuning for performance in busy or large-scale environments. Incorrect configuration can lead to Worker pod eviction and loss of PCAP data.
+By default, [Kubeshark](https://kubeshark.com) is optimized for real-time traffic viewing in small clusters. However, the **Traffic Recorder** requires tuning for performance in busy or large-scale environments. Incorrect configuration can lead to Worker pod eviction and loss of PCAP data.
 
 ---
 

@@ -4,41 +4,41 @@ description: The distributed architecture of Kubeshark that enables scalable net
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
-**Kubeshark** monitors and correlates events from the Kubernetes API server, the Linux operating system, and network interfaces to provide a comprehensive view of your cluster's activity.
+[Kubeshark](https://kubeshark.com) monitors and correlates events from the Kubernetes API server, the Linux operating system, and network interfaces to provide a comprehensive view of your cluster's activity.
 
-**Kubeshark** supports all Kubernetes distributions and versions, including datacenter and cloud environments. It does not require any prerequisites such as [CNIs](https://www.tigera.io/learn/guides/kubernetes-networking/kubernetes-cni/), service meshes, or code instrumentation. It functions without the need for a proxy or sidecar and does not necessitate any changes to the existing architecture.
+[Kubeshark](https://kubeshark.com) supports all Kubernetes distributions and versions, including datacenter and cloud environments. It does not require any prerequisites such as [CNIs](https://www.tigera.io/learn/guides/kubernetes-networking/kubernetes-cni/), service meshes, or code instrumentation. It functions without the need for a proxy or sidecar and does not necessitate any changes to the existing architecture.
 
-![Anatomy of **Kubeshark**](/arch1.png)
+![Anatomy of [Kubeshark](https://kubeshark.com)](/arch1.png)
 
 ## Dashboard
 
-**Kubeshark**'s dashboard is a [React](https://reactjs.org/) application served via a port running on the `front` deployment. The `front` operates within the K8s control plane and communicates with the [Hub](#hub) via WebSocket, displaying captured traffic in real-time as a scrolling feed.
+[Kubeshark](https://kubeshark.com)'s dashboard is a [React](https://reactjs.org/) application served via a port running on the `front` deployment. The `front` operates within the Kubernetes control plane and communicates with the [Hub](#hub) via WebSocket, displaying captured traffic in real-time as a scrolling feed.
 
 ![Kubeshark UI](/kubeshark-ui.png)
 
-Once **Kubeshark** is deployed, access to the dashboard can be provided using one of the following methods:
+Once [Kubeshark](https://kubeshark.com) is deployed, access to the dashboard can be provided using one of the following methods:
 
 1. **`port-forward`**: A Kubernetes functionality. The quickest method, yet the least recommended, as port-forward isn't performant and can break quickly.
 2. **`kubeshark proxy`**: A [CLI](#cli) command that maintains a `kube-proxy` or a `port-forward` connection, attempting to re-establish the connection when it breaks.
 3. **Ingress Controller**: The most recommended method. Stable, performant, and secure.
 
-**Kubeshark** further supports integration with corporate Identity Providers (IDPs) using SAML for authentication and authorization.
+[Kubeshark](https://kubeshark.com) further supports integration with corporate Identity Providers (IDPs) using SAML for authentication and authorization.
 
 > Checkout the [live demo portal](https://kubeshark.kubehq.com), running on EKS using Ingress over HTTPS connected to an IDP and many other features live.  
 
 ## Hub
 
-The **Hub** is a K8s deployment that consolidates all [Worker](#worker) streams into a single stream and relays that consolidated stream to the [Dashboard](#dashboard). It operates together with the [Dashboard](#dashboard) and only when there's an active [Dashboard](#dashboard) connection.
+The **Hub** is a Kubernetes deployment that consolidates all [Worker](#worker) streams into a single stream and relays that consolidated stream to the [Dashboard](#dashboard). It operates together with the [Dashboard](#dashboard) and only when there's an active [Dashboard](#dashboard) connection.
 
-The **Hub** monitors the K8s API server and helps correlate those events with the rest of the events monitored by **Kubeshark** (e.g., network and Linux OS events).
+The **Hub** monitors the Kubernetes API server and helps correlate those events with the rest of the events monitored by [Kubeshark](https://kubeshark.com) (e.g., network and Linux OS events).
 
 ## Worker
 
-Workers perform the heavy lifting in **Kubeshark**. They operate continuously, independently from the [Hub](#hub) or the [Dashboard](#dashboard). They capture traffic from the network interface and monitor the Linux operating system. Traffic processing includes:
+Workers perform the heavy lifting in [Kubeshark](https://kubeshark.com). They operate continuously, independently from the [Hub](#hub) or the [Dashboard](#dashboard). They capture traffic from the network interface and monitor the Linux operating system. Traffic processing includes:
 
 1. Capturing traffic from the network interface using either AF_PACKET or eBPF.
 2. Dissecting the raw traffic and reassembling the packets into protocol-level messages.
-3. Monitoring Linux OS events and correlating them with other events monitored by **Kubeshark**.
+3. Monitoring Linux OS events and correlating them with other events monitored by [Kubeshark](https://kubeshark.com).
 4. Execute custom network processors that continuously process traffic and trigger actions.
 
 Worker pods are deployed into the cluster at the node level as [DaemonSets](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/). Each DaemonSet includes two containers:
@@ -75,7 +75,7 @@ Unless explicitly triggered by the user (e.g., through [scripting](/en/automatio
 
 ## CLI (kubeshark)
 
-The CLI, a binary distribution of the **Kubeshark** client, is written in the [Go](https://go.dev/) language and typically named `kubeshark`. It is an optional component that offers a lightweight, on-demand option to use **Kubeshark** without leaving any permanent footprint.
+The CLI, a binary distribution of the [Kubeshark](https://kubeshark.com) client, is written in the [Go](https://go.dev/) language and typically named `kubeshark`. It is an optional component that offers a lightweight, on-demand option to use [Kubeshark](https://kubeshark.com) without leaving any permanent footprint.
 
 Once downloaded, you can use the `tap` command to begin monitoring cluster-wide API traffic:
 

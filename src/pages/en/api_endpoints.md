@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-Kubeshark offers a Websocket API endpoint, enabling external applications to access captured data. These endpoints facilitate real-time data retrieval through Websocket connections.
+[Kubeshark](https://kubeshark.com) offers a Websocket API endpoint, enabling external applications to access captured data. These endpoints facilitate real-time data retrieval through Websocket connections.
 
 Two options are available:
 1. A single central endpoint via the Hub with access to all nodes

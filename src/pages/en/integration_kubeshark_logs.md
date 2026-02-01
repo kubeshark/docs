@@ -6,9 +6,9 @@ layout: ../../layouts/MainLayout.astro
 
 ## Aggregate Custom Logs
 
-The easiest way to aggregate logs is by using **Kubeshark** logs. You can aggregate custom logs to either the Hub's log or the Workers' logs.
+The easiest way to aggregate logs is by using [Kubeshark](https://kubeshark.com) logs. You can aggregate custom logs to either the Hub's log or the Workers' logs.
 
-Using a helper, you can print any string, JSON object, or a combination of both to **Kubeshark** logs with a custom log level.
+Using a helper, you can print any string, JSON object, or a combination of both to [Kubeshark](https://kubeshark.com) logs with a custom log level.
 
 ### Example
 
@@ -31,7 +31,7 @@ if (utils.nodeName() == "hub") { // Send to the Hub's logs
 
 ### Log Output Example
 
-Here’s an example of how such logs might appear in **Kubeshark** logs:
+Here’s an example of how such logs might appear in [Kubeshark](https://kubeshark.com) logs:
 
 ```shell
 2024-12-14T19:02:45-08:00 APP Interface={"data":6,"key":12}

@@ -4,7 +4,7 @@ description: This article describes how to self host Kubeshark using Ingress and
 layout: ../../layouts/MainLayout.astro
 ---
 
-We recommend using AWS [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) on EKS for best results. Classic and Application Load-balancers ([CLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html) and [ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)) aren't likely to work. Follow these steps to self host Kubeshark on EKS, using and AWS Load Balancer, Ingress Controller with TLS termination.
+We recommend using AWS [NLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html) on EKS for best results. Classic and Application Load-balancers ([CLB](https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/introduction.html) and [ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html)) aren't likely to work. Follow these steps to self host [Kubeshark](https://kubeshark.com) on EKS, using and AWS Load Balancer, Ingress Controller with TLS termination.
 
 1. Install the AWS LoadBalancer Controller Add-on
 2. Install the Nginx Ingress resource and controller of type NLB

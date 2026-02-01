@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-**Kubeshark** is useful for detecting various network-related errors, such as:
+[Kubeshark](https://kubeshark.com) is useful for detecting various network-related errors, such as:
 
 - [TCP (Connection) Errors](#tcp-connection-errors)
 - [Timeout Errors](#timeout-errors)
@@ -17,7 +17,7 @@ mascot: Hello
 - [Error Filter](#error-filter)
 - [Tip: Error Dashboard](#tip-error-dashboard)
 
-In addition to offering details about detected errors, **Kubeshark** allows you to record raw traffic for in-depth analysis using tools such as Wireshark
+In addition to offering details about detected errors, [Kubeshark](https://kubeshark.com) allows you to record raw traffic for in-depth analysis using tools such as Wireshark
 
 > Learn more in the [Traffic Recorder](/en/traffic_recorder) section.
 
@@ -36,7 +36,7 @@ Connection errors, identified as part of the TCP protocol, include:
 
 ## Timeout Errors
 
-**Kubeshark**'s L4 stream capture times out after 10 seconds. If an L4 stream capture doesn't complete within this timeframe, the stream is marked stale and dropped. THe timeout time is configurable and can be set using this configuration value:
+[Kubeshark](https://kubeshark.com)'s L4 stream capture times out after 10 seconds. If an L4 stream capture doesn't complete within this timeframe, the stream is marked stale and dropped. THe timeout time is configurable and can be set using this configuration value:
 
 ```yaml
 tap:
@@ -46,18 +46,18 @@ or use: `--set tap.tcpStreamChannelTimeoutMs=10000`
 
 ## Packet Loss
 
-Packet loss can cause **Kubeshark** L4 streams to timeout and parser errors. Additionally, lost packets might result in no symptoms and no signals.
+Packet loss can cause [Kubeshark](https://kubeshark.com) L4 streams to timeout and parser errors. Additionally, lost packets might result in no symptoms and no signals.
 
 Potential causes of packet loss:
 
 | Cause | Description |
 |---|---|
-| Insufficient CPU resources for **Kubeshark** | Packet loss can occur when **Kubeshark** is unable to read packets quickly enough, often due to a lack of CPU resources. | 
+| Insufficient CPU resources for [Kubeshark](https://kubeshark.com) | Packet loss can occur when [Kubeshark](https://kubeshark.com) is unable to read packets quickly enough, often due to a lack of CPU resources. | 
 | AF-PACKET vs PF-RING | AF-PACKET is prone to packet loss, whereas [PF-RING](/en/performance#af-packet-and-pf-ring) is less likely to cause it.|
 
 ## ICMP
 
-**Kubeshark** intercepts, dissects, and presents [ICMP](https://datatracker.ietf.org/doc/html/rfc792) messages. ICMP is an L4 protocol used for error reporting and network diagnostics. For instance, if a router cannot forward a packet because the destination is unreachable, an ICMP message is sent back to the sender indicating the problem.
+[Kubeshark](https://kubeshark.com) intercepts, dissects, and presents [ICMP](https://datatracker.ietf.org/doc/html/rfc792) messages. ICMP is an L4 protocol used for error reporting and network diagnostics. For instance, if a router cannot forward a packet because the destination is unreachable, an ICMP message is sent back to the sender indicating the problem.
 
 Partial list of errors reported by ICMP messages:
 
@@ -91,15 +91,15 @@ Router Advertisement and Router Solicitation: Used for routing information disco
 
 ## Dissection Errors
 
-Dissection errors are reported by **Kubeshark** protocol parsers:
+Dissection errors are reported by [Kubeshark](https://kubeshark.com) protocol parsers:
 
 | Error | Description |
 |---|---|
 | unexpected EOF | TCP connection closed unexpectedly. |
-| Parser error | **Kubeshark**'s application layer protocol parser reports an invalid payload according to the protocol definition. |
+| Parser error | [Kubeshark](https://kubeshark.com)'s application layer protocol parser reports an invalid payload according to the protocol definition. |
 
 ## L4 Stream Capture Timeout
-Kubeshark will drop entire Layer 4 (L4) streams if not all packets are captured before the process times out.
+[Kubeshark](https://kubeshark.com) will drop entire Layer 4 (L4) streams if not all packets are captured before the process times out.
 
 The default timeout is set to 10 seconds. This can be modified by setting the `tap.tcpStreamChannelTimeoutMs ` parameter.
 
@@ -109,11 +109,11 @@ Half connections represent incomplete transactions where either a request or a r
 
 ![Half Connection Example](/half_connections.png)
 
-**Kubeshark** aims to identify the reasons for these incomplete transactions.
+[Kubeshark](https://kubeshark.com) aims to identify the reasons for these incomplete transactions.
 
 ## Error Filter
 
-Use **Kubeshark** Filter Language (KFL) to selectively display or filter out various errors. For example:
+Use [Kubeshark](https://kubeshark.com) Filter Language (KFL) to selectively display or filter out various errors. For example:
 
 ```yaml
 !error      # Filters out any half-connections

@@ -4,7 +4,7 @@ description:
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
-**Kubeshark**'s default configuration, as provided in the [values.yaml](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/values.yaml) file, is suited for small dev/test clusters.
+[Kubeshark](https://kubeshark.com)'s default configuration, as provided in the [values.yaml](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/values.yaml) file, is suited for small dev/test clusters.
 
 We recommend starting with a smaller, quieter cluster before moving to larger deployments.
 
@@ -26,17 +26,17 @@ TCP and DNS processing can consume significant CPU, memory, and storage. We reco
 
 ### Capture Filters
 
-Applying [capture filters](/en/pod_targeting) will limit the amount of traffic **Kubeshark** processes, reducing the CPU, memory, and storage usage by the Worker DaemonSets.
+Applying [capture filters](/en/pod_targeting) will limit the amount of traffic [Kubeshark](https://kubeshark.com) processes, reducing the CPU, memory, and storage usage by the Worker DaemonSets.
 
-Many of the above values can be adjusted dynamically. Therefore, we suggest limiting **Kubeshark**'s processing when it's not in use and scaling resources as needed on demand.
+Many of the above values can be adjusted dynamically. Therefore, we suggest limiting [Kubeshark](https://kubeshark.com)'s processing when it's not in use and scaling resources as needed on demand.
 
 ### Ensure You’re Capturing the Right Traffic
 
-Especially when using **Kubeshark** for the first time, make sure you’re capturing the traffic you expect.
+Especially when using [Kubeshark](https://kubeshark.com) for the first time, make sure you’re capturing the traffic you expect.
 
 ### Troubleshooting
 
-If you follow the above guidance and **Kubeshark** is still not functioning as expected, consult our [troubleshooting page](/en/troubleshooting).
+If you follow the above guidance and [Kubeshark](https://kubeshark.com) is still not functioning as expected, consult our [troubleshooting page](/en/troubleshooting).
 
 
 ## Suggested Configuration Values

@@ -1,6 +1,6 @@
 ---
 title: Traffic Recording & Offline Analysis
-description: Record K8s traffic and perform offline investigations to hunt down performance and security issues with ease
+description: Record Kubernetes traffic and perform offline investigations to hunt down performance and security issues with ease
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -11,7 +11,7 @@ You can record traffic based on specific patterns and make this recorded traffic
 
 #### Historic Traffic Snapshot Analysis
 
-**Kubeshark** can retain the captured traffic over a long period of time, enabling **Kubeshark** to present a historic traffic snapshot.
+[Kubeshark](https://kubeshark.com) can retain the captured traffic over a long period of time, enabling [Kubeshark](https://kubeshark.com) to present a historic traffic snapshot.
 
 The example below presents traffic captured between two timestamps:
 

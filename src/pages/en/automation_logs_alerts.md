@@ -4,7 +4,7 @@ description: Kubeshark provides ample of ways to send log messages and alerts.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** provides ample ways to send log messages and alerts, some are inherent and some require integrations:
+[Kubeshark](https://kubeshark.com) provides ample ways to send log messages and alerts, some are inherent and some require integrations:
 
 - Console log and error messages
 - Dashboard alerts
@@ -56,7 +56,7 @@ kubeshark console > /tmp/log.txt
 
 ## Dashboard Alerts
 
-The **Kubeshark** dashboard can show alerts using the [`test.pass`](/en/automation_helpers#testpassdata-object-object) and [`test.fail`](/en/automation_helpers#testfaildata-object-object) helpers. The [`test.pass`](/en/automation_helpers#testpassdata-object-object) will color a traffic entry **green**, where the [`test.fail`](/en/automation_helpers#testfaildata-object-object) helper will color the traffic entry **red**. You can for example; call these helpers through a JavaScript conditional statements that acts as the test criteria:
+The [Kubeshark](https://kubeshark.com) dashboard can show alerts using the [`test.pass`](/en/automation_helpers#testpassdata-object-object) and [`test.fail`](/en/automation_helpers#testfaildata-object-object) helpers. The [`test.pass`](/en/automation_helpers#testpassdata-object-object) will color a traffic entry **green**, where the [`test.fail`](/en/automation_helpers#testfaildata-object-object) helper will color the traffic entry **red**. You can for example; call these helpers through a JavaScript conditional statements that acts as the test criteria:
 
 
 As an example, use the L7 hook `onItemQueried` in conjunction with the `test.*` helpers to detect response code `500` and show alerts in the dashboard:

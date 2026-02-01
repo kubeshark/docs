@@ -16,7 +16,7 @@ Agents can detect anomalies and threats, generate reports, export metrics, trace
 Each agent's business logic is written in a [JavaScript ES5](https://262.ecma-international.org/5.1/) script and consists of the following components:
 
 1. **Hooks** – Triggered by specific events in the traffic flow.
-2. **Helpers** – Used to invoke integrations and specific **Kubeshark** functions.
+2. **Helpers** – Used to invoke integrations and specific [Kubeshark](https://kubeshark.com) functions.
 3. **General Code** – Performs calculations and stores information in memory.
 
 Agents process network traffic, perform custom logic, and trigger actions such as generating metrics, exporting logs, producing reports, or automating workflows.
@@ -25,7 +25,7 @@ Agents process network traffic, perform custom logic, and trigger actions such a
 
 ## Hooks
 
-Hooks are functions that react to specific network events. They allow the execution of user-defined JavaScript code within **Kubeshark**’s Golang backend.
+Hooks are functions that react to specific network events. They allow the execution of user-defined JavaScript code within [Kubeshark](https://kubeshark.com)’s Golang backend.
 
 For example, the `onItemCaptured` hook is triggered every time an API call is reassembled. The following example prints the metadata of each captured API call:
 
@@ -50,7 +50,7 @@ Hooks run continuously in the background, regardless of whether the dashboard is
 
 ## Helpers
 
-Helpers trigger actions and integrations, such as sending messages to Slack or exporting data to AWS. They provide access to **Kubeshark**’s backend features.
+Helpers trigger actions and integrations, such as sending messages to Slack or exporting data to AWS. They provide access to [Kubeshark](https://kubeshark.com)’s backend features.
 
 Example: sending data to a webhook:
 
@@ -112,7 +112,7 @@ kubeshark scripts --set scripting.source=/path/to/your/local/folder
 
 ## Viewing and Editing Scripts in the Dashboard
 
-All scripts stored in the config map are accessible via the **Scripting** section in the **Kubeshark** dashboard:
+All scripts stored in the config map are accessible via the **Scripting** section in the [Kubeshark](https://kubeshark.com) dashboard:
 
 ![Accessing the Scripting Dashboard](/scripting_menu.png)
 
@@ -159,7 +159,7 @@ vendor.influxdb(
 
 ## Variable Scopes
 
-**Kubeshark** scripts support the following scopes:
+[Kubeshark](https://kubeshark.com) scripts support the following scopes:
 
 - **Function Scope** – Defined within a function, accessible only there.
 - **Script Scope** – Defined outside functions, accessible throughout the script.

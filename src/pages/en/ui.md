@@ -9,13 +9,13 @@ mascot:
 
 The primary purpose of the dashboard is to display real-time traffic streams using backend and display filters.
 
-![**Kubeshark** UI](/ui-full.png)
+![[Kubeshark](https://kubeshark.com) UI](/ui-full.png)
 
 ---
 
 ## Targeted Pods
 
-**Kubeshark** targets specific pods based on their attributes. [Backend filters](/en/pod_targeting) define the criteria used to generate the list of targeted pods. This list can include future pods (e.g., pods that haven’t started yet but match the filter criteria). Since **Kubeshark** dynamically tracks pod lifecycle events, the targeted pod list updates in real time.
+[Kubeshark](https://kubeshark.com) targets specific pods based on their attributes. [Backend filters](/en/pod_targeting) define the criteria used to generate the list of targeted pods. This list can include future pods (e.g., pods that haven’t started yet but match the filter criteria). Since [Kubeshark](https://kubeshark.com) dynamically tracks pod lifecycle events, the targeted pod list updates in real time.
 
 Traffic from non-targeted pods is discarded.
 
@@ -27,7 +27,7 @@ The active list of targeted pods appears in the blue dialog window at the top of
 
 ## Display Filters (KFL2)
 
-Display filters differ significantly from backend filters. While backend filters affect all of **Kubeshark**, display filters only impact a specific dashboard tab.
+Display filters differ significantly from backend filters. While backend filters affect all of [Kubeshark](https://kubeshark.com), display filters only impact a specific dashboard tab.
 
 Display filters use **[KFL2 (Kubeshark Filter Language 2)](/en/v2/kfl2)** to control what traffic is shown in the UI. KFL2 uses CEL (Common Expression Language) syntax. Each query is local to the browser tab where it's applied, allowing multiple tabs (or even browser windows) to show different filtered views of the same cluster.
 
@@ -87,7 +87,7 @@ The **left pane** shows real-time traffic entries captured by **Workers** and st
 
 Streaming continues until:
 - You manually stop it.
-- **Kubeshark** automatically switches to showing historical traffic.
+- [Kubeshark](https://kubeshark.com) automatically switches to showing historical traffic.
 
 Example to view only live traffic:
 
@@ -105,21 +105,23 @@ http and response.status == 500
 
 ---
 
-### Stop Streaming
+### Pause API Dissection
 
-Scrolling up within the traffic pane signals that you're reviewing historical data, which automatically pauses streaming. Alternatively, click the pause button at the top of the left pane.
+You can pause L7 API dissection directly from the dashboard by clicking the API Dissection button in the top-left corner. When dissection is active, a red stop button labeled "Pause API Dissection" is displayed:
 
-![Stop Streaming](/stop-streaming.png)
+![Pause API Dissection](/dissection-on.png)
 
-> Stopping the stream in the dashboard does **not** stop traffic capture. Traffic continues to be recorded until **Kubeshark** is shut down.
+> Pausing API dissection does **not** stop [Raw Capture](/en/v2/raw_capture). L4 traffic continues to be captured while dissection is paused.
 
 ---
 
-### Resume Streaming
+### Resume API Dissection
 
-To resume live streaming, click the play button at the top of the left pane.
+When API dissection is paused, a green play button labeled "Resume API Dissection" is displayed. Click it to resume dissection:
 
-![Continue Streaming](/play.png)
+![Resume API Dissection](/dissection-off.png)
+
+> Learn more about managing API dissection in [Enabling / Disabling L7 API Dissection](/en/on_off_switch).
 
 ---
 

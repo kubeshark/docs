@@ -14,7 +14,7 @@ Agents can detect anomalies and threats, generate reports, export metrics, trace
 
 Connecting to an external LLM is **optional** and can be fully disabled to support air-gapped environments.
 
-Agent will run and you can still get help creating new Agents without any connection between **Kubeshark** and an external LLM.
+Agent will run and you can still get help creating new Agents without any connection between [Kubeshark](https://kubeshark.com) and an external LLM.
 
 If enabled, each **Network Agent** will maintain a persistent connection with a custom LLM. This connection will allow:
 
@@ -24,7 +24,7 @@ If enabled, each **Network Agent** will maintain a persistent connection with a 
 
 ## How to Disable Access to External LLM
 
-If you prefer **Kubeshark** not to access an external LLM, you can configure either or both of the following settings:
+If you prefer [Kubeshark](https://kubeshark.com) not to access an external LLM, you can configure either or both of the following settings:
 
 ```yaml
 aiAssistantEnabled: false     # Disables the connection to the external LLM.

@@ -33,7 +33,7 @@ to statically-typed [native Go types](https://go.dev/ref/spec#Types).
 ## Console
 
 The `console.*` helpers provide a way to print messages or debug variables in the console.
-You can access this console through the **Kubeshark** dashboard or the `kubeshark console` command.
+You can access this console through the [Kubeshark](https://kubeshark.com) dashboard or the `kubeshark console` command.
 
 ### `console.log(...args: string[])`
 
@@ -304,7 +304,7 @@ location = vendor.s3.put(
 ### `vendor.s3.clear(region: string, keyID: string, accessKey: string, bucket: string)`
 
 Clears the content of the folder `<NODE_NAME>_<NODE_IP>/` in the AWS S3 `bucket`.
-The folder is simply owned by the Kubeshark worker/node.
+The folder is simply owned by the [Kubeshark](https://kubeshark.com) worker/node.
 It can be called through a job to do a periodic clean up.
 
 ##### Example:
@@ -336,7 +336,7 @@ location = vendor.s3.put(
 ### `vendor.gcs.clear(bucket: string, , saKeyObj: json)`
 
 Clears the content of the folder `<NODE_NAME>_<NODE_IP>/` in the GCS `bucket`.
-The folder is simply owned by the Kubeshark worker/node.
+The folder is simply owned by the [Kubeshark](https://kubeshark.com) worker/node.
 It can be called through a job to do a periodic clean up.
 
 ##### Example:
@@ -376,7 +376,7 @@ You can supply a list of PCAP filenames (the base names of TCP/UDP streams) in t
 the list of PCAP files to merge. For example; `data.stream` in [`onItemCaptured(data)`](/en/automation_hooks#onitemcaptureddata-object) hook is a PCAP filename.
 
 You can specify a custom directory using the optional `pcapsDir` argument which contains PCAP files.
-By default the merge happens in the internally managed folder of Kubeshark that contains all the PCAP files.
+By default the merge happens in the internally managed folder of [Kubeshark](https://kubeshark.com) that contains all the PCAP files.
 This argument should be used in conjunction with [`file.mkdirTemp`](#filemkdirtempname-string-dir-string-string) and [`file.move`](#filemoveoldpath-string-newpath-string) to collect PCAP files
 into a directory.
 
@@ -395,7 +395,7 @@ to other helpers that accept a file path as argument such as; [`vendor.s3.put`](
 > It's <ins>advised against modifying these files</ins> using helpers like [`file.write`](#filewritepath-string-content-string), [`file.append`](#fileappendpath-string-content-string), [`file.move`](#filemoveoldpath-string-newpath-string) or [`file.delete`](#filedeletepath-string)
 > because the TCP/UDP streams are internally tracked, written and updated files
 > that emerge from the Kubernetes network traffic capture.
-> <ins>Modifying these files can break the core functionality of Kubeshark.</ins>
+> <ins>Modifying these files can break the core functionality of [Kubeshark](https://kubeshark.com).</ins>
 
 ##### Example:
 

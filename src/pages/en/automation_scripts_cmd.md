@@ -1,10 +1,10 @@
 ---
 title: Synchronizing Local Files
-description: Guide for syncing local ES5 JavaScript agent scripts with a running **Kubeshark** instance using the CLI.
+description: Guide for syncing local ES5 JavaScript agent scripts with a running Kubeshark instance using the CLI.
 layout: ../../layouts/MainLayout.astro
 ---
 
-Users can create and manage unlimited agents using local ES5 JavaScript files (the *Agent's script*). These can be tracked and synced with a running **Kubeshark** instance using the CLI.
+Users can create and manage unlimited agents using local ES5 JavaScript files (the *Agent's script*). These can be tracked and synced with a running [Kubeshark](https://kubeshark.com) instance using the CLI.
 
 ### Prerequisites
 
@@ -28,8 +28,8 @@ kubeshark scripts --set scripting.source=/Users/me/agents/
 kubeshark scripts --set scripting.sources[0]=/Users/me/agents/anomaly-agent.js 
 ```
 
-Any change to a tracked file will be synchronized with the running **Kubeshark** instance.
-Adding a new file or deleting an existing one is also treated as a change and will be synced with the deployed **Kubeshark** instance.
+Any change to a tracked file will be synchronized with the running [Kubeshark](https://kubeshark.com) instance.
+Adding a new file or deleting an existing one is also treated as a change and will be synced with the deployed [Kubeshark](https://kubeshark.com) instance.
 
 ### Determining the Agent Name
 

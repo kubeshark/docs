@@ -1,14 +1,14 @@
 ---
 title: Cluster-wide PCAP Export
-description: Export PCAP files from **Kubeshark** Snapshots with a single click—no manual setup or node-level copying required.
+description: Export PCAP files from Kubeshark Snapshots with a single click—no manual setup or node-level copying required.
 layout: ../../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-> This feature is part of **Kubeshark** V2.00, scheduled to release in early 2026.
+> This feature is part of [Kubeshark](https://kubeshark.com) V2.00, scheduled to release in early 2026.
 
 An alternative to deploying [tcpdump](https://www.tcpdump.org/), copying files, and manually opening them in [Wireshark](https://www.wireshark.org/).
-Kubeshark can be set to continuously capture and retain all raw TCP/UDP packets, **including decrypted TLS traffic**, alongside relevant [Kubernetes](https://kubernetes.io/) and Linux OS events.
+[Kubeshark](https://kubeshark.com) can be set to continuously capture and retain all raw TCP/UDP packets, **including decrypted TLS traffic**, alongside relevant [Kubernetes](https://kubernetes.io/) and Linux OS events.
 Users can download a cluster-wide [PCAP](https://www.ietf.org/archive/id/draft-gharris-opsawg-pcap-01.html) file on demand for any selected past time window and open it directly in [Wireshark](https://www.wireshark.org/).
 
 1. Go to the **Snapshots** tab
@@ -41,7 +41,7 @@ tap:
 
 ## Backend Capture Rules
 
-Use the following Helm chart segment to include or exclude specific workloads. If no rules are defined, **Kubeshark** captures all TCP and UDP traffic.
+Use the following Helm chart segment to include or exclude specific workloads. If no rules are defined, [Kubeshark](https://kubeshark.com) captures all TCP and UDP traffic.
 
 ```yaml
 tap:

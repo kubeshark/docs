@@ -5,29 +5,29 @@ layout: ../../layouts/MainLayout.astro
 ---
 
 
-**Kubeshark** can run headless as well as serve a rich GUI dashboard. When running headless (no dashboard), the following functionalities can still remain active:
+[Kubeshark](https://kubeshark.com) can run headless as well as serve a rich GUI dashboard. When running headless (no dashboard), the following functionalities can still remain active:
 1. Monitoring traffic using scripting.
 2. Continuous PCAP recording.
 
 ## Monitoring Traffic Using Scripting
 
-Using [scripting](/en/automation_scripting), **Kubeshark** can be employed for monitoring purposes and triggering actions when certain network behaviors are detected.
+Using [scripting](/en/automation_scripting), [Kubeshark](https://kubeshark.com) can be employed for monitoring purposes and triggering actions when certain network behaviors are detected.
 
 > Read more in the [scripting section](/en/automation_scripting).
 
 ## Continuous PCAP Recording
 
-Additionally, running **Kubeshark** headless allows all captured traffic to be recorded in PCAP files, which can be exported on demand. Recorded traffic will include everything captured by **Kubeshark**, considering the [capture filters](/en/pod_targeting), and will also include [TLS traffic](/en/encrypted_traffic), as well as traffic from Envoy or Istio.
+Additionally, running [Kubeshark](https://kubeshark.com) headless allows all captured traffic to be recorded in PCAP files, which can be exported on demand. Recorded traffic will include everything captured by [Kubeshark](https://kubeshark.com), considering the [capture filters](/en/pod_targeting), and will also include [TLS traffic](/en/encrypted_traffic), as well as traffic from Envoy or Istio.
 
 > Read more in the [PCAP Dumper section](/en/pcapdump).
 
 ## Low Resource Consumption
 
-When running headless, **Kubeshark** consumes significantly fewer resources than when there is an active dashboard connection.
+When running headless, [Kubeshark](https://kubeshark.com) consumes significantly fewer resources than when there is an active dashboard connection.
 
 ## Opening Dashboards On-Demand
 
-You can still open any number of dashboards, even when **Kubeshark** is running headless. The dashboard operation is independent of the services provided by the **Kubeshark** backend (e.g., scripts and recording).
+You can still open any number of dashboards, even when [Kubeshark](https://kubeshark.com) is running headless. The dashboard operation is independent of the services provided by the [Kubeshark](https://kubeshark.com) backend (e.g., scripts and recording).
 
 ## Important Configuration Values
 
@@ -35,8 +35,8 @@ It's important to consider the following configuration values when planning to r
 
 ```yaml
 tap:
-    stopped: false              # Ensure Kubeshark is not stopped and is actively capturing traffic | default is `true`
-    # Capture filters instruct Kubeshark on what traffic to capture
+    stopped: false              # Ensure [Kubeshark](https://kubeshark.com) is not stopped and is actively capturing traffic | default is `true`
+    # Capture filters instruct [Kubeshark](https://kubeshark.com) on what traffic to capture
     regex: catal.*              # Only traffic from pods matching the regex will be captured        | default is `.*`
     namespaces:                 # Capture from these namespaces                                     | default is ALL
     - ns1

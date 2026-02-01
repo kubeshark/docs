@@ -1,10 +1,10 @@
 ---
 title: Traffic Troubleshooting
-description: Troubleshoot traffic across all nodes in your K8s cluster
+description: Troubleshoot traffic across all nodes in your Kubernetes cluster
 layout: ../../layouts/MainLayout.astro
 ---
 
-To help network engineers troubleshoot traffic, Kubeshark added two interesting tools that can help learn more  about specific traffic.
+To help network engineers troubleshoot traffic, [Kubeshark](https://kubeshark.com) added two interesting tools that can help learn more  about specific traffic.
 Traffic is huge and it's impossible to track all traffic at all times.
 Kubesahrk provides tools to segment the traffic and learn as much as possible and as a result address questions one can have about said traffic.
 

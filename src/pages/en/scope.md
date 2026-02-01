@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot:
 ---
 
-While capturing all traffic is possible, it is a storage and CPU intensive operation. **Kubeshark** enables you to describe the scope of traffic capture with support for namespaces and PODs.
+While capturing all traffic is possible, it is a storage and CPU intensive operation. [Kubeshark](https://kubeshark.com) enables you to describe the scope of traffic capture with support for namespaces and PODs.
 
 ### Pods selection
 
@@ -32,7 +32,7 @@ kubeshark tap "(catalo*|front-end*)"
 
 ### Namespaces
 
-By default, **Kubeshark** is deployed into the `default` namespace.
+By default, [Kubeshark](https://kubeshark.com) is deployed into the `default` namespace.
 To specify a different namespace:
 
 ```
@@ -41,7 +41,7 @@ kubeshark tap -n sock-shop
 
 ### Specify All Namespaces
 
-The default deployment strategy of **Kubeshark** waits for the new Pods
+The default deployment strategy of [Kubeshark](https://kubeshark.com) waits for the new Pods
 to be created. To simply deploy to all existing namespaces run:
 
 ```

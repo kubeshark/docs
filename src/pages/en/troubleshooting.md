@@ -4,7 +4,7 @@ description: Troubleshooting the problems that you face while using Kubeshark.
 layout: ../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** installation aims to be straightforward, but due to the diverse range of Kubernetes (K8s) versions and configurations, some troubleshooting may be required.
+[Kubeshark](https://kubeshark.com) installation aims to be straightforward, but due to the diverse range of Kubernetes (Kubernetes) versions and configurations, some troubleshooting may be required.
 
 
 ## Troubleshooting
@@ -31,13 +31,13 @@ Potential causes include Worker malfunction, traffic capture issues, or protocol
 
 ## I Don't See the Traffic I'm Looking For
 
-Use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling) to see all TCP traffic. If the traffic isn't visible, **Kubeshark** isn't capturing it for some reason (e.g., capture filters).
+Use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling) to see all TCP traffic. If the traffic isn't visible, [Kubeshark](https://kubeshark.com) isn't capturing it for some reason (e.g., capture filters).
 
-Examine the [traffic dumped and recorded](/en/pcapdump) by **Kubeshark**. If the traffic you're looking for isn't there, it might be a permission or network policy issue.
+Examine the [traffic dumped and recorded](/en/pcapdump) by [Kubeshark](https://kubeshark.com). If the traffic you're looking for isn't there, it might be a permission or network policy issue.
 
 ## I Don't See HTTP/2 Traffic
 
-HTTP/2 sometimes runs on long-lived connections. **Kubeshark** must start processing the traffic before the long-lived connection is established. It cannot process an existing long-lived connection. This can happen if you start **Kubeshark** after the long-lived connection has already been established.
+HTTP/2 sometimes runs on long-lived connections. [Kubeshark](https://kubeshark.com) must start processing the traffic before the long-lived connection is established. It cannot process an existing long-lived connection. This can happen if you start [Kubeshark](https://kubeshark.com) after the long-lived connection has already been established.
 
 To see the raw TCP and possibly the HTTP/2 packets, use the [`tcp` dissector](/en/pod_to_pod_connections#enabling-and-disabling).
 
@@ -45,14 +45,14 @@ To see the raw TCP and possibly the HTTP/2 packets, use the [`tcp` dissector](/e
 
 If you're not seeing the SSL/TLS traffic you expect, there could be two issues:
 
-1. The TLS connection started before the Workers started. **Kubeshark** cannot tap into an ongoing TLS connection; it needs to process the handshake to show (un)encrypted traffic in clear text.
-2. The SSL library or method isn't supported. There are numerous SSL/TLS libraries and methods used to encrypt and decrypt traffic. **Kubeshark** uses eBPF with specific method implementations to support the most common ones. You can read more about how **Kubeshark** processes TLS traffic in the [TLS/HTTPS (eBPF)](/en/encrypted_traffic) section.
+1. The TLS connection started before the Workers started. [Kubeshark](https://kubeshark.com) cannot tap into an ongoing TLS connection; it needs to process the handshake to show (un)encrypted traffic in clear text.
+2. The SSL library or method isn't supported. There are numerous SSL/TLS libraries and methods used to encrypt and decrypt traffic. [Kubeshark](https://kubeshark.com) uses eBPF with specific method implementations to support the most common ones. You can read more about how [Kubeshark](https://kubeshark.com) processes TLS traffic in the [TLS/HTTPS (eBPF)](/en/encrypted_traffic) section.
 
-Even if, for any reason, **Kubeshark** cannot display the (un)encrypted traffic in clear text, you can still view the encrypted traffic within the Kubernetes context. To see the raw TCP and encrypted traffic, use the [`tcp` and/or `tls` dissectors](/en/pod_to_pod_connections#enabling-and-disabling).
+Even if, for any reason, [Kubeshark](https://kubeshark.com) cannot display the (un)encrypted traffic in clear text, you can still view the encrypted traffic within the Kubernetes context. To see the raw TCP and encrypted traffic, use the [`tcp` and/or `tls` dissectors](/en/pod_to_pod_connections#enabling-and-disabling).
 
 ## Workers or Hub Get OOMKilled
 
-Frequent OOMKilled errors indicate that the cluster is overburdened relative to the resources allocated to **Kubeshark**. By default, **Kubeshark** imposes resource limitations suitable for small dev/test clusters. We recommend either utilizing [capture filters](/en/pod_targeting0) or [increasing resource limitations](/en/performance#resource-limitations), or preferably both. Consult our [performance page](/en/performance) for guidance on optimizing resource consumption.
+Frequent OOMKilled errors indicate that the cluster is overburdened relative to the resources allocated to [Kubeshark](https://kubeshark.com). By default, [Kubeshark](https://kubeshark.com) imposes resource limitations suitable for small dev/test clusters. We recommend either utilizing [capture filters](/en/pod_targeting0) or [increasing resource limitations](/en/performance#resource-limitations), or preferably both. Consult our [performance page](/en/performance) for guidance on optimizing resource consumption.
 
 ## Worker Pods Get Evicted
 
@@ -100,7 +100,7 @@ tap:
 
 ## Port-Forward is Failing
 
-When deploying **Kubeshark** using the CLI, the port-forward can fail. Such failures should be apparent in the console logs:
+When deploying [Kubeshark](https://kubeshark.com) using the CLI, the port-forward can fail. Such failures should be apparent in the console logs:
 
 ![Port-forward is failing](/port-forward-failing.png)
 
@@ -110,9 +110,9 @@ This can be fixed by using the port-forward command manually:
 kubectl port-forward svc/kubeshark-front 8899:80
 ```
 
-## High Volume of **Kubeshark**-Related Audit Log Events
+## High Volume of Kubeshark-Related Audit Log Events
 
-Some users have reported a surge in audit log events following **Kubeshark** installation, as discussed in [issue #1500](https://github.com/kubeshark/kubeshark/issues/1500). Although this behavior was not replicated in our test environments, it is crucial to address if experienced. Reducing **Kubeshark**-related audit log volumes can be achieved by disabling auditing for specific events as shown below:
+Some users have reported a surge in audit log events following [Kubeshark](https://kubeshark.com) installation, as discussed in [issue #1500](https://github.com/kubeshark/kubeshark/issues/1500). Although this behavior was not replicated in our test environments, it is crucial to address if experienced. Reducing [Kubeshark](https://kubeshark.com)-related audit log volumes can be achieved by disabling auditing for specific events as shown below:
 
 ```yaml
   - level: None
@@ -126,4 +126,4 @@ If the provided solutions do not resolve your issue, other resources are availab
 
 - [Report a bug](https://github.com/kubeshark/kubeshark/issues) by creating a GitHub ticket.
 - [Join our Slack channel](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA) for community support. We strive to be responsive and helpful.
-- [Contact the project team directly](https://kubeshark.com/contact-us) for dedicated and timely assistance.
+- [Contact the project team directly](https://kubeshark.comm/contact-us) for dedicated and timely assistance.

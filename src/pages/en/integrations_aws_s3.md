@@ -4,7 +4,7 @@ description: Kubeshark enables you to generate files (e.g. PCAPs) and upload the
 layout: ../../layouts/MainLayout.astro
 ---
 
-The AWS S3 integration provides an immutable datastore option in case you want to export files outside of the K8s cluster.
+The AWS S3 integration provides an immutable datastore option in case you want to export files outside of the Kubernetes cluster.
 
 You can read the [helper](/en/automation_helpers) section to learn more about the available AWS S3 helpers.
 

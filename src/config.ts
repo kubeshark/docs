@@ -71,6 +71,7 @@ export const SIDEBAR: Sidebar = {
     'L4 Raw Traffic Capture': [
       { text: 'Raw Capture', link: 'en/v2/raw_capture' },
       { text: 'Traffic Snapshots', link: 'en/v2/traffic_snapshots' },
+      // { text: 'TCP/UDP Connections', link: 'en/v2/tcp_udp_connections' },
       { text: 'Cluster-wide PCAP Export', link: 'en/v2/pcap_export' },
     ],
     'L7 API Dissection': [

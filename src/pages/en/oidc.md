@@ -15,7 +15,7 @@ Add the following static client configuration to your Dex IdP's `config.yaml`:
 staticClients:
   - id: kubeshark
     secret: <create your own client password>
-    name: Kubeshark
+    name: [Kubeshark](https://kubeshark.com)
     redirectURIs:
       - https://<your-kubeshark-host>/api/oauth2/callback
 ```
@@ -46,20 +46,20 @@ tap:
 
 **Note:**<br/>
 Set `tap.auth.dexOidc.bypassSslCaCheck: true` 
-to allow Kubeshark communication with Dex IdP having an unknown SSL Certificate Authority.
+to allow [Kubeshark](https://kubeshark.com) communication with Dex IdP having an unknown SSL Certificate Authority.
 
 This setting allows you to prevent such SSL CA-related errors:<br/>
 `tls: failed to verify certificate: x509: certificate signed by unknown authority`
 
 ---
 
-After configuring the values file, install Kubeshark with the following command:
+After configuring the values file, install [Kubeshark](https://kubeshark.com) with the following command:
 
 ```bash
 helm install kubeshark kubeshark/kubeshark -f ./values.yaml
 ```
 
-Kubeshark will now be installed with Dex-based OIDC authentication enabled.
+[Kubeshark](https://kubeshark.com) will now be installed with Dex-based OIDC authentication enabled.
 
 ### Try Your OIDC-Enabled Kubeshark
 
@@ -70,12 +70,12 @@ Once OIDC is enabled, you'll be redirected to the Dex IdP login page.
 ![Dex IdP - Login Page](/oidc-dex-login-page.png)
 
 1. Choose a login option and click it. Your upstream IdP (Google, Microsoft, etc.) will guide you through the authentication process.
-2. After successful authentication, you’ll be directed to a page where you can grant Kubeshark access to your user information:
+2. After successful authentication, you’ll be directed to a page where you can grant [Kubeshark](https://kubeshark.com) access to your user information:
 
    ![Dex IdP - Grant Access](/oidc-dex-grant-access.png)
 
-3. You’re logged in! Your email should appear in the top-right corner of the Kubeshark dashboard:
+3. You’re logged in! Your email should appear in the top-right corner of the [Kubeshark](https://kubeshark.com) dashboard:
 
    ![Dex IdP - Successful Login](/oidc-dex-successful-login.png)
 
-4. You’re authorized! You can now use Kubeshark as usual.
+4. You’re authorized! You can now use [Kubeshark](https://kubeshark.com) as usual.

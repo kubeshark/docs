@@ -19,11 +19,11 @@ layout: ../../layouts/MainLayout.astro
 
 ## Resource Consumption
 
-**Kubeshark**'s resource consumption largely depends on the cluster workload and the amount of dissection required. Most resource-consuming operations are performed by the Worker at the node level.
+[Kubeshark](https://kubeshark.com)'s resource consumption largely depends on the cluster workload and the amount of dissection required. Most resource-consuming operations are performed by the Worker at the node level.
 
 ## Kubeshark Operations
 
-**Kubeshark** captures and stores all traffic in memory. It then filters traffic based on pod targeting rules, which include pod regex and a list of namespaces. Traffic filtered out by these rules is discarded. Traffic filtered in is dissected. Among all **Kubeshark** operations—traffic capturing, storing, filtering, and dissection—dissection is the most resource-intensive and is performed on-demand when a client requests it (e.g., the dashboard, a recording, a running script).
+[Kubeshark](https://kubeshark.com) captures and stores all traffic in memory. It then filters traffic based on pod targeting rules, which include pod regex and a list of namespaces. Traffic filtered out by these rules is discarded. Traffic filtered in is dissected. Among all [Kubeshark](https://kubeshark.com) operations—traffic capturing, storing, filtering, and dissection—dissection is the most resource-intensive and is performed on-demand when a client requests it (e.g., the dashboard, a recording, a running script).
 
 ## Resource Limitations
 
@@ -62,7 +62,7 @@ tap:
 
 ### Worker Storage Limitation
 
-Traffic is recorded and stored by the Worker at the Kubernetes node level. **Kubeshark** generates a PCAP file per L4 stream and a JSON file per API message. Files are deleted based on a TTL:
+Traffic is recorded and stored by the Worker at the Kubernetes node level. [Kubeshark](https://kubeshark.com) generates a PCAP file per L4 stream and a JSON file per API message. Files are deleted based on a TTL:
 - PCAP - 10s TTL
 - JSON - 5m TTL
 
@@ -74,13 +74,13 @@ Whenever a container surpasses its memory limit, it will get OOMKilled. If Worke
 
 ## Predictable Consumption
 
-While limitations ensure **Kubeshark** does not consume resources above set limits, it is insufficient to ensure proper operation if the available resources aren't adequate for the amount of traffic **Kubeshark** must process.
+While limitations ensure [Kubeshark](https://kubeshark.com) does not consume resources above set limits, it is insufficient to ensure proper operation if the available resources aren't adequate for the amount of traffic [Kubeshark](https://kubeshark.com) must process.
 
-To consume fewer resources and not surpass limitations, **Kubeshark** offers two methods to control the amount of processed traffic:
+To consume fewer resources and not surpass limitations, [Kubeshark](https://kubeshark.com) offers two methods to control the amount of processed traffic:
 
 ### Capture Filters (Pod Targeting)
 
-**Kubeshark** allows targeting specific pods using pod regex and a list of namespaces. This ensures only traffic related to targeted pods is processed, and the rest is discarded.
+[Kubeshark](https://kubeshark.com) allows targeting specific pods using pod regex and a list of namespaces. This ensures only traffic related to targeted pods is processed, and the rest is discarded.
 Utilizing Pod Targeting can significantly optimize resource consumption:
 
 ![Pod Targeting Changes](/pod_targeting_grafana.png)
@@ -89,9 +89,9 @@ Utilizing Pod Targeting can significantly optimize resource consumption:
 
 ### Traffic Sampling
 
-`TrafficSampleRate` is a number representing a percentage between 0 and 100. This number causes **Kubeshark** to randomly select L4 streams, not exceeding the set percentage.
+`TrafficSampleRate` is a number representing a percentage between 0 and 100. This number causes [Kubeshark](https://kubeshark.com) to randomly select L4 streams, not exceeding the set percentage.
 
-For example, this configuration will cause **Kubeshark** to process only 20% of traffic, discarding the rest:
+For example, this configuration will cause [Kubeshark](https://kubeshark.com) to process only 20% of traffic, discarding the rest:
 
 
 ```yaml
