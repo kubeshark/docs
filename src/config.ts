@@ -60,6 +60,7 @@ export const SIDEBAR: Sidebar = {
     'Core Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Dashboard', link: 'en/ui' },
+      { text: 'Protocol Support', link: 'en/protocols' },
       { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'L4/L7 Workload Map', link: 'en/v2/service_map' },
       // { text: 'Running Headless', link: 'en/headless' },
@@ -77,7 +78,6 @@ export const SIDEBAR: Sidebar = {
     'L7 API Dissection': [
       { text: 'API (L7) Dissection', link: 'en/v2/l7_api_dissection' },
       { text: 'L4 to L7 Mapping', link: 'en/v2/l4_to_l7' },
-      { text: 'Protocol Support', link: 'en/protocols' },
       { text: 'Performance', link: 'en/v2/performance' },
       { text: 'Enabling / Disabling', link: 'en/on_off_switch' },
     ],
