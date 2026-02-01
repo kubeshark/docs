@@ -78,7 +78,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'API (L7) Dissection', link: 'en/v2/l7_api_dissection' },
       { text: 'L4 to L7 Mapping', link: 'en/v2/l4_to_l7' },
       { text: 'Protocol Support', link: 'en/protocols' },
-      { text: 'Enabling / Disabling L7 API Dissection', link: 'en/on_off_switch' },
+      { text: 'Performance', link: 'en/v2/performance' },
+      { text: 'Enabling / Disabling', link: 'en/on_off_switch' },
     ],
     'Traffic Filters': [
       { text: 'Capture Filters', link: 'en/pod_targeting' },
