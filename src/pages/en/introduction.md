@@ -77,13 +77,11 @@ See traffic as it happens. [Kubeshark](https://kubeshark.com) captures and disse
 For comprehensive forensics, [Kubeshark](https://kubeshark.com) can capture complete L4 traffic (PCAP) and analyze it later:
 
 ```
-┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
-│     CAPTURE      │────▶│      STORE       │────▶│     ANALYZE      │────▶│      ENRICH      │
-│                  │     │                  │     │                  │     │                  │
-│   Lightweight    │     │  Complete PCAP   │     │  L7 Dissection   │     │    Kubernetes    │
-│   L4 capture on  │     │  data retained   │     │  on-demand or    │     │  context (pods,  │
-│   prod nodes     │     │  for history     │     │  scheduled       │     │  svcs, ns, etc.) │
-└──────────────────┘     └──────────────────┘     └──────────────────┘     └──────────────────┘
+CAPTURE ──▶ STORE ──▶ ANALYZE ──▶ ENRICH
+
+Lightweight     Complete PCAP     L7 dissection     Add Kubernetes
+L4 capture      retained for      on-demand or      context: pods,
+on prod nodes   full history      scheduled         services, etc.
 ```
 
 This enables:
@@ -113,6 +111,31 @@ This enables:
 </div>
 
 [View full protocol documentation →](/en/protocols)
+
+---
+
+## AI-Powered Analysis
+
+Kubeshark exposes network data to AI tools via its MCP server, enabling natural language queries across your traffic history. Ask questions like:
+
+**Incident Investigation**
+- *"Something broke at 2pm. Capture that traffic, dissect it, and tell me what failed."*
+- *"Why is checkout slow? Show me the API call chain and where time is being spent."*
+
+**Architecture Discovery**
+- *"Map out how services communicate. What calls what?"*
+- *"Which services would be affected if the user-service goes down?"*
+
+**Security Analysis**
+- *"Are there any unexpected external connections or unusual API patterns?"*
+- *"Show me all requests without authentication headers."*
+
+**Root Cause Analysis**
+- *"Compare traffic from yesterday's snapshot to today. What changed?"*
+- *"Correlate the K8s pod restarts with the API errors happening at the same time."*
+
+**Evidence Collection**
+- *"Create a snapshot of the last hour from the payments nodes and export the PCAP for the security team."*
 
 ---
 
