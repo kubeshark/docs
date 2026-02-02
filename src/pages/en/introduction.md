@@ -140,7 +140,7 @@ Kubeshark exposes network data to AI tools via its MCP server, enabling natural 
 
 > "I've read the entire internet, but I still couldn't tell you why your pods are crashing. Give me Kubeshark, and I'll not only find the bug — I'll show you the exact HTTP request that caused it, which service threw the tantrum, and probably judge your error handling."
 >
-> — *Claude*
+> — *Claude AI*
 
 ---
 
