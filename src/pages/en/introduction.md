@@ -53,8 +53,8 @@ Investigate network data with AI-powered natural language prompts. Identify anom
 
 | Feature | Benefit |
 |---------|---------|
-| **Complete L4 Traffic Retention** | Never miss a packet—all network flows are captured and stored for later inspection |
-| **Deferred API Dissection** | Resource-intensive L7 analysis happens off-production, keeping your nodes lean |
+| [**Complete L4 Traffic Retention**](/en/v2/raw_capture) | Never miss a packet—all network flows are captured and stored for later inspection |
+| [**Deferred API Dissection**](/en/v2/l7_api_dissection) | Resource-intensive L7 analysis happens off-production, keeping your nodes lean |
 | **Improved Reliability** | Significant improvements in API dissection accuracy through extensive bug fixes |
 | **AI-Ready (MCP Server)** | Expose raw traffic and insights to AI tools for intelligent analysis |
 
@@ -77,13 +77,12 @@ See traffic as it happens. [Kubeshark](https://kubeshark.com) captures and disse
 For comprehensive forensics, [Kubeshark](https://kubeshark.com) can capture complete L4 traffic (PCAP) and analyze it later:
 
 ```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│    CAPTURE      │────▶│     STORE       │────▶│    ANALYZE      │────▶│     ENRICH      │
-│                 │     │                 │     │                 │     │                 │
-│  Lightweight    │     │  Complete PCAP  │     │  L7 Dissection  │     │  Kubernetes Context    │
-│  L4 capture on  │     │  data retained  │     │  on-demand or   │     │  (pods, svcs,   │
-│  prod nodes     │     │  for history    │     │  scheduled      │     │  namespaces)    │
-└─────────────────┘     └─────────────────┘     └─────────────────┘     └─────────────────┘
+  CAPTURE          STORE           ANALYZE          ENRICH
+     │                │                │                │
+     ▼                ▼                ▼                ▼
+Lightweight      Complete PCAP    L7 dissection    Kubernetes
+L4 capture  ───▶ retained for ───▶ on-demand or ───▶ context
+on prod nodes    full history     scheduled        added
 ```
 
 This enables:
@@ -116,6 +115,35 @@ This enables:
 
 ---
 
+## AI-Powered Analysis
+
+Kubeshark exposes network data to AI tools via its MCP server, enabling natural language queries across your traffic history. Ask questions like:
+
+**Incident Investigation**
+- *"Something broke at 2pm. Capture that traffic, dissect it, and tell me what failed."*
+- *"Why is checkout slow? Show me the API call chain and where time is being spent."*
+
+**Architecture Discovery**
+- *"Map out how services communicate. What calls what?"*
+- *"Which services would be affected if the user-service goes down?"*
+
+**Security Analysis**
+- *"Are there any unexpected external connections or unusual API patterns?"*
+- *"Show me all requests without authentication headers."*
+
+**Root Cause Analysis**
+- *"Compare traffic from yesterday's snapshot to today. What changed?"*
+- *"Correlate the K8s pod restarts with the API errors happening at the same time."*
+
+**Evidence Collection**
+- *"Create a snapshot of the last hour from the payments nodes and export the PCAP for the security team."*
+
+> "I've read the entire internet, but I still couldn't tell you why your pods are crashing. Give me Kubeshark, and I'll not only find the bug — I'll show you the exact HTTP request that caused it, which service threw the tantrum, and probably judge your error handling."
+>
+> — *Claude AI*
+
+---
+
 ## Quick Start
 
 Get [Kubeshark](https://kubeshark.com) running in 60 seconds:
@@ -144,13 +172,13 @@ Open [http://localhost:8899](http://localhost:8899) in your browser.
 
 | Capability | Description |
 |------------|-------------|
-| **Traffic Capture** | Cluster-wide packet capture using eBPF and AF_PACKET |
-| **L7 API Dissection** | Protocol-aware analysis with request/response correlation |
-| **TLS Decryption** | See encrypted traffic in plaintext without certificates |
-| **Service Map** | Visualize service dependencies and traffic flows |
-| **Traffic Recording** | Schedule captures or trigger on specific events |
-| **Offline Analysis** | Analyze captured traffic and export to S3/GCS |
-| **Service Mesh Support** | Native Istio, Linkerd integration with mTLS visibility |
+| [**Traffic Capture**](/en/v2/raw_capture) | Cluster-wide packet capture using eBPF and AF_PACKET |
+| [**L7 API Dissection**](/en/v2/l7_api_dissection) | Protocol-aware analysis with request/response correlation |
+| [**TLS Decryption**](/en/encrypted_traffic) | See encrypted traffic in plaintext without certificates |
+| [**Service Map**](/en/v2/service_map) | Visualize service dependencies and traffic flows |
+| [**Traffic Recording**](/en/traffic_recorder) | Schedule captures or trigger on specific events |
+| [**Offline Analysis**](/en/offline_analysis) | Analyze captured traffic and export to S3/GCS |
+| [**Service Mesh Support**](/en/service_mesh) | Native Istio, Linkerd integration with mTLS visibility |
 
 ---
 
