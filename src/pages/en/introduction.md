@@ -76,12 +76,14 @@ See traffic as it happens. [Kubeshark](https://kubeshark.com) captures and disse
 
 For comprehensive forensics, [Kubeshark](https://kubeshark.com) can capture complete L4 traffic (PCAP) and analyze it later:
 
-| Stage | Description |
-|-------|-------------|
-| **Capture** | Lightweight L4 capture on production nodes |
-| **Store** | Complete PCAP data retained for full history |
-| **Analyze** | L7 dissection on-demand or scheduled |
-| **Enrich** | Add Kubernetes context (pods, services, namespaces) |
+```
+  CAPTURE          STORE           ANALYZE          ENRICH
+     │                │                │                │
+     ▼                ▼                ▼                ▼
+Lightweight      Complete PCAP    L7 dissection    Kubernetes
+L4 capture  ───▶ retained for ───▶ on-demand or ───▶ context
+on prod nodes    full history     scheduled        added
+```
 
 This enables:
 - **Complete traffic history** for forensic investigation
