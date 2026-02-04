@@ -61,6 +61,65 @@ The network layer reveals infrastructure problems before they become outages:
 
 ---
 
+## The Context Problem
+
+Raw network packets contain valuable data, but they lack the context needed to make sense of it.
+
+### What Raw Packets Don't Tell You
+
+A captured packet shows:
+- Source IP: `10.244.1.15`
+- Destination IP: `10.244.2.23`
+- Port: `8080`
+- Payload: `{"user_id": 12345, "action": "checkout"}`
+
+But it doesn't tell you:
+- Which pod sent it? Which service?
+- What namespace? What deployment?
+- Which process inside the container?
+- Is this normal behavior or anomalous?
+
+Without Kubernetes context, you're left correlating IP addresses manually—a task that's nearly impossible in dynamic environments where pods come and go.
+
+### API Fragmentation
+
+The problem compounds at the API layer. A single HTTP request might span multiple TCP segments, arrive out of order, or be interleaved with other requests on the same connection. Raw packet capture sees fragments; understanding the actual API call requires reconstruction.
+
+<div class="callout callout-info">
+
+**The Gap**: Raw network data has the bytes. Kubernetes has the identity. Neither alone tells the full story.
+
+</div>
+
+### How Kubeshark Bridges the Gap
+
+Kubeshark enriches network traffic by correlating across multiple layers:
+
+| Source | Context Added |
+|--------|---------------|
+| **Kubernetes API** | Pod name, service, namespace, labels, deployment |
+| **eBPF (OS layer)** | Process ID, container ID, syscall context |
+| **Protocol dissection** | Reconstructed API calls, request/response pairing |
+
+The result: every API call is tagged with its complete Kubernetes identity.
+
+```
+Before (raw packet):
+  10.244.1.15:43210 → 10.244.2.23:8080
+
+After (Kubeshark enriched):
+  frontend-7d4b8c6f9-x2k4m (namespace: production)
+    → payment-service (namespace: production)
+  Process: node (PID 1234)
+  API: POST /api/v1/checkout
+  Latency: 145ms
+  Status: 200 OK
+```
+
+This enrichment transforms raw packets into actionable intelligence—you can ask "show me all traffic from the frontend service" instead of hunting for IP addresses.
+
+---
+
 ## The Observability Gap
 
 Modern observability relies on three pillars: **logs**, **metrics**, and **traces**. Each has limitations that network data fills.
