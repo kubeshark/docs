@@ -15,6 +15,73 @@ A developer gets paged: checkout latency has spiked and users are abandoning car
 
 ---
 
+## The Flow
+
+```
+┌──────────────────────────────────────────────────────────────────────────────┐
+│                          USER  ←→  AI  ←→  KUBESHARK                         │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+  USER                           AI                           KUBESHARK
+    │                            │                                │
+    │  "What can you tell me     │                                │
+    │   about my frontend        │                                │
+    │   service?"                │                                │
+    │ ─────────────────────────► │                                │
+    │                            │                                │
+    │                            │  GET /mcp/data-boundaries      │
+    │                            │ ─────────────────────────────► │
+    │                            │                                │
+    │                            │  ◄─ 3 nodes, 14:00-15:00 UTC   │
+    │                            │                                │
+    │                            │  POST /mcp/snapshots           │
+    │                            │  {name: "frontend-analysis"}   │
+    │                            │ ─────────────────────────────► │
+    │                            │                                │
+    │                            │  ◄─ 850 MB snapshot ready      │
+    │                            │                                │
+    │                            │  POST /delayed_dissection      │
+    │                            │ ─────────────────────────────► │
+    │                            │                                │
+    │                            │  ◄─ 12,847 API calls dissected │
+    │                            │                                │
+    │                            │  GET /mcp/calls?kfl=...        │
+    │                            │ ─────────────────────────────► │
+    │                            │                                │
+    │                            │  ◄─ Traffic data (JSON)        │
+    │                            │                                │
+    │                            │  ┌─────────────────────┐       │
+    │                            │  │ AI analyzes:        │       │
+    │                            │  │ • Performance       │       │
+    │                            │  │ • Anomalies         │       │
+    │                            │  │ • API patterns      │       │
+    │                            │  └─────────────────────┘       │
+    │                            │                                │
+    │  "Based on 12,847 API      │                                │
+    │   calls, here's what I     │                                │
+    │   found..."                │                                │
+    │ ◄───────────────────────── │                                │
+    │                            │                                │
+    │  "Tell me more about       │                                │
+    │   those 503 errors"        │                                │
+    │ ─────────────────────────► │                                │
+    │                            │                                │
+    │                            │  GET /mcp/calls?kfl=           │
+    │                            │  response.status==503          │
+    │                            │ ─────────────────────────────► │
+    │                            │                                │
+    │                            │  ◄─ 127 failed requests        │
+    │                            │                                │
+    │  "All 503 errors occur     │                                │
+    │   when payment-service     │                                │
+    │   exceeds 5s timeout..."   │                                │
+    │ ◄───────────────────────── │                                │
+    │                            │                                │
+    ▼                            ▼                                ▼
+```
+
+---
+
 ## The Conversation
 
 **User:**
