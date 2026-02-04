@@ -1,23 +1,23 @@
 ---
-title: MCP - Introduction
-description: Enable AI assistants to analyze Kubernetes network traffic using Kubeshark's MCP (Model Context Protocol) server.
+title: MCP - How It Works
+description: Understanding the Model Context Protocol and how Kubeshark connects AI assistants to your Kubernetes network data.
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-The **Model Context Protocol (MCP)** is an open standard that enables AI assistants like Claude, ChatGPT, and other LLMs to interact with external tools and data sources. Kubeshark's MCP server exposes real-time and historical network traffic data to AI, enabling powerful natural language queries across your Kubernetes cluster.
+[Network traffic holds answers](/en/mcp_why) to your toughest debugging, security, and performance questions. The **Model Context Protocol (MCP)** is how AI assistants access that data.
 
 ---
 
 ## What is MCP?
 
-The **Model Context Protocol (MCP)** was introduced by Anthropic as an open standard for connecting AI assistants to external data sources and tools. Think of it as a universal adapter that lets AI models interact with any system that implements the protocol.
+The **Model Context Protocol (MCP)** is an open standard introduced by Anthropic for connecting AI assistants to external data sources and tools. Think of it as a universal adapter—any AI that supports MCP can interact with any system that implements it.
 
 ```
-┌─────────────────┐     MCP Protocol     ┌─────────────────┐
-│                 │ ◄──────────────────► │                 │
-│  AI Assistant   │                      │  Kubeshark MCP  │
-│  (Claude, etc.) │   JSON-RPC 2.0       │     Server      │
+┌─────────────────┐                      ┌─────────────────┐
+│                 │     MCP Protocol     │                 │
+│  AI Assistant   │ ◄──────────────────► │  Kubeshark MCP  │
+│  (Claude, etc.) │    (JSON-RPC 2.0)    │     Server      │
 │                 │                      │                 │
 └─────────────────┘                      └────────┬────────┘
                                                   │
@@ -29,76 +29,174 @@ The **Model Context Protocol (MCP)** was introduced by Anthropic as an open stan
                                          └─────────────────┘
 ```
 
-### Key MCP Concepts
+MCP defines three core concepts:
 
 | Concept | Description |
 |---------|-------------|
-| **Resources** | Data that the MCP server exposes to AI (e.g., traffic streams, API calls, service maps) |
-| **Tools** | Actions the AI can perform (e.g., capture traffic, export PCAP, filter by service) |
-| **Prompts** | Pre-defined query templates for common analysis tasks |
+| **Resources** | Data the server exposes to the AI (traffic streams, API calls, service maps) |
+| **Tools** | Actions the AI can perform (capture traffic, export PCAP, apply filters) |
+| **Prompts** | Pre-defined templates for common analysis tasks |
 
 ---
 
-## Why Use Kubeshark with AI?
+## What Kubeshark Exposes via MCP
 
-Traditional network debugging requires deep expertise in protocols, packet analysis, and Kubernetes internals. With MCP, you can simply *ask questions* about your network traffic:
+Kubeshark's MCP server gives AI assistants access to your complete network picture:
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
+### Traffic Data
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Instant Insights</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Ask questions in plain English instead of writing complex KFL queries or analyzing raw packet data manually.</p>
-</div>
-
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Deep Analysis</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">AI can correlate patterns across thousands of API calls, identifying anomalies and root causes that would take hours to find manually.</p>
-</div>
-
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Contextual Understanding</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">The AI understands both Kubernetes concepts and network protocols, providing answers with full context of your infrastructure.</p>
-</div>
-
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Automated Remediation</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">AI can suggest fixes and even execute remediations—like capturing traffic, exporting telemetry, or applying K8s policies.</p>
-</div>
-
-</div>
-
-[See detailed use cases →](/en/mcp_use_cases)
-
----
-
-## Kubeshark MCP Capabilities
-
-Kubeshark's MCP server provides AI assistants with comprehensive access to your network data:
-
-### Traffic Analysis
-
-- **Real-time API calls** — Stream live HTTP, gRPC, Kafka, and other L7 traffic
-- **Historical queries** — Access retained traffic for forensic investigation
-- **Full payloads** — Request/response bodies, headers, and metadata
-- **TLS decrypted** — See encrypted traffic in plaintext
+| Resource | Description |
+|----------|-------------|
+| Real-time stream | Live traffic as it flows through your cluster |
+| Historical queries | Past traffic within your retention window |
+| Full payloads | Request/response bodies, headers, metadata |
+| Decrypted TLS | Encrypted traffic in plaintext |
 
 ### Kubernetes Context
 
-- **Pod and service identity** — Know exactly which workloads are communicating
-- **Namespace awareness** — Filter and scope queries by namespace
-- **Node distribution** — Understand traffic patterns across your cluster
+| Resource | Description |
+|----------|-------------|
+| Pod identity | Source and destination workloads for each request |
+| Service mapping | Which services communicate and how |
+| Namespace scope | Traffic organized by namespace |
+| Node distribution | Traffic patterns across cluster nodes |
 
 ### Operational Tools
 
-- **Traffic capture** — Trigger targeted packet capture on demand
-- **PCAP export** — Export traffic for offline analysis in Wireshark
-- **Snapshot creation** — Create point-in-time traffic snapshots
-- **Filter application** — Apply KFL filters to focus on specific traffic
+| Tool | Description |
+|------|-------------|
+| `capture_traffic` | Start targeted packet capture |
+| `export_pcap` | Export traffic for Wireshark analysis |
+| `create_snapshot` | Point-in-time traffic snapshots |
+| `apply_filter` | Focus results with KFL filters |
+
+---
+
+## Setting Up MCP
+
+### Prerequisites
+
+- Kubeshark installed in your cluster
+- An MCP-compatible AI client (Claude Desktop, Cursor, VS Code with Continue, etc.)
+
+### Enable the MCP Server
+
+Via Helm values:
+
+```yaml
+mcp:
+  enabled: true
+  port: 8898
+```
+
+Or command line:
+
+```bash
+helm install kubeshark kubeshark/kubeshark \
+  --set mcp.enabled=true \
+  --set mcp.port=8898
+```
+
+### Connect Your AI Client
+
+#### Claude Desktop
+
+Add to your `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "kubeshark": {
+      "url": "http://localhost:8898/mcp",
+      "name": "Kubeshark"
+    }
+  }
+}
+```
+
+<div class="callout callout-tip">
+
+**Remote Clusters**: Set up port forwarding first:
+```bash
+kubectl port-forward svc/kubeshark-hub 8898:8898
+```
+
+</div>
+
+#### Other MCP Clients
+
+Any MCP-compatible client can connect. The server implements standard MCP over HTTP with JSON-RPC 2.0.
+
+---
+
+## How AI Uses the Data
+
+When you ask a question, the AI:
+
+1. **Understands intent** — Parses your natural language query
+2. **Queries Kubeshark** — Uses MCP tools to fetch relevant traffic
+3. **Analyzes results** — Correlates patterns, identifies anomalies
+4. **Responds conversationally** — Explains findings in plain language
+
+### Example Interaction
+
+**You ask:**
+> "Why did the checkout fail for user 12345 at 2:15 PM?"
+
+**AI actions:**
+1. Queries traffic to checkout-related services between 2:10-2:20 PM
+2. Filters for requests containing user ID 12345
+3. Identifies a 500 error from payment-service
+4. Examines the error response payload
+5. Traces upstream to find the root cause
+
+**AI responds:**
+> "The checkout failed because payment-service returned a 500 error at 2:15:23 PM. The error payload shows 'Invalid card token.' The request to the upstream token-service succeeded, but returned an expired token. The token was generated at 1:15 PM and has a 1-hour TTL."
+
+---
+
+## Security Considerations
+
+<div class="callout callout-warning">
+
+**Access Control**: The MCP server provides access to network traffic including API payloads. Ensure appropriate controls:
+
+- Restrict MCP endpoint access to authorized users
+- Use network policies to limit who can reach the MCP port
+- Enable authentication if exposing beyond localhost
+
+</div>
+
+The MCP server respects Kubeshark's data redaction policies. If you've configured sensitive data redaction, the AI sees redacted values.
+
+---
+
+## Troubleshooting
+
+### MCP Server Not Responding
+
+```bash
+# Verify Kubeshark is running
+kubectl get pods -l app=kubeshark-hub
+
+# Check MCP-related logs
+kubectl logs -l app=kubeshark-hub | grep -i mcp
+
+# Verify port forwarding (if remote)
+kubectl port-forward svc/kubeshark-hub 8898:8898
+```
+
+### AI Not Finding Expected Data
+
+- Verify Kubeshark is capturing traffic from target namespaces
+- Check that L7 dissection is enabled for API-level queries
+- Ensure time ranges cover when the traffic occurred
+- Confirm the service/pod names match what's in the cluster
 
 ---
 
 ## What's Next
 
-- [Use Cases](/en/mcp_use_cases) — Detailed scenarios for AI-powered network analysis
-- [Dashboard Overview](/en/ui) — Learn the Kubeshark interface
-- [L7 API Dissection](/en/v2/l7_api_dissection) — Understand how API traffic is analyzed
+- [Why Network Data Matters](/en/mcp_why) — The value of network-level visibility
+- [Use Cases](/en/mcp_use_cases) — Detailed scenarios and example prompts
+- [KFL2 Filters](/en/v2/kfl2) — Write powerful traffic filters

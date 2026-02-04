@@ -5,7 +5,9 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Kubeshark's MCP server enables AI assistants to access and analyze your Kubernetes network traffic. Here are the key scenarios where this capability delivers significant value.
+[Network traffic contains a wealth of information](/en/mcp_why)—API payloads, performance data, security signals, and infrastructure health. With Kubeshark's MCP server, you can query all of this using natural language.
+
+Here are the key scenarios where AI-powered network analysis delivers value.
 
 ---
 

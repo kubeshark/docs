@@ -69,8 +69,9 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Envoy/Istio Support', link: 'en/envoy' },
     ],
     'MCP (AI Integration)': [
-      { text: 'Introduction', link: 'en/mcp' },
+      { text: 'Why Network Data Matters', link: 'en/mcp_why' },
       { text: 'Use Cases', link: 'en/mcp_use_cases' },
+      { text: 'How It Works', link: 'en/mcp' },
     ],
     'L4 Raw Traffic Capture': [
       { text: 'Raw Capture', link: 'en/v2/raw_capture' },
