@@ -84,11 +84,65 @@ A developer gets paged: checkout latency has spiked and users are abandoning car
 
 ## The Conversation
 
-**User:**
-> "What can you tell me about my service? The name is `frontend`."
-
-**AI (via MCP):**
-> "Let me examine the last hour of your frontend service's operation. I'll create a snapshot from the recorded traffic and analyze the API calls for anomalies."
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ Terminal - claude                                                               │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                 │
+│  $ claude                                                                       │
+│                                                                                 │
+│  > What can you tell me about my service? The name is frontend.                 │
+│                                                                                 │
+│  ● Analyzing service: frontend                                                  │
+│    ├─ Checking recorded traffic availability...                                 │
+│    ├─ Creating snapshot from last 1 hour of traffic...                          │
+│    ├─ Running L7 protocol dissection...                                         │
+│    ├─ Querying API calls (12,847 found)...                                      │
+│    └─ Analyzing patterns and anomalies...                                       │
+│                                                                                 │
+│  Based on analyzing 12,847 API calls over the last hour, here's what I          │
+│  found about your frontend service:                                             │
+│                                                                                 │
+│  ✓ Healthy:                                                                     │
+│    • Overall latency is good (45ms P50)                                         │
+│    • TCP connection establishment is fast (< 5ms)                               │
+│    • Most endpoints return success (97.7% 2xx responses)                        │
+│                                                                                 │
+│  ⚠ Needs Attention:                                                             │
+│    1. Checkout failures — 2.3% of /api/v1/checkout return 503                   │
+│    2. Retry storms — cart-service retrying 3x within 100ms                      │
+│    3. Connection churn — 847 new connections/min to catalogue-db                │
+│    4. Sync blocking — checkout calls payment-service synchronously              │
+│                                                                                 │
+│  Want me to dig deeper into any of these issues?                                │
+│                                                                                 │
+│  > Tell me more about those checkout 503 errors. What's causing them?           │
+│                                                                                 │
+│  ● Investigating checkout 503 errors                                            │
+│    ├─ Filtering failed checkout requests...                                     │
+│    └─ Analyzing 127 failed requests...                                          │
+│                                                                                 │
+│  I examined all 127 failed checkout requests. Here's what I found:              │
+│                                                                                 │
+│  Pattern: All 503 errors occur when payment-service response time               │
+│  exceeds 5 seconds (your configured timeout).                                   │
+│                                                                                 │
+│  Root cause: payment-service makes synchronous calls to an external             │
+│  payment gateway. When the gateway is slow (P99: 4.8s), requests                │
+│  stack up and exhaust the connection pool.                                      │
+│                                                                                 │
+│  Timeline:                                                                      │
+│    14:22:58  Gateway latency: 200ms → 4.2s                                      │
+│    14:23:15  First 503 from payment-service                                     │
+│    14:23:45  Connection pool exhausted (TCP RST packets observed)               │
+│                                                                                 │
+│  Recommendation: Add circuit breaker on payment-service's gateway               │
+│  calls, or increase connection pool with shorter timeouts.                      │
+│                                                                                 │
+│  > _                                                                            │
+│                                                                                 │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
