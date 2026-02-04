@@ -199,7 +199,7 @@ Without MCP, this investigation would require:
 4. Write custom scripts to aggregate findings
 5. Build the timeline by hand
 
-**Time estimate:** 2-4 hours for an experienced engineer
+**Time estimate:** 4-6 hours for an experienced engineer
 
 With Kubeshark's MCP server, the AI:
 
