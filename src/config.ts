@@ -60,6 +60,7 @@ export const SIDEBAR: Sidebar = {
     'Core Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Dashboard', link: 'en/ui' },
+      { text: 'MCP Server (AI Integration)', link: 'en/mcp' },
       { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'L4/L7 Workload Map', link: 'en/v2/service_map' },
       // { text: 'Running Headless', link: 'en/headless' },
