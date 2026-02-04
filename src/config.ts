@@ -60,7 +60,6 @@ export const SIDEBAR: Sidebar = {
     'Core Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
       { text: 'Dashboard', link: 'en/ui' },
-      { text: 'MCP Server (AI Integration)', link: 'en/mcp' },
       { text: 'Decrypt TLS/HTTPS', link: 'en/encrypted_traffic' },
       { text: 'L4/L7 Workload Map', link: 'en/v2/service_map' },
       // { text: 'Running Headless', link: 'en/headless' },
@@ -68,6 +67,9 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
       // { text: 'PCAP Dumper (Capturing Raw Traffic)', link: 'en/raw_traffic_capture' },
       // { text: 'Envoy/Istio Support', link: 'en/envoy' },
+    ],
+    'MCP (AI Integration)': [
+      { text: 'Introduction', link: 'en/mcp' },
     ],
     'L4 Raw Traffic Capture': [
       { text: 'Raw Capture', link: 'en/v2/raw_capture' },

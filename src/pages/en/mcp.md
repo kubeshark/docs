@@ -1,5 +1,5 @@
 ---
-title: MCP Server - AI-Powered Network Analysis
+title: MCP - Introduction
 description: Enable AI assistants to analyze Kubernetes network traffic using Kubeshark's MCP (Model Context Protocol) server.
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
