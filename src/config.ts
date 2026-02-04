@@ -71,6 +71,7 @@ export const SIDEBAR: Sidebar = {
     'MCP (AI Integration)': [
       { text: 'Why Network Data Matters', link: 'en/mcp_why' },
       { text: 'Use Cases', link: 'en/mcp_use_cases' },
+      { text: 'MCP in Action', link: 'en/mcp_in_action' },
       { text: 'How It Works', link: 'en/mcp' },
     ],
     'L4 Raw Traffic Capture': [
