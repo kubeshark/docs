@@ -9,6 +9,18 @@ L4 flow endpoints provide **real-time, cluster-wide connectivity visibility** wi
 
 ---
 
+## Prerequisites
+
+| Requirement | Status |
+|-------------|--------|
+| Kubeshark running | Required |
+| Raw capture enabled | Not required |
+| L7 dissection enabled | Not required |
+
+L4 flows are available with a basic Kubeshark installation—no additional features need to be enabled. This makes them the lowest-overhead option for connectivity visibility.
+
+---
+
 ## What are L4 Flows?
 
 A **flow** is an L4 connection between two peers (TCP or UDP). Unlike L7 API dissection which reconstructs full HTTP/gRPC requests, L4 flows show:
