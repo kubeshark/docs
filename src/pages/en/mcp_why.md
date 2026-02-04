@@ -85,13 +85,40 @@ Without Kubernetes context, you're left correlating IP addresses manually—a ta
 
 The problem compounds at the API layer. A single HTTP request might span multiple TCP segments, arrive out of order, or be interleaved with other requests on the same connection. Raw packet capture sees fragments; understanding the actual API call requires reconstruction.
 
+### The Two Worlds of Visibility
+
+There are two approaches to Kubernetes observability, each with tradeoffs:
+
+**Network Tools (Wireshark, tcpdump)**
+- ✓ Complete payload visibility—every byte on the wire
+- ✓ Every request captured, not sampled
+- ✗ No Kubernetes context—just IPs and ports
+- ✗ Manual correlation required
+
+**Observability Tools (OpenTelemetry, APM)**
+- ✓ Kubernetes context—pod, service, namespace
+- ✓ Distributed tracing across services
+- ✗ Sampled data—not every request
+- ✗ No payload visibility—metrics and spans only
+- ✗ Statistical/aggregated information
+
 <div class="callout callout-info">
 
-**The Gap**: Raw network data has the bytes. Kubernetes has the identity. Neither alone tells the full story.
+**The Gap**: Network tools see everything but lack identity. Observability tools have identity but lack depth. You need both.
 
 </div>
 
 ### How Kubeshark Bridges the Gap
+
+Kubeshark combines the depth of network tools with the context of observability platforms:
+
+| Capability | Network Tools | Observability Tools | Kubeshark |
+|------------|---------------|---------------------|-----------|
+| Full payloads | ✓ | ✗ | ✓ |
+| Every request (not sampled) | ✓ | ✗ | ✓ |
+| Kubernetes identity | ✗ | ✓ | ✓ |
+| Process-level context | ✗ | Partial | ✓ |
+| API reconstruction | Manual | ✗ | ✓ |
 
 Kubeshark enriches network traffic by correlating across multiple layers:
 
@@ -101,7 +128,7 @@ Kubeshark enriches network traffic by correlating across multiple layers:
 | **eBPF (OS layer)** | Process ID, container ID, syscall context |
 | **Protocol dissection** | Reconstructed API calls, request/response pairing |
 
-The result: every API call is tagged with its complete Kubernetes identity.
+The result: every API call is tagged with its complete Kubernetes identity, with full payload visibility.
 
 ```
 Before (raw packet):
@@ -112,11 +139,13 @@ After (Kubeshark enriched):
     → payment-service (namespace: production)
   Process: node (PID 1234)
   API: POST /api/v1/checkout
+  Request body: {"user_id": 12345, "items": [...]}
+  Response body: {"order_id": "abc-123", "status": "confirmed"}
   Latency: 145ms
   Status: 200 OK
 ```
 
-This enrichment transforms raw packets into actionable intelligence—you can ask "show me all traffic from the frontend service" instead of hunting for IP addresses.
+This combination is what makes AI-powered analysis possible—you get the complete picture: who sent what, to whom, with what payload, and what came back.
 
 ---
 
