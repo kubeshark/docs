@@ -1,5 +1,5 @@
 ---
-title: AI Integration - Use Cases
+title: MCP - Use Cases
 description: Real-world scenarios where AI-powered network analysis with Kubeshark's MCP server delivers value.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
@@ -11,68 +11,253 @@ Here are the key scenarios where AI-powered network analysis delivers value.
 
 ---
 
-<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
+## Incident Investigation & Root Cause Analysis
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/incident_investigation">Incident Investigation</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Debug production failures fast. Trace the exact request that caused an incident, find root causes, and build timelines—all by asking questions.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"The checkout flow started failing at 2:15 PM. Find what went wrong."</em></p>
-</div>
+When production breaks, time is critical. Instead of manually sifting through logs and dashboards, ask the AI to investigate.
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/security_analysis">Security Analysis</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Find vulnerabilities, audit authentication, detect anomalies, and investigate suspicious activity in your network traffic.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"Find all API calls without Authorization headers."</em></p>
-</div>
+### The Problem
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/architecture_discovery">Architecture Discovery</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Map actual service dependencies from real traffic. Discover how services communicate, find undocumented connections, and assess failure impact.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"What would break if redis-cache goes down?"</em></p>
-</div>
+Traditional incident response involves:
+- Jumping between multiple tools (logs, metrics, traces)
+- Writing ad-hoc queries to find relevant data
+- Manually correlating timestamps across systems
+- Deep expertise in protocols and Kubernetes internals
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/performance_debugging">Performance Debugging</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Find latency bottlenecks, identify slow dependencies, detect N+1 queries, and analyze performance patterns across thousands of requests.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"Why is the product listing page slow?"</em></p>
-</div>
+### How MCP Helps
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/compliance_auditing">Compliance & Auditing</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Generate audit reports, create evidence for investigations, trace data access patterns, and document compliance for PCI, HIPAA, SOC 2, and GDPR.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"Generate an audit trail for order ID 12345."</em></p>
-</div>
+With Kubeshark's MCP server, you can describe the problem in natural language and let the AI do the investigation:
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/troubleshooting">Troubleshooting & Debugging</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Debug integration issues by seeing exactly what's on the wire. Verify headers, payloads, and responses. Find out why services aren't communicating.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"Show me what's actually in the HTTP request."</em></p>
-</div>
+**Example prompts:**
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/autonomous_development">Autonomous Development</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Close the dev-to-production loop. Deploy, test, and verify code with network-level feedback. AI finds issues and suggests fixes automatically.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"Deploy my changes and verify the caching works correctly."</em></p>
-</div>
+> *"The checkout flow started failing at 2:15 PM. Find all API calls to payment-related services in that timeframe and identify what went wrong."*
 
-<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
-<h3 style="margin: 0 0 0.5rem 0; color: #1e293b;"><a href="/en/mcp/onboarding">Onboarding & Learning</a></h3>
-<p style="margin: 0 0 1rem 0; color: #475569; font-size: 0.95rem;">Help new team members understand the system. Explore architecture, learn service behavior, and navigate the codebase using actual traffic patterns.</p>
-<p style="margin: 0; font-size: 0.9rem; color: #64748b;"><em>"Give me an overview of how this system works."</em></p>
-</div>
+> *"Users are reporting 504 errors on the /api/orders endpoint. Trace the request path and find where the timeout is occurring."*
 
-</div>
+> *"Pod order-service-abc123 crashed 10 minutes ago. Show me its network activity in the 2 minutes before the crash—what external calls was it making?"*
+
+### What the AI Can Do
+
+- Query traffic history for specific time windows
+- Filter by service, endpoint, status code, or error type
+- Trace request chains across multiple services
+- Correlate network errors with application failures
+- Identify the exact request/response that caused the issue
+- Compare current traffic patterns with historical baselines
 
 ---
 
-## See It in Action
+## Security Analysis & Threat Detection
 
-For a complete walkthrough of AI-powered network analysis—from question to actionable insights—see [MCP in Action](/en/mcp_in_action).
+Network traffic reveals security issues that application logs miss. Use AI to continuously monitor for threats and investigate suspicious activity.
+
+### The Problem
+
+Security teams face challenges like:
+- Detecting data exfiltration through legitimate-looking API calls
+- Identifying lateral movement between services
+- Finding services communicating without proper authentication
+- Spotting unusual traffic patterns that indicate compromise
+
+### How MCP Helps
+
+Ask security-focused questions about your network traffic:
+
+**Example prompts:**
+
+> *"Are any pods making outbound connections to external IPs that aren't in our allowed list?"*
+
+> *"Find all API calls in the last hour that don't have Authorization headers but should."*
+
+> *"Which internal services are accessible from the public-facing namespace? Show me the actual traffic."*
+
+> *"Analyze traffic patterns for the user-service. Is there anything unusual compared to its normal behavior?"*
+
+> *"Find any instances of sensitive data (credit card patterns, SSNs, API keys) appearing in request or response bodies."*
+
+### What the AI Can Do
+
+- Audit authentication headers across all API calls
+- Identify unexpected egress traffic
+- Detect unusual traffic volumes or patterns
+- Find services communicating outside their normal dependencies
+- Search payloads for sensitive data patterns
+- Map attack surfaces by showing all ingress points
+
+---
+
+## Architecture Discovery & Service Mapping
+
+Understanding how services actually communicate—not how they're supposed to—is essential for debugging, planning, and security.
+
+### The Problem
+
+Documentation gets stale. Teams change. New services get deployed. Before long, nobody fully understands:
+- Which services depend on which
+- What APIs are actually being called
+- How traffic flows through the system
+- What would break if a service goes down
+
+### How MCP Helps
+
+Ask the AI to map your actual runtime architecture:
+
+**Example prompts:**
+
+> *"Map out all the services that communicate with the inventory-service. What calls it, and what does it call?"*
+
+> *"Show me the complete request flow when a user places an order—every service-to-service call from start to finish."*
+
+> *"Which services would be affected if the redis-cache pod becomes unavailable?"*
+
+> *"What external APIs does our cluster call? Group them by destination domain."*
+
+> *"Find all services that talk to the database directly instead of going through the data-access-layer."*
+
+### What the AI Can Do
+
+- Build service dependency graphs from actual traffic
+- Identify all consumers of a specific service
+- Trace end-to-end request flows
+- Discover undocumented service dependencies
+- Find services bypassing intended architecture patterns
+- Quantify traffic volumes between services
+
+---
+
+## Performance Debugging
+
+Latency issues are notoriously hard to debug in distributed systems. AI can analyze timing data across thousands of requests to find patterns.
+
+### The Problem
+
+When users report slowness:
+- It's hard to know which service is the bottleneck
+- Latency can be intermittent and hard to reproduce
+- Multiple services might each add small delays that compound
+- Database queries or external API calls might be the real culprit
+
+### How MCP Helps
+
+Ask performance-focused questions:
+
+**Example prompts:**
+
+> *"The /api/checkout endpoint is slow. Break down where time is being spent across the request chain."*
+
+> *"Find API calls with response times over 500ms in the last hour. Which services and endpoints are slowest?"*
+
+> *"Compare response times for the product-service today vs. yesterday. What changed?"*
+
+> *"Is there a correlation between request payload size and latency for the upload endpoint?"*
+
+> *"Which database queries (calls to postgres service) are taking more than 100ms?"*
+
+### What the AI Can Do
+
+- Analyze latency distributions across endpoints
+- Identify slow downstream dependencies
+- Find requests with unusually high response times
+- Compare performance across time periods
+- Correlate latency with request characteristics
+- Trace slow requests through the full call chain
+
+---
+
+## Compliance & Auditing
+
+Regulated industries need evidence of what happened, when, and to what data. Network traffic provides an immutable audit trail.
+
+### The Problem
+
+Compliance requirements often demand:
+- Complete records of data access
+- Evidence for security incident investigations
+- Audit trails for specific transactions
+- Proof of data handling practices
+
+### How MCP Helps
+
+Ask the AI to gather evidence and create reports:
+
+**Example prompts:**
+
+> *"Create a report of all API calls that accessed customer PII in the last 24 hours. Include source, destination, and timestamps."*
+
+> *"Export all traffic to/from the payment-gateway namespace between 3 PM and 4 PM yesterday as evidence for the security team."*
+
+> *"Which services accessed the user-database service during the reported breach window? List every call with full details."*
+
+> *"Generate an audit trail for order ID 12345—every API call involved in processing that order."*
+
+> *"Find all external API calls made by our cluster in the last week. We need this for the vendor access review."*
+
+### What the AI Can Do
+
+- Query traffic for specific compliance scopes (PCI, HIPAA namespaces)
+- Create point-in-time traffic snapshots
+- Export PCAP files with full Kubernetes context
+- Generate summary reports of data access patterns
+- Trace specific transactions across all services
+- Identify all external data flows
+
+---
+
+## Troubleshooting & Debugging
+
+Day-to-day debugging gets faster when you can ask questions instead of writing queries. See exactly what's on the wire—request payloads, response bodies, headers, and timing.
+
+[**Read more → Troubleshooting & Debugging**](/en/mcp/troubleshooting)
+
+---
+
+## Autonomous Development & Testing
+
+Close the dev-to-production feedback loop. Use AI to deploy, test, and verify code in your local Kubernetes cluster—with network-level insights that catch issues unit tests miss.
+
+[**Read more → Autonomous Development & Testing**](/en/mcp/autonomous_development)
+
+---
+
+## Onboarding & Learning
+
+New team members can use AI to explore and understand the system without requiring deep expertise.
+
+### The Problem
+
+Onboarding to a complex microservices system is overwhelming:
+- Documentation may be incomplete or outdated
+- Understanding traffic patterns requires tribal knowledge
+- Learning the query languages and tools takes time
+- Asking senior engineers for every question isn't scalable
+
+### How MCP Helps
+
+New team members can ask exploratory questions:
+
+**Example prompts:**
+
+> *"Give me an overview of this cluster's architecture based on actual traffic patterns."*
+
+> *"What are the most heavily used APIs in the system?"*
+
+> *"Explain what the order-processing-service does based on its network traffic."*
+
+> *"What protocols are used in this cluster? Show me examples of each."*
+
+> *"I'm new to this codebase. What services does the team I'm joining own, and how do they communicate?"*
+
+### What the AI Can Do
+
+- Generate architecture overviews from traffic
+- Identify the most active services and endpoints
+- Explain service behavior based on network patterns
+- Show examples of different protocol usage
+- Help navigate the system without prior knowledge
 
 ---
 
 ## What's Next
 
-- [Why Network Data Matters](/en/mcp_why) — Understand the value of network-level visibility
-- [MCP in Action](/en/mcp_in_action) — Complete example with terminal mockup
-- [How It Works](/en/mcp) — Technical details of the MCP protocol
+- [MCP Introduction](/en/mcp) — Learn what MCP is and how it works
+- [Dashboard Overview](/en/ui) — Explore the Kubeshark interface
+- [L7 API Dissection](/en/v2/l7_api_dissection) — Understand API traffic analysis
