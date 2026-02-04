@@ -21,22 +21,22 @@ A developer gets paged: checkout latency has spiked and users are abandoning car
 > "What can you tell me about my service? The name is `frontend`."
 
 **AI (via MCP):**
-> "Let me examine the last hour of your frontend service's operation. I'll capture the network traffic, analyze the API calls, and look for anomalies."
+> "Let me examine the last hour of your frontend service's operation. I'll create a snapshot from the recorded traffic and analyze the API calls for anomalies."
 
 ---
 
 ## Behind the Scenes: MCP Tool Calls
 
-While the AI responds conversationally, it's making a series of MCP calls to Kubeshark:
+Kubeshark continuously records network traffic, Kubernetes events, and operating system events across all nodes. When the AI needs to analyze traffic, it creates a snapshot—isolating a time window from this continuous recording for focused analysis.
 
 ### 1. Check Data Availability
 
 ```
 GET /mcp/data-boundaries
 ```
-→ Returns: 3 nodes with PCAP data from 14:00 to 15:00 UTC
+→ Returns: 3 nodes with recorded data from 14:00 to 15:00 UTC
 
-### 2. Create Traffic Snapshot
+### 2. Create Snapshot from Recorded Traffic
 
 ```
 POST /mcp/snapshots
@@ -45,6 +45,7 @@ POST /mcp/snapshots
   "duration": "1h"
 }
 ```
+→ Kubeshark isolates the last hour of recorded traffic into a dedicated snapshot
 → Returns: Snapshot creation started
 
 ### 3. Wait for Snapshot Completion
@@ -53,7 +54,7 @@ POST /mcp/snapshots
 GET /mcp/snapshots/frontend-analysis
 ```
 → Polls until complete
-→ Returns: 850 MB captured across 3 nodes
+→ Returns: 850 MB isolated across 3 nodes
 
 ### 4. Start L7 Dissection
 
@@ -180,8 +181,8 @@ GET /mcp/calls?db=frontend-analysis/analysis-1&kfl=request.path=="/api/v1/checko
 
 | Capability | MCP Endpoint | Purpose |
 |------------|--------------|---------|
-| Data availability | `GET /mcp/data-boundaries` | Know what time range can be analyzed |
-| PCAP capture | `POST /mcp/snapshots` | Capture raw network packets |
+| Data availability | `GET /mcp/data-boundaries` | Know what time range of recorded traffic is available |
+| Snapshot creation | `POST /mcp/snapshots` | Isolate a time window from continuous recording |
 | Protocol dissection | `DelayedDissection/Start` | Parse L7 protocols (HTTP, gRPC, etc.) |
 | Traffic query | `GET /mcp/calls` | Retrieve dissected API calls |
 | Filtering | `kfl=...` parameter | Focus on specific service, path, status |
@@ -202,11 +203,11 @@ Without MCP, this investigation would require:
 
 With Kubeshark's MCP server, the AI:
 
-1. Captured traffic across all nodes automatically
-2. Dissected protocols and correlated requests/responses
-3. Identified patterns across 12,847 API calls
-4. Built the timeline and traced the root cause
-5. Delivered actionable recommendations
+1. Queried continuously recorded traffic—no setup needed
+2. Created a snapshot isolating the relevant time window
+3. Dissected protocols and correlated requests/responses
+4. Identified patterns across 12,847 API calls
+5. Built the timeline and traced the root cause
 
 **Time estimate:** 3 minutes of conversation
 
