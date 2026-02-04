@@ -18,9 +18,12 @@ Here are the key scenarios where AI-powered network analysis delivers value.
 - [Architecture Discovery & Service Mapping](#architecture-discovery--service-mapping)
 - [Performance Debugging](#performance-debugging)
 - [Compliance & Auditing](#compliance--auditing)
-- [Troubleshooting & Debugging](#troubleshooting--debugging) *(detailed page)*
-- [Autonomous Development & Testing](#autonomous-development--testing) *(detailed page)*
 - [Onboarding & Learning](#onboarding--learning)
+
+**Deep dives:**
+
+- [Troubleshooting & Debugging](/en/mcp/troubleshooting)
+- [Autonomous Development & Testing](/en/mcp/autonomous_development)
 
 </nav>
 
