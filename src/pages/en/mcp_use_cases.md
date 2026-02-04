@@ -9,6 +9,21 @@ mascot: Cute
 
 Here are the key scenarios where AI-powered network analysis delivers value.
 
+<nav style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 1rem 1.5rem; margin: 1.5rem 0;">
+
+**On this page:**
+
+- [Incident Investigation & Root Cause Analysis](#incident-investigation--root-cause-analysis)
+- [Security Analysis & Threat Detection](#security-analysis--threat-detection)
+- [Architecture Discovery & Service Mapping](#architecture-discovery--service-mapping)
+- [Performance Debugging](#performance-debugging)
+- [Compliance & Auditing](#compliance--auditing)
+- [Troubleshooting & Debugging](#troubleshooting--debugging) *(detailed page)*
+- [Autonomous Development & Testing](#autonomous-development--testing) *(detailed page)*
+- [Onboarding & Learning](#onboarding--learning)
+
+</nav>
+
 ---
 
 ## Incident Investigation & Root Cause Analysis
