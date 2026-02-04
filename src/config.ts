@@ -70,6 +70,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'MCP (AI Integration)': [
       { text: 'Introduction', link: 'en/mcp' },
+      { text: 'Use Cases', link: 'en/mcp_use_cases' },
     ],
     'L4 Raw Traffic Capture': [
       { text: 'Raw Capture', link: 'en/v2/raw_capture' },
