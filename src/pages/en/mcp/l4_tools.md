@@ -27,7 +27,7 @@ A **flow** is an L4 connection between two peers (TCP or UDP). Unlike L7 API dis
 
 - **Who is talking to whom** — Pod-to-pod, service-to-service connections
 - **Connection statistics** — Bytes, packets, rates
-- **Protocol level** — TCP vs UDP connections
+- **Transport protocol** — TCP or UDP
 - **Real-time state** — Currently active connections
 
 This provides a lightweight way to understand cluster connectivity patterns without the overhead of full payload dissection.
