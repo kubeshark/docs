@@ -22,7 +22,7 @@ Here are the key scenarios where AI-powered network analysis delivers value.
 
 **Deep dives:**
 
-- [Troubleshooting & Debugging](/en/mcp/troubleshooting)
+- [Conversational Debugging](/en/mcp/troubleshooting)
 - [Autonomous Development & Testing](/en/mcp/autonomous_development)
 
 </nav>
@@ -220,11 +220,11 @@ Ask the AI to gather evidence and create reports:
 
 ---
 
-## Troubleshooting & Debugging
+## Conversational Debugging
 
 Day-to-day debugging gets faster when you can ask questions instead of writing queries. See exactly what's on the wire—request payloads, response bodies, headers, and timing.
 
-[**Read more → Troubleshooting & Debugging**](/en/mcp/troubleshooting)
+[**Read more → Conversational Debugging**](/en/mcp/troubleshooting)
 
 ---
 

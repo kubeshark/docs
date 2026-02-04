@@ -1,6 +1,6 @@
 ---
-title: Troubleshooting & Debugging
-description: Use AI to debug integration issues, verify API behavior, and troubleshoot service communication.
+title: Conversational Debugging
+description: Use AI to debug integration issues, verify API behavior, and troubleshoot service communication through natural conversation.
 layout: ../../../layouts/MainLayout.astro
 mascot: Cute
 ---
