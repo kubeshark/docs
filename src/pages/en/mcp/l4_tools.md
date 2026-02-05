@@ -29,6 +29,7 @@ A **flow** is an L4 connection between two peers (TCP or UDP). Unlike L7 API dis
 - **Connection statistics** — Bytes, packets, rates
 - **Transport protocol** — TCP or UDP
 - **Real-time state** — Currently active connections
+- **Network health metrics** — TCP handshake RTT (connection establishment timing)
 
 This provides a lightweight way to understand cluster connectivity patterns without the overhead of full payload dissection.
 
@@ -41,11 +42,12 @@ This provides a lightweight way to understand cluster connectivity patterns with
 | Dependency mapping | Ideal | Overkill |
 | "What's connected to X?" | Ideal | Overkill |
 | Bandwidth analysis | Ideal | Not available |
+| Network health (TCP RTT) | Ideal | Not available |
 | API payload inspection | Not available | Required |
 | Request/response debugging | Not available | Required |
-| Latency analysis | Basic | Detailed |
+| Application latency | Not available | Required |
 
-**Rule of thumb**: Use L4 for connectivity questions, L7 for content questions.
+**Rule of thumb**: Use L4 for connectivity and network health questions, L7 for content and application behavior questions.
 
 ---
 
@@ -111,13 +113,19 @@ Returns L4 flows with filtering and aggregation options.
         "tx_pkts": 1000,
         "rx_pkts": 800,
         "tx_bytes": 102400,
-        "rx_bytes": 81920
+        "rx_bytes": 81920,
+        "tcp_handshake_p50_us": 1250,
+        "tcp_handshake_p90_us": 2100,
+        "tcp_handshake_p99_us": 4500
       },
       "server_stats": {
         "tx_pkts": 800,
         "rx_pkts": 1000,
         "tx_bytes": 81920,
-        "rx_bytes": 102400
+        "rx_bytes": 102400,
+        "tcp_handshake_p50_us": 1180,
+        "tcp_handshake_p90_us": 1950,
+        "tcp_handshake_p99_us": 4200
       },
       "totals": {
         "pkts": 3600,
@@ -169,7 +177,10 @@ Includes additional fields for detailed debugging:
         "rx_pps": 40.2,
         "tx_bps": 4096000,
         "rx_bps": 3276800,
-        "timestamp": "2025-01-15T10:30:00Z"
+        "timestamp": "2025-01-15T10:30:00Z",
+        "tcp_handshake_p50_us": 1250,
+        "tcp_handshake_p90_us": 2100,
+        "tcp_handshake_p99_us": 4500
       },
       "server_stats": { ... },
       "totals": { ... }
@@ -304,6 +315,82 @@ Flow statistics include bytes, packets, and rates—useful for capacity planning
 
 L4 flows show **active** connections, not just running pods—revealing what's actually in use.
 
+### Network Health Analysis
+
+> *"Show me TCP flows with handshake times over 10ms"*
+
+> *"Which connections have elevated network latency?"*
+
+> *"Compare TCP handshake times across availability zones"*
+
+TCP handshake RTT metrics reveal network-level issues that application metrics miss.
+
+---
+
+## TCP Handshake RTT
+
+For TCP flows, Kubeshark captures **TCP handshake timing**—the time to complete the 3-way handshake (SYN → SYN-ACK → ACK). This is a direct measure of network round-trip time.
+
+### What It Measures
+
+| Perspective | Measurement |
+|-------------|-------------|
+| **Client** | Time from sending SYN to receiving SYN-ACK |
+| **Server** | Time from receiving SYN to receiving ACK |
+
+Both represent the network RTT to the peer—useful for detecting network latency and congestion.
+
+### Fields
+
+| Field | Description |
+|-------|-------------|
+| `tcp_handshake_p50_us` | 50th percentile (median) handshake time in microseconds |
+| `tcp_handshake_p90_us` | 90th percentile handshake time in microseconds |
+| `tcp_handshake_p99_us` | 99th percentile handshake time in microseconds |
+
+### Interpretation Guide
+
+| Handshake Time | Interpretation |
+|----------------|----------------|
+| **< 1ms** (< 1000 µs) | Excellent — same-node or same-datacenter |
+| **1-10ms** (1000-10000 µs) | Good — typical cross-node within cluster |
+| **10-100ms** (10000-100000 µs) | Elevated — possible network congestion or cross-AZ traffic |
+| **> 100ms** (> 100000 µs) | High latency — cross-region or network issues |
+
+### Example: Detecting Network Issues
+
+```json
+{
+  "proto": "tcp",
+  "client": {
+    "pod": "frontend-abc123",
+    "ns": "default",
+    "node": "node-1"
+  },
+  "server": {
+    "pod": "database-xyz789",
+    "ns": "data",
+    "node": "node-3"
+  },
+  "client_stats": {
+    "tcp_handshake_p50_us": 45000,
+    "tcp_handshake_p90_us": 78000,
+    "tcp_handshake_p99_us": 120000
+  }
+}
+```
+
+This flow shows **elevated handshake times** (P50: 45ms, P99: 120ms). Possible causes:
+- Nodes in different availability zones
+- Network congestion between nodes
+- Overloaded target node
+
+<div class="callout callout-tip">
+
+**Tip**: Compare handshake times for connections to the same destination from different source pods. If only some sources show high latency, the issue is likely node-specific or path-specific.
+
+</div>
+
 ---
 
 ## What AI Can Derive
@@ -319,6 +406,9 @@ From L4 flow data, AI assistants can derive:
 | **Dependency graph** | Map all upstream/downstream connections |
 | **Traffic hotspots** | Sort by bytes/packets to find high-volume paths |
 | **External egress** | Flows where server IP is outside cluster CIDR |
+| **Network latency** | TCP handshake RTT reveals network health |
+| **Congested paths** | High P99 handshake times indicate congestion |
+| **Cross-AZ traffic** | Elevated RTT between nodes in different zones |
 
 ---
 
@@ -361,6 +451,15 @@ From L4 flow data, AI assistants can derive:
 | `tx_bps` | float | full | TX bits per second |
 | `rx_bps` | float | full | RX bits per second |
 | `timestamp` | string | full | Last update timestamp (ISO 8601) |
+| `tcp_handshake_p50_us` | integer | all | TCP handshake P50 in microseconds (TCP only) |
+| `tcp_handshake_p90_us` | integer | all | TCP handshake P90 in microseconds (TCP only) |
+| `tcp_handshake_p99_us` | integer | all | TCP handshake P99 in microseconds (TCP only) |
+
+<div class="callout callout-info">
+
+**Note**: TCP handshake fields only appear for TCP flows and only when non-zero values are available. They are omitted for UDP flows and for TCP flows where handshake timing was not captured.
+
+</div>
 
 ### Totals Object
 
