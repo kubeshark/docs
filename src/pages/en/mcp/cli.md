@@ -32,26 +32,21 @@ Add to your Claude Desktop configuration file:
   "mcpServers": {
     "kubeshark": {
       "command": "/path/to/kubeshark",
-      "args": ["mcp"],
-      "env": {
-        "PATH": "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin",
-        "HOME": "/Users/YOUR_USERNAME",
-        "KUBECONFIG": "/Users/YOUR_USERNAME/.kube/config"
-      }
+      "args": ["mcp"]
     }
   }
 }
 ```
 
-### Why Environment Variables Are Required
+### How It Works
 
-MCP servers run in a sandboxed environment without access to your shell's PATH or environment variables. Without the `env` section, kubectl commands will fail with authentication errors.
+When started without `--url`, the MCP CLI will:
 
-| Cluster Type | Required in PATH |
-|--------------|------------------|
-| **EKS** | `/usr/local/bin` (for `aws` CLI) |
-| **GKE** | Path to `gcloud` |
-| **Standard** | Path to `kubectl` |
+1. **Attempt to proxy** into the running Kubernetes cluster
+2. **Connect to deployed Kubeshark** if it's running
+3. **If Kubeshark isn't running**, AI assistants can use the `start_kubeshark` tool to deploy it
+
+This means AI assistants can fully manage Kubeshark—checking status, starting, stopping, and querying traffic—all through natural conversation.
 
 ---
 
@@ -267,21 +262,21 @@ Gets aggregated statistics about API traffic.
 
 ## Troubleshooting
 
-### "kubectl not found" or authentication errors
+### Cannot connect to cluster
 
-Ensure the `env` section in your config includes the correct PATH:
+1. Verify kubectl works: `kubectl get nodes`
+2. Check your kubeconfig: `kubectl config current-context`
+3. Try specifying the kubeconfig explicitly: `kubeshark mcp --kubeconfig ~/.kube/config`
 
-```json
-"env": {
-  "PATH": "/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin",
-  "HOME": "/Users/YOUR_USERNAME",
-  "KUBECONFIG": "/Users/YOUR_USERNAME/.kube/config"
-}
-```
+### Kubeshark not running
+
+The AI assistant can start Kubeshark using the `start_kubeshark` tool. Simply ask:
+
+> "Start Kubeshark in my cluster"
 
 ### Cluster management tools disabled
 
-If using `--url` mode, cluster management tools (start/stop/check) are disabled. Use kubeconfig mode for full functionality.
+If using `--url` mode, cluster management tools (start/stop/check) are disabled since the CLI connects directly to an existing Kubeshark instance.
 
 ### MCP server not responding
 
