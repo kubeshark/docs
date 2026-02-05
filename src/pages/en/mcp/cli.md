@@ -97,13 +97,9 @@ kubeshark mcp --context production-cluster
 
 ---
 
-## Available Tools
+## Cluster Management Tools
 
-The MCP CLI exposes tools that AI assistants can invoke:
-
-### Cluster Management Tools
-
-These tools work regardless of whether Kubeshark is running:
+The MCP CLI exposes cluster management tools that work regardless of whether Kubeshark is running:
 
 | Tool | Description |
 |------|-------------|
@@ -111,16 +107,7 @@ These tools work regardless of whether Kubeshark is running:
 | `start_kubeshark` | Start Kubeshark to capture traffic (runs `kubeshark tap`) |
 | `stop_kubeshark` | Stop Kubeshark and clean up resources (runs `kubeshark clean`) |
 
-### Traffic Analysis Tools
-
-These tools require Kubeshark to be running:
-
-| Tool | Description |
-|------|-------------|
-| `list_workloads` | List pods, services, namespaces, and nodes with L7 traffic |
-| `list_api_calls` | Query L7 API transactions (HTTP, gRPC, Redis, Kafka, etc.) |
-| `get_api_call` | Get detailed information about a specific API call by ID |
-| `get_api_stats` | Get aggregated API statistics |
+For traffic analysis tools, see the [L7 Tools Reference](/en/mcp/l7_tools), [L4 Tools Reference](/en/mcp/l4_tools), and other MCP tool pages.
 
 ---
 
@@ -163,59 +150,6 @@ Starts Kubeshark in the cluster.
 ### `stop_kubeshark`
 
 Stops Kubeshark and removes all resources from the cluster.
-
-### `list_workloads`
-
-Lists Kubernetes workloads that have L7 traffic.
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `namespace` | string | Filter by namespace (optional) |
-| `type` | string | Filter by type: `pod`, `service`, `namespace`, `node` |
-
-### `list_api_calls`
-
-Queries L7 API transactions.
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `kfl` | string | KFL filter expression |
-| `limit` | int | Maximum results (default: 100) |
-| `start` | int64 | Start timestamp (Unix ms) |
-| `end` | int64 | End timestamp (Unix ms) |
-
-**Example:**
-```json
-{
-  "kfl": "http and response.status >= 400",
-  "limit": 50
-}
-```
-
-### `get_api_call`
-
-Gets detailed information about a specific API call.
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `id` | string | The API call ID |
-
-### `get_api_stats`
-
-Gets aggregated statistics about API traffic.
-
-**Parameters:**
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `kfl` | string | KFL filter expression (optional) |
-| `group_by` | string | Group by: `endpoint`, `service`, `namespace`, `status` |
 
 ---
 
