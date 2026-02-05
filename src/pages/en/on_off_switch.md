@@ -13,7 +13,11 @@ Enabling or disabling API dissection directly controls **Kubeshark**'s compute r
 
 **Kubeshark**'s Helm template includes a Helm value, `tap.capture.stopped`, that determines whether **Kubeshark** starts in a `stopped` state.
 
-## Changing the Value Dynamically via the Dashboard
+## Changing the Value Dynamically
+
+There are multiple ways to toggle dissection at runtime:
+
+### Via the Dashboard
 
 This setting can be updated in real-time through the dashboard by clicking the API Dissection button in the top-left corner. The button has two states:
 
@@ -24,6 +28,36 @@ This setting can be updated in real-time through the dashboard by clicking the A
 **When API dissection is active** - A red stop button labeled "Pause API Dissection" is displayed:
 
 ![Pause API Dissection](/dissection-on.png)
+
+### Via MCP Endpoints
+
+AI assistants can control dissection programmatically through the MCP server:
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/mcp/dissection` | GET | Get current dissection status |
+| `/mcp/dissection/enable` | POST | Enable L7 protocol parsing |
+| `/mcp/dissection/disable` | POST | Disable L7 protocol parsing |
+
+**Check status:**
+```bash
+curl http://localhost:8898/mcp/dissection
+# {"enabled": true}
+```
+
+**Enable dissection:**
+```bash
+curl -X POST http://localhost:8898/mcp/dissection/enable
+# {"success": true, "enabled": true}
+```
+
+**Disable dissection:**
+```bash
+curl -X POST http://localhost:8898/mcp/dissection/disable
+# {"success": true, "enabled": false}
+```
+
+See [L7 Tools Reference](/en/mcp/l7_tools) for more details on MCP endpoints.
 
 ## Using a Helm Value
 
