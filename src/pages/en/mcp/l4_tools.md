@@ -1,11 +1,11 @@
 ---
 title: MCP L4 Tools
-description: Real-time L4 connectivity visibility through MCP endpoints for dependency mapping and traffic analysis.
+description: Real-time L4 connectivity visibility through MCP tools for dependency mapping and traffic analysis.
 layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-L4 flow endpoints provide **real-time, cluster-wide connectivity visibility** without requiring L7 API dissection—enabling dependency mapping and traffic analysis with minimal overhead.
+Kubeshark's MCP server exposes **L4 flow tools** that provide real-time, cluster-wide connectivity visibility without requiring L7 API dissection—enabling dependency mapping and traffic analysis with minimal overhead.
 
 ---
 
@@ -51,11 +51,20 @@ This provides a lightweight way to understand cluster connectivity patterns with
 
 ## MCP Endpoints
 
-### `/mcp/flows` — List L4 Flows
+Kubeshark exposes the following L4 endpoints via MCP:
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/mcp/flows` | GET | List L4 flows with filtering and aggregation |
+| `/mcp/flows/summary` | GET | Get high-level connectivity summary |
+
+---
+
+## Endpoint: `/mcp/flows`
 
 Returns L4 flows with filtering and aggregation options.
 
-**Query Parameters:**
+### Query Parameters
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
@@ -65,15 +74,9 @@ Returns L4 flows with filtering and aggregation options.
 | `ns` | string | Filter by namespace |
 | `pod` | string | Filter by pod name |
 | `svc` | string | Filter by service name |
-| `limit` | int | Maximum results to return |
+| `limit` | int | Max results to return |
 
-**Example Request:**
-
-```
-GET /mcp/flows?ns=default&l4proto=tcp&limit=100
-```
-
-**Response:**
+### Response
 
 ```json
 {
@@ -120,13 +123,30 @@ GET /mcp/flows?ns=default&l4proto=tcp&limit=100
 }
 ```
 
+### Example Requests
+
+```
+GET /mcp/flows?ns=default&l4proto=tcp
+→ "Show me all TCP flows in the default namespace"
+
+GET /mcp/flows?pod=frontend&aggregate=service
+→ "What services is the frontend talking to?"
+
+GET /mcp/flows?limit=100
+→ "Show me the first 100 flows"
+```
+
 ---
 
-### `/mcp/flows/summary` — Connectivity Summary
+## Endpoint: `/mcp/flows/summary`
 
 Returns high-level statistics about cluster connectivity.
 
-**Response:**
+### Query Parameters
+
+None required.
+
+### Response
 
 ```json
 {
@@ -167,13 +187,20 @@ Returns high-level statistics about cluster connectivity.
 }
 ```
 
+### Example Requests
+
+```
+GET /mcp/flows/summary
+→ "Give me an overview of cluster connectivity"
+→ "What namespaces have cross-namespace traffic?" (check cross_namespace field)
+→ "Which connections use the most bandwidth?" (check top_by_bytes field)
+```
+
 ---
 
 ## Use Cases
 
 ### Dependency Discovery
-
-**Example prompts:**
 
 > *"What services does the frontend depend on?"*
 
@@ -181,11 +208,9 @@ Returns high-level statistics about cluster connectivity.
 
 > *"Which pods communicate with the database?"*
 
-The AI can use `/mcp/flows` to map all upstream and downstream connections for any workload.
+The AI uses `/mcp/flows` to map all upstream and downstream connections for any workload.
 
 ### Security Auditing
-
-**Example prompts:**
 
 > *"Show all cross-namespace traffic"*
 
@@ -197,8 +222,6 @@ Cross-namespace flows often represent security boundaries—L4 data reveals thes
 
 ### Traffic Analysis
 
-**Example prompts:**
-
 > *"Which connections use the most bandwidth?"*
 
 > *"Top 10 flows by packet rate"*
@@ -208,8 +231,6 @@ Cross-namespace flows often represent security boundaries—L4 data reveals thes
 Flow statistics include bytes, packets, and rates—useful for capacity planning and cost analysis.
 
 ### Active Workload Discovery
-
-**Example prompts:**
 
 > *"Which pods are actively communicating right now?"*
 
@@ -221,9 +242,9 @@ L4 flows show **active** connections, not just running pods—revealing what's a
 
 ---
 
-## What AI Can Derive from Flows
+## What AI Can Derive
 
-From raw L4 flow data, LLMs can derive:
+From L4 flow data, AI assistants can derive:
 
 | Insight | How |
 |---------|-----|
@@ -239,37 +260,45 @@ From raw L4 flow data, LLMs can derive:
 
 ## Data Structure Reference
 
-Each flow contains detailed endpoint information:
+### Flow Object
 
-```
-Flow
-├── proto: "tcp" | "udp"
-├── client
-│   ├── ip: string
-│   ├── pod: string
-│   ├── ns: string (namespace)
-│   ├── svc: string (service name)
-│   └── node: string
-├── server
-│   ├── ip: string
-│   ├── port: number
-│   ├── pod: string
-│   ├── ns: string
-│   ├── svc: string
-│   └── node: string
-├── client_stats
-│   ├── tx_pkts: number
-│   ├── rx_pkts: number
-│   ├── tx_bytes: number
-│   └── rx_bytes: number
-├── server_stats
-│   └── (same as client_stats)
-└── totals
-    ├── pkts: number
-    ├── bytes: number
-    ├── pps: number (packets per second)
-    └── bps: number (bits per second)
-```
+| Field | Type | Description |
+|-------|------|-------------|
+| `proto` | string | Transport protocol: `tcp` or `udp` |
+| `client` | Endpoint | Client-side connection info |
+| `server` | Endpoint | Server-side connection info |
+| `client_stats` | Stats | Traffic statistics from client perspective |
+| `server_stats` | Stats | Traffic statistics from server perspective |
+| `totals` | Totals | Aggregated statistics |
+
+### Endpoint Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `ip` | string | IP address |
+| `port` | integer | Port number (server only) |
+| `pod` | string | Kubernetes pod name |
+| `ns` | string | Kubernetes namespace |
+| `svc` | string | Kubernetes service name |
+| `node` | string | Kubernetes node name |
+
+### Stats Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `tx_pkts` | integer | Transmitted packets |
+| `rx_pkts` | integer | Received packets |
+| `tx_bytes` | integer | Transmitted bytes |
+| `rx_bytes` | integer | Received bytes |
+
+### Totals Object
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `pkts` | integer | Total packets |
+| `bytes` | integer | Total bytes |
+| `pps` | float | Packets per second |
+| `bps` | float | Bits per second |
 
 ---
 
