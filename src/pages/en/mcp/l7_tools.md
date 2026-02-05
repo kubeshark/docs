@@ -31,7 +31,6 @@ This provides deep visibility into what services are actually saying to each oth
 | `/mcp/dissection` | GET | Get current dissection status |
 | `/mcp/dissection/enable` | POST | Enable L7 protocol parsing |
 | `/mcp/dissection/disable` | POST | Disable L7 protocol parsing |
-| `/mcp/data-boundaries` | GET | Get available data time range |
 
 ---
 
@@ -152,32 +151,6 @@ Disable L7 protocol parsing.
 2. If disabled, enables it: `POST /mcp/dissection/enable`
 3. Queries API data: `GET /mcp/calls?kfl=...`
 4. Optionally disables when done: `POST /mcp/dissection/disable`
-
----
-
-## Endpoint: `/mcp/data-boundaries`
-
-Get the available time range for queries.
-
-### Response
-
-```json
-{
-  "cluster": {
-    "oldest_ts": 1706745000000,
-    "newest_ts": 1706748600000
-  },
-  "nodes": [
-    {
-      "name": "worker-1",
-      "oldest_ts": 1706745000000,
-      "newest_ts": 1706748600000
-    }
-  ]
-}
-```
-
-Use this to understand what time range of data is available before querying.
 
 ---
 
