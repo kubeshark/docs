@@ -221,6 +221,22 @@ Debugging distributed systems is hard. Network data makes it easier:
 
 ---
 
+## The Accessibility Challenge
+
+This wealth of information exists in every Kubernetes cluster. The challenge is accessing it effectively.
+
+**Traditional approaches require:**
+- Deep expertise in packet analysis and protocol internals
+- Complex query languages with steep learning curves
+- Manual correlation across thousands of concurrent requests
+- Time—which is scarce during incidents
+
+**The result**: Most teams underutilize their network data, or ignore it entirely, falling back to logs and metrics that tell only part of the story.
+
+Kubeshark addresses this by providing an intuitive [Dashboard](/en/ui) and [AI-powered analysis](/en/mcp_why) that makes network data accessible to everyone on the team.
+
+---
+
 ## What's Next
 
 - [Installation](/en/install) — Get Kubeshark running in your cluster

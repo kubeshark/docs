@@ -7,20 +7,7 @@ mascot: Bookworm
 
 Network traffic is the **ground truth** of what happens in your Kubernetes cluster. [It contains everything](/en/why_network_data)—API payloads, performance data, security signals, and infrastructure health. Kubeshark captures and enriches this data with full Kubernetes context.
 
-The challenge? **Accessing it effectively.**
-
----
-
-## The Accessibility Problem
-
-This wealth of information exists in every Kubernetes cluster. But traditional approaches require:
-
-- Deep expertise in packet analysis and protocol internals
-- Complex query languages with steep learning curves
-- Manual correlation across thousands of concurrent requests
-- Time—which is scarce during incidents
-
-**The result**: Most teams underutilize their network data, or ignore it entirely, falling back to logs and metrics that tell only part of the story.
+But [accessing this data effectively](/en/why_network_data#the-accessibility-challenge) has traditionally required deep expertise and complex tools. AI changes that.
 
 ---
 
