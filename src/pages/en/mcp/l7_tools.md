@@ -9,18 +9,6 @@ Kubeshark's MCP server exposes **L7 API tools** that provide full visibility int
 
 ---
 
-## Prerequisites
-
-| Requirement | Status |
-|-------------|--------|
-| Kubeshark running | Required |
-| L7 dissection enabled | Required |
-| Raw capture enabled | Required for snapshots |
-
-Unlike L4 flows, L7 tools require dissection to be enabled. Use the dissection control endpoints to manage this.
-
----
-
 ## What is L7 API Dissection?
 
 L7 dissection reconstructs application-layer protocols from raw network packets:
@@ -43,13 +31,7 @@ This provides deep visibility into what services are actually saying to each oth
 | `/mcp/dissection` | GET | Get current dissection status |
 | `/mcp/dissection/enable` | POST | Enable L7 protocol parsing |
 | `/mcp/dissection/disable` | POST | Disable L7 protocol parsing |
-| `/mcp/raw-capture` | GET | Check if raw capture is enabled |
 | `/mcp/data-boundaries` | GET | Get available data time range |
-| `/mcp/snapshots` | GET | List all snapshots |
-| `/mcp/snapshots` | POST | Create a new snapshot |
-| `/mcp/snapshots/:name` | GET | Get snapshot details |
-| `/mcp/snapshots/:name` | DELETE | Delete a snapshot |
-| `/mcp/snapshots/:name/pcap` | GET | Export snapshot as PCAP |
 
 ---
 
@@ -199,79 +181,6 @@ Use this to understand what time range of data is available before querying.
 
 ---
 
-## Endpoint: `/mcp/raw-capture`
-
-Check if raw packet capture is enabled.
-
-### Response
-
-```json
-{
-  "enabled": true,
-  "session_id": "abc123"
-}
-```
-
-Raw capture must be enabled to create snapshots with PCAP export.
-
----
-
-## Snapshot Endpoints
-
-Snapshots capture a point-in-time view of traffic for later analysis.
-
-### POST `/mcp/snapshots`
-
-Create a new snapshot.
-
-**Request:**
-```json
-{
-  "name": "incident-001",
-  "duration": "1h"
-}
-```
-
-**Response:**
-```json
-{
-  "success": true,
-  "name": "incident-001",
-  "status": "in_progress"
-}
-```
-
-### GET `/mcp/snapshots`
-
-List all snapshots.
-
-```json
-{
-  "snapshots": [
-    {
-      "name": "incident-001",
-      "status": "completed",
-      "size_bytes": 52428800,
-      "created_at": "2025-01-15T10:30:00Z"
-    }
-  ]
-}
-```
-
-### GET `/mcp/snapshots/:name`
-
-Get snapshot details.
-
-### DELETE `/mcp/snapshots/:name`
-
-Delete a snapshot.
-
-### GET `/mcp/snapshots/:name/pcap`
-
-Export snapshot as a merged PCAP file for Wireshark analysis.
-
----
-
 ## Endpoint: `/mcp` (Discovery)
 
 Returns all available MCP endpoints and their capabilities.
@@ -335,13 +244,13 @@ Timing data in each call enables latency analysis.
 
 ### Incident Investigation
 
-> *"Create a snapshot of the last 30 minutes for the incident"*
-
-> *"Export the snapshot as PCAP for the security team"*
-
 > *"Show me all traffic to the affected service during the outage"*
 
-Snapshots preserve evidence for later analysis.
+> *"What API calls happened in the 5 minutes before the crash?"*
+
+> *"Find all requests from the problematic pod"*
+
+Time-bounded queries help reconstruct incident timelines.
 
 ---
 
