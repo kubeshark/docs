@@ -1,11 +1,11 @@
 ---
-title: MCP Raw Capture Tools
-description: MCP endpoints for raw packet capture, snapshots, and PCAP export.
+title: MCP Snapshots & Raw Capture Tools
+description: MCP endpoints for snapshots, raw packet capture, and PCAP export.
 layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-Kubeshark's MCP server exposes **raw capture tools** that provide access to L4 packet data, snapshots, and PCAP export—enabling AI assistants to capture traffic, create point-in-time snapshots, and export data for external analysis.
+Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI assistants to create point-in-time traffic snapshots, query data boundaries, and export PCAP files for external analysis.
 
 ---
 

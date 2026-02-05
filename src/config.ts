@@ -77,7 +77,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'How It Works', link: 'en/mcp' },
       { text: 'L7 Tools Reference', link: 'en/mcp/l7_tools' },
       { text: 'L4 Tools Reference', link: 'en/mcp/l4_tools' },
-      { text: 'Raw Capture Tools', link: 'en/mcp/raw_capture_tools' },
+      { text: 'Snapshots & Raw Capture', link: 'en/mcp/raw_capture_tools' },
     ],
     'L4 Raw Traffic Capture': [
       { text: 'Raw Capture', link: 'en/v2/raw_capture' },
