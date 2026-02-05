@@ -63,7 +63,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Real-time Dissection', link: 'en/v2/l7_api_realtime' },
       { text: 'Delayed Dissection', link: 'en/v2/l7_api_delayed' },
       { text: 'Protocol Support', link: 'en/protocols' },
-      { text: 'Network Intelligence', link: 'en/v2/ai_powered_analysis' },
+      { text: 'AI-Powered Analysis', link: 'en/v2/ai_powered_analysis' },
       // { text: 'Running Headless', link: 'en/headless' },
       // { text: 'Pod-to-pod   Connection Analysis', link: 'en/pod_to_pod_connections' },
       // { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
@@ -95,7 +95,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
       { text: 'Reference', link: 'en/helm_reference' },
     ],
-    'AI Assistant': [
+    'AI Integration': [
       { text: 'Introduction', link: 'en/mcp_use_cases' },
       { text: 'Conversational Debugging', link: 'en/mcp/troubleshooting' },
       { text: 'Autonomous Development', link: 'en/mcp/autonomous_development' },

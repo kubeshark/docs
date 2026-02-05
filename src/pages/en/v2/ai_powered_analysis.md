@@ -1,5 +1,5 @@
 ---
-title: Network Intelligence
+title: AI-Powered Analysis
 description: Give your AI assistant eyes into your Kubernetes network—every API call, every connection, every payload.
 layout: ../../../layouts/MainLayout.astro
 ---
