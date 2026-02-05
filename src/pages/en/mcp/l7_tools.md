@@ -48,6 +48,9 @@ Query L7 API transactions with filtering and formatting options.
 | `group_by` | string | - | Group results: `node`, `ns`, `worker` |
 | `start` | int64 | - | Start timestamp (Unix ms) |
 | `end` | int64 | - | End timestamp (Unix ms) |
+| `db` | string | (real-time) | Query dissection DB: `<snapshot>/<dissection>` |
+
+The `db` parameter allows querying [delayed dissection](/en/mcp/delayed_dissection) databases instead of real-time data.
 
 ### Response Formats
 
@@ -277,6 +280,7 @@ See [KFL2 Documentation](/en/v2/kfl2) for full syntax.
 
 ## What's Next
 
+- [Delayed Dissection](/en/mcp/delayed_dissection) — Analyze snapshots with L7 dissection
 - [L4 Tools Reference](/en/mcp/l4_tools) — Lightweight connectivity visibility
 - [KFL2 Filters](/en/v2/kfl2) — Write powerful traffic filters
 - [How MCP Works](/en/mcp) — Understanding the Model Context Protocol
