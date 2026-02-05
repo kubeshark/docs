@@ -68,6 +68,7 @@ Returns L4 flows with filtering and aggregation options.
 
 | Parameter | Type | Description |
 |-----------|------|-------------|
+| `format` | string | Response format: `compact` (default), `full`, `raw` |
 | `aggregate` | string | Aggregation level: `pod`, `namespace`, `node`, `service` |
 | `l4proto` | string | Protocol filter: `tcp`, `udp` |
 | `ip` | string | Filter by IP address |
@@ -76,7 +77,15 @@ Returns L4 flows with filtering and aggregation options.
 | `svc` | string | Filter by service name |
 | `limit` | int | Max results to return |
 
-### Response
+### Response Formats
+
+| Format | Description | Use Case |
+|--------|-------------|----------|
+| `compact` | LLM-optimized with totals (default) | AI queries, dependency mapping |
+| `full` | All fields including `cgroup_id`, `container_id`, raw rates | Detailed debugging, container correlation |
+| `raw` | Direct `IPIPPortEntry` from workers | Low-level analysis, original field names |
+
+### Response (format=compact, default)
 
 ```json
 {
@@ -123,6 +132,58 @@ Returns L4 flows with filtering and aggregation options.
 }
 ```
 
+### Response (format=full)
+
+Includes additional fields for detailed debugging:
+
+```json
+{
+  "flows": [
+    {
+      "proto": "tcp",
+      "client": {
+        "ip": "10.0.0.1",
+        "pod": "frontend-abc123",
+        "ns": "default",
+        "svc": "frontend",
+        "node": "node-1",
+        "container_id": "abc123def456",
+        "cgroup_id": 12345
+      },
+      "server": {
+        "ip": "10.0.0.2",
+        "port": 8080,
+        "pod": "backend-xyz789",
+        "ns": "default",
+        "svc": "backend",
+        "node": "node-2",
+        "container_id": "xyz789ghi012",
+        "cgroup_id": 67890
+      },
+      "client_stats": {
+        "tx_pkts": 1000,
+        "rx_pkts": 800,
+        "tx_bytes": 102400,
+        "rx_bytes": 81920,
+        "tx_pps": 50.5,
+        "rx_pps": 40.2,
+        "tx_bps": 4096000,
+        "rx_bps": 3276800,
+        "timestamp": "2025-01-15T10:30:00Z"
+      },
+      "server_stats": { ... },
+      "totals": { ... }
+    }
+  ],
+  "total": 42,
+  "truncated": false
+}
+```
+
+### Response (format=raw)
+
+Returns the original `IPIPPortEntry` structure from workers with native field names.
+
 ### Example Requests
 
 ```
@@ -131,6 +192,9 @@ GET /mcp/flows?ns=default&l4proto=tcp
 
 GET /mcp/flows?pod=frontend&aggregate=service
 → "What services is the frontend talking to?"
+
+GET /mcp/flows?format=full&pod=backend
+→ "Show detailed flow info including container IDs for backend"
 
 GET /mcp/flows?limit=100
 → "Show me the first 100 flows"
@@ -273,23 +337,30 @@ From L4 flow data, AI assistants can derive:
 
 ### Endpoint Object
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `ip` | string | IP address |
-| `port` | integer | Port number (server only) |
-| `pod` | string | Kubernetes pod name |
-| `ns` | string | Kubernetes namespace |
-| `svc` | string | Kubernetes service name |
-| `node` | string | Kubernetes node name |
+| Field | Type | Format | Description |
+|-------|------|--------|-------------|
+| `ip` | string | all | IP address |
+| `port` | integer | all | Port number (server only) |
+| `pod` | string | all | Kubernetes pod name |
+| `ns` | string | all | Kubernetes namespace |
+| `svc` | string | all | Kubernetes service name |
+| `node` | string | all | Kubernetes node name |
+| `container_id` | string | full | Container ID |
+| `cgroup_id` | integer | full | Cgroup ID |
 
 ### Stats Object
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `tx_pkts` | integer | Transmitted packets |
-| `rx_pkts` | integer | Received packets |
-| `tx_bytes` | integer | Transmitted bytes |
-| `rx_bytes` | integer | Received bytes |
+| Field | Type | Format | Description |
+|-------|------|--------|-------------|
+| `tx_pkts` | integer | all | Transmitted packets |
+| `rx_pkts` | integer | all | Received packets |
+| `tx_bytes` | integer | all | Transmitted bytes |
+| `rx_bytes` | integer | all | Received bytes |
+| `tx_pps` | float | full | TX packets per second |
+| `rx_pps` | float | full | RX packets per second |
+| `tx_bps` | float | full | TX bits per second |
+| `rx_bps` | float | full | RX bits per second |
+| `timestamp` | string | full | Last update timestamp (ISO 8601) |
 
 ### Totals Object
 
