@@ -39,6 +39,7 @@ const sidebar = SIDEBAR[langCode];
 								return (
 									<li class="nav-link">
 										<a href={url} aria-current={currentPageMatch === child.link ? 'page' : false}>
+											{child.icon && <img src={child.icon} alt="" class="nav-icon" />}
 											{child.text}
 										</a>
 									</li>
@@ -202,9 +203,17 @@ const sidebar = SIDEBAR[langCode];
 		font: inherit;
 		color: var(--theme-text-light);
 		text-decoration: none;
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
 		border-radius: 6px;
 		transition: all 0.15s ease;
+	}
+
+	.nav-icon {
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
 	}
 
 	.nav-link a:hover,

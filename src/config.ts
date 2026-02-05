@@ -46,7 +46,7 @@ export const ALGOLIA = {
 
 export type Sidebar = Record<
   typeof KNOWN_LANGUAGE_CODES[number],
-  Record<string, { text: string; link: string }[]>
+  Record<string, { text: string; link: string; icon?: string }[]>
 >;
 export const SIDEBAR: Sidebar = {
   en: {
@@ -101,6 +101,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Autonomous Development', link: 'en/mcp/autonomous_development' },
       { text: 'MCP in Action', link: 'en/mcp_in_action' },
       { text: 'How It Works', link: 'en/mcp' },
+      { text: 'Claude Code', link: 'en/mcp/claude_code', icon: '/claude-icon.svg' },
       { text: 'MCP CLI', link: 'en/mcp/cli' },
       { text: 'L7 API Calls', link: 'en/mcp/l7_tools' },
       { text: 'L4 Traffic Flows', link: 'en/mcp/l4_tools' },
