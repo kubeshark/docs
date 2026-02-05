@@ -53,9 +53,9 @@ export const SIDEBAR: Sidebar = {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Installation', link: 'en/install' },  
-      { text: 'Best Practices', link: 'en/best_practice' },   
-      // { text: 'Getting Support', link: 'en/support' },   
+      { text: 'Installation', link: 'en/install' },
+      { text: 'Best Practices', link: 'en/best_practice' },
+      { text: 'Why Network Data Matters', link: 'en/why_network_data' },
     ],
     'Core Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
@@ -69,7 +69,7 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Envoy/Istio Support', link: 'en/envoy' },
     ],
     'AI Integration': [
-      { text: 'Why Network Data Matters', link: 'en/mcp_why' },
+      { text: 'AI & Network Data', link: 'en/mcp_why' },
       { text: 'Use Cases', link: 'en/mcp_use_cases' },
       { text: 'Conversational Debugging', link: 'en/mcp/troubleshooting' },
       { text: 'Autonomous Development', link: 'en/mcp/autonomous_development' },
