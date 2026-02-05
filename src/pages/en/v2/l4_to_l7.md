@@ -1,11 +1,9 @@
 ---
-title: L4 to L7 Mapping
-description: This document outlines the new feature in Kubeshark V2.00 that introduces mapping between L4 connections and L7 API calls, along with access to raw packet data via an integrated online PCAP viewer.
+title: L4 to L7 & PCAP Viewer
+description: Map L4 connections to L7 API calls and inspect raw packet data with the integrated PCAP viewer.
 layout: ../../../layouts/MainLayout.astro
 mascot: Hello
 ---
-
-> This feature is part of [Kubeshark](https://kubeshark.com) V2.00, scheduled to release in early 2026.
 
 ## L4 (TCP or UDP) Connection
 

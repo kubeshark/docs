@@ -357,6 +357,49 @@ Both represent the network RTT to the peer—useful for detecting network latenc
 | **10-100ms** (10000-100000 µs) | Elevated — possible network congestion or cross-AZ traffic |
 | **> 100ms** (> 100000 µs) | High latency — cross-region or network issues |
 
+### Problems It Solves
+
+| Problem | How TCP Handshake RTT Helps |
+|---------|----------------------------|
+| **"Is it the network or the app?"** | Fast handshake + slow response = app issue. Slow handshake = network issue. |
+| **Cross-AZ traffic detection** | Connections crossing availability zones show 2-10x higher RTT |
+| **Network congestion** | P99 spikes during peak traffic reveal saturated paths |
+| **Node-specific issues** | One node with high RTT to everything = node networking problem |
+| **Intermittent timeouts** | High P99 with normal P50 = occasional network hiccups |
+| **CNI/overlay issues** | Kubernetes networking misconfigurations add measurable latency |
+
+### Example Prompts
+
+**Debugging slowness:**
+> *"The checkout service is slow. Is it a network issue or application issue?"*
+
+**Infrastructure planning:**
+> *"Are we paying a latency penalty for cross-AZ database connections?"*
+
+**Incident investigation:**
+> *"Users report intermittent timeouts to the payment service. What's causing it?"*
+
+**Capacity planning:**
+> *"Which network paths are congested during peak hours?"*
+
+**Node troubleshooting:**
+> *"Pod X is slower than other replicas connecting to the database. Why?"*
+
+**Security/compliance:**
+> *"Is sensitive data staying within our primary availability zone?"*
+
+### Quick Decision Tree
+
+```
+Slow service?
+├── TCP handshake < 5ms → Network is fine, investigate app
+├── TCP handshake 10-50ms → Possible cross-AZ, check node placement
+├── TCP handshake > 50ms → Network issue, check:
+│   ├── Is it one source pod? → Node issue
+│   ├── Is it one destination? → Target overloaded
+│   └── Is it everywhere? → Cluster network issue
+```
+
 ### Example: Detecting Network Issues
 
 ```json

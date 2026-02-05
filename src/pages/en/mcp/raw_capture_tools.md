@@ -218,20 +218,20 @@ Snapshots allow teams to capture traffic during debugging sessions for later rev
 ## Snapshot Lifecycle
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│   Create    │────>│ In Progress │────>│  Completed  │
-│   (POST)    │     │  (capturing)│     │   (ready)   │
-└─────────────┘     └─────────────┘     └──────┬──────┘
-                                               │
-                    ┌─────────────┐            │
-                    │   Export    │<───────────┤
-                    │   (PCAP)    │            │
-                    └─────────────┘            │
-                                               │
-                    ┌─────────────┐            │
-                    │   Delete    │<───────────┘
-                    │             │
-                    └─────────────┘
++--------------+     +--------------+     +--------------+
+|    Create    |---->| In Progress  |---->|  Completed   |
+|    (POST)    |     |  (capturing) |     |   (ready)    |
++--------------+     +--------------+     +------+-------+
+                                                 |
+                     +--------------+            |
+                     |    Export    |<-----------+
+                     |    (PCAP)    |            |
+                     +--------------+            |
+                                                 |
+                     +--------------+            |
+                     |    Delete    |<-----------+
+                     |              |
+                     +--------------+
 ```
 
 ---
@@ -241,4 +241,4 @@ Snapshots allow teams to capture traffic during debugging sessions for later rev
 - [L7 Tools Reference](/en/mcp/l7_tools) — Query API transactions
 - [L4 Tools Reference](/en/mcp/l4_tools) — Lightweight connectivity visibility
 - [Traffic Snapshots](/en/v2/traffic_snapshots) — More about snapshots
-- [Cluster-wide PCAP Export](/en/v2/pcap_export) — PCAP export details
+- [Snapshots](/en/dashboard_snapshots) — Create snapshots and export PCAP

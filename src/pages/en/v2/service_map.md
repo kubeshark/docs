@@ -4,7 +4,7 @@ description: Kubeshark offers two distinct workflow maps that visualize the rela
 layout: ../../../layouts/MainLayout.astro
 ---
 
-**Kubeshark** offers two distinct workflow maps accessible in the **MAP** tab, providing a comprehensive understanding of the complex network of interactions inside your cluster.
+**Kubeshark** offers two distinct workload maps accessible in the **MAP** tab, providing a comprehensive view of network interactions within your cluster.
 * L4: Bandwidth, throughput, between workloads, cluster-wide
 * L7: Bandwidth, protocols, between workloads, filtered in by both capture filters and kfl2
 

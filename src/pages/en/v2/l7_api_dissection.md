@@ -1,11 +1,9 @@
 ---
 title: API (L7) Dissection
-description: 
+description: How Kubeshark reconstructs complete API calls from network traffic with full Kubernetes context.
 layout: ../../../layouts/MainLayout.astro
 mascot: Hello
 ---
-
-> This feature is part of [Kubeshark](https://kubeshark.com) V2.00, scheduled to release in early 2026.
 
 [Kubeshark](https://kubeshark.com) performs L7/API dissection to enrich captured traffic and payloads with full [Kubernetes](https://kubernetes.io/) context (e.g., workload identities, node, namespace, pod, and service names) and API context (e.g., request/response matching, endpoint and status codes, headers, and payloads).
 
@@ -15,7 +13,7 @@ mascot: Hello
 
 **The problem**: [Kubernetes](https://kubernetes.io/) is distributed and multilayered, with critical information scattered across the network, the nodes’ operating systems, and the control plane.
 
-![Fragment Kubernetes and API contexts](/fragmented_API_Context.jpg)
+![Fragment Kubernetes and API contexts](/fragmented2.png)
 
 Fragmentation is most pronounced at the API layer, where much of the API context resides within the network and is distributed across multiple L4 streams. The network is large, highly distributed, and less accessible than other parts of the infrastructure, making it difficult to reconstruct the complete API context without correlating data across layers and focusing analysis at the network level.
 

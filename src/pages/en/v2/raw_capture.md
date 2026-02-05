@@ -1,101 +1,60 @@
 ---
 title: Raw Capture
-description: Continuous L4 packet capture introduced in V2.00, guaranteeing no data loss with minimal impact on production resources.
+description: Continuous L4 packet capture with minimal CPU overhead and zero data loss.
 layout: ../../../layouts/MainLayout.astro
 ---
 
-**Raw Capture** continuously captures all L4 (TCP/UDP) network traffic with minimal CPU usage, guaranteeing no data loss. It operates independently from L7 API dissection and serves as the single source of truth for all traffic analysis.
+Raw Capture provides continuous L4 (TCP/UDP) packet capture across all nodes with minimal CPU overhead. It operates independently from L7 dissection and stores all traffic in a node-level FIFO buffer.
 
-## Configuration
+[Configuration →](/en/v2/raw_capture_config)
 
-Enable and configure raw capture in your Helm values:
+---
 
-```yaml
-tap:
-  capture:
-    stopped: false            # Whether L7 dissection is stopped
-    stopAfter: 5m             # Auto-stop dissection after idle period
-    raw:
-      enabled: true           # Enable raw capture (independent of stopped)
-      storageSize: 1Gi        # Node-level FIFO buffer size
-    dbMaxSize: 500Mi          # Maximum database size
-```
+## Capabilities
 
-Raw capture adheres to [Capture Filters](/en/pod_targeting). Use filters to target specific workloads and reduce storage usage:
+| Capability | Description |
+|------------|-------------|
+| [Traffic Snapshots](/en/v2/traffic_snapshots) | Extract and preserve traffic for a specific time window |
+| [PCAP Export](/en/dashboard_snapshots#pcap-export) | Download raw packets for Wireshark analysis |
+| [Delayed Dissection](/en/v2/l7_api_delayed) | Run L7 protocol analysis on non-production compute |
 
-```yaml
-tap:
-  regex: .*
-  namespaces: []
-  excludedNamespaces: []
-```
+---
 
-## What You Can Do with Raw Capture
+## Architecture
 
-- **[Create Traffic Snapshots](/en/v2/traffic_snapshots)** - Immutable cluster-wide snapshots for any time window
-- **[Export to PCAP](/en/v2/pcap_export)** - Download PCAP files for analysis in Wireshark or other tools
-- **Delayed API Dissection** - Process traffic using non-production compute resources
-- **Historical Investigations** - Analyze past traffic on-demand, identify trends, detect anomalies
+Raw Capture collects data from three layers:
 
-## Independent from L7 Dissection
+| Layer | Data Collected |
+|-------|----------------|
+| Network | TCP/UDP packets via eBPF/AF_PACKET |
+| Kubernetes | Pod lifecycle, service endpoints, namespace events |
+| Operating System | Process context, container IDs via eBPF |
 
-Raw Capture operates independently from real-time L7 API dissection:
+Each worker node writes captured data to a local FIFO buffer. When the buffer reaches capacity, older data is recycled and discarded. To preserve traffic before it's recycled, create a [Traffic Snapshot](/en/v2/traffic_snapshots)—the data is moved to dedicated storage where it becomes immutable.
 
-- When `tap.capture.stopped=true`, L7 API dissection stops
-- When `tap.capture.raw.enabled=true`, raw capture continues regardless of dissection state
+---
 
-This means you can run raw capture continuously while [enabling and disabling L7 dissection on demand](/en/on_off_switch). This is ideal for production environments where you want guaranteed traffic capture with minimal overhead, enabling real-time dissection only when needed.
+## Independence from L7 Dissection
 
-## Goals
+Raw Capture and L7 dissection are controlled separately:
 
-### 1. Minimal Impact on Production Resources
+| Setting | Effect |
+|---------|--------|
+| `tap.capture.raw.enabled=true` | Raw capture active |
+| `tap.capture.stopped=true` | L7 dissection stopped |
 
-Compared to API dissection, raw capture consumes very little CPU resources. While L7 API dissection requires substantial CPU and memory for real-time parsing, raw capture primarily writes data to disk—a far less resource-intensive operation.
+Both can run simultaneously, or raw capture can run alone. This enables continuous packet retention with L7 dissection enabled only when needed.
 
-### 2. No Data Loss
+See [Enabling/Disabling Dissection](/en/on_off_switch) for operational details.
 
-CPU resources are the main factor in losing or not losing traffic. Since raw capture uses minimal CPU, it guarantees no data loss. Every packet is captured and retained.
+---
 
-## Single Source of Truth
+## Resource Characteristics
 
-Once captured, raw data becomes the **single source of truth**. This data can then be:
+| Metric | Raw Capture | L7 Dissection |
+|--------|-------------|---------------|
+| CPU | Low (disk I/O bound) | High (protocol parsing) |
+| Memory | Fixed buffer | Scales with traffic |
+| Data loss risk | Minimal | Higher under load |
 
-- **Downloaded as PCAP** - For further investigation using [Wireshark](https://www.wireshark.org/) or other tools
-- **Delayed API Dissection** - Processed using non-production compute resources, guaranteeing minimum impact on production
-
-## How It Works
-
-Raw Capture operates at the node level, capturing packets before any processing occurs. The capture mechanism collects data from three layers simultaneously:
-
-- **Network layer** - Raw packet data (TCP/UDP)
-- **Kubernetes layer** - Control plane events
-- **Operating system layer** - eBPF-based insights
-
-Most of the work involves writing data to disk, which is far less resource-intensive than real-time parsing. This enables continuous capture with negligible impact on production workloads.
-
-## Architecture Shift in V2.00
-
-V2.00 represents a fundamental redesign from V1.00. Instead of starting with L7 API dissection, V2.00 begins at L4 by capturing complete network flows, then applies API dissection on top when needed. This approach ensures:
-
-- Complete visibility regardless of protocol support or dissection capability
-- Minimal impact on production workloads
-- Traffic can be inspected in real-time, periodically, or after an incident is reported
-
-## Delayed API Dissection
-
-A key benefit of raw capture is **delayed API dissection**:
-
-- Traffic is captured on production nodes with minimal overhead
-- API dissection can be performed later on non-production compute
-- Real-time dissection remains available but is optional
-- Run delayed dissection continuously in the background, enable real-time on-demand
-
-This addresses the core challenge that dissecting cluster-wide traffic into API calls requires substantially more CPU and memory than simple packet capture.
-
-## Benefits
-
-- **Production Safe** - Minimal CPU usage guarantees negligible impact on production workloads
-- **No Data Loss** - Low resource consumption eliminates packet loss
-- **Complete Visibility** - Captures all traffic regardless of protocol support
-- **Single Source of Truth** - All captured data available for multiple use cases
-- **Flexible Analysis** - Investigate with Wireshark or delayed API dissection on non-production compute
+Raw Capture's low CPU footprint eliminates packet loss under normal conditions. L7 dissection requires more resources but can be deferred to non-production systems.

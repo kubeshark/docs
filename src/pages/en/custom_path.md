@@ -1,6 +1,6 @@
 ---
 title: Reverse Proxy with a Custom Path
-description: 
+description: Configure Kubeshark to work behind a reverse proxy with a custom URL path.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---

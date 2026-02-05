@@ -233,7 +233,7 @@ This wealth of information exists in every Kubernetes cluster. The challenge is 
 
 **The result**: Most teams underutilize their network data, or ignore it entirely, falling back to logs and metrics that tell only part of the story.
 
-Kubeshark addresses this by providing an intuitive [Dashboard](/en/ui) and [AI-powered analysis](/en/mcp_why) that makes network data accessible to everyone on the team.
+Kubeshark addresses this by providing an intuitive [Dashboard](/en/ui) and [AI-powered analysis](/en/mcp_use_cases) that makes network data accessible to everyone on the team.
 
 ---
 
@@ -241,4 +241,4 @@ Kubeshark addresses this by providing an intuitive [Dashboard](/en/ui) and [AI-p
 
 - [Installation](/en/install) — Get Kubeshark running in your cluster
 - [Dashboard](/en/ui) — Explore the Kubeshark interface
-- [AI Integration](/en/mcp_why) — Use AI to query your network data
+- [AI Integration](/en/mcp_use_cases) — Use AI to query your network data

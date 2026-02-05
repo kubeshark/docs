@@ -12,16 +12,16 @@ mascot: Bookworm
 ## How It Works
 
 ```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│  Snapshot   │────>│  Delayed    │────>│ Dissection  │
-│   (PCAP)    │     │  Dissection │     │     DB      │
-└─────────────┘     └─────────────┘     └──────┬──────┘
-                                               │
-                                               ▼
-                                        ┌─────────────┐
-                                        │ /mcp/calls  │
-                                        │  ?db=...    │
-                                        └─────────────┘
++--------------+     +--------------+     +--------------+
+|   Snapshot   |---->|   Delayed    |---->|  Dissection  |
+|    (PCAP)    |     |  Dissection  |     |      DB      |
++--------------+     +--------------+     +------+-------+
+                                                 |
+                                                 v
+                                          +--------------+
+                                          |  /mcp/calls  |
+                                          |   ?db=...    |
+                                          +--------------+
 ```
 
 1. **Capture**: Create a snapshot of raw traffic
@@ -253,37 +253,37 @@ GET /mcp/calls?db=incident-2024-02-01/full-dissection&kfl=dst.svc == "payment"
 ## Workflow Example
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│ Terminal - AI Assistant                                                          │
-├─────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                  │
-│  > Analyze HTTP errors from yesterday's incident snapshot                        │
-│                                                                                  │
-│  ● Checking available databases                                                  │
-│    └─ GET /mcp/databases                                                         │
-│       Found snapshot "incident-2024-02-01", no dissection yet                    │
-│                                                                                  │
-│  ● Starting delayed dissection                                                   │
-│    └─ POST /mcp/dissections                                                      │
-│       {snapshot: "incident-2024-02-01", name: "analysis"}                        │
-│                                                                                  │
-│  ● Waiting for dissection to complete                                            │
-│    └─ GET /mcp/dissections/incident-2024-02-01/analysis                          │
-│       Status: running (45%)... running (78%)... completed                        │
-│                                                                                  │
-│  ● Querying dissection database                                                  │
-│    └─ GET /mcp/calls?db=incident-2024-02-01/analysis&kfl=http and status>=400    │
-│                                                                                  │
-│  Found 127 HTTP 5xx errors in the incident snapshot:                             │
-│                                                                                  │
-│  - 89 errors on POST /api/checkout (payment-service)                             │
-│  - 23 errors on GET /api/inventory (inventory-service)                           │
-│  - 15 errors on POST /api/notifications (notification-service)                   │
-│                                                                                  │
-│  Root cause: payment-service was returning 503 due to database connection        │
-│  pool exhaustion, causing cascading failures.                                    │
-│                                                                                  │
-└─────────────────────────────────────────────────────────────────────────────────┘
++---------------------------------------------------------------------------------+
+| Terminal - AI Assistant                                                         |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+|  > Analyze HTTP errors from yesterday's incident snapshot                       |
+|                                                                                 |
+|  * Checking available databases                                                 |
+|    GET /mcp/databases                                                           |
+|    Found snapshot "incident-2024-02-01", no dissection yet                      |
+|                                                                                 |
+|  * Starting delayed dissection                                                  |
+|    POST /mcp/dissections                                                        |
+|    {snapshot: "incident-2024-02-01", name: "analysis"}                          |
+|                                                                                 |
+|  * Waiting for dissection to complete                                           |
+|    GET /mcp/dissections/incident-2024-02-01/analysis                            |
+|    Status: running (45%)... running (78%)... completed                          |
+|                                                                                 |
+|  * Querying dissection database                                                 |
+|    GET /mcp/calls?db=incident-2024-02-01/analysis&kfl=http and status>=400      |
+|                                                                                 |
+|  Found 127 HTTP 5xx errors in the incident snapshot:                            |
+|                                                                                 |
+|  - 89 errors on POST /api/checkout (payment-service)                            |
+|  - 23 errors on GET /api/inventory (inventory-service)                          |
+|  - 15 errors on POST /api/notifications (notification-service)                  |
+|                                                                                 |
+|  Root cause: payment-service was returning 503 due to database connection       |
+|  pool exhaustion, causing cascading failures.                                   |
+|                                                                                 |
++---------------------------------------------------------------------------------+
 ```
 
 ---
