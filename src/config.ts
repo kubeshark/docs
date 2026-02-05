@@ -75,6 +75,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Autonomous Development', link: 'en/mcp/autonomous_development' },
       { text: 'MCP in Action', link: 'en/mcp_in_action' },
       { text: 'How It Works', link: 'en/mcp' },
+      { text: 'L7 Tools Reference', link: 'en/mcp/l7_tools' },
       { text: 'L4 Tools Reference', link: 'en/mcp/l4_tools' },
     ],
     'L4 Raw Traffic Capture': [
