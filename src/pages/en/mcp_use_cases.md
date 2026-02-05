@@ -1,11 +1,95 @@
 ---
-title: MCP - Use Cases
-description: Real-world scenarios where AI-powered network analysis with Kubeshark's MCP server delivers value.
+title: AI Integration - Introduction
+description: AI-powered network analysis with Kubeshark's MCP server transforms how teams debug, secure, and optimize Kubernetes applications.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-[Network traffic contains a wealth of information](/en/mcp_why)—API payloads, performance data, security signals, and infrastructure health. With Kubeshark's MCP server, you can query all of this using natural language.
+Network traffic is the **ground truth** of what happens in your Kubernetes cluster. [It contains everything](/en/why_network_data)—API payloads, performance data, security signals, and infrastructure health. Kubeshark captures and enriches this data with full Kubernetes context.
+
+But [accessing this data effectively](/en/why_network_data#the-accessibility-challenge) has traditionally required deep expertise and complex tools. AI changes that.
+
+---
+
+## The Opportunity: AI-Powered Analysis
+
+What if you could simply *ask questions* about your network traffic?
+
+> *"What API calls failed in the last hour and why?"*
+
+> *"Show me the exact request that caused the payment service to return a 500 error."*
+
+> *"Which services are communicating without authentication?"*
+
+> *"Compare today's latency patterns with yesterday—what changed?"*
+
+This is what Kubeshark's MCP integration enables. By connecting AI assistants to your network data, complex analysis becomes a conversation.
+
+---
+
+## How It Works
+
+Kubeshark exposes network data through the **Model Context Protocol (MCP)**—an open standard for connecting AI assistants to external data sources.
+
+```
++------------------+                     +------------------+
+|                  |    MCP Protocol     |                  |
+|  AI Assistant    | <-----------------> |    Kubeshark     |
+|  (Claude, etc.)  |                     |                  |
+|                  |                     |                  |
++------------------+                     +--------+---------+
+                                                  |
+                                                  v
+                                         +------------------+
+                                         |   Kubernetes     |
+                                         |  Network Data    |
+                                         |  (L4/L7, PCAP)   |
+                                         +------------------+
+```
+
+The AI assistant can:
+- Query L7 API transactions with natural language
+- Filter traffic by service, namespace, status code, latency
+- Analyze patterns across thousands of requests
+- Create snapshots and export PCAP files
+- Control Kubeshark (start, stop, configure)
+
+---
+
+## What Makes This Powerful
+
+### Natural Language Queries
+
+No need to learn query syntax. Just ask:
+
+| Instead of... | Just ask... |
+|---------------|-------------|
+| Writing KFL filters | "Show me failed requests to the payment service" |
+| Correlating timestamps | "What happened in the 5 minutes before the crash?" |
+| Manual traffic analysis | "Which endpoints are slowest?" |
+| Reading packet captures | "What's in the request body?" |
+
+### AI-Driven Investigation
+
+The AI doesn't just fetch data—it analyzes it:
+
+- Identifies patterns across requests
+- Correlates errors with their causes
+- Suggests root causes based on evidence
+- Compares current behavior with baselines
+
+### Full Context
+
+Because Kubeshark provides [complete Kubernetes context](/en/why_network_data#how-kubeshark-bridges-the-gap), the AI understands:
+
+- Which pods and services are involved
+- The full request/response payloads
+- Timing and latency data
+- The relationship between calls
+
+---
+
+## Use Cases
 
 Here are the key scenarios where AI-powered network analysis delivers value.
 
@@ -17,6 +101,7 @@ Here are the key scenarios where AI-powered network analysis delivers value.
 - [Security Analysis & Threat Detection](#security-analysis--threat-detection)
 - [Architecture Discovery & Service Mapping](#architecture-discovery--service-mapping)
 - [Performance Debugging](#performance-debugging)
+- [Network Health Analysis](#network-health-analysis)
 - [Compliance & Auditing](#compliance--auditing)
 - [Onboarding & Learning](#onboarding--learning)
 
@@ -181,6 +266,58 @@ Ask performance-focused questions:
 
 ---
 
+## Network Health Analysis
+
+TCP handshake timing reveals network-level health issues that application metrics miss. Kubeshark captures TCP 3-way handshake completion times, giving you visibility into network latency and congestion.
+
+### The Problem
+
+Network issues can masquerade as application problems:
+- Slow connections blamed on application code
+- Intermittent timeouts with no clear cause
+- Cross-AZ or cross-region latency affecting specific flows
+- Network congestion during peak traffic
+
+### How MCP Helps
+
+Use the `list_l4_flows` tool to analyze TCP handshake RTT metrics:
+
+**Example prompts:**
+
+> *"Show me TCP flows with handshake times over 10ms. Which connections are experiencing network latency?"*
+
+> *"Compare TCP handshake times for connections to the database service across different source pods. Is latency consistent?"*
+
+> *"Find all cross-namespace TCP flows and check their handshake RTT. Are there network bottlenecks between namespaces?"*
+
+> *"What's the P99 TCP handshake time for connections to external services? Is our egress path healthy?"*
+
+> *"Identify pods with elevated TCP handshake times. Are they on specific nodes?"*
+
+### Understanding TCP Handshake RTT
+
+The `tcp_handshake_p50/p90/p99_us` fields measure the time (in microseconds) for the TCP 3-way handshake to complete:
+
+- **Client side**: Time from sending SYN to receiving SYN-ACK
+- **Server side**: Time from receiving SYN to receiving ACK
+
+| Handshake Time | Interpretation |
+|----------------|----------------|
+| < 1ms | Excellent — same-node or same-datacenter |
+| 1-10ms | Good — typical cross-node within cluster |
+| 10-100ms | Elevated — possible congestion or cross-AZ |
+| > 100ms | High latency — cross-region or network issues |
+
+### What the AI Can Do
+
+- Identify connections with abnormal TCP handshake times
+- Correlate network latency with specific nodes or availability zones
+- Detect network congestion patterns during traffic spikes
+- Compare handshake times across different traffic paths
+- Find workloads affected by network-level issues
+
+---
+
 ## Compliance & Auditing
 
 Regulated industries need evidence of what happened, when, and to what data. Network traffic provides an immutable audit trail.
@@ -276,6 +413,6 @@ New team members can ask exploratory questions:
 
 ## What's Next
 
-- [MCP Introduction](/en/mcp) — Learn what MCP is and how it works
-- [Dashboard Overview](/en/ui) — Explore the Kubeshark interface
-- [L7 API Dissection](/en/v2/l7_api_dissection) — Understand API traffic analysis
+- [How MCP Works](/en/mcp) — Technical details on the protocol
+- [MCP CLI](/en/mcp/cli) — Run MCP from the command line
+- [Why Network Data Matters](/en/why_network_data) — Deep dive into network visibility

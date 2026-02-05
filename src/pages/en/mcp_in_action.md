@@ -18,66 +18,66 @@ A developer gets paged: checkout latency has spiked and users are abandoning car
 ## The Flow
 
 ```
-┌──────────────────────────────────────────────────────────────────────────────┐
-│                          USER  ←→  AI  ←→  KUBESHARK                         │
-└──────────────────────────────────────────────────────────────────────────────┘
++------------------------------------------------------------------------------+
+|                          USER  <->  AI  <->  KUBESHARK                       |
++------------------------------------------------------------------------------+
 
   USER                           AI                           KUBESHARK
-    │                            │                                │
-    │  "What can you tell me     │                                │
-    │   about my frontend        │                                │
-    │   service?"                │                                │
-    │ ─────────────────────────► │                                │
-    │                            │                                │
-    │                            │  GET /mcp/data-boundaries      │
-    │                            │ ─────────────────────────────► │
-    │                            │                                │
-    │                            │  ◄─ 3 nodes, 14:00-15:00 UTC   │
-    │                            │                                │
-    │                            │  POST /mcp/snapshots           │
-    │                            │  {name: "frontend-analysis"}   │
-    │                            │ ─────────────────────────────► │
-    │                            │                                │
-    │                            │  ◄─ 850 MB snapshot ready      │
-    │                            │                                │
-    │                            │  POST /delayed_dissection      │
-    │                            │ ─────────────────────────────► │
-    │                            │                                │
-    │                            │  ◄─ 12,847 API calls dissected │
-    │                            │                                │
-    │                            │  GET /mcp/calls?kfl=...        │
-    │                            │ ─────────────────────────────► │
-    │                            │                                │
-    │                            │  ◄─ Traffic data (JSON)        │
-    │                            │                                │
-    │                            │  ┌─────────────────────┐       │
-    │                            │  │ AI analyzes:        │       │
-    │                            │  │ • Performance       │       │
-    │                            │  │ • Anomalies         │       │
-    │                            │  │ • API patterns      │       │
-    │                            │  └─────────────────────┘       │
-    │                            │                                │
-    │  "Based on 12,847 API      │                                │
-    │   calls, here's what I     │                                │
-    │   found..."                │                                │
-    │ ◄───────────────────────── │                                │
-    │                            │                                │
-    │  "Tell me more about       │                                │
-    │   those 503 errors"        │                                │
-    │ ─────────────────────────► │                                │
-    │                            │                                │
-    │                            │  GET /mcp/calls?kfl=           │
-    │                            │  response.status==503          │
-    │                            │ ─────────────────────────────► │
-    │                            │                                │
-    │                            │  ◄─ 127 failed requests        │
-    │                            │                                │
-    │  "All 503 errors occur     │                                │
-    │   when payment-service     │                                │
-    │   exceeds 5s timeout..."   │                                │
-    │ ◄───────────────────────── │                                │
-    │                            │                                │
-    ▼                            ▼                                ▼
+    |                            |                                |
+    |  "What can you tell me     |                                |
+    |   about my frontend        |                                |
+    |   service?"                |                                |
+    | -------------------------> |                                |
+    |                            |                                |
+    |                            |  GET /mcp/data-boundaries      |
+    |                            | -----------------------------> |
+    |                            |                                |
+    |                            |  <- 3 nodes, 14:00-15:00 UTC   |
+    |                            |                                |
+    |                            |  POST /mcp/snapshots           |
+    |                            |  {name: "frontend-analysis"}   |
+    |                            | -----------------------------> |
+    |                            |                                |
+    |                            |  <- 850 MB snapshot ready      |
+    |                            |                                |
+    |                            |  POST /delayed_dissection      |
+    |                            | -----------------------------> |
+    |                            |                                |
+    |                            |  <- 12,847 API calls dissected |
+    |                            |                                |
+    |                            |  GET /mcp/calls?kfl=...        |
+    |                            | -----------------------------> |
+    |                            |                                |
+    |                            |  <- Traffic data (JSON)        |
+    |                            |                                |
+    |                            |  +---------------------+       |
+    |                            |  | AI analyzes:        |       |
+    |                            |  | - Performance       |       |
+    |                            |  | - Anomalies         |       |
+    |                            |  | - API patterns      |       |
+    |                            |  +---------------------+       |
+    |                            |                                |
+    |  "Based on 12,847 API      |                                |
+    |   calls, here's what I     |                                |
+    |   found..."                |                                |
+    | <------------------------- |                                |
+    |                            |                                |
+    |  "Tell me more about       |                                |
+    |   those 503 errors"        |                                |
+    | -------------------------> |                                |
+    |                            |                                |
+    |                            |  GET /mcp/calls?kfl=           |
+    |                            |  response.status==503          |
+    |                            | -----------------------------> |
+    |                            |                                |
+    |                            |  <- 127 failed requests        |
+    |                            |                                |
+    |  "All 503 errors occur     |                                |
+    |   when payment-service     |                                |
+    |   exceeds 5s timeout..."   |                                |
+    | <------------------------- |                                |
+    |                            |                                |
+    v                            v                                v
 ```
 
 ---
@@ -85,63 +85,63 @@ A developer gets paged: checkout latency has spiked and users are abandoning car
 ## The Conversation
 
 ```
-┌─────────────────────────────────────────────────────────────────────────────────┐
-│ Terminal - claude                                                               │
-├─────────────────────────────────────────────────────────────────────────────────┤
-│                                                                                 │
-│  $ claude                                                                       │
-│                                                                                 │
-│  > What can you tell me about my service? The name is frontend.                 │
-│                                                                                 │
-│  ● Analyzing service: frontend                                                  │
-│    ├─ Checking recorded traffic availability...                                 │
-│    ├─ Creating snapshot from last 1 hour of traffic...                          │
-│    ├─ Running L7 protocol dissection...                                         │
-│    ├─ Querying API calls (12,847 found)...                                      │
-│    └─ Analyzing patterns and anomalies...                                       │
-│                                                                                 │
-│  Based on analyzing 12,847 API calls over the last hour, here's what I          │
-│  found about your frontend service:                                             │
-│                                                                                 │
-│  ✓ Healthy:                                                                     │
-│    • Overall latency is good (45ms P50)                                         │
-│    • TCP connection establishment is fast (< 5ms)                               │
-│    • Most endpoints return success (97.7% 2xx responses)                        │
-│                                                                                 │
-│  ⚠ Needs Attention:                                                             │
-│    1. Checkout failures — 2.3% of /api/v1/checkout return 503                   │
-│    2. Retry storms — cart-service retrying 3x within 100ms                      │
-│    3. Connection churn — 847 new connections/min to catalogue-db                │
-│    4. Sync blocking — checkout calls payment-service synchronously              │
-│                                                                                 │
-│  Want me to dig deeper into any of these issues?                                │
-│                                                                                 │
-│  > Tell me more about those checkout 503 errors. What's causing them?           │
-│                                                                                 │
-│  ● Investigating checkout 503 errors                                            │
-│    ├─ Filtering failed checkout requests...                                     │
-│    └─ Analyzing 127 failed requests...                                          │
-│                                                                                 │
-│  I examined all 127 failed checkout requests. Here's what I found:              │
-│                                                                                 │
-│  Pattern: All 503 errors occur when payment-service response time               │
-│  exceeds 5 seconds (your configured timeout).                                   │
-│                                                                                 │
-│  Root cause: payment-service makes synchronous calls to an external             │
-│  payment gateway. When the gateway is slow (P99: 4.8s), requests                │
-│  stack up and exhaust the connection pool.                                      │
-│                                                                                 │
-│  Timeline:                                                                      │
-│    14:22:58  Gateway latency: 200ms → 4.2s                                      │
-│    14:23:15  First 503 from payment-service                                     │
-│    14:23:45  Connection pool exhausted (TCP RST packets observed)               │
-│                                                                                 │
-│  Recommendation: Add circuit breaker on payment-service's gateway               │
-│  calls, or increase connection pool with shorter timeouts.                      │
-│                                                                                 │
-│  > _                                                                            │
-│                                                                                 │
-└─────────────────────────────────────────────────────────────────────────────────┘
++---------------------------------------------------------------------------------+
+| Terminal - claude                                                               |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+|  $ claude                                                                       |
+|                                                                                 |
+|  > What can you tell me about my service? The name is frontend.                 |
+|                                                                                 |
+|  * Analyzing service: frontend                                                  |
+|    - Checking recorded traffic availability...                                  |
+|    - Creating snapshot from last 1 hour of traffic...                           |
+|    - Running L7 protocol dissection...                                          |
+|    - Querying API calls (12,847 found)...                                       |
+|    - Analyzing patterns and anomalies...                                        |
+|                                                                                 |
+|  Based on analyzing 12,847 API calls over the last hour, here's what I          |
+|  found about your frontend service:                                             |
+|                                                                                 |
+|  OK Healthy:                                                                    |
+|    - Overall latency is good (45ms P50)                                         |
+|    - TCP connection establishment is fast (< 5ms)                               |
+|    - Most endpoints return success (97.7% 2xx responses)                        |
+|                                                                                 |
+|  ! Needs Attention:                                                             |
+|    1. Checkout failures - 2.3% of /api/v1/checkout return 503                   |
+|    2. Retry storms - cart-service retrying 3x within 100ms                      |
+|    3. Connection churn - 847 new connections/min to catalogue-db                |
+|    4. Sync blocking - checkout calls payment-service synchronously              |
+|                                                                                 |
+|  Want me to dig deeper into any of these issues?                                |
+|                                                                                 |
+|  > Tell me more about those checkout 503 errors. What's causing them?           |
+|                                                                                 |
+|  * Investigating checkout 503 errors                                            |
+|    - Filtering failed checkout requests...                                      |
+|    - Analyzing 127 failed requests...                                           |
+|                                                                                 |
+|  I examined all 127 failed checkout requests. Here's what I found:              |
+|                                                                                 |
+|  Pattern: All 503 errors occur when payment-service response time               |
+|  exceeds 5 seconds (your configured timeout).                                   |
+|                                                                                 |
+|  Root cause: payment-service makes synchronous calls to an external             |
+|  payment gateway. When the gateway is slow (P99: 4.8s), requests                |
+|  stack up and exhaust the connection pool.                                      |
+|                                                                                 |
+|  Timeline:                                                                      |
+|    14:22:58  Gateway latency: 200ms -> 4.2s                                     |
+|    14:23:15  First 503 from payment-service                                     |
+|    14:23:45  Connection pool exhausted (TCP RST packets observed)               |
+|                                                                                 |
+|  Recommendation: Add circuit breaker on payment-service's gateway               |
+|  calls, or increase connection pool with shorter timeouts.                      |
+|                                                                                 |
+|  > _                                                                            |
+|                                                                                 |
++---------------------------------------------------------------------------------+
 ```
 
 ---
@@ -222,8 +222,15 @@ With the dissected traffic in hand, the AI examines the data and identifies:
 |--------|-------|------------|
 | Latency P50 | 45ms | Healthy |
 | Latency P99 | 230ms | Acceptable |
-| TCP handshake | < 5ms | Normal |
+| TCP handshake P50 | 2ms | Normal |
+| TCP handshake P99 | 8ms | Normal |
 | Error rate | 2.3% | Elevated |
+
+<div class="callout callout-info">
+
+**TCP Handshake RTT**: The `tcp_handshake_p50/p90/p99_us` fields measure TCP 3-way handshake completion time in microseconds. Values under 10ms indicate healthy network connectivity. Elevated values (>10ms) may indicate network congestion or cross-AZ traffic.
+
+</div>
 
 ### Anomalies Detected
 

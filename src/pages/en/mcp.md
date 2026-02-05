@@ -5,7 +5,7 @@ layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-[Network traffic holds answers](/en/mcp_why) to your toughest debugging, security, and performance questions. The **Model Context Protocol (MCP)** is how AI assistants access that data.
+[Network traffic holds answers](/en/why_network_data) to your toughest debugging, security, and performance questions. The **Model Context Protocol (MCP)** is how AI assistants access that data.
 
 ---
 
@@ -14,19 +14,19 @@ mascot: Bookworm
 The **Model Context Protocol (MCP)** is an open standard introduced by Anthropic for connecting AI assistants to external data sources and tools. Think of it as a universal adapter—any AI that supports MCP can interact with any system that implements it.
 
 ```
-┌─────────────────┐                      ┌─────────────────┐
-│                 │     MCP Protocol     │                 │
-│  AI Assistant   │ ◄──────────────────► │  Kubeshark MCP  │
-│  (Claude, etc.) │    (JSON-RPC 2.0)    │     Server      │
-│                 │                      │                 │
-└─────────────────┘                      └────────┬────────┘
-                                                  │
-                                                  ▼
-                                         ┌─────────────────┐
-                                         │   Kubernetes    │
-                                         │  Network Data   │
-                                         │  (L4/L7, PCAP)  │
-                                         └─────────────────┘
++------------------+                     +------------------+
+|                  |    MCP Protocol     |                  |
+|  AI Assistant    | <-----------------> |  Kubeshark MCP   |
+|  (Claude, etc.)  |   (JSON-RPC 2.0)    |     Server       |
+|                  |                     |                  |
++------------------+                     +--------+---------+
+                                                  |
+                                                  v
+                                         +------------------+
+                                         |   Kubernetes     |
+                                         |  Network Data    |
+                                         |  (L4/L7, PCAP)   |
+                                         +------------------+
 ```
 
 MCP defines three core concepts:
@@ -43,7 +43,7 @@ MCP defines three core concepts:
 
 Kubeshark's MCP server gives AI assistants access to your complete network picture:
 
-### Traffic Data
+### L7 Traffic Data (API Calls)
 
 | Resource | Description |
 |----------|-------------|
@@ -51,6 +51,15 @@ Kubeshark's MCP server gives AI assistants access to your complete network pictu
 | Historical queries | Past traffic within your retention window |
 | Full payloads | Request/response bodies, headers, metadata |
 | Decrypted TLS | Encrypted traffic in plaintext |
+
+### L4 Network Flows (TCP/UDP)
+
+| Resource | Description |
+|----------|-------------|
+| Connection flows | TCP/UDP connections between workloads |
+| Traffic statistics | Bytes, packets, and rates per flow |
+| TCP handshake RTT | Connection establishment timing (network health indicator) |
+| Protocol breakdown | TCP vs UDP traffic distribution |
 
 ### Kubernetes Context
 
@@ -69,6 +78,33 @@ Kubeshark's MCP server gives AI assistants access to your complete network pictu
 | `export_pcap` | Export traffic for Wireshark analysis |
 | `create_snapshot` | Point-in-time traffic snapshots |
 | `apply_filter` | Focus results with KFL filters |
+
+### L4 Network Analysis Tools
+
+| Tool | Description |
+|------|-------------|
+| `list_l4_flows` | List TCP/UDP flows with traffic stats and TCP handshake RTT |
+| `get_l4_flow_summary` | High-level summary: top talkers, cross-namespace traffic |
+
+#### TCP Handshake RTT Fields
+
+The `list_l4_flows` tool returns TCP handshake timing metrics that measure network health:
+
+| Field | Description |
+|-------|-------------|
+| `tcp_handshake_p50_us` | 50th percentile TCP handshake time (microseconds) |
+| `tcp_handshake_p90_us` | 90th percentile TCP handshake time (microseconds) |
+| `tcp_handshake_p99_us` | 99th percentile TCP handshake time (microseconds) |
+
+These metrics measure the time to complete the TCP 3-way handshake:
+- **Client perspective**: Time from sending SYN to receiving SYN-ACK
+- **Server perspective**: Time from receiving SYN to receiving ACK
+
+**Interpretation:**
+- **< 1ms**: Excellent (same-node or same-datacenter communication)
+- **1-10ms**: Good (typical cross-node within cluster)
+- **10-100ms**: Elevated (possible network congestion or cross-AZ traffic)
+- **> 100ms**: High latency (cross-region or network issues)
 
 ---
 
@@ -197,6 +233,6 @@ kubectl port-forward svc/kubeshark-hub 8898:8898
 
 ## What's Next
 
-- [Why Network Data Matters](/en/mcp_why) — The value of network-level visibility
+- [Why Network Data Matters](/en/why_network_data) — The value of network-level visibility
 - [Use Cases](/en/mcp_use_cases) — Detailed scenarios and example prompts
 - [KFL2 Filters](/en/v2/kfl2) — Write powerful traffic filters
