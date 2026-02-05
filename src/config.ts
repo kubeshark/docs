@@ -54,8 +54,8 @@ export const SIDEBAR: Sidebar = {
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Installation', link: 'en/install' },
       { text: 'Anatomy of Kubeshark', link: 'en/anatomy_of_kubeshark' },
-      { text: 'Best Practices', link: 'en/best_practice' },
       { text: 'Why Network Data Matters', link: 'en/why_network_data' },
+      { text: 'Best Practices', link: 'en/best_practice' },
     ],
     'Core Functionality': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
