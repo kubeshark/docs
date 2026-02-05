@@ -121,8 +121,18 @@ const sidebar = SIDEBAR[langCode];
 		max-height: 100vh;
 	}
 
+	.nav-groups > li {
+		border-bottom: 1px solid var(--theme-divider);
+		padding-bottom: 0.75rem;
+	}
+
 	.nav-groups > li + li {
-		margin-top: 0.5rem;
+		margin-top: 1rem;
+		padding-top: 0.25rem;
+	}
+
+	.nav-groups > li:last-child {
+		border-bottom: none;
 	}
 
 	.nav-groups > :first-child {
@@ -141,19 +151,18 @@ const sidebar = SIDEBAR[langCode];
 		width: 100%;
 		font-size: 0.8rem;
 		font-weight: 700;
-		padding: 0.5rem 1rem 0.35rem;
+		padding: 0.75rem 1rem 0.5rem;
 		text-transform: uppercase;
 		letter-spacing: 0.05em;
 		color: var(--theme-text);
-		margin-bottom: 0.15rem;
+		margin-bottom: 0.25rem;
 		border: none;
-		border-bottom: 1px solid var(--theme-divider);
 		background: transparent;
 		cursor: pointer;
 		text-align: left;
-		margin-left: 0.5rem;
-		margin-right: 0.5rem;
-		padding-left: 0.5rem;
+		margin-left: 0;
+		margin-right: 0;
+		padding-left: 1rem;
 		transition: color 0.15s ease;
 	}
 
