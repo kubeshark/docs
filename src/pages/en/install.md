@@ -16,7 +16,7 @@ Install [Kubeshark](https://kubeshark.com) using one of the following methods:
 ## Helm  
 
 ```shell  
-helm repo add kubeshark https://helm.kubeshark.comm  
+helm repo add kubeshark https://helm.kubeshark.com  
 helm install kubeshark kubeshark/kubeshark  
 kubectl port-forward service/kubeshark-front 8899:80  
 
@@ -55,7 +55,7 @@ kubeshark clean
 
 To download the appropriate binary for your system:  
 ```shell  
-sh <(curl -Ls https://kubeshark.comm/install)  
+sh <(curl -Ls https://kubeshark.com/install)  
 kubeshark tap  
 
 # cleanup  

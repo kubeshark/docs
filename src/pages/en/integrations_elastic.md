@@ -4,7 +4,7 @@ description: Elasticsearch integration enables persistent storage and search in 
 layout: ../../layouts/MainLayout.astro
 ---
 
-> This integration is part of the [Pro edition](https://kubeshark.comm/pricing).
+> This integration is part of the [Pro edition](https://kubeshark.com/pricing).
 
 This integration enables you to send schema-free JSON documents directly to any [Elasticsearch](https://en.wikipedia.org/wiki/Elasticsearch) local or cloud-hosted instance by using the [`vendor.elastic`](/en/automation_helpers#vendorelasticurl-string-index-string-data-object-username-string-password-string-cloudid-string-apikey-string-servicetoken-string-certificatefingerprint-string) helper.
 
@@ -48,7 +48,7 @@ Change the KFL query and the Elasticsearch Authentication variables at the top o
 
 ## TL;DR
 
-The script uses the [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) hook, the [`kfl.match` helper](https://docs.kubeshark.comm/en/automation_helpers#kflmatchquery-string-data-object-boolean) in conjunction with a [KFL](https://docs.kubeshark.comm/en/filtering) query to identify the select traffic logs. 
+The script uses the [`onItemCaptured`](/en/automation_hooks#onitemcaptureddata-object) hook, the [`kfl.match` helper](https://docs.kubeshark.com/en/automation_helpers#kflmatchquery-string-data-object-boolean) in conjunction with a [KFL](https://docs.kubeshark.com/en/filtering) query to identify the select traffic logs. 
 
 For example, the following KFL query can be used to filter pod specific ingress/egress GraphQL traffic:
 ```js

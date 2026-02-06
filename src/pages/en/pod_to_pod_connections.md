@@ -48,7 +48,7 @@ The following image shows that enabling this functionality increases CPU levels.
 - Show all traffic between two namespaces (e.g., ns1<=>ns2): `(src.namespace=="ns1" and dst.namespace=="ns2") or (src.namespace=="ns2" and dst.namespace=="ns1")`
 - Show traffic going to an external domain: `dst.name=="www.domain.com"`
 
-> You can experience this functionality in our [live demo portal](https://kubeshark.kubeshark.comm/) by entering `tcp` in the display filter.
+> You can experience this functionality in our [live demo portal](https://kubeshark.kubeshark.com/) by entering `tcp` in the display filter.
 
 ## What to Expect
 

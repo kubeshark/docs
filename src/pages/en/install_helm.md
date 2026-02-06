@@ -14,7 +14,7 @@ While the [CLI](/en/install) is a great option for on-demand usage and running o
 Add the Helm repo for [Kubeshark](https://kubeshark.com):
 
 ```shell
-helm repo add kubeshark https://helm.kubeshark.comm
+helm repo add kubeshark https://helm.kubeshark.com
 ```
 
 then install [Kubeshark](https://kubeshark.com):
