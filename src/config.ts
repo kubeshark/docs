@@ -108,6 +108,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'MCP CLI', link: 'en/mcp/cli' },
       { text: 'Claude Code Integration', link: 'en/mcp/claude_code', icon: '/claude-icon.svg' },
       { text: 'GitHub Copilot Integration', link: 'en/mcp/github_copilot', icon: '/copilot-icon.svg' },
+      { text: 'Cursor Integration', link: 'en/mcp/cursor', icon: '/cursor-icon.svg' },
     ],
     'Traffic Filters': [
       { text: 'Capture Filters', link: 'en/pod_targeting' },
