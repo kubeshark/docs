@@ -1,6 +1,6 @@
 ---
 title: OIDC with DEX
-description: 
+description: Configure OpenID Connect authentication using Dex as the identity provider.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
@@ -15,7 +15,7 @@ Add the following static client configuration to your Dex IdP's `config.yaml`:
 staticClients:
   - id: kubeshark
     secret: <create your own client password>
-    name: [Kubeshark](https://kubeshark.com)
+    name: Kubeshark
     redirectURIs:
       - https://<your-kubeshark-host>/api/oauth2/callback
 ```

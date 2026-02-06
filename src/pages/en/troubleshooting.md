@@ -52,7 +52,7 @@ Even if, for any reason, [Kubeshark](https://kubeshark.com) cannot display the (
 
 ## Workers or Hub Get OOMKilled
 
-Frequent OOMKilled errors indicate that the cluster is overburdened relative to the resources allocated to [Kubeshark](https://kubeshark.com). By default, [Kubeshark](https://kubeshark.com) imposes resource limitations suitable for small dev/test clusters. We recommend either utilizing [capture filters](/en/pod_targeting0) or [increasing resource limitations](/en/performance#resource-limitations), or preferably both. Consult our [performance page](/en/performance) for guidance on optimizing resource consumption.
+Frequent OOMKilled errors indicate that the cluster is overburdened relative to the resources allocated to [Kubeshark](https://kubeshark.com). By default, [Kubeshark](https://kubeshark.com) imposes resource limitations suitable for small dev/test clusters. We recommend either utilizing [capture filters](/en/pod_targeting) or [increasing resource limitations](/en/v2/performance), or preferably both. Consult our [performance page](/en/performance) for guidance on optimizing resource consumption.
 
 ## Worker Pods Get Evicted
 
@@ -126,4 +126,4 @@ If the provided solutions do not resolve your issue, other resources are availab
 
 - [Report a bug](https://github.com/kubeshark/kubeshark/issues) by creating a GitHub ticket.
 - [Join our Slack channel](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA) for community support. We strive to be responsive and helpful.
-- [Contact the project team directly](https://kubeshark.com/contact-us) for dedicated and timely assistance.
+- [Contact the project team directly](https://kubeshark.co/contact-us) for dedicated and timely assistance.

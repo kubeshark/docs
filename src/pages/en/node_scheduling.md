@@ -7,7 +7,7 @@ mascot: Cute
 
 Node scheduling can be very beneficial when you want to control [Kubeshark](https://kubeshark.com)'s resource consumption and limit its work to certain nodes at certain times.
 
-For example, if you want to have [Kubeshark](https://kubeshark.com) installed and running in the cluster on a single node or on no nodes at all on idle, and unleash its power when nessasery.
+For example, if you want to have [Kubeshark](https://kubeshark.com) installed and running in the cluster on a single node or on no nodes at all when idle, and unleash its power when necessary.
 
 We use Kubernetes' [nodeSelector](https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector) as the mechanism and can set the various conditions in the  `nodeSelectorTerms` [Kubeshark](https://kubeshark.com) config property.
 

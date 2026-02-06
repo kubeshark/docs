@@ -1,6 +1,6 @@
 ---
 title: License
-description: 
+description: Kubeshark license structure and the Business Source License 1.1.
 layout: ../../layouts/MainLayout.astro
 ---
 **Full code transparency with fair limitation on commercial exploitation**

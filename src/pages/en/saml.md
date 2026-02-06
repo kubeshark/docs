@@ -1,6 +1,6 @@
 ---
 title: SAML
-description: 
+description: Configure SAML authentication for corporate identity integration and role-based access control.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---

@@ -1,6 +1,6 @@
 ---
 title: Kubeshark on Openshift
-description: 
+description: Deploy Kubeshark on Red Hat OpenShift clusters including ROSA on AWS.
 layout: ../../layouts/MainLayout.astro
 ---
 

@@ -4,67 +4,58 @@ description: Cluster-wide traffic snapshots for a specific time window, enabling
 layout: ../../../layouts/MainLayout.astro
 ---
 
-**Traffic Snapshots** create cluster-wide, immutable traffic snapshots from all nodes for a specific time window. Snapshots are stored separately from raw capture and persist indefinitely.
+Traffic Snapshots freeze a window of historical traffic from [Raw Capture](/en/v2/raw_capture) and preserve it permanently.
 
-## Configuration
+When you create a snapshot, you specify how far back to capture—last 5 minutes, last 1 hour, last 12 hours. The snapshot extracts that time window from raw capture buffers and moves it to dedicated storage where it becomes immutable.
 
-We recommend assigning a Persistent Volume Claim (PVC) for snapshots. Configure in your Helm values:
+| Constraint | Description |
+|------------|-------------|
+| Maximum window | Limited by raw capture retention (buffer size / traffic rate) |
+| Storage | Snapshots persist until explicitly deleted |
 
-```yaml
-tap:
-  snapshots:
-    storageClass: ""          # Storage class for snapshot PVCs (recommended)
-    storageSize: 20Gi         # Size allocated for snapshots
+### Dedicated Snapshot Storage
+
+A dedicated persistent volume can be attached to the Hub specifically for snapshot storage. Since snapshots are centralized on the Hub (not distributed across worker nodes), a single volume serves all snapshot storage needs. This enables:
+
+- **Larger capacity** — Store months of snapshots independent of worker node storage
+- **Different storage class** — Use cost-effective storage tiers for long-term retention
+- **Centralized management** — All snapshots in one location for easy access and cleanup
+
+See [Helm Configuration Reference](/en/helm_reference#snapshots) for `tap.snapshots.storageClass` and `tap.snapshots.storageSize` settings.
+
+| Resource | Link |
+|----------|------|
+| Configuration | [Snapshot Storage Settings](/en/v2/raw_capture_config#snapshot-storage) |
+| User Guide | [Creating & Managing Snapshots](/en/dashboard_snapshots) |
+
+---
+
+## How It Works
+
+```
++------------------------------------------------------------------+
+|  RAW CAPTURE (Node-level FIFO)                                   |
+|  +-----+-----+-----+-----+-----+-----+-----+-----+               |
+|  | Old |     |     |     |     |     |     | New | <-- New data  |
+|  +--+--+-----+-----+-----+-----+-----+-----+-----+               |
+|     |                                                            |
+|     v  Recycled (discarded)                                      |
++------------------------------------------------------------------+
+                          |
+                          |  Create Snapshot (before recycled)
+                          v
++------------------------------------------------------------------+
+|  SNAPSHOT STORAGE (Immutable)                                    |
+|  +------------------------------------------+                    |
+|  |  incident-2024-02-01                     |  Persists forever  |
+|  |  Time: 14:00 - 14:30                     |                    |
+|  +------------------------------------------+                    |
++------------------------------------------------------------------+
 ```
 
-### AWS Example
+[Raw Capture](/en/v2/raw_capture) continuously stores traffic in a node-level FIFO buffer. The buffer size is fixed—when it fills, older data is recycled to make room for new traffic. This allows continuous capture indefinitely, but past data is eventually lost.
 
-When using AWS, use the `gp2` storage class:
-
-```yaml
-tap:
-  snapshots:
-    storageClass: gp2
-    storageSize: 1000Gi
-```
-
-Once a dedicated storage class is configured, the storage size can be far larger than the standard size allocated to worker nodes.
-
-## Creating a Snapshot
-
-![Create Snapshot Dialog](/create-snapshot-dialog.png)
-
-To create a snapshot:
-
-1. **Name** - Enter a descriptive name for the snapshot
-2. **Nodes** - Select all nodes or specific nodes to include
-3. **Snapshot time** - Choose the time window (e.g., last 5 minutes, last 1 hour, last 12 hours)
-4. Click **Create**
-
-## Managing Snapshots
-
-![Snapshots Tab](/snapshots-tab.png)
-
-The **Snapshots** tab displays all snapshots with their details:
-- **Name** and **Size**
-- **Start Time** and **End Time** - The captured time window
-- **Status** - Creation progress (e.g., Completed)
-- **Created At** - When the snapshot was created
-- **Nodes** - Which nodes are included
-
-### Actions
-
-For each snapshot, you can:
-
-- **Download** - Retrieve the snapshot archive for offline storage
-- **PCAP** - Export to PCAP file for analysis in Wireshark or other tools
-- **Delete** - Remove the snapshot
-
-## Architecture
-
-[Raw Capture](/en/v2/raw_capture) is controlled by Helm values. When enabled, Kubeshark continuously captures traffic based on [Capture Filters](/en/pod_targeting). The actual storage will not surpass the configured Helm values, so capture can continue indefinitely. The more storage allocated, the larger the time window of retained data.
-
-In parallel—and independently—users can inspect real-time traffic or not. At any point, users can request a snapshot of the raw traffic.
+**Snapshots solve this**: by creating a snapshot before data is recycled, you extract and preserve a specific time window. The snapshot is moved to dedicated storage on the Hub, where it becomes immutable and persists until you delete it.
 
 ### What's in a Snapshot
 
@@ -78,8 +69,9 @@ Correlating all three sources enables future dissection to show traffic with ful
 
 ### Snapshot Lifecycle
 
-1. User requests a snapshot for selected nodes and a specified time window
-2. The snapshot archive is moved to the Hub
-3. The snapshot becomes **immutable**
-4. Raw capture files may be recycled over time, but **snapshots live forever**
+1. **Request**: User selects nodes and a time window from raw capture
+2. **Extract**: Traffic data is copied from raw capture buffers
+3. **Transfer**: The snapshot archive is moved to the Hub's snapshot storage
+4. **Immutable**: The snapshot is now permanent—raw capture can recycle the original data
 
+**Key point**: Once a snapshot is created, it's independent of raw capture. The original data in raw capture may be recycled over time, but the snapshot persists until you explicitly delete it.

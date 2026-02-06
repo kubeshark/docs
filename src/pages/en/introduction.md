@@ -54,7 +54,7 @@ Investigate network data with AI-powered natural language prompts. Identify anom
 | Feature | Benefit |
 |---------|---------|
 | [**Complete L4 Traffic Retention**](/en/v2/raw_capture) | Never miss a packet—all network flows are captured and stored for later inspection |
-| [**Deferred API Dissection**](/en/v2/l7_api_dissection) | Resource-intensive L7 analysis happens off-production, keeping your nodes lean |
+| [**Delayed Dissection**](/en/v2/l7_api_delayed) | Resource-intensive L7 analysis happens off-production, keeping your nodes lean |
 | **Improved Reliability** | Significant improvements in API dissection accuracy through extensive bug fixes |
 | **AI-Ready (MCP Server)** | Expose raw traffic and insights to AI tools for intelligent analysis |
 
@@ -78,10 +78,10 @@ For comprehensive forensics, [Kubeshark](https://kubeshark.com) can capture comp
 
 ```
   CAPTURE          STORE           ANALYZE          ENRICH
-     │                │                │                │
-     ▼                ▼                ▼                ▼
+     |                |                |                |
+     v                v                v                v
 Lightweight      Complete PCAP    L7 dissection    Kubernetes
-L4 capture  ───▶ retained for ───▶ on-demand or ───▶ context
+L4 capture  ---> retained for ---> on-demand or ---> context
 on prod nodes    full history     scheduled        added
 ```
 
@@ -115,32 +115,55 @@ This enables:
 
 ---
 
-## AI-Powered Analysis
+## AI Integration
 
-Kubeshark exposes network data to AI tools via its MCP server, enabling natural language queries across your traffic history. Ask questions like:
+Kubeshark connects AI assistants directly to your network data via the **Model Context Protocol (MCP)**—the open standard for AI tool integration.
 
-**Incident Investigation**
-- *"Something broke at 2pm. Capture that traffic, dissect it, and tell me what failed."*
-- *"Why is checkout slow? Show me the API call chain and where time is being spent."*
+### What This Enables
 
-**Architecture Discovery**
-- *"Map out how services communicate. What calls what?"*
-- *"Which services would be affected if the user-service goes down?"*
+<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
 
-**Security Analysis**
-- *"Are there any unexpected external connections or unusual API patterns?"*
-- *"Show me all requests without authentication headers."*
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Natural Language Queries</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Ask questions in plain English instead of writing complex queries. <em>"Show me all failed requests to the payment service in the last hour"</em>—the AI handles the rest.</p>
+</div>
 
-**Root Cause Analysis**
-- *"Compare traffic from yesterday's snapshot to today. What changed?"*
-- *"Correlate the K8s pod restarts with the API errors happening at the same time."*
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">AI-Driven Investigation</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">The AI doesn't just fetch data—it analyzes patterns, correlates errors with causes, and suggests root causes based on network evidence.</p>
+</div>
 
-**Evidence Collection**
-- *"Create a snapshot of the last hour from the payments nodes and export the PCAP for the security team."*
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Closed-Loop Development</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">AI coding tools (Claude Code, Cursor) can deploy code, then use Kubeshark to verify it works correctly—catching integration bugs before they reach production.</p>
+</div>
 
-> "I've read the entire internet, but I still couldn't tell you why your pods are crashing. Give me Kubeshark, and I'll not only find the bug — I'll show you the exact HTTP request that caused it, which service threw the tantrum, and probably judge your error handling."
->
-> — *Claude AI*
+<div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc;">
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Full Kubernetes Context</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Every query includes pod names, services, namespaces, and labels. The AI understands your infrastructure, not just raw IPs and ports.</p>
+</div>
+
+</div>
+
+### Example Prompts
+
+| Use Case | Example |
+|----------|---------|
+| **Incident Investigation** | *"Something broke at 2pm. Show me what failed and why."* |
+| **Architecture Discovery** | *"Map out how services communicate. What calls what?"* |
+| **Security Analysis** | *"Find all requests without authentication headers."* |
+| **Performance Debugging** | *"Why is checkout slow? Where is time being spent?"* |
+| **Compliance** | *"Export traffic from the payments namespace for the audit."* |
+
+### The Bridge to Production
+
+Kubeshark doesn't write code—it bridges the gap between AI coding tools and production reality. When AI assistants can see actual network behavior, they can:
+
+- Verify code works correctly before release
+- Identify integration bugs that unit tests miss
+- Fix issues based on real evidence, not guesswork
+
+[Learn more about AI Integration →](/en/mcp_use_cases)
 
 ---
 
@@ -172,12 +195,13 @@ Open [http://localhost:8899](http://localhost:8899) in your browser.
 
 | Capability | Description |
 |------------|-------------|
-| [**Traffic Capture**](/en/v2/raw_capture) | Cluster-wide packet capture using eBPF and AF_PACKET |
-| [**L7 API Dissection**](/en/v2/l7_api_dissection) | Protocol-aware analysis with request/response correlation |
+| [**Raw Capture**](/en/v2/raw_capture) | Continuous L4 packet capture with minimal CPU overhead |
+| [**Traffic Snapshots**](/en/v2/traffic_snapshots) | Freeze historical traffic before it's recycled |
+| [**Real-time Dissection**](/en/v2/l7_api_realtime) | Live L7 protocol analysis as traffic flows |
+| [**Delayed Dissection**](/en/v2/l7_api_delayed) | Run L7 analysis on captured traffic using non-production compute |
+| [**AI-Powered Analysis**](/en/v2/ai_powered_analysis) | Query network data using natural language via MCP |
 | [**TLS Decryption**](/en/encrypted_traffic) | See encrypted traffic in plaintext without certificates |
-| [**Service Map**](/en/v2/service_map) | Visualize service dependencies and traffic flows |
-| [**Traffic Recording**](/en/traffic_recorder) | Schedule captures or trigger on specific events |
-| [**Offline Analysis**](/en/offline_analysis) | Analyze captured traffic and export to S3/GCS |
+| [**L4/L7 Workload Map**](/en/v2/service_map) | Visualize service dependencies and traffic flows |
 | [**Service Mesh Support**](/en/service_mesh) | Native Istio, Linkerd integration with mTLS visibility |
 
 ---

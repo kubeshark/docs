@@ -210,7 +210,7 @@ aws iam create-policy --policy-name "<CLUSTER NAME>-rosa-efs-csi" \
    --output text
 ```
 
-Save its output which is **`ARN`** of new created **IAM policy**  forbelow use
+Save its output which is **`ARN`** of new created **IAM policy** for use below.
 
 ###### Attach IAM policy to the role
 
