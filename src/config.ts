@@ -107,6 +107,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Delayed Dissection', link: 'en/mcp/delayed_dissection' },
       { text: 'MCP CLI', link: 'en/mcp/cli' },
       { text: 'Claude Code Integration', link: 'en/mcp/claude_code', icon: '/claude-icon.svg' },
+      { text: 'GitHub Copilot Integration', link: 'en/mcp/github_copilot', icon: '/copilot-icon.svg' },
     ],
     'Traffic Filters': [
       { text: 'Capture Filters', link: 'en/pod_targeting' },
