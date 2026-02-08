@@ -37,13 +37,6 @@ export const GITHUB_EDIT_URL = `https://github.com/kubeshark/docs/tree/master`;
 export const DISCORD_SERVER_INVITE = `https://discord.gg/WkvRGMUcx7`;
 export const SLACK_WORKSPACE_INVITE = `https://join.slack.com/t/kubeshark/shared_invite/zt-3jdcdgxdv-1qNkhBh9c6CFoE7bSPkpBQ`;
 
-// See "Algolia" section of the README for more information.
-export const ALGOLIA = {
-  indexName: 'main',
-  appId: 'JS4V288LOI',
-  apiKey: 'e0614ede1abb0d9f1e03350b5dfb1114',
-};
-
 export type Sidebar = Record<
   typeof KNOWN_LANGUAGE_CODES[number],
   Record<string, { text: string; link: string; icon?: string }[]>

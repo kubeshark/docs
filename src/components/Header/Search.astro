@@ -1,0 +1,272 @@
+---
+// Pagefind Search Component
+---
+
+<div class="search-container">
+	<button type="button" id="search-button" class="search-input">
+		<svg width="24" height="24" fill="none" aria-hidden="true">
+			<path
+				d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+		</svg>
+		<span>Search</span>
+		<span class="search-hint">
+			<kbd>/</kbd>
+		</span>
+	</button>
+</div>
+
+<script>
+	// Load Pagefind UI
+	async function initPagefind() {
+		const pagefindPath = '/pagefind/pagefind-ui.js';
+
+		try {
+			// @ts-ignore
+			await import(pagefindPath);
+
+			// Create modal container
+			const modalContainer = document.createElement('div');
+			modalContainer.id = 'pagefind-modal';
+			modalContainer.innerHTML = `
+				<div class="pagefind-modal-overlay"></div>
+				<div class="pagefind-modal-content">
+					<button class="pagefind-modal-close" aria-label="Close search">&times;</button>
+					<div id="pagefind-search"></div>
+				</div>
+			`;
+			document.body.appendChild(modalContainer);
+
+			// @ts-ignore
+			new PagefindUI({
+				element: '#pagefind-search',
+				showSubResults: true,
+				showImages: false,
+			});
+
+			const searchButton = document.getElementById('search-button');
+			const modal = document.getElementById('pagefind-modal');
+			const overlay = modal?.querySelector('.pagefind-modal-overlay');
+			const closeBtn = modal?.querySelector('.pagefind-modal-close');
+			const searchInput = modal?.querySelector('.pagefind-ui__search-input') as HTMLInputElement;
+
+			function openModal() {
+				modal?.classList.add('active');
+				document.body.style.overflow = 'hidden';
+				setTimeout(() => searchInput?.focus(), 100);
+			}
+
+			function closeModal() {
+				modal?.classList.remove('active');
+				document.body.style.overflow = '';
+			}
+
+			searchButton?.addEventListener('click', openModal);
+			overlay?.addEventListener('click', closeModal);
+			closeBtn?.addEventListener('click', closeModal);
+
+			document.addEventListener('keydown', (e) => {
+				if (e.key === '/' && !modal?.classList.contains('active')) {
+					const target = e.target as HTMLElement;
+					if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+						e.preventDefault();
+						openModal();
+					}
+				}
+				if (e.key === 'Escape' && modal?.classList.contains('active')) {
+					closeModal();
+				}
+			});
+		} catch (e) {
+			console.warn('Pagefind not available - run build first');
+		}
+	}
+
+	// Initialize when DOM is ready
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initPagefind);
+	} else {
+		initPagefind();
+	}
+</script>
+
+<style is:global>
+	/* Search button styles */
+	.search-container {
+		flex-grow: 1;
+		position: relative;
+	}
+
+	.search-input {
+		display: flex;
+		align-items: center;
+		gap: 0.5em;
+		width: 100%;
+		margin: 0;
+		padding: 0.33em 0.5em;
+		font-weight: 500;
+		font-size: 1rem;
+		font-family: inherit;
+		line-height: inherit;
+		background-color: var(--theme-divider);
+		border: 1px solid var(--theme-divider);
+		color: var(--theme-text-light);
+		border-radius: 0.25rem;
+		cursor: pointer;
+		transition: border-color 0.2s ease-out, color 0.2s ease-out;
+	}
+
+	.search-input:hover,
+	.search-input:focus {
+		color: var(--theme-text);
+		border-color: var(--theme-text-light);
+	}
+
+	.search-hint {
+		margin-left: auto;
+		padding: 3px 5px;
+		display: none;
+		font-size: 13px;
+		font-family: var(--font-mono);
+		border: 1px solid var(--theme-text-lighter);
+		color: var(--theme-text-light);
+		border-radius: 0.25rem;
+		line-height: 14px;
+	}
+
+	@media (min-width: 50em) {
+		.search-hint {
+			display: flex;
+		}
+	}
+
+	/* Modal styles */
+	#pagefind-modal {
+		display: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 9999;
+	}
+
+	#pagefind-modal.active {
+		display: block;
+	}
+
+	.pagefind-modal-overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.5);
+		backdrop-filter: blur(2px);
+	}
+
+	.pagefind-modal-content {
+		position: absolute;
+		top: 10%;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 90%;
+		max-width: 600px;
+		max-height: 80vh;
+		background: var(--theme-bg);
+		border-radius: 8px;
+		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.pagefind-modal-close {
+		position: absolute;
+		top: 8px;
+		right: 12px;
+		background: none;
+		border: none;
+		font-size: 24px;
+		cursor: pointer;
+		color: var(--theme-text-light);
+		z-index: 1;
+	}
+
+	.pagefind-modal-close:hover {
+		color: var(--theme-text);
+	}
+
+	/* Pagefind UI customization */
+	#pagefind-search {
+		padding: 1rem;
+		overflow-y: auto;
+	}
+
+	.pagefind-ui__search-input {
+		width: 100%;
+		padding: 0.75rem 1rem;
+		font-size: 1rem;
+		border: 2px solid var(--theme-divider);
+		border-radius: 6px;
+		background: var(--theme-bg);
+		color: var(--theme-text);
+	}
+
+	.pagefind-ui__search-input:focus {
+		outline: none;
+		border-color: var(--theme-accent);
+	}
+
+	.pagefind-ui__search-clear {
+		background: var(--theme-divider);
+		color: var(--theme-text);
+	}
+
+	.pagefind-ui__results-area {
+		margin-top: 1rem;
+	}
+
+	.pagefind-ui__result {
+		padding: 1rem;
+		border: 1px solid var(--theme-divider);
+		border-radius: 6px;
+		margin-bottom: 0.5rem;
+	}
+
+	.pagefind-ui__result:hover {
+		border-color: var(--theme-accent);
+	}
+
+	.pagefind-ui__result-link {
+		color: var(--theme-accent);
+		text-decoration: none;
+		font-weight: 600;
+	}
+
+	.pagefind-ui__result-link:hover {
+		text-decoration: underline;
+	}
+
+	.pagefind-ui__result-excerpt {
+		color: var(--theme-text-light);
+		font-size: 0.9rem;
+		margin-top: 0.5rem;
+	}
+
+	.pagefind-ui__result-excerpt mark {
+		background: var(--theme-accent);
+		color: white;
+		padding: 0.1em 0.2em;
+		border-radius: 2px;
+	}
+
+	.pagefind-ui__message {
+		color: var(--theme-text-light);
+		padding: 1rem 0;
+	}
+</style>
