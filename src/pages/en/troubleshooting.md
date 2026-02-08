@@ -125,5 +125,5 @@ Some users have reported a surge in audit log events following [Kubeshark](https
 If the provided solutions do not resolve your issue, other resources are available to assist you promptly:
 
 - [Report a bug](https://github.com/kubeshark/kubeshark/issues) by creating a GitHub ticket.
-- [Join our Slack channel](https://join.slack.com/t/kubeshark/shared_invite/zt-1m90td3n7-VHxN_~V5kVp80SfQW3SfpA) for community support. We strive to be responsive and helpful.
+- [Join our Slack channel](https://join.slack.com/t/kubeshark/shared_invite/zt-3jdcdgxdv-1qNkhBh9c6CFoE7bSPkpBQ) for community support. We strive to be responsive and helpful.
 - [Contact the project team directly](https://kubeshark.co/contact-us) for dedicated and timely assistance.
