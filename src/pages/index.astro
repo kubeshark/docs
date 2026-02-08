@@ -1,5 +1,16 @@
-<script is:inline>
-	// Redirect your homepage to the first page of documentation.
-	// If you have a landing page, remove this script and add it here!
-	window.location.pathname = `/en/introduction`;
-</script>
+---
+// Redirect homepage to the first page of documentation.
+// Using meta refresh for SEO-friendly redirect instead of JavaScript.
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="refresh" content="0;url=/en/introduction" />
+	<link rel="canonical" href="/en/introduction" />
+	<title>Redirecting to Kubeshark Documentation</title>
+</head>
+<body>
+	<p>Redirecting to <a href="/en/introduction">Kubeshark Documentation</a>...</p>
+</body>
+</html>
