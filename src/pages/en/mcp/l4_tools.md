@@ -515,6 +515,134 @@ From L4 flow data, AI assistants can derive:
 
 ---
 
+## Flows Without Kubernetes Context
+
+Some L4 flow entries may have partial or missing Kubernetes metadata (pod name, namespace, service). This is expected behavior—not all traffic originates from or terminates at pods.
+
+### Why It Happens
+
+Kubeshark enriches L4 flows by mapping `IP → Container → Pod → Service`. When any step in this chain fails, the flow will have incomplete Kubernetes context.
+
+| Scenario | What You'll See | Example |
+|----------|-----------------|---------|
+| **Host-level processes** | `cgroup_id` only, no `pod` | Kubelet, kube-proxy, node daemons |
+| **External traffic** | IP only, no K8s fields | Traffic from/to IPs outside the cluster |
+| **Kubernetes API** | `svc: kubernetes` but no `pod` | API server runs on control plane nodes |
+| **Service IP (pre-DNAT)** | `svc` only, no `pod` | Traffic captured at ClusterIP before routing |
+| **NAT64 addresses** | `64:ff9b::` prefix | IPv6-to-IPv4 translation to external |
+
+### Common Patterns
+
+**1. Kubelet Traffic (port 10250)**
+
+```json
+{
+  "server": {
+    "ip": "10.0.9.202",
+    "port": 10250,
+    "cgroup_id": 6244
+  }
+}
+```
+
+Port 10250 is the kubelet API. The kubelet runs directly on the node, not in a pod—so there's no pod name. The `cgroup_id` identifies the host-level process.
+
+**2. Kubernetes API Service**
+
+```json
+{
+  "server": {
+    "ip": "10.0.17.9",
+    "port": 443,
+    "ns": "default",
+    "svc": "kubernetes"
+  }
+}
+```
+
+The `kubernetes` service ClusterIP points to API servers on control plane nodes. Since control plane nodes are often outside the worker's visibility, only the service name is resolved.
+
+**3. External Destinations**
+
+```json
+{
+  "client": {
+    "ip": "10.0.25.180",
+    "cgroup_id": 5284
+  },
+  "server": {
+    "ip": "13.220.36.175",
+    "port": 443
+  }
+}
+```
+
+External IPs (cloud provider endpoints, external APIs) have no Kubernetes context because they're outside the cluster.
+
+**4. NAT64 Translation**
+
+```json
+{
+  "client": {
+    "ip": "2600:1f18:f60:7603:a06a:42c1:af2f:d44e",
+    "pod": "aws-node-n67fx",
+    "ns": "kube-system"
+  },
+  "server": {
+    "ip": "64:ff9b::6257:ace0",
+    "port": 443
+  }
+}
+```
+
+The `64:ff9b::/96` prefix indicates NAT64—IPv6 pods connecting to IPv4 external endpoints. The client has full context, but the server is external.
+
+**5. Metrics Server to Kubelet**
+
+```json
+{
+  "client": {
+    "ip": "10.0.45.68",
+    "ns": "kube-system",
+    "svc": "metrics-server"
+  },
+  "server": {
+    "ip": "10.0.9.201",
+    "port": 10250,
+    "cgroup_id": 6244
+  }
+}
+```
+
+The metrics-server queries kubelets on each node. Client shows service IP (before DNAT to pod), server shows kubelet (host process).
+
+### Identifying the Pattern
+
+Use `format=full` to see `cgroup_id` and `container_id` fields, which help identify:
+
+| Field Present | Meaning |
+|---------------|---------|
+| `pod` + `container_id` + `cgroup_id` | Full pod context |
+| `cgroup_id` only | Host-level process |
+| `svc` only | Service IP (pre-DNAT) |
+| Neither | External endpoint |
+
+### Common cgroup IDs
+
+Within a cluster, you may notice recurring `cgroup_id` values for host processes:
+
+- Kubelet typically appears with a consistent cgroup ID per node
+- System daemons have their own cgroup IDs
+- These IDs are stable for the lifetime of the process
+
+<div class="callout callout-tip">
+
+**Tip**: To filter out host-level traffic and focus on pod-to-pod flows, use the `pod` or `ns` query parameters. Flows without pod context won't match these filters.
+
+</div>
+
+---
+
 ## What's Next
 
 - [How MCP Works](/en/mcp) — Understanding the Model Context Protocol
