@@ -10,8 +10,7 @@ Install [Kubeshark](https://kubeshark.com) using one of the following methods:
 - [Helm](#helm): Recommended  
 - [Kubernetes Manifest](#k8s-manifest): Use `kubectl apply`  
 - [Homebrew](#homebrew): Use `brew install` 
-- [Build from source](#build-from-source): For those who prefer to build locally rather than download  
-- [Shell script](#shell-script): For dev/test clusters, runs on any OS  
+- [Build from source](#build-from-source): For those who prefer to build locally rather than download
 
 ## Helm  
 
@@ -50,21 +49,6 @@ kubeshark tap
 # cleanup  
 kubeshark clean  
 ```  
-
-## Shell Script  
-
-To download the appropriate binary for your system:  
-```shell  
-sh <(curl -Ls https://kubeshark.co/install)  
-kubeshark tap  
-
-# cleanup  
-kubeshark clean  
-```  
-
-> The actual script is [here](https://github.com/kubeshark/kubeshark/blob/master/install.sh).  
-
-Alternatively, you can directly download the suitable binary from the [latest release](https://github.com/kubeshark/kubeshark/releases/latest).  
 
 ## Build from Source  
 
