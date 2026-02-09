@@ -340,7 +340,7 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.release.repo` | Helm chart repository | `https://helm.kubeshark.co` |
+| `tap.release.repo` | Helm chart repository | `https://helm.kubeshark.com` |
 | `tap.release.name` | Helm release name | `kubeshark` |
 | `tap.release.namespace` | Helm release namespace | `default` |
 
