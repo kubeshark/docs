@@ -5,6 +5,8 @@ layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 [Kubeshark](https://kubeshark.com) monitors all traffic at all time. 
 It triggers custom code that can process each API caall and can result in triggering an action.
 For example, the custom code can search for a JAON field in an API call response, advance a count and perioidically send the count as a custom metric to grafana.

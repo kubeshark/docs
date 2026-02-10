@@ -5,6 +5,8 @@ layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 [GitHub Copilot](https://github.com/features/copilot) supports the Model Context Protocol (MCP), allowing you to connect Kubeshark and query Kubernetes network traffic using natural language directly from VS Code or the Copilot coding agent.
 
 ---

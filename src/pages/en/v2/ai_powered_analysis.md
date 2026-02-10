@@ -4,6 +4,8 @@ description: Give your AI assistant eyes into your Kubernetes network—every AP
 layout: ../../../layouts/MainLayout.astro
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 **Your AI assistant can now see inside your cluster.** Every API call. Every connection. Every payload. Real-time and historical.
 
 Kubeshark bridges AI to your production network via the **Model Context Protocol (MCP)**—the open standard used by Claude, Cursor, and other AI tools. The result: network investigation through conversation.

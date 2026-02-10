@@ -5,6 +5,8 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 This page walks through a complete example of AI-powered network analysis—from the user's question to actionable insights.
 
 ---

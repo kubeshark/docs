@@ -5,6 +5,8 @@ layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 [Network traffic holds answers](/en/why_network_data) to your toughest debugging, security, and performance questions. The **Model Context Protocol (MCP)** is how AI assistants access that data.
 
 ---

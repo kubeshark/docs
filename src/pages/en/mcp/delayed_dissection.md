@@ -5,6 +5,8 @@ layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 **Delayed dissection** allows you to run L7 protocol analysis on previously captured snapshots. Instead of dissecting traffic in real-time, you can capture raw packets first, then analyze them later—useful for incident investigation, compliance audits, and forensic analysis.
 
 ---

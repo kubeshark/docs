@@ -5,6 +5,8 @@ layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 The `kubeshark mcp` command runs an MCP (Model Context Protocol) server over stdio, enabling AI assistants like Claude Desktop, Cursor, and other MCP-compatible clients to query Kubeshark's network visibility data.
 
 ---
