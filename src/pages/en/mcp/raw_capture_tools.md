@@ -5,6 +5,8 @@ layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI assistants to create point-in-time traffic snapshots, query data boundaries, and export PCAP files for external analysis.
 
 ---

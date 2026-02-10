@@ -5,6 +5,8 @@ layout: ../../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
+> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
+
 **Kubeshark doesn't write code—it bridges the last mile to production.**
 
 AI coding assistants (Claude Code, Cursor, Copilot) can write and deploy code, but they lack visibility into how that code actually behaves in a Kubernetes environment. Kubeshark closes this gap by providing real-time network feedback, enabling AI tools to identify issues and fix them *before* releasing to production.
