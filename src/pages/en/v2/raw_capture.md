@@ -6,7 +6,7 @@ layout: ../../../layouts/MainLayout.astro
 
 Raw Capture provides continuous L4 (TCP/UDP) packet capture across all nodes with minimal CPU overhead. It operates independently from L7 dissection and stores all traffic in a node-level FIFO buffer.
 
-[Configuration →](/en/v2/raw_capture_config)
+> **Helm Configuration:** Control raw capture settings—storage size, capture filters, snapshot storage, and more—via Helm values. See [Raw Capture Configuration](/en/v2/raw_capture_config) for details.
 
 ---
 
@@ -45,7 +45,7 @@ Raw Capture and L7 dissection are controlled separately:
 
 Both can run simultaneously, or raw capture can run alone. This enables continuous packet retention with L7 dissection enabled only when needed.
 
-See [Enabling/Disabling Dissection](/en/on_off_switch) for operational details.
+These settings are configured via Helm values. See [Raw Capture Configuration](/en/v2/raw_capture_config) for the full configuration reference and [Enabling/Disabling Dissection](/en/on_off_switch) for operational details.
 
 ---
 
