@@ -31,7 +31,7 @@ Investigate network data with AI-powered natural language prompts. Identify anom
 
 <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
 <h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">AI-Driven Incident Response</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Never lose a packet. At the onset of an incident—or first symptoms—snapshot traffic from involved workloads and replay every step like CCTV footage.</p>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Never lose a packet. At the onset of an incident—or first symptoms—trigger a snapshot of recent hours traffic from involved workloads and replay every step like CCTV footage.</p>
 </div>
 
 <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
