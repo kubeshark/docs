@@ -13,51 +13,71 @@ The network carries **everything**. Every API call, every database query, every 
 
 In a Kubernetes environment, network traffic contains far more than connectivity data. It's where your entire application executes.
 
+### Network Layer
+
+| What's in the Data | Examples |
+|-------------------|----------|
+| **Packet-Level Context** | Source/destination IP, port, protocol, packet size, TCP flags (SYN/ACK/FIN/RST), MTU, fragmentation |
+| **TCP Handshake Latency** | Round-trip time of the 3-way handshake, isolating network latency from application processing |
+| **Connection Lifecycle** | Establishment, reuse, and teardown—keep-alive behavior, connection pool utilization, resets, half-open connections |
+| **Congestion & Packet Loss** | Retransmissions, window scaling, zero-window events, duplicate ACKs, buffer pressure |
+| **DNS Resolution** | Every query and response, resolution latency, NXDOMAIN errors, TTL behavior, caching effectiveness |
+| **TLS Negotiation** | Handshake timing, cipher selection, certificate exchange, protocol version, handshake failures |
+| **Encrypted Traffic** | TLS-encrypted communication—HTTPS payloads, mTLS service-to-service calls, encrypted database connections |
+| **Traffic Volume & Rates** | Bytes, packets, and throughput per flow, per service, per node—bandwidth consumption and payload size distribution |
+| **Cross-Node & Cross-AZ Traffic** | Node-to-node latency, cross-availability-zone round-trip times, remote node communication patterns |
+
 ### Application & Business Logic
 
-Your APIs don't run in isolation—they run on the network. Every transaction, every user action, every business decision flows through as network traffic:
+| What's in the Data | Examples |
+|-------------------|----------|
+| **Complete Payloads** | Full request and response bodies, headers, metadata—every byte exchanged between services |
+| **API Transactions** | Reconstructed request-response pairs—`POST /api/checkout` → `200 OK` with full bodies on both sides |
+| **Distributed Flows** | Multi-service call chains that make up a single user action—frontend → gateway → auth → payment → database |
+| **Service-to-Service Communication** | Every internal (east-west) interaction—API calls, cache lookups, message queue publish/consume |
+| **Request-Response Latency** | Time from request sent to response received at each hop, without sampling or averaging |
+| **Retry & Timeout Behavior** | Automatic retries, backoff patterns, timeout configurations—retry storms, cascading timeouts in action |
 
-- **Complete API payloads** — Full request and response bodies, not just status codes
-- **Transaction flows** — The actual sequence of calls that make up a user journey
-- **Service contracts in action** — What services *actually* send vs. what's documented
-- **Validation decisions** — What gets accepted, what gets rejected, and the exact error returned
-- **State changes** — Data transformations as information moves between services
+### Kubernetes Context
 
-<div class="callout callout-info">
+| What's in the Data | Examples |
+|-------------------|----------|
+| **Pod Identity** | Source and destination pod name, namespace, labels, and owning deployment for every connection |
+| **Service Mapping** | Which services communicate, resolved from ClusterIP to backing pods—actual traffic paths vs. declared intent |
+| **Namespace Boundaries** | Cross-namespace traffic flows, namespace isolation verification |
+| **Node Placement** | Which node each workload runs on, revealing topology-aware routing and data locality patterns |
 
-**Beyond the Firewall**: Traditional network monitoring focuses on connectivity—is traffic flowing? Network *data* analysis goes deeper: what is being said, is it correct, and what does it mean for the business?
+### Operating System Context
 
-</div>
+| What's in the Data | Examples |
+|-------------------|----------|
+| **Process Identity** | The exact process (PID, binary name) that initiated or accepted each connection |
+| **Socket State** | Open sockets, socket-to-process mapping, file descriptor usage per container |
+| **Container Mapping** | Container ID and runtime context linked to each network flow |
+| **Syscall Context** | System calls (connect, accept, sendto, recvfrom) that triggered network activity |
 
-### Performance & Latency
+### Infrastructure & Security
 
-Network traffic reveals performance characteristics that other observability tools miss or approximate:
+| What's in the Data | Examples |
+|-------------------|----------|
+| **Network Policies** | Which traffic is allowed or denied by Kubernetes NetworkPolicy, Calico, or Cilium rules—and what's violating them |
+| **Firewall Decisions** | Traffic blocked or permitted by iptables, nftables, or cloud security groups—drops, rejects, and pass-throughs |
+| **Load Distribution** | How traffic spreads across replicas, endpoints, and nodes—hot spots, imbalanced routing, uneven utilization |
+| **Authentication & Authorization** | Tokens, credentials, API keys as they transit the wire—JWT, OAuth flows, 401/403 response patterns |
+| **Sensitive Data in Transit** | PII, payment data, and regulated information flowing between services—credit card numbers, health records in API payloads |
+| **Rate Limiting** | Throttling decisions and 429 responses—which clients are being limited, at what thresholds, and how often |
 
-- **Actual latency at each hop** — Not sampled, not averaged, the real time for every request
-- **Time decomposition** — DNS resolution, TCP handshake, TLS negotiation, server processing, data transfer
-- **Payload impact** — How request/response sizes affect throughput
-- **Retry behavior** — Automatic retries, backoff patterns, timeout configurations in action
-- **Connection overhead** — Keep-alive efficiency, connection pool behavior, cold start penalties
+---
 
-### Security & Compliance
+## The Scale Problem
 
-Network traffic is where security policies are enforced—or violated:
+Network data is massive. A single Kubernetes cluster can generate **gigabytes of traffic per minute** across hundreds of nodes, thousands of pods, and tens of thousands of concurrent connections. This isn't log data measured in lines—it's raw packet data measured in terabytes per day.
 
-- **Authentication in action** — Tokens, credentials, API keys as they're transmitted
-- **Authorization decisions** — What's allowed, what's denied, access patterns over time
-- **Sensitive data flows** — PII, payment data, healthcare records moving between services
-- **East-west traffic** — Internal service communication often invisible to perimeter security
-- **Anomaly detection** — Unusual access patterns, unexpected destinations, data exfiltration indicators
+- **Volume** — Every API call, health check, DNS lookup, and database query produces packets. Even a modest cluster generates millions of packets per minute.
+- **Distribution** — Data is spread across every node, captured at different network interfaces and kernel namespaces. A single API transaction may span multiple nodes, each holding a fragment.
+- **Speed** — Packets are ephemeral and must be captured in real time. Buffers overflow, packets drop, and gaps appear. There's no "retry" for missed traffic.
 
-### Infrastructure Health
-
-The network layer reveals infrastructure problems before they become outages:
-
-- **TCP connection states** — Handshake failures, resets, half-open connections
-- **DNS behavior** — Resolution times, failures, caching effectiveness
-- **TLS health** — Certificate issues, handshake failures, protocol mismatches
-- **Load distribution** — Traffic patterns across replicas, hot spots, imbalanced routing
-- **Service discovery** — How services find each other, registration/deregistration patterns
+These forces compound: capturing at scale, processing raw packets into protocol-level conversations, and correlating across services each multiplies the cost. Most teams either sample aggressively (losing completeness) or capture only during active incidents (missing the traffic that led up to the problem).
 
 ---
 
