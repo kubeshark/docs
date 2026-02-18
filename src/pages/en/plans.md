@@ -32,7 +32,7 @@ The Pro edition offers volume-based pricing for any cluster size. Choose a tier 
 - Requires internet connectivity
 - Community support
 
-**On-demand capacity:** Additional capacity can be purchased at **$5 per 1M API calls** when you exceed your daily limit.
+**On-demand capacity:** Additional capacity can be purchased at **$5 per 100K API calls** when you exceed your daily limit.
 
 > API capacity is measured in dissected API calls that appear in the dashboard.
 
