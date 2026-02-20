@@ -96,6 +96,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'How It Works', link: 'en/mcp' },
       { text: 'L7 API Calls', link: 'en/mcp/l7_tools' },
       { text: 'L4 Traffic Flows', link: 'en/mcp/l4_tools' },
+      { text: 'TCP Expert Insights', link: 'en/mcp/tcp_insights' },
       { text: 'Snapshots & Raw Capture', link: 'en/mcp/raw_capture_tools' },
       { text: 'Delayed Dissection', link: 'en/mcp/delayed_dissection' },
       { text: 'MCP CLI', link: 'en/mcp/cli' },
@@ -143,6 +144,11 @@ export const SIDEBAR: Sidebar = {
       // { text: 'K8s Lens', link: 'en/integrations_lens' },
       // { text: 'Websocket API endpoints', link: 'en/api_endpoints' },
     // ],
+    'Use Cases': [
+      { text: 'Real-time Traffic Inspection', link: 'en/use-cases/real_time_traffic_inspection' },
+      { text: 'Incident Response', link: 'en/use-cases/incident_response' },
+      { text: 'Traffic Forensics', link: 'en/use-cases/forensics' },
+    ],
     'Commercial': [
       { text: 'License Portal & License Key', link: 'en/license_portal' },
       { text: 'Community vs Pro vs Enterprise', link: 'en/plans' },

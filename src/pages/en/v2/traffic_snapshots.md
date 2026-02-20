@@ -8,6 +8,12 @@ Traffic Snapshots freeze a window of historical traffic from [Raw Capture](/en/v
 
 When you create a snapshot, you specify how far back to capture—last 5 minutes, last 1 hour, last 12 hours. The snapshot extracts that time window from raw capture buffers and moves it to dedicated storage where it becomes immutable.
 
+<div class="callout callout-info">
+
+**Use Cases:** Traffic Snapshots are central to both [Incident Response](/en/use-cases/incident_response) (preserve evidence on demand when an incident is detected) and [Traffic Forensics](/en/use-cases/forensics) (pull any time window from cloud storage for after-the-fact investigation).
+
+</div>
+
 | Constraint | Description |
 |------------|-------------|
 | Maximum window | Limited by raw capture retention (buffer size / traffic rate) |

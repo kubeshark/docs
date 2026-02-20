@@ -90,7 +90,7 @@ Kubeshark's MCP server gives AI assistants access to your complete network pictu
 
 #### TCP Handshake RTT Fields
 
-The `list_l4_flows` tool returns TCP handshake timing metrics that measure network health:
+The `list_l4_flows` tool returns TCP handshake timing metrics that measure network health. For deeper per-packet TCP analysis (retransmissions, jitter, window problems, connection lifecycle), see [TCP Expert Insights](/en/mcp/tcp_insights).
 
 | Field | Description |
 |-------|-------------|
