@@ -96,6 +96,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'How It Works', link: 'en/mcp' },
       { text: 'L7 API Calls', link: 'en/mcp/l7_tools' },
       { text: 'L4 Traffic Flows', link: 'en/mcp/l4_tools' },
+      { text: 'TCP Expert Insights', link: 'en/mcp/tcp_insights' },
       { text: 'Snapshots & Raw Capture', link: 'en/mcp/raw_capture_tools' },
       { text: 'Delayed Dissection', link: 'en/mcp/delayed_dissection' },
       { text: 'MCP CLI', link: 'en/mcp/cli' },
