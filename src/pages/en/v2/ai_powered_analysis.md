@@ -73,6 +73,8 @@ When production breaks, you piece together clues from logs, metrics, and tracesâ
 >
 > This indicates upstream congestion or a network path issue.
 
+With [TCP Expert Insights](/en/mcp/tcp_insights), the AI can go deeper â€” querying per-connection retransmission rates, zero-window events, RTT jitter, and connection completeness to pinpoint whether the issue is packet loss, receiver backpressure, or a failing network path.
+
 ---
 
 ## Use Cases
