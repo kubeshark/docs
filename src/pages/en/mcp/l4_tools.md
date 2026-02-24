@@ -37,6 +37,50 @@ This provides a lightweight way to understand cluster connectivity patterns with
 
 ---
 
+## How L4 Flows Are Captured
+
+L4 flows are powered by [flowtracer](https://github.com/kubeshark/flowtracer), an eBPF-based library that hooks into kernel socket operations — no packet capture or dissection required.
+
+### eBPF Kernel Hooks
+
+Flowtracer attaches **kprobes** and **tracepoints** to kernel functions that handle socket lifecycle and data transfer:
+
+| Hook | Kernel Function | What It Captures |
+|------|----------------|------------------|
+| kprobe | `tcp_v4_connect` / `tcp_v6_connect` | Client TCP connection initiation |
+| kretprobe | `inet_csk_accept` | Server accepts new TCP connection |
+| kprobe | `tcp_close` | TCP connection close |
+| kprobe/kretprobe | `tcp_sendmsg` / `tcp_recvmsg` | TCP byte and packet counters |
+| kprobe/kretprobe | `udp_sendmsg` / `udp_recvmsg` | UDP byte and packet counters |
+| kprobe | `udp_init_sock` / `udp_destroy_sock` | UDP socket lifecycle |
+
+Each socket is tracked in a BPF hash map keyed by the kernel `struct sock *` pointer. On every `sendmsg`/`recvmsg` return, the eBPF program increments per-socket TX/RX packet and byte counters.
+
+### TCP Handshake RTT Measurement
+
+Handshake timing uses the kernel **tracepoint** `sock/inet_sock_set_state`, which fires on every TCP state transition:
+
+1. When a socket enters **`SYN_SENT`** (client) or **`SYN_RECV`** (server), the eBPF program records a nanosecond timestamp in an LRU map
+2. When the socket reaches **`ESTABLISHED`**, it calculates RTT = `now - t_syn_ns` and emits the result to userspace via a perf ring buffer
+
+This gives nanosecond-precision handshake timing measured entirely inside the kernel — no packet inspection needed.
+
+### Userspace Aggregation
+
+In userspace, flowtracer:
+
+- **Samples** the BPF socket stats map every **5 seconds** to compute per-flow byte/packet deltas and rates
+- **Aggregates handshake RTT** using **t-digest** (a probabilistic data structure) over a sliding 2-minute window, yielding P50, P90, and P99 percentiles in microseconds
+- **Enriches** flows with Kubernetes context (pod, service, namespace, node) by mapping IP → container → pod
+
+### Why This Matters
+
+Because flowtracer operates at the socket level (not packet level), it adds **negligible overhead** — the kernel already maintains socket counters internally. This is why L4 flows are available without enabling dissection and can run continuously in production.
+
+For deeper per-packet TCP analysis (retransmissions, jitter, window problems), see [TCP Expert Insights](/en/mcp/tcp_insights).
+
+---
+
 ## When to Use L4 vs L7
 
 | Use Case | L4 Flows | L7 Dissection |

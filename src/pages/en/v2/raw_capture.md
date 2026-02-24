@@ -6,6 +6,12 @@ layout: ../../../layouts/MainLayout.astro
 
 Raw Capture provides continuous L4 (TCP/UDP) packet capture across all nodes with minimal CPU overhead. It operates independently from L7 dissection and stores all traffic in a node-level FIFO buffer.
 
+<div class="callout callout-info">
+
+**Use Cases:** Raw Capture is the foundation for both [Incident Response](/en/use-cases/incident_response) (on-demand snapshots from the local rolling buffer) and [Traffic Forensics](/en/use-cases/forensics) (continuous backup to cloud storage for long-term historical investigation).
+
+</div>
+
 > **Helm Configuration:** Control raw capture settings—storage size, capture filters, snapshot storage, and more—via Helm values. See [Raw Capture Configuration](/en/v2/raw_capture_config) for details.
 
 ---

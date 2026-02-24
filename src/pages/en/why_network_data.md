@@ -1,6 +1,6 @@
 ---
 title: Why Network Data Matters
-description: Understanding the wealth of information in network traffic and how Kubeshark provides deep visibility into Kubernetes applications.
+description: Understanding the wealth of information in network traffic — the ground truth of what actually happens in a Kubernetes cluster.
 layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
@@ -18,14 +18,18 @@ In a Kubernetes environment, network traffic contains far more than connectivity
 | What's in the Data | Examples |
 |-------------------|----------|
 | **Packet-Level Context** | Source/destination IP, port, protocol, packet size, TCP flags (SYN/ACK/FIN/RST), MTU, fragmentation |
-| **TCP Handshake Latency** | Round-trip time of the 3-way handshake, isolating network latency from application processing |
-| **Connection Lifecycle** | Establishment, reuse, and teardown—keep-alive behavior, connection pool utilization, resets, half-open connections |
-| **Congestion & Packet Loss** | Retransmissions, window scaling, zero-window events, duplicate ACKs, buffer pressure |
+| **TCP Handshake Latency** | Initial RTT measured from the 3-way handshake (SYN → SYN-ACK)—the cleanest network latency measurement, free of application processing delay. P50/P90/P99 percentiles across all connections |
+| **Connection Lifecycle** | Full [connection completeness](/en/mcp/tcp_insights#connection-completeness-bitmask) tracking—SYN, SYN-ACK, ACK, DATA, FIN, RST as a bitmask per connection. Reveals incomplete handshakes, resets, half-open connections, and abnormal terminations |
+| **Congestion & Packet Loss** | Per-connection retransmission rate (the single most useful health indicator), fast retransmissions triggered by duplicate ACKs, out-of-order packets, missing segments—with clear thresholds (0-1% healthy, 1-5% degraded, 5%+ severe) |
+| **Receiver Backpressure** | Zero-window events (receiver overwhelmed, can't read fast enough), window-full events (sender filled receiver's buffer), average receive window size, window scaling negotiation—distinguishing application bottlenecks from network problems |
+| **Latency & Jitter** | Per-connection RTT min/max/avg with sample count, RTT jitter (standard deviation), time-to-first-byte, handshake time vs. connection time—detecting bufferbloat (low min, high max), congestion (avg >> min), and TLS overhead (connection time >> handshake time) |
+| **Throughput & Efficiency** | Goodput (useful application data) vs. total bytes per connection—quantifying bandwidth wasted on retransmissions. Bytes, packets, and throughput rates per flow, per service, per node |
 | **DNS Resolution** | Every query and response, resolution latency, NXDOMAIN errors, TTL behavior, caching effectiveness |
 | **TLS Negotiation** | Handshake timing, cipher selection, certificate exchange, protocol version, handshake failures |
 | **Encrypted Traffic** | TLS-encrypted communication—HTTPS payloads, mTLS service-to-service calls, encrypted database connections |
-| **Traffic Volume & Rates** | Bytes, packets, and throughput per flow, per service, per node—bandwidth consumption and payload size distribution |
 | **Cross-Node & Cross-AZ Traffic** | Node-to-node latency, cross-availability-zone round-trip times, remote node communication patterns |
+
+For the complete TCP metrics reference including diagnostic decision trees, see [TCP Expert Insights](/en/mcp/tcp_insights).
 
 ### Application & Business Logic
 
@@ -69,196 +73,30 @@ In a Kubernetes environment, network traffic contains far more than connectivity
 
 ---
 
-## The Scale Problem
+## What Network Data Provides That Other Sources Don't
 
-Network data is massive. A single Kubernetes cluster can generate **gigabytes of traffic per minute** across hundreds of nodes, thousands of pods, and tens of thousands of concurrent connections. This isn't log data measured in lines—it's raw packet data measured in terabytes per day.
-
-- **Volume** — Every API call, health check, DNS lookup, and database query produces packets. Even a modest cluster generates millions of packets per minute.
-- **Distribution** — Data is spread across every node, captured at different network interfaces and kernel namespaces. A single API transaction may span multiple nodes, each holding a fragment.
-- **Speed** — Packets are ephemeral and must be captured in real time. Buffers overflow, packets drop, and gaps appear. There's no "retry" for missed traffic.
-
-These forces compound: capturing at scale, processing raw packets into protocol-level conversations, and correlating across services each multiplies the cost. Most teams either sample aggressively (losing completeness) or capture only during active incidents (missing the traffic that led up to the problem).
-
----
-
-## The Context Problem
-
-Raw network packets contain valuable data, but they lack the context needed to make sense of it.
-
-### What Raw Packets Don't Tell You
-
-A captured packet shows:
-- Source IP: `10.244.1.15`
-- Destination IP: `10.244.2.23`
-- Port: `8080`
-- Payload: `{"user_id": 12345, "action": "checkout"}`
-
-But it doesn't tell you:
-- Which pod sent it? Which service?
-- What namespace? What deployment?
-- Which process inside the container?
-- Is this normal behavior or anomalous?
-
-Without Kubernetes context, you're left correlating IP addresses manually—a task that's nearly impossible in dynamic environments where pods come and go.
-
-### API Fragmentation
-
-The problem compounds at the API layer. A single HTTP request might span multiple TCP segments, arrive out of order, or be interleaved with other requests on the same connection. Raw packet capture sees fragments; understanding the actual API call requires reconstruction.
-
-### The Two Worlds of Visibility
-
-There are two approaches to Kubernetes observability, each with tradeoffs:
-
-**Network Tools (Wireshark, tcpdump)**
-- ✓ Complete payload visibility—every byte on the wire
-- ✓ Every request captured, not sampled
-- ✗ No Kubernetes context—just IPs and ports
-- ✗ Manual correlation required
-
-**Observability Tools (OpenTelemetry, APM)**
-- ✓ Kubernetes context—pod, service, namespace
-- ✓ Distributed tracing across services
-- ✗ Sampled data—not every request
-- ✗ No payload visibility—metrics and spans only
-- ✗ Statistical/aggregated information
-
-<div class="callout callout-info">
-
-**The Gap**: Network tools see everything but lack identity. Observability tools have identity but lack depth. You need both.
-
-</div>
-
----
-
-## How Kubeshark Bridges the Gap
-
-Kubeshark combines the depth of network tools with the context of observability platforms:
-
-| Capability | Network Tools | Observability Tools | Kubeshark |
-|------------|---------------|---------------------|-----------|
-| Full payloads | ✓ | ✗ | ✓ |
-| Every request (not sampled) | ✓ | ✗ | ✓ |
-| Kubernetes identity | ✗ | ✓ | ✓ |
-| Process-level context | ✗ | Partial | ✓ |
-| API reconstruction | Manual | ✗ | ✓ |
-
-Kubeshark enriches network traffic by correlating across multiple layers:
-
-| Source | Context Added |
-|--------|---------------|
-| **Kubernetes API** | Pod name, service, namespace, labels, deployment |
-| **eBPF (OS layer)** | Process ID, container ID, syscall context |
-| **Protocol dissection** | Reconstructed API calls, request/response pairing |
-
-The result: every API call is tagged with its complete Kubernetes identity, with full payload visibility.
-
-```
-Before (raw packet):
-  10.244.1.15:43210 → 10.244.2.23:8080
-
-After (Kubeshark enriched):
-  frontend-7d4b8c6f9-x2k4m (namespace: production)
-    → payment-service (namespace: production)
-  Process: node (PID 1234)
-  API: POST /api/v1/checkout
-  Request body: {"user_id": 12345, "items": [...]}
-  Response body: {"order_id": "abc-123", "status": "confirmed"}
-  Latency: 145ms
-  Status: 200 OK
-```
-
----
-
-## The Observability Gap
-
-Modern observability relies on three pillars: **logs**, **metrics**, and **traces**. Each has limitations that network data fills.
+Modern observability relies on three pillars: **logs**, **metrics**, and **traces**. Each captures a different slice of reality. Network data fills the gaps that all three leave behind.
 
 | Pillar | What It Shows | What It Misses |
 |--------|---------------|----------------|
 | **Logs** | What the application chose to record | Unlogged errors, external service responses, exact payloads |
 | **Metrics** | Aggregated measurements over time | Individual request details, root cause of anomalies |
 | **Traces** | Request path through instrumented services | Uninstrumented services, actual payload content, network-level issues |
-| **Network Data** | Exact bytes exchanged between services | Application internal state (but captures all external interactions) |
+| **Network Data** | Exact bytes exchanged between services, per-connection TCP health (retransmissions, RTT, jitter, window pressure, connection lifecycle), full API payloads | Application internal state (but captures all external interactions) |
 
-Network traffic complements these pillars by providing:
+Network data is unique because it provides:
 
-- **Complete coverage** — Captures everything, not just what's instrumented
-- **Zero code changes** — Works with any application, any language, any framework
-- **Exact reproduction** — See the precise request that caused a failure
-- **Historical record** — Go back in time to any moment in your traffic history
-
----
-
-## Who Benefits
-
-### Site Reliability Engineers (SREs)
-
-When production breaks at 3 AM, SREs need answers fast. Network data provides:
-
-- The exact API call that triggered the incident
-- Full request/response context, not just "500 error occurred"
-- Upstream and downstream impact—what else was affected
-- Timeline reconstruction—what happened in what order
-
-**Instead of**: Correlating logs across 12 services, guessing which request failed
-**With network data**: See the exact failed request, its payload, and the error response
-
-### DevOps & Platform Engineers
-
-Infrastructure decisions should be based on actual usage, not assumptions:
-
-- Real service dependencies from traffic patterns
-- Actual resource utilization per endpoint
-- Traffic flows that inform network policy decisions
-- Capacity planning based on real request volumes and sizes
-
-**Instead of**: Maintaining outdated architecture diagrams
-**With network data**: Generate accurate service maps from actual traffic
-
-### Security Teams
-
-Security requires visibility into what's actually happening, not what should be happening:
-
-- All data flows, including internal east-west traffic
-- Authentication and authorization patterns
-- Sensitive data exposure in API payloads
-- Anomalous behavior compared to baselines
-
-**Instead of**: Relying on perimeter logs and hoping internal traffic is safe
-**With network data**: Complete visibility into every service interaction
-
-### Developers
-
-Debugging distributed systems is hard. Network data makes it easier:
-
-- See exactly what your service received and what it sent back
-- Verify headers, payloads, and response codes match expectations
-- Debug integration issues by comparing actual vs. expected traffic
-- Test API contracts against real production behavior
-
-**Instead of**: Adding debug logs, redeploying, reproducing the issue
-**With network data**: Inspect the exact request that caused the bug
-
----
-
-## The Accessibility Challenge
-
-This wealth of information exists in every Kubernetes cluster. The challenge is accessing it effectively.
-
-**Traditional approaches require:**
-- Deep expertise in packet analysis and protocol internals
-- Complex query languages with steep learning curves
-- Manual correlation across thousands of concurrent requests
-- Time—which is scarce during incidents
-
-**The result**: Most teams underutilize their network data, or ignore it entirely, falling back to logs and metrics that tell only part of the story.
-
-Kubeshark addresses this by providing an intuitive [Dashboard](/en/ui) and [AI-powered analysis](/en/mcp_use_cases) that makes network data accessible to everyone on the team.
+- **Complete coverage** — captures everything, not just what's instrumented or what a developer thought to log
+- **Zero code changes** — works with any application, any language, any framework, including third-party and legacy services
+- **Exact reproduction** — the precise request that caused a failure, not a statistical summary
+- **Full depth** — from L4 TCP health (retransmissions, latency, connection lifecycle) to L7 API content (headers, payloads, status codes) in a single data source
+- **Historical record** — go back in time to any moment in your traffic history
 
 ---
 
 ## What's Next
 
 - [Installation](/en/install) — Get Kubeshark running in your cluster
-- [Dashboard](/en/ui) — Explore the Kubeshark interface
-- [AI Integration](/en/mcp_use_cases) — Use AI to query your network data
+- [Real-time Traffic Inspection](/en/use-cases/real_time_traffic_inspection) — See live traffic as it flows
+- [Incident Response](/en/use-cases/incident_response) — Investigate incidents with captured traffic
+- [Traffic Forensics](/en/use-cases/forensics) — Reconstruct past events from recorded traffic
