@@ -47,6 +47,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Installation', link: 'en/install' },
       { text: 'Why Network Data Matters', link: 'en/why_network_data' },
+      { text: 'Ask AI', link: 'en/ask-ai' },
     ],
     'Core Concepts': [
       // { text: 'Network Sniffing', link: 'en/network_sniffing' },
