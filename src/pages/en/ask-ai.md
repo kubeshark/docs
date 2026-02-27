@@ -2,16 +2,20 @@
 title: Ask AI
 description: Get instant answers about Kubeshark from our AI assistant.
 layout: ../../layouts/MainLayout.astro
-mascot: Hello
 ---
 
 <div data-aiembed-inline></div>
 
-Have a question about Kubeshark? Our AI assistant has been trained on the full Kubeshark documentation and can help you get started, troubleshoot issues, or learn about features.
+<div id="ai-chat" style="max-width: 800px; margin: 20px 0;"></div>
 
-<div id="ai-chat" style="max-width: 600px; margin: 20px 0;">
-  <script src="https://d1o6rummm3fnkp.cloudfront.net/aiembed.js"
-    data-agent="docs-agent"
-    data-api-url="https://aiembed.admin.kubeshark.com/aiembed"
-    data-mode="inline"></script>
-</div>
+<script is:inline>
+  (function() {
+    var isDev = location.hostname === 'localhost';
+    var s = document.createElement('script');
+    s.src = isDev ? 'http://localhost:3001/widget/aiembed.js' : 'https://d1o6rummm3fnkp.cloudfront.net/aiembed.js';
+    s.setAttribute('data-agent', 'docs-agent');
+    s.setAttribute('data-api-url', isDev ? 'http://localhost:3001/aiembed' : 'https://aiembed.admin.kubeshark.com/aiembed');
+    s.setAttribute('data-mode', 'inline');
+    document.getElementById('ai-chat').appendChild(s);
+  })();
+</script>
