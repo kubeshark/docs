@@ -28,7 +28,7 @@ const MASCOT_MESSAGES = {
 }
 ---
 
-<a href={`/${frontmatter.lang ?? "en"}/mascot`} title={MASCOT_MESSAGES[frontmatter.mascot]}>
+<span title={MASCOT_MESSAGES[frontmatter.mascot]}>
   {frontmatter.mascot === "Hello" && <MascotHello size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Bookworm" && <MascotBookworm size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Recipe" && <MascotRecipe size={size} position={position} float={float} margin={margin} />}
@@ -36,4 +36,4 @@ const MASCOT_MESSAGES = {
   {frontmatter.mascot === "Cute" && <MascotCute size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Holiday" && <MascotHoliday size={size} position={position} float={float} margin={margin} />}
   {frontmatter.mascot === "Silly" && <MascotSilly size={size} position={position} float={float} margin={margin} />}
-</a>
+</span>
