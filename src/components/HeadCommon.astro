@@ -1,12 +1,24 @@
 ---
 import '../styles/theme.css';
 import '../styles/index.css';
+
+const widgetSrc = import.meta.env.DEV ? 'http://localhost:3001/widget/aiembed.js' : '/aiembed.js';
+const widgetApiUrl = import.meta.env.DEV ? 'http://localhost:3001/aiembed' : 'https://api.kubeshark.com/aiembed';
 ---
 
 <!-- Global Metadata -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 <meta name="generator" content={Astro.generator} />
+
+<!-- Content Security Policy -->
+<meta http-equiv="Content-Security-Policy"
+	content="default-src 'self';
+		script-src 'self' 'unsafe-inline' https://www.googletagmanager.com;
+		style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+		font-src 'self' https://fonts.gstatic.com;
+		connect-src 'self' https://api.kubeshark.com https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com;
+		img-src 'self' data: https:;" />
 
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -44,4 +56,19 @@ import '../styles/index.css';
   gtag('js', new Date());
 
   gtag('config', 'G-LX8735SHEX');
+</script>
+
+<!-- Kubeshark AI Chat Widget (bubble mode) -->
+<script is:inline define:vars={{ widgetSrc, widgetApiUrl }}>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Only load bubble on pages that don't have an inline widget
+    if (!document.querySelector('[data-aiembed-inline]')) {
+      var s = document.createElement('script');
+      s.src = widgetSrc;
+      s.setAttribute('data-agent', 'docs-agent');
+      s.setAttribute('data-api-url', widgetApiUrl);
+      s.setAttribute('data-mode', 'bubble');
+      document.body.appendChild(s);
+    }
+  });
 </script>
