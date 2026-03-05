@@ -13,7 +13,7 @@ Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI
 
 ## MCP Endpoints Overview
 
-| Endpoint | Method | Description |
+| Endpoint / Tool | Method | Description |
 |----------|--------|-------------|
 | `/mcp/raw-capture` | GET | Check if raw capture is enabled |
 | `/mcp/data-boundaries` | GET | Get available data time range |
@@ -21,7 +21,9 @@ Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI
 | `/mcp/snapshots` | POST | Create a new snapshot |
 | `/mcp/snapshots/:name` | GET | Get snapshot details |
 | `/mcp/snapshots/:name` | DELETE | Delete a snapshot |
-| `/mcp/snapshots/:name/pcap` | GET | Export snapshot as PCAP |
+| `/mcp/snapshots/:name/pcap` | GET | Export snapshot as PCAP (with filters) |
+| `get_file_url` | MCP tool | Resolve a relative path to a download URL |
+| `download_file` | MCP tool | Download a file from Kubeshark to local disk |
 
 ---
 
@@ -219,6 +221,72 @@ The `export_snapshot_pcap` MCP tool exposes the same filtering capabilities:
     "end_time": 1706746000000
   }
 }
+```
+
+---
+
+## File Download Tools
+
+When `export_snapshot_pcap` (or other tools) return a relative file path, use these tools to retrieve the file. They are available in all MCP server modes (proxy, URL, destructive).
+
+### `get_file_url`
+
+Resolves a relative file path into a fully-qualified download URL that can be shared with the user for manual download.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | Yes | The relative file path returned by a Hub tool (e.g., `/snapshots/abc/data.pcap`) |
+
+**Example:**
+```json
+{
+  "tool": "get_file_url",
+  "arguments": {
+    "path": "/mcp/snapshots/f4c41e9c/pcap"
+  }
+}
+```
+
+**Response:** A full URL like `http://localhost:8898/api/mcp/snapshots/f4c41e9c/pcap`
+
+### `download_file`
+
+Downloads a file from Kubeshark to the local filesystem. This is the preferred way to retrieve PCAP exports. Uses a dedicated HTTP client with streaming support for large files (up to 10 GB).
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | Yes | The relative file path returned by a Hub tool |
+| `dest` | string | No | Local destination file path. Defaults to the filename from the path in the current directory |
+
+**Example:**
+```json
+{
+  "tool": "download_file",
+  "arguments": {
+    "path": "/mcp/snapshots/f4c41e9c/pcap",
+    "dest": "/tmp/incident.pcap"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "url": "http://localhost:8898/api/mcp/snapshots/f4c41e9c/pcap",
+  "path": "/tmp/incident.pcap",
+  "size": 52428800
+}
+```
+
+### Typical PCAP Export Workflow
+
+1. **Export** — Call `export_snapshot_pcap` with optional filters. It returns a relative file path.
+2. **Download** — Call `download_file` with that path to save the PCAP locally.
+3. **Share** — Alternatively, call `get_file_url` to get a download URL to share with others.
+
+```
+export_snapshot_pcap → relative path → download_file → local .pcap file
+                                     → get_file_url  → shareable URL
 ```
 
 ---
