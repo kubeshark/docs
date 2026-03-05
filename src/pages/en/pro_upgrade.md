@@ -6,27 +6,32 @@ layout: ../../layouts/MainLayout.astro
 
 ## Upgrading to Pro
 
-Type the following command in your terminal to upgrade from community edition to Pro:
+Subscribe to a Pro plan at the [License Portal](https://console.kubeshark.com/?tab=pro), then download your license key from the portal.
+
+Apply the license key using one of the following methods:
+
+**With Helm:**
 
 ```shell
-kubeshark pro
+helm install kubeshark kubeshark/kubeshark \
+  --set license=<your-license-key>
 ```
 
-A browser window will open and you will be asked to sign up or in to the [License Portal](https://console.kubeshark.com).
+**With the CLI:**
 
-![Kubeshark Console Auth Screen](/auth.png)
+```shell
+kubeshark tap --set license=<your-license-key>
+```
 
-The authentication process will attempt to automatically configure **Kubeshark** to use the Pro edition.
+**Via configuration file** (~/.kubeshark/config.yaml):
 
-If something goes wrong, you will be asked to manually enter a license key when prompted in the CLI.
+```yaml
+license: <your-license-key>
+```
 
-### Troubleshooting / Manual Upgrade
+Once the license key is set, all users in the cluster can access Kubeshark without individual authentication.
 
-The upgrade process triggered by running `kubeshark pro` performs two operations:
-1. Creates a config file at ~/.kubeshark/config.yaml, unless one exists already
-2. Attempts to enter the license in the file
-
-In the unlikely event that the automatic operation fails, you can copy the license from the console and enter it in the configuration file. If the configuration file doesn't exist, you can cause it to create by running: `kubeshark config -r`.
+> **Note:** Pro licenses require an active internet connection. Telemetry must succeed for the license to remain valid.
 
 ## Downgrading
 
@@ -34,7 +39,7 @@ Using the Pro edition requires having a valid license key in the Kubeshark confi
 
 To downgrade, simply erase the license key and Kubeshark will use the community version.
 
-No need to save the license key. You can always upgrade, by running the `kubeshark pro` command.
+No need to save the license key. You can always download it again from the [License Portal](https://console.kubeshark.com).
 
 
 

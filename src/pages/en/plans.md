@@ -9,7 +9,7 @@ layout: ../../layouts/MainLayout.astro
 The Community edition is designed for small workloads:
 
 - Up to **3 nodes** or **60 pods**
-- Single-user license
+- Single-user license requiring cloud login
 - Requires internet connectivity
 - Community support
 
@@ -27,9 +27,10 @@ The Pro edition offers volume-based pricing for any cluster size. Choose a tier 
 
 **Key features:**
 - **Unlimited** cluster size and pods on all tiers
-- Single-user license requiring authentication
-- Use across **any number of clusters** — log in to use your license, log out when done
-- Requires internet connectivity
+- **Cluster-wide license** — download a license key from the [License Portal](https://console.kubeshark.com) and all users in the cluster can access Kubeshark without individual authentication
+- Use across **any number of clusters**
+- No cloud login required — license key based
+- Requires active internet connectivity (telemetry must succeed)
 - Community support
 
 **On-demand capacity:** Additional capacity can be purchased at **$5 per 100K API calls** when you exceed your daily limit.
@@ -58,6 +59,10 @@ The Enterprise edition includes the complete feature set:
 | Real-time protocol visibility | Yes | Yes | Yes |
 | TLS decryption | Yes | Yes | Yes |
 | Traffic recording & offline analysis | Yes | Yes | Yes |
+| License key download | No | Yes | Yes |
+| Cloud login required | Yes | No | No |
+| Internet required | Yes | Yes | No (air-gapped OK) |
+| Multi-user access | No | Yes | Yes |
 | Air-gapped support | No | No | Yes |
 | AI root cause analysis | No | No | Yes |
 | Dedicated support | No | No | Yes |
