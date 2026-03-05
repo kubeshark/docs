@@ -13,7 +13,7 @@ Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI
 
 ## MCP Endpoints Overview
 
-| Endpoint | Method | Description |
+| Endpoint / Tool | Method | Description |
 |----------|--------|-------------|
 | `/mcp/raw-capture` | GET | Check if raw capture is enabled |
 | `/mcp/data-boundaries` | GET | Get available data time range |
@@ -21,7 +21,9 @@ Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI
 | `/mcp/snapshots` | POST | Create a new snapshot |
 | `/mcp/snapshots/:name` | GET | Get snapshot details |
 | `/mcp/snapshots/:name` | DELETE | Delete a snapshot |
-| `/mcp/snapshots/:name/pcap` | GET | Export snapshot as PCAP |
+| `/mcp/snapshots/:name/pcap` | GET | Export snapshot as PCAP (with filters) |
+| `get_file_url` | MCP tool | Resolve a relative path to a download URL |
+| `download_file` | MCP tool | Download a file from Kubeshark to local disk |
 
 ---
 
@@ -167,12 +169,124 @@ Delete a snapshot.
 
 ### GET `/mcp/snapshots/:name/pcap`
 
-Export snapshot as a merged PCAP file for Wireshark analysis.
+Export snapshot as a merged PCAP file for Wireshark analysis. Supports optional filtering by nodes, time range, and BPF expression to extract only the packets you need.
 
 Returns binary PCAP data with `Content-Type: application/vnd.tcpdump.pcap`.
 
+#### Query Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `nodes` | string | Comma-separated list of node names to include (default: all nodes) |
+| `bpf_filter` | string | BPF filter expression (e.g., `tcp port 80`, `udp port 53`) |
+| `start_time` | integer | Start timestamp in Unix milliseconds — only include packets after this time |
+| `end_time` | integer | End timestamp in Unix milliseconds — only include packets before this time |
+
+All parameters are optional. When omitted, the full unfiltered snapshot is exported.
+
+#### Examples
+
+Export the full snapshot:
 ```bash
 curl http://localhost:8898/mcp/snapshots/incident-001/pcap -o snapshot.pcap
+```
+
+Export only HTTP traffic:
+```bash
+curl "http://localhost:8898/mcp/snapshots/incident-001/pcap?bpf_filter=tcp%20port%2080" -o http-only.pcap
+```
+
+Export from a specific node within a time window:
+```bash
+curl "http://localhost:8898/mcp/snapshots/incident-001/pcap?nodes=worker-1&start_time=1706745000000&end_time=1706746000000" -o filtered.pcap
+```
+
+Export only DNS traffic:
+```bash
+curl "http://localhost:8898/mcp/snapshots/incident-001/pcap?bpf_filter=udp%20port%2053" -o dns.pcap
+```
+
+#### MCP Tool Usage
+
+The `export_snapshot_pcap` MCP tool exposes the same filtering capabilities:
+
+```json
+{
+  "tool": "export_snapshot_pcap",
+  "arguments": {
+    "id": "f4c41e9c-28b9-4c9d-8ddb-128cd7e09ff3",
+    "nodes": ["worker-1", "worker-2"],
+    "bpf_filter": "tcp port 443",
+    "start_time": 1706745000000,
+    "end_time": 1706746000000
+  }
+}
+```
+
+---
+
+## File Download Tools
+
+When `export_snapshot_pcap` (or other tools) return a relative file path, use these tools to retrieve the file. They are available in all MCP server modes (proxy, URL, destructive).
+
+### `get_file_url`
+
+Resolves a relative file path into a fully-qualified download URL that can be shared with the user for manual download.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | Yes | The relative file path returned by a Hub tool (e.g., `/snapshots/abc/data.pcap`) |
+
+**Example:**
+```json
+{
+  "tool": "get_file_url",
+  "arguments": {
+    "path": "/mcp/snapshots/f4c41e9c/pcap"
+  }
+}
+```
+
+**Response:** A full URL like `http://localhost:8898/api/mcp/snapshots/f4c41e9c/pcap`
+
+### `download_file`
+
+Downloads a file from Kubeshark to the local filesystem. This is the preferred way to retrieve PCAP exports. Uses a dedicated HTTP client with streaming support for large files (up to 10 GB).
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `path` | string | Yes | The relative file path returned by a Hub tool |
+| `dest` | string | No | Local destination file path. Defaults to the filename from the path in the current directory |
+
+**Example:**
+```json
+{
+  "tool": "download_file",
+  "arguments": {
+    "path": "/mcp/snapshots/f4c41e9c/pcap",
+    "dest": "/tmp/incident.pcap"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "url": "http://localhost:8898/api/mcp/snapshots/f4c41e9c/pcap",
+  "path": "/tmp/incident.pcap",
+  "size": 52428800
+}
+```
+
+### Typical PCAP Export Workflow
+
+1. **Export** — Call `export_snapshot_pcap` with optional filters. It returns a relative file path.
+2. **Download** — Call `download_file` with that path to save the PCAP locally.
+3. **Share** — Alternatively, call `get_file_url` to get a download URL to share with others.
+
+```
+export_snapshot_pcap → relative path → download_file → local .pcap file
+                                     → get_file_url  → shareable URL
 ```
 
 ---
@@ -187,7 +301,9 @@ curl http://localhost:8898/mcp/snapshots/incident-001/pcap -o snapshot.pcap
 
 > *"Export the snapshot as PCAP for the security team"*
 
-Snapshots preserve traffic evidence for later forensic analysis.
+> *"Export only HTTPS traffic from worker-1 during the breach window"*
+
+Snapshots preserve traffic evidence for later forensic analysis. PCAP filters let you extract exactly the traffic relevant to an incident.
 
 ### Compliance & Auditing
 
@@ -203,9 +319,11 @@ PCAP exports provide immutable evidence for compliance requirements.
 
 > *"Export this traffic so I can analyze it in Wireshark"*
 
+> *"Export only DNS traffic for the network team"*
+
 > *"Create a snapshot I can share with the network team"*
 
-PCAP files can be analyzed with standard network tools outside of Kubeshark.
+PCAP files can be analyzed with standard network tools outside of Kubeshark. Use BPF filters to reduce file size and focus on relevant protocols.
 
 ### Debugging Sessions
 
@@ -213,7 +331,9 @@ PCAP files can be analyzed with standard network tools outside of Kubeshark.
 
 > *"Save this traffic so we can review it later"*
 
-Snapshots allow teams to capture traffic during debugging sessions for later review.
+> *"Export just the last 5 minutes of traffic from the affected node"*
+
+Snapshots allow teams to capture traffic during debugging sessions for later review. Time range and node filters help narrow down to the relevant window.
 
 ---
 
