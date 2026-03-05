@@ -27,11 +27,18 @@ A dedicated persistent volume can be attached to the Hub specifically for snapsh
 - **Different storage class** — Use cost-effective storage tiers for long-term retention
 - **Centralized management** — All snapshots in one location for easy access and cleanup
 
-See [Helm Configuration Reference](/en/helm_reference#snapshots) for `tap.snapshots.storageClass` and `tap.snapshots.storageSize` settings.
+See [Helm Configuration Reference](/en/helm_reference#snapshots--local-storage) for `tap.snapshots.local.storageClass` and `tap.snapshots.local.storageSize` settings.
+
+### Cloud Storage
+
+Snapshots can also be uploaded to cloud object storage for cross-cluster sharing, backup/restore, and long-term retention. Supported providers: **Amazon S3** and **Azure Blob Storage**.
+
+See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for setup instructions.
 
 | Resource | Link |
 |----------|------|
-| Configuration | [Snapshot Storage Settings](/en/v2/raw_capture_config#snapshot-storage) |
+| Local Storage Configuration | [Snapshot Storage Settings](/en/v2/raw_capture_config#snapshot-storage) |
+| Cloud Storage Configuration | [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) |
 | User Guide | [Creating & Managing Snapshots](/en/dashboard_snapshots) |
 
 ---
