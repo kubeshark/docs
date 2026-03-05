@@ -65,12 +65,20 @@ Complete reference for Kubeshark Helm configuration values.
 | `tap.storageClass` | Storage class for PVC | `standard` |
 | `tap.efsFileSytemIdAndPath` | AWS EFS configuration | `""` |
 
-### Snapshots
+### Snapshots — Local Storage
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.snapshots.storageClass` | Storage class for snapshots | `""` |
-| `tap.snapshots.storageSize` | Snapshot volume size | `10Gi` |
+| `tap.snapshots.local.storageClass` | Storage class for local snapshots volume. When empty, uses `emptyDir`. When set, creates a PVC with this storage class | `""` |
+| `tap.snapshots.local.storageSize` | Storage size for local snapshots volume | `20Gi` |
+
+### Snapshots — Cloud Storage
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `tap.snapshots.cloud.provider` | Cloud storage provider: `s3` or `azblob`. Empty string disables cloud storage. See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage). | `""` |
+| `tap.snapshots.cloud.configMaps` | Names of ConfigMaps containing cloud storage environment variables | `[]` |
+| `tap.snapshots.cloud.secrets` | Names of Secrets containing cloud storage credentials | `[]` |
 
 ---
 
@@ -391,8 +399,9 @@ tap:
 
   # Snapshots
   snapshots:
-    storageClass: gp2
-    storageSize: 100Gi
+    local:
+      storageClass: gp2
+      storageSize: 100Gi
 
   # Resources
   resources:
@@ -419,6 +428,7 @@ tap:
 ## Related Documentation
 
 - [Raw Capture & Snapshots](/en/v2/raw_capture_config) — Detailed capture configuration
+- [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) — S3 and Azure Blob Storage setup
 - [Capture Filters](/en/pod_targeting) — Pod targeting details
 - [Ingress](/en/ingress) — Ingress setup guide
 - [SAML](/en/saml) — SAML authentication

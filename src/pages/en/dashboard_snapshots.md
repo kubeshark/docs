@@ -121,10 +121,13 @@ Monitor snapshot storage usage. Snapshots persist until explicitly deleted.
 ```yaml
 tap:
   snapshots:
-    storageSize: 100Gi    # Allocate sufficient storage
+    local:
+      storageSize: 100Gi    # Allocate sufficient local storage
 ```
 
-See [Helm Configuration](/en/helm_reference#snapshots) for storage settings.
+For long-term retention, consider enabling [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) to upload snapshots to S3 or Azure Blob Storage.
+
+See [Helm Configuration](/en/helm_reference#snapshots--local-storage) for storage settings.
 
 ---
 

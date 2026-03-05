@@ -81,6 +81,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Ingress', link: 'en/ingress' },
       { text: 'Capture Filters', link: 'en/pod_targeting' },
       { text: 'Raw Capture & Snapshots', link: 'en/v2/raw_capture_config' },
+      { text: 'Cloud Storage for Snapshots', link: 'en/snapshots_cloud_storage' },
       { text: 'Workload Resources', link: 'en/workload_resources' },
       { text: 'SAML', link: 'en/saml' },
       { text: 'OIDC w/ DEX', link: 'en/oidc' },

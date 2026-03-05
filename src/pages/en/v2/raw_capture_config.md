@@ -46,25 +46,48 @@ When the buffer fills, older data is automatically recycled. Larger buffers reta
 
 ### Snapshot Storage
 
-[Traffic Snapshots](/en/v2/traffic_snapshots) are stored separately and persist indefinitely. Configure dedicated storage:
+[Traffic Snapshots](/en/v2/traffic_snapshots) are stored separately and persist indefinitely.
+
+#### Local Storage
+
+Configure dedicated local storage for snapshots:
 
 ```yaml
 tap:
   snapshots:
-    storageClass: ""          # Storage class for snapshot PVCs
-    storageSize: 20Gi         # Size allocated for snapshots
+    local:
+      storageClass: ""          # Storage class for snapshot PVCs
+      storageSize: 20Gi         # Size allocated for snapshots
 ```
 
-#### AWS Example
+**AWS Example:**
 
 ```yaml
 tap:
   snapshots:
-    storageClass: gp2
-    storageSize: 1000Gi
+    local:
+      storageClass: gp2
+      storageSize: 1000Gi
 ```
 
 With a dedicated storage class, snapshot storage can be far larger than node-local storage.
+
+#### Cloud Storage
+
+Snapshots can also be uploaded to cloud object storage (Amazon S3 or Azure Blob Storage) for cross-cluster sharing, backup/restore, and long-term retention:
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "s3"           # "s3" or "azblob" (empty = disabled)
+      configMaps:
+        - kubeshark-s3-config  # ConfigMap with bucket/region
+      secrets:
+        - kubeshark-s3-creds   # Secret with credentials (optional)
+```
+
+See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for detailed setup instructions including IRSA, static credentials, and Azure Workload Identity.
 
 ---
 
@@ -163,8 +186,9 @@ tap:
     dbMaxSize: 500Mi          # 500MB for dissection DB
 
   snapshots:
-    storageClass: gp2         # AWS storage class
-    storageSize: 100Gi        # 100GB for snapshots
+    local:
+      storageClass: gp2         # AWS storage class
+      storageSize: 100Gi        # 100GB for snapshots
 ```
 
 ---
