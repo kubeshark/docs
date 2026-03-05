@@ -167,12 +167,58 @@ Delete a snapshot.
 
 ### GET `/mcp/snapshots/:name/pcap`
 
-Export snapshot as a merged PCAP file for Wireshark analysis.
+Export snapshot as a merged PCAP file for Wireshark analysis. Supports optional filtering by nodes, time range, and BPF expression to extract only the packets you need.
 
 Returns binary PCAP data with `Content-Type: application/vnd.tcpdump.pcap`.
 
+#### Query Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `nodes` | string | Comma-separated list of node names to include (default: all nodes) |
+| `bpf_filter` | string | BPF filter expression (e.g., `tcp port 80`, `udp port 53`) |
+| `start_time` | integer | Start timestamp in Unix milliseconds — only include packets after this time |
+| `end_time` | integer | End timestamp in Unix milliseconds — only include packets before this time |
+
+All parameters are optional. When omitted, the full unfiltered snapshot is exported.
+
+#### Examples
+
+Export the full snapshot:
 ```bash
 curl http://localhost:8898/mcp/snapshots/incident-001/pcap -o snapshot.pcap
+```
+
+Export only HTTP traffic:
+```bash
+curl "http://localhost:8898/mcp/snapshots/incident-001/pcap?bpf_filter=tcp%20port%2080" -o http-only.pcap
+```
+
+Export from a specific node within a time window:
+```bash
+curl "http://localhost:8898/mcp/snapshots/incident-001/pcap?nodes=worker-1&start_time=1706745000000&end_time=1706746000000" -o filtered.pcap
+```
+
+Export only DNS traffic:
+```bash
+curl "http://localhost:8898/mcp/snapshots/incident-001/pcap?bpf_filter=udp%20port%2053" -o dns.pcap
+```
+
+#### MCP Tool Usage
+
+The `export_snapshot_pcap` MCP tool exposes the same filtering capabilities:
+
+```json
+{
+  "tool": "export_snapshot_pcap",
+  "arguments": {
+    "id": "f4c41e9c-28b9-4c9d-8ddb-128cd7e09ff3",
+    "nodes": ["worker-1", "worker-2"],
+    "bpf_filter": "tcp port 443",
+    "start_time": 1706745000000,
+    "end_time": 1706746000000
+  }
+}
 ```
 
 ---
@@ -187,7 +233,9 @@ curl http://localhost:8898/mcp/snapshots/incident-001/pcap -o snapshot.pcap
 
 > *"Export the snapshot as PCAP for the security team"*
 
-Snapshots preserve traffic evidence for later forensic analysis.
+> *"Export only HTTPS traffic from worker-1 during the breach window"*
+
+Snapshots preserve traffic evidence for later forensic analysis. PCAP filters let you extract exactly the traffic relevant to an incident.
 
 ### Compliance & Auditing
 
@@ -203,9 +251,11 @@ PCAP exports provide immutable evidence for compliance requirements.
 
 > *"Export this traffic so I can analyze it in Wireshark"*
 
+> *"Export only DNS traffic for the network team"*
+
 > *"Create a snapshot I can share with the network team"*
 
-PCAP files can be analyzed with standard network tools outside of Kubeshark.
+PCAP files can be analyzed with standard network tools outside of Kubeshark. Use BPF filters to reduce file size and focus on relevant protocols.
 
 ### Debugging Sessions
 
@@ -213,7 +263,9 @@ PCAP files can be analyzed with standard network tools outside of Kubeshark.
 
 > *"Save this traffic so we can review it later"*
 
-Snapshots allow teams to capture traffic during debugging sessions for later review.
+> *"Export just the last 5 minutes of traffic from the affected node"*
+
+Snapshots allow teams to capture traffic during debugging sessions for later review. Time range and node filters help narrow down to the relevant window.
 
 ---
 
