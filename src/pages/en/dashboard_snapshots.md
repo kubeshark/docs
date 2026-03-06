@@ -104,15 +104,23 @@ When [Cloud Storage](/en/snapshots_cloud_storage) is configured, a connection ba
 
 A green **Connected to S3** (or **Connected to Azure Blob**) badge confirms the hub has validated access to the configured bucket or container. If the connection fails, the hub will not start — see [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for troubleshooting.
 
-With cloud storage connected, snapshots are automatically uploaded after creation and can be downloaded from any cluster that shares the same cloud storage configuration — enabling cross-cluster sharing, backup/restore, and long-term retention.
+### Uploading Snapshots to the Cloud
+
+New snapshots are always created locally first and display a **Local** badge in the **Location** column. To upload a snapshot to cloud storage, click the cloud upload button next to the Local badge:
+
+![Snapshot with Local badge and upload to cloud button](/snapshots-upload-to-cloud.png)
+
+Once uploaded, the snapshot is available from any cluster that shares the same cloud storage configuration — enabling cross-cluster sharing, backup/restore, and long-term retention.
+
+### Location Filter
+
+Use the **Location** filter in the toolbar to switch between local and cloud snapshots:
 
 | Location Filter | Description |
 |-----------------|-------------|
 | **All** | Show all snapshots (local and cloud) |
 | **Local** | Show only snapshots stored locally on the hub |
 | **Cloud** | Show only snapshots available in cloud storage |
-
-Use the **Location** filter in the toolbar to switch between local and cloud snapshots.
 
 ---
 
