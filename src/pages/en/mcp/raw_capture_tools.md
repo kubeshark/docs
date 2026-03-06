@@ -104,6 +104,8 @@ Create a new snapshot.
 | `name` | string | Unique snapshot identifier |
 | `duration` | string | Time duration to capture (e.g., `30m`, `1h`, `2h`) |
 
+> **Note:** Snapshots are limited to 2 GB. To stay within this limit, use shorter durations or target specific nodes.
+
 **Response:**
 ```json
 {
