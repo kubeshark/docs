@@ -26,7 +26,6 @@
 		const pagefindPath = '/pagefind/pagefind-ui.js';
 
 		try {
-			// @ts-ignore
 			await import(pagefindPath);
 
 			// Create modal container
@@ -41,7 +40,6 @@
 			`;
 			document.body.appendChild(modalContainer);
 
-			// @ts-ignore
 			new PagefindUI({
 				element: '#pagefind-search',
 				showSubResults: true,
@@ -52,7 +50,7 @@
 			const modal = document.getElementById('pagefind-modal');
 			const overlay = modal?.querySelector('.pagefind-modal-overlay');
 			const closeBtn = modal?.querySelector('.pagefind-modal-close');
-			const searchInput = modal?.querySelector('.pagefind-ui__search-input') as HTMLInputElement;
+			const searchInput = modal?.querySelector('.pagefind-ui__search-input');
 
 			function openModal() {
 				modal?.classList.add('active');
@@ -71,7 +69,7 @@
 
 			document.addEventListener('keydown', (e) => {
 				if (e.key === '/' && !modal?.classList.contains('active')) {
-					const target = e.target as HTMLElement;
+					const target = e.target;
 					if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
 						e.preventDefault();
 						openModal();
