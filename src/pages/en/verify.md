@@ -44,7 +44,9 @@ If you follow the above guidance and [Kubeshark](https://kubeshark.com) is still
 ```yaml
 tap:
     disableTlsLog: true
-    stopped: false
+    capture:
+        dissection:
+            enabled: true
     resources:
         hub:
             limits:

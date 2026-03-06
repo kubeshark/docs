@@ -25,7 +25,7 @@ A PCAP TTL of 10 seconds allows scripts to process the API entry and decide on a
 
 ## Storage
 
-Extending either the JSON or the PCAP TTLs is likely to increase storage capacity. Storage limits are set by `tap.storageLimit`, defaulting to `500Mi`. Exceeding this limit triggers pod eviction, purging storage, and restarting the pod.
+Extending either the JSON or the PCAP TTLs is likely to increase storage capacity. Storage limits are set by `tap.storageLimit`, defaulting to `10Gi`. Exceeding this limit triggers pod eviction, purging storage, and restarting the pod.
 
 ## Suggested Configuration
 

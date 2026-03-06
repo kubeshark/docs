@@ -12,7 +12,7 @@ layout: ../../layouts/MainLayout.astro
 
 The **Worker** continuously captures TCP and UDP packets and saves locally in a local [PCAP](https://datatracker.ietf.org/doc/id/draft-gharris-opsawg-pcap-00.html) storage that is limited in size.
 
-Packets are dissected on-demand either by an active [Dashboard](/en/ui) connection or when [scripting](/en/automation_scripting) is used. The stored PCAP files have a very short expiration date, from seconds to a few minutes, depending on the storage limitation governed by the `tap.storagelimit` value.
+Packets are dissected on-demand either by an active [Dashboard](/en/ui) connection or when [scripting](/en/automation_scripting) is used. The stored PCAP files have a very short expiration date, from seconds to a few minutes, depending on the storage limitation governed by the `tap.storageLimit` value.
 
 > For longer retention of traffic and offline analysis, please read the [Traffic Recording & Offline Analysis](/en/cloud_forensics) section.
 

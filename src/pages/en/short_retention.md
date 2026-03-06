@@ -14,9 +14,9 @@ layout: ../../layouts/MainLayout.astro
 
 Because storage can fill up rapidly, we have established certain guardrails to prevent overuse of disk resources.
 
-The storage limitation is regulated by the `tap.storagelimit` configuration value, with the default set to `500Mi`. This value represents a hard limit. If storage surpasses this limit, it will result in pod eviction. When the Worker pod is evicted, the storage is purged and the pod immediately restarts from scratch.
+The storage limitation is regulated by the `tap.storageLimit` configuration value, with the default set to `10Gi`. This value represents a hard limit. If storage surpasses this limit, it will result in pod eviction. When the Worker pod is evicted, the storage is purged and the pod immediately restarts from scratch.
 
-To increase this limit, simply provide a different value (e.g., setting it to 1GB with `--set tap.storagelimit=1Gi`).
+To increase this limit, simply provide a different value (e.g., setting it to 1GB with `--set tap.storageLimit=1Gi`).
 
 When an L4 stream is dissected, a JSON file is generated with all relevant details. This file has a time to live of 5 minutes.
 

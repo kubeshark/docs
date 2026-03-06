@@ -35,15 +35,17 @@ It's important to consider the following configuration values when planning to r
 
 ```yaml
 tap:
-    stopped: false              # Ensure [Kubeshark](https://kubeshark.com) is not stopped and is actively capturing traffic | default is `true`
-    # Capture filters instruct [Kubeshark](https://kubeshark.com) on what traffic to capture
-    regex: catal.*              # Only traffic from pods matching the regex will be captured        | default is `.*`
-    namespaces:                 # Capture from these namespaces                                     | default is ALL
+  capture:
+    dissection:
+      enabled: true             # Ensure dissection is active | default is `true`
+  # Capture filters instruct [Kubeshark](https://kubeshark.com) on what traffic to capture
+  regex: catal.*                # Only traffic from pods matching the regex will be captured        | default is `.*`
+  namespaces:                   # Capture from these namespaces                                     | default is ALL
     - ns1
     - ns2
-    excludeNamespaces:          # Exclude these namespaces                                          | default is none
+  excludedNamespaces:           # Exclude these namespaces                                          | default is none
     - ns3
-  bpfOverride: net 10.10.0.0/16 # Or simply use an override BPF filter                              | default is none
+  bpfOverride: net 10.10.0.0/16 # Or simply use an override BPF filter                             | default is none
 pcapdump:                       # Ensure traffic is recorded at all times (optional, as this is the default)
     enabled: true               # Store captured traffic in PCAP files      (optional, as this is the default)
     maxTime: 1h                 # Discard files older than 1 hour             (optional, as this is the default)
