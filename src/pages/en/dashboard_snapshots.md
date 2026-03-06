@@ -96,6 +96,50 @@ To export:
 
 ---
 
+## Cloud Storage
+
+When [Cloud Storage](/en/snapshots_cloud_storage) is configured, a connection badge appears in the Snapshots toolbar indicating the provider and connection status:
+
+![Snapshots tab showing Connected to S3 badge](/snapshots-connected-s3.png)
+
+A green **Connected to S3** (or **Connected to Azure Blob**) badge confirms the hub has validated access to the configured bucket or container. If the connection fails, the hub will not start — see [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for troubleshooting.
+
+### Snapshot Location
+
+A snapshot can exist **locally**, **in the cloud**, or **both**. The **Location** column shows the current state:
+
+| Location | Description |
+|----------|-------------|
+| **Local** | Stored on the hub only |
+| **Cloud** | Stored in cloud storage only |
+| **Local + Cloud** | Stored in both locations |
+
+All operations — Download, PCAP export, and [Delayed Dissection](/en/v2/l7_api_delayed) — require the snapshot to be **local**. Cloud-only snapshots must be downloaded to the hub before these actions are available.
+
+### Uploading to the Cloud
+
+New snapshots are always created locally and display a **Local** badge. To upload a snapshot to cloud storage, click the cloud upload button next to the Local badge:
+
+![Snapshot with Local badge and upload to cloud button](/snapshots-upload-to-cloud.png)
+
+Once uploaded, the snapshot is available from any cluster that shares the same cloud storage configuration — enabling cross-cluster sharing, backup/restore, and long-term retention.
+
+### Deleting Snapshots
+
+Snapshots can be deleted independently from each location. When a snapshot exists in both locations, you can choose to delete it locally, from the cloud, or both.
+
+### Location Filter
+
+Use the **Location** filter in the toolbar to show snapshots by location:
+
+| Filter | Description |
+|--------|-------------|
+| **All** | Show all snapshots regardless of location |
+| **Local** | Show only snapshots stored locally on the hub |
+| **Cloud** | Show only snapshots stored in cloud storage |
+
+---
+
 ## Best Practices
 
 ### Naming Conventions

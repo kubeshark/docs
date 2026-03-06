@@ -15,12 +15,45 @@ tap:
   snapshots:
     cloud:
       provider: ""      # "s3" or "azblob" (empty = disabled)
+      prefix: ""        # key prefix in the bucket/container (e.g. "snapshots/")
       configMaps: []    # names of pre-existing ConfigMaps with cloud config env vars
       secrets: []       # names of pre-existing Secrets with cloud credentials
+      s3:
+        bucket: ""
+        region: ""
+        accessKey: ""
+        secretKey: ""
+        roleArn: ""
+        externalId: ""
+      azblob:
+        storageAccount: ""
+        container: ""
+        storageKey: ""
 ```
 
 - `provider` selects which cloud backend to use. Leave empty to disable cloud storage.
 - `configMaps` and `secrets` are lists of names of existing ConfigMap/Secret resources. They are mounted as `envFrom` on the hub pod, injecting all their keys as environment variables.
+
+### Inline Values (Alternative to External ConfigMaps/Secrets)
+
+Instead of creating ConfigMap and Secret resources manually, you can set cloud storage configuration directly in `values.yaml` or via `--set` flags. The Helm chart will automatically create the necessary ConfigMap and Secret resources.
+
+Both approaches can be used together — inline values are additive to external `configMaps`/`secrets` references.
+
+**Inline Helm value → Environment variable mapping:**
+
+| Helm Value | Auto-Created Resource | Environment Variable |
+|---|---|---|
+| `tap.snapshots.cloud.prefix` | ConfigMap | `SNAPSHOT_CLOUD_PREFIX` |
+| `tap.snapshots.cloud.s3.bucket` | ConfigMap | `SNAPSHOT_AWS_BUCKET` |
+| `tap.snapshots.cloud.s3.region` | ConfigMap | `SNAPSHOT_AWS_REGION` |
+| `tap.snapshots.cloud.s3.roleArn` | ConfigMap | `SNAPSHOT_AWS_ROLE_ARN` |
+| `tap.snapshots.cloud.s3.externalId` | ConfigMap | `SNAPSHOT_AWS_EXTERNAL_ID` |
+| `tap.snapshots.cloud.s3.accessKey` | Secret | `SNAPSHOT_AWS_ACCESS_KEY` |
+| `tap.snapshots.cloud.s3.secretKey` | Secret | `SNAPSHOT_AWS_SECRET_KEY` |
+| `tap.snapshots.cloud.azblob.storageAccount` | ConfigMap | `SNAPSHOT_AZBLOB_STORAGE_ACCOUNT` |
+| `tap.snapshots.cloud.azblob.container` | ConfigMap | `SNAPSHOT_AZBLOB_CONTAINER` |
+| `tap.snapshots.cloud.azblob.storageKey` | Secret | `SNAPSHOT_AZBLOB_STORAGE_KEY` |
 
 ---
 
@@ -52,7 +85,85 @@ Credentials are resolved in this order:
 
 The provider validates bucket access on startup via `HeadBucket`. If the bucket is inaccessible, the hub will fail to start.
 
-### Example: IRSA (recommended for EKS)
+### Examples Using Inline Values
+
+#### Basic S3 (IRSA / default credentials)
+
+When running on EKS with IRSA or another default credential method, only bucket and region are needed:
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "s3"
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
+```
+
+The hub pod's service account must be annotated for IRSA with an IAM role that has S3 access to the bucket.
+
+#### S3 with Static Credentials
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "s3"
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
+        accessKey: AKIA...
+        secretKey: wJal...
+```
+
+Or equivalently via `--set`:
+
+```bash
+helm install kubeshark kubeshark/kubeshark \
+  --set tap.snapshots.cloud.provider=s3 \
+  --set tap.snapshots.cloud.s3.bucket=my-kubeshark-snapshots \
+  --set tap.snapshots.cloud.s3.region=us-east-1 \
+  --set tap.snapshots.cloud.s3.accessKey=AKIA... \
+  --set tap.snapshots.cloud.s3.secretKey=wJal...
+```
+
+#### S3 Cross-Account Access via AssumeRole
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "s3"
+      s3:
+        bucket: other-account-bucket
+        region: eu-west-1
+        roleArn: arn:aws:iam::123456789012:role/KubesharkCrossAccountRole
+        externalId: my-external-id   # optional, if required by the trust policy
+```
+
+The hub will first authenticate using its own credentials (IRSA, static, or default chain), then assume the specified role to access the bucket.
+
+#### S3 with Prefix
+
+Use `prefix` to namespace snapshot keys within a bucket:
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "s3"
+      prefix: "production/snapshots"
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
+```
+
+### Examples Using External ConfigMaps/Secrets
+
+If you prefer to manage credentials as separate Kubernetes resources (e.g. managed by an external secrets operator), use the `configMaps` and `secrets` fields instead of inline values.
+
+#### IRSA (recommended for EKS)
 
 Create a ConfigMap with bucket configuration:
 
@@ -79,7 +190,7 @@ tap:
 
 The hub pod's service account must be annotated for IRSA with an IAM role that has S3 access to the bucket.
 
-### Example: Static Credentials
+#### Static Credentials
 
 Create a Secret with credentials:
 
@@ -119,7 +230,7 @@ tap:
         - kubeshark-s3-creds
 ```
 
-### Example: Cross-Account Access via AssumeRole
+#### Cross-Account Access via AssumeRole
 
 Add the role ARN to your ConfigMap:
 
@@ -163,7 +274,40 @@ Credentials are resolved in this order:
 
 The provider validates container access on startup via `GetProperties`. If the container is inaccessible, the hub will fail to start.
 
-### Example: Workload Identity (recommended for AKS)
+### Examples Using Inline Values
+
+#### Workload Identity (recommended for AKS)
+
+When using AKS Workload Identity or another default credential method, only the storage account and container are needed:
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "azblob"
+      azblob:
+        storageAccount: mykubesharksa
+        container: snapshots
+```
+
+The hub pod's service account must be configured for AKS Workload Identity with a managed identity that has the **Storage Blob Data Contributor** role on the container.
+
+#### Storage Account Key
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "azblob"
+      azblob:
+        storageAccount: mykubesharksa
+        container: snapshots
+        storageKey: "base64-encoded-storage-key..."
+```
+
+### Examples Using External ConfigMaps/Secrets
+
+#### Workload Identity (recommended for AKS)
 
 Create a ConfigMap with storage configuration:
 
@@ -190,7 +334,7 @@ tap:
 
 The hub pod's service account must be configured for AKS Workload Identity with a managed identity that has the **Storage Blob Data Contributor** role on the container.
 
-### Example: Storage Account Key
+#### Storage Account Key
 
 Create a Secret with the storage key:
 
@@ -235,5 +379,6 @@ tap:
 
 - [Traffic Snapshots](/en/v2/traffic_snapshots) -- Overview of snapshot capabilities
 - [Snapshots Dashboard](/en/dashboard_snapshots) -- Creating and managing snapshots
+- [Dashboard Cloud Storage](/en/dashboard_snapshots#cloud-storage) -- Connection status and location filtering
 - [Helm Configuration Reference](/en/helm_reference#snapshots--cloud-storage) -- All snapshot Helm values
 - [Raw Capture Configuration](/en/v2/raw_capture_config) -- Local storage and capture settings

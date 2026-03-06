@@ -74,20 +74,34 @@ With a dedicated storage class, snapshot storage can be far larger than node-loc
 
 #### Cloud Storage
 
-Snapshots can also be uploaded to cloud object storage (Amazon S3 or Azure Blob Storage) for cross-cluster sharing, backup/restore, and long-term retention:
+Snapshots can also be uploaded to cloud object storage (Amazon S3 or Azure Blob Storage) for cross-cluster sharing, backup/restore, and long-term retention.
+
+**Inline configuration (simplest approach):**
 
 ```yaml
 tap:
   snapshots:
     cloud:
-      provider: "s3"           # "s3" or "azblob" (empty = disabled)
+      provider: "s3"
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
+```
+
+**Or using external ConfigMaps/Secrets:**
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "s3"
       configMaps:
         - kubeshark-s3-config  # ConfigMap with bucket/region
       secrets:
         - kubeshark-s3-creds   # Secret with credentials (optional)
 ```
 
-See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for detailed setup instructions including IRSA, static credentials, and Azure Workload Identity.
+See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for detailed setup instructions including inline values, IRSA, static credentials, and Azure Workload Identity.
 
 ---
 
@@ -191,6 +205,11 @@ tap:
     local:
       storageClass: gp2         # AWS storage class
       storageSize: 100Gi        # 100GB for snapshots
+    cloud:
+      provider: "s3"            # Upload snapshots to S3
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
 ```
 
 ---

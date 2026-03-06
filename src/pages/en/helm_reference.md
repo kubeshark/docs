@@ -78,8 +78,18 @@ Complete reference for Kubeshark Helm configuration values.
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `tap.snapshots.cloud.provider` | Cloud storage provider: `s3` or `azblob`. Empty string disables cloud storage. See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage). | `""` |
-| `tap.snapshots.cloud.configMaps` | Names of ConfigMaps containing cloud storage environment variables | `[]` |
-| `tap.snapshots.cloud.secrets` | Names of Secrets containing cloud storage credentials | `[]` |
+| `tap.snapshots.cloud.prefix` | Key prefix in the bucket/container (e.g. `snapshots/`) | `""` |
+| `tap.snapshots.cloud.configMaps` | Names of pre-existing ConfigMaps with cloud storage env vars. Alternative to inline `s3`/`azblob` values below. | `[]` |
+| `tap.snapshots.cloud.secrets` | Names of pre-existing Secrets with cloud storage credentials. Alternative to inline `s3`/`azblob` values below. | `[]` |
+| `tap.snapshots.cloud.s3.bucket` | S3 bucket name. Auto-creates a ConfigMap with `SNAPSHOT_AWS_BUCKET`. | `""` |
+| `tap.snapshots.cloud.s3.region` | AWS region for the S3 bucket | `""` |
+| `tap.snapshots.cloud.s3.accessKey` | AWS access key ID. Auto-creates a Secret with `SNAPSHOT_AWS_ACCESS_KEY`. | `""` |
+| `tap.snapshots.cloud.s3.secretKey` | AWS secret access key. Auto-creates a Secret with `SNAPSHOT_AWS_SECRET_KEY`. | `""` |
+| `tap.snapshots.cloud.s3.roleArn` | IAM role ARN to assume via STS for cross-account S3 access | `""` |
+| `tap.snapshots.cloud.s3.externalId` | External ID for the STS AssumeRole call | `""` |
+| `tap.snapshots.cloud.azblob.storageAccount` | Azure storage account name. Auto-creates a ConfigMap with `SNAPSHOT_AZBLOB_STORAGE_ACCOUNT`. | `""` |
+| `tap.snapshots.cloud.azblob.container` | Azure blob container name | `""` |
+| `tap.snapshots.cloud.azblob.storageKey` | Azure storage account access key. Auto-creates a Secret with `SNAPSHOT_AZBLOB_STORAGE_KEY`. | `""` |
 
 ---
 
@@ -404,6 +414,11 @@ tap:
     local:
       storageClass: gp2
       storageSize: 100Gi
+    cloud:
+      provider: "s3"
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
 
   # Resources
   resources:
