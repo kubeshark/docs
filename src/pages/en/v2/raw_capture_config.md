@@ -205,6 +205,11 @@ tap:
     local:
       storageClass: gp2         # AWS storage class
       storageSize: 100Gi        # 100GB for snapshots
+    cloud:
+      provider: "s3"            # Upload snapshots to S3
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
 ```
 
 ---

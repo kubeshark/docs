@@ -414,6 +414,11 @@ tap:
     local:
       storageClass: gp2
       storageSize: 100Gi
+    cloud:
+      provider: "s3"
+      s3:
+        bucket: my-kubeshark-snapshots
+        region: us-east-1
 
   # Resources
   resources:
