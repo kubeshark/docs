@@ -379,5 +379,6 @@ tap:
 
 - [Traffic Snapshots](/en/v2/traffic_snapshots) -- Overview of snapshot capabilities
 - [Snapshots Dashboard](/en/dashboard_snapshots) -- Creating and managing snapshots
+- [Dashboard Cloud Storage](/en/dashboard_snapshots#cloud-storage) -- Connection status and location filtering
 - [Helm Configuration Reference](/en/helm_reference#snapshots--cloud-storage) -- All snapshot Helm values
 - [Raw Capture Configuration](/en/v2/raw_capture_config) -- Local storage and capture settings
