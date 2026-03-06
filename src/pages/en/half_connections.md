@@ -40,9 +40,10 @@ Connection errors, identified as part of the TCP protocol, include:
 
 ```yaml
 tap:
+  misc:
     tcpStreamChannelTimeoutMs: 10000 # in milliseconds
 ```
-or use: `--set tap.tcpStreamChannelTimeoutMs=10000`
+or use: `--set tap.misc.tcpStreamChannelTimeoutMs=10000`
 
 ## Packet Loss
 
@@ -101,7 +102,7 @@ Dissection errors are reported by [Kubeshark](https://kubeshark.com) protocol pa
 ## L4 Stream Capture Timeout
 [Kubeshark](https://kubeshark.com) will drop entire Layer 4 (L4) streams if not all packets are captured before the process times out.
 
-The default timeout is set to 10 seconds. This can be modified by setting the `tap.tcpStreamChannelTimeoutMs ` parameter.
+The default timeout is set to 10 seconds. This can be modified by setting the `tap.misc.tcpStreamChannelTimeoutMs` parameter.
 
 ## Half Connections
 

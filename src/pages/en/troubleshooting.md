@@ -58,7 +58,7 @@ Frequent OOMKilled errors indicate that the cluster is overburdened relative to 
 
 On busy clusters, the Worker pods can quickly consume the default 5GB storage limit, leading to pod eviction and restarts. This issue can be exacerbated if you're recording traffic, as more files are stored for longer retention periods.
 
-If storage exceeds its limit, the pod is evicted. The storage limit is controlled by setting the `tap.storageLimit` configuration value. To increase this limit, provide a different value (e.g., setting it to 50GB with `--set tap.storagelimit=50Gi`).
+If storage exceeds its limit, the pod is evicted. The storage limit is controlled by setting the `tap.storageLimit` configuration value. To increase this limit, provide a different value (e.g., setting it to 50GB with `--set tap.storageLimit=50Gi`).
 
 Another alternative is to not store PCAP files by setting `pcapTTL` and `pcapErrorTTL` to zero. This can also be useful if the PCAP files are of no interest.
 

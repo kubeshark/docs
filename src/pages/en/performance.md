@@ -66,7 +66,7 @@ Traffic is recorded and stored by the Worker at the Kubernetes node level. [Kube
 - PCAP - 10s TTL
 - JSON - 5m TTL
 
-If storage exceeds its limit, the pod is evicted. The storage limit is controlled by setting the `tap.storagelimit` configuration value. To increase this limit, provide a different value (e.g., setting it to 5GB with `--set tap.storagelimit=5Gi`).
+If storage exceeds its limit, the pod is evicted. The storage limit is controlled by setting the `tap.storageLimit` configuration value. To increase this limit, provide a different value (e.g., setting it to 5GB with `--set tap.storageLimit=5Gi`).
 
 ### OOMKilled and Evictions
 

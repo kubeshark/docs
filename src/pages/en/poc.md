@@ -74,7 +74,9 @@ Include the following configuration in your `values.yaml` file for Helm installa
 
 ```yaml
 tap:
-  stopped: true         # Start [Kubeshark](https://kubeshark.com) in dormant state
+  capture:
+    dissection:
+      enabled: false    # Start [Kubeshark](https://kubeshark.com) in dormant state
   regex: <pod-regex>    # Regex or prefix to identify the POC workloads (e.g. `(pod1|pod2)`)
   namespaces:
   - <namespace-name-1>  # Namespace filters to target relevant workloads

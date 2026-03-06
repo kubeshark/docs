@@ -23,11 +23,12 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.capture.stopped` | Start with dissection disabled | `false` |
-| `tap.capture.stopAfter` | Auto-stop after inactivity | `30s` |
+| `tap.capture.dissection.enabled` | Enable L7 protocol dissection at startup | `true` |
+| `tap.capture.dissection.stopAfter` | Auto-stop dissection after inactivity | `5m` |
+| `tap.capture.captureSelf` | Include Kubeshark's own traffic | `false` |
 | `tap.capture.raw.enabled` | Enable raw packet capture | `true` |
 | `tap.capture.raw.storageSize` | FIFO buffer size per node | `1Gi` |
-| `tap.capture.dbMaxSize` | Max dissection database size | `""` |
+| `tap.capture.dbMaxSize` | Max dissection database size | `500Mi` |
 
 ### Protocol & TLS
 
@@ -53,7 +54,7 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.storageLimit` | Storage limit for emptyDir/PVC | `5Gi` |
+| `tap.storageLimit` | Storage limit for emptyDir/PVC | `10Gi` |
 
 ### Persistent Storage
 
@@ -98,7 +99,7 @@ Complete reference for Kubeshark Helm configuration values.
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `tap.resources.sniffer.limits.cpu` | CPU limit | `""` (unlimited) |
-| `tap.resources.sniffer.limits.memory` | Memory limit | `3Gi` |
+| `tap.resources.sniffer.limits.memory` | Memory limit | `5Gi` |
 | `tap.resources.sniffer.requests.cpu` | CPU request | `50m` |
 | `tap.resources.sniffer.requests.memory` | Memory request | `50Mi` |
 
@@ -107,7 +108,7 @@ Complete reference for Kubeshark Helm configuration values.
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `tap.resources.tracer.limits.cpu` | CPU limit | `""` (unlimited) |
-| `tap.resources.tracer.limits.memory` | Memory limit | `3Gi` |
+| `tap.resources.tracer.limits.memory` | Memory limit | `5Gi` |
 | `tap.resources.tracer.requests.cpu` | CPU request | `50m` |
 | `tap.resources.tracer.requests.memory` | Memory request | `50Mi` |
 
@@ -115,7 +116,7 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.trafficSampleRate` | Percentage of traffic to process (0-100) | `100` |
+| `tap.misc.trafficSampleRate` | Percentage of traffic to process (0-100) | `100` |
 
 ---
 
@@ -141,9 +142,9 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.dnsConfig.nameservers` | Custom nameservers | `[]` |
-| `tap.dnsConfig.searches` | DNS search domains | `[]` |
-| `tap.dnsConfig.options` | DNS options | `[]` |
+| `tap.dns.nameservers` | Custom nameservers | `[]` |
+| `tap.dns.searches` | DNS search domains | `[]` |
+| `tap.dns.options` | DNS options | `[]` |
 
 ---
 
@@ -245,8 +246,8 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.probes.hub.initialDelaySeconds` | Initial delay | `15` |
-| `tap.probes.hub.periodSeconds` | Check period | `10` |
+| `tap.probes.hub.initialDelaySeconds` | Initial delay | `5` |
+| `tap.probes.hub.periodSeconds` | Check period | `5` |
 | `tap.probes.hub.successThreshold` | Success threshold | `1` |
 | `tap.probes.hub.failureThreshold` | Failure threshold | `3` |
 
@@ -254,8 +255,8 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.probes.sniffer.initialDelaySeconds` | Initial delay | `15` |
-| `tap.probes.sniffer.periodSeconds` | Check period | `10` |
+| `tap.probes.sniffer.initialDelaySeconds` | Initial delay | `5` |
+| `tap.probes.sniffer.periodSeconds` | Check period | `5` |
 | `tap.probes.sniffer.successThreshold` | Success threshold | `1` |
 | `tap.probes.sniffer.failureThreshold` | Failure threshold | `3` |
 
@@ -267,7 +268,7 @@ Complete reference for Kubeshark Helm configuration values.
 |-----------|-------------|---------|
 | `tap.metrics.port` | Prometheus metrics port | `49100` |
 | `tap.telemetry.enabled` | Usage statistics | `true` |
-| `tap.sentry.enabled` | Sentry error logging | `true` |
+| `tap.sentry.enabled` | Sentry error logging | `false` |
 | `tap.sentry.environment` | Sentry environment | `production` |
 
 ---
@@ -391,8 +392,9 @@ tap:
 
   # Capture settings
   capture:
-    stopped: false
-    stopAfter: 0              # Never auto-stop
+    dissection:
+      enabled: true
+      stopAfter: 0            # Never auto-stop
     raw:
       enabled: true
       storageSize: 5Gi

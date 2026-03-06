@@ -47,7 +47,7 @@ Raw Capture and L7 dissection are controlled separately:
 | Setting | Effect |
 |---------|--------|
 | `tap.capture.raw.enabled=true` | Raw capture active |
-| `tap.capture.stopped=true` | L7 dissection stopped |
+| `tap.capture.dissection.enabled=false` | L7 dissection stopped |
 
 Both can run simultaneously, or raw capture can run alone. This enables continuous packet retention with L7 dissection enabled only when needed.
 

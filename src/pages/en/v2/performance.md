@@ -42,12 +42,13 @@ To preserve resources, L7 API dissection automatically stops after a configurabl
 
 ### Disable Dissection
 
-Disable L7 API dissection entirely using `tap.capture.stopped=true`. Dissection can be [enabled on-demand](/en/on_off_switch) when needed:
+Disable L7 API dissection entirely using `tap.capture.dissection.enabled=false`. Dissection can be [enabled on-demand](/en/on_off_switch) when needed:
 
 ```yaml
 tap:
   capture:
-    stopped: true
+    dissection:
+      enabled: false
 ```
 
 ### Use Capture Filters
@@ -68,7 +69,8 @@ Let [Raw Capture](/en/v2/raw_capture) run continuously while keeping dissection 
 ```yaml
 tap:
   capture:
-    stopped: true           # Dissection disabled
+    dissection:
+      enabled: false        # Dissection disabled
     raw:
       enabled: true         # Raw capture active
 ```

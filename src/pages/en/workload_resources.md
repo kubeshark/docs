@@ -62,7 +62,7 @@ tap:
     sniffer:
       limits:
         cpu: ""               # No limit (default)
-        memory: 3Gi
+        memory: 5Gi
       requests:
         cpu: 50m
         memory: 50Mi
@@ -78,7 +78,7 @@ tap:
     tracer:
       limits:
         cpu: ""               # No limit (default)
-        memory: 3Gi
+        memory: 5Gi
       requests:
         cpu: 50m
         memory: 50Mi
@@ -87,7 +87,7 @@ tap:
 | Setting | Default | Description |
 |---------|---------|-------------|
 | `limits.cpu` | `""` (unlimited) | Maximum CPU |
-| `limits.memory` | `3Gi` | Maximum memory |
+| `limits.memory` | `5Gi` | Maximum memory |
 | `requests.cpu` | `50m` | Guaranteed CPU |
 | `requests.memory` | `50Mi` | Guaranteed memory |
 
@@ -151,8 +151,9 @@ Dedicated Hub storage for snapshots:
 ```yaml
 tap:
   snapshots:
-    storageClass: ""          # Storage class (e.g., gp2)
-    storageSize: 10Gi         # Total snapshot storage
+    local:
+      storageClass: ""        # Storage class (e.g., gp2)
+      storageSize: 20Gi       # Total snapshot storage
 ```
 
 See [Raw Capture & Snapshots Configuration](/en/v2/raw_capture_config) for details.
@@ -182,8 +183,8 @@ Configure liveness and readiness probes:
 tap:
   probes:
     hub:
-      initialDelaySeconds: 15
-      periodSeconds: 10
+      initialDelaySeconds: 5
+      periodSeconds: 5
       successThreshold: 1
       failureThreshold: 3
 ```
@@ -194,8 +195,8 @@ tap:
 tap:
   probes:
     sniffer:
-      initialDelaySeconds: 15
-      periodSeconds: 10
+      initialDelaySeconds: 5
+      periodSeconds: 5
       successThreshold: 1
       failureThreshold: 3
 ```
@@ -226,8 +227,9 @@ tap:
       storageSize: 5Gi
 
   snapshots:
-    storageClass: gp2
-    storageSize: 100Gi
+    local:
+      storageClass: gp2
+      storageSize: 100Gi
 
   # Hub resources
   resources:

@@ -11,7 +11,7 @@ Compute resource consumption, especially CPU and memory, is critical in Kubernet
 
 Enabling or disabling API dissection directly controls **Kubeshark**'s compute resource usage. When dissection is paused, **Kubeshark** remains in a dormant state within the cluster—not processing traffic and consuming minimal compute resources.
 
-**Kubeshark**'s Helm template includes a Helm value, `tap.capture.stopped`, that determines whether **Kubeshark** starts in a `stopped` state.
+**Kubeshark**'s Helm template includes a Helm value, `tap.capture.dissection.enabled`, that determines whether **Kubeshark** starts with L7 dissection active.
 
 ## Changing the Value Dynamically
 
@@ -61,21 +61,22 @@ See [L7 Tools Reference](/en/mcp/l7_tools) for more details on MCP endpoints.
 
 ## Using a Helm Value
 
-Setting `--set tap.capture.stopped=true` ensures **Kubeshark** starts in a dormant state, ready to begin API dissection once the value is changed to `false`.
-To have **Kubeshark** perform API dissection continuously, set the flag to `false` either via command line:
-`--set tap.capture.stopped=false`
+Setting `--set tap.capture.dissection.enabled=false` ensures **Kubeshark** starts in a dormant state, ready to begin API dissection once the value is changed to `true`.
+To have **Kubeshark** perform API dissection continuously, set the flag to `true` either via command line:
+`--set tap.capture.dissection.enabled=true`
 or in the `values.yaml` file:
 
 ```yaml
 tap:
   capture:
-    stopped: false
-    stopAfter: 5m
+    dissection:
+      enabled: true
+      stopAfter: 5m
 ```
 
 ## Inactivity Timeout
 
-The `tap.capture.stopAfter` Helm value automatically pauses API dissection and transitions **Kubeshark** into dormant mode when no activity is detected. By default, this timeout is `5m` (5 minutes).
+The `tap.capture.dissection.stopAfter` Helm value automatically pauses API dissection and transitions **Kubeshark** into dormant mode when no activity is detected. By default, this timeout is `5m` (5 minutes).
 
 Activity is defined as one of the following:
 
@@ -85,12 +86,13 @@ Activity is defined as one of the following:
 
 If none of these conditions are met, **Kubeshark** will enter dormant mode after the specified period.
 
-> **Important:** If you want API dissection to run continuously without automatic timeout, set `tap.capture.stopAfter: 0`. Otherwise, API dissection will automatically pause 5 minutes after the last dashboard disconnects.
+> **Important:** If you want API dissection to run continuously without automatic timeout, set `tap.capture.dissection.stopAfter: 0`. Otherwise, API dissection will automatically pause 5 minutes after the last dashboard disconnects.
 
 To disable inactivity-based dormancy:
 
 ```yaml
 tap:
   capture:
-    stopAfter: 0
+    dissection:
+      stopAfter: 0
 ```

@@ -63,7 +63,7 @@ By default, [Kubeshark](https://kubeshark.com) is optimized for real-time traffi
 
 #### Eviction
 
-The `tap.storageLimit` default is `500Mi`. When exceeded, the Worker pod is evicted, its storage is purged, and it is restarted.
+The `tap.storageLimit` default is `10Gi`. When exceeded, the Worker pod is evicted, its storage is purged, and it is restarted.
 
 Large volumes of PCAP or JSON data can exceed this limit quickly, especially in busy clusters. Once evicted, all recorded data is lost, and the recording will appear empty.
 

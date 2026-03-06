@@ -152,13 +152,14 @@ Raw capture operates independently from real-time L7 API dissection:
 ```yaml
 tap:
   capture:
-    stopped: false            # Whether L7 dissection is stopped
-    stopAfter: 5m             # Auto-stop dissection after idle period
+    dissection:
+      enabled: true           # Whether L7 dissection is active
+      stopAfter: 5m           # Auto-stop dissection after idle period
     raw:
       enabled: true           # Raw capture continues regardless
 ```
 
-- `stopped: true` stops L7 dissection but raw capture continues
+- `dissection.enabled: false` stops L7 dissection but raw capture continues
 - `raw.enabled: true` enables raw capture regardless of dissection state
 
 This allows continuous raw capture with minimal overhead while [enabling L7 dissection on demand](/en/on_off_switch).
@@ -178,8 +179,9 @@ tap:
     - kube-system
 
   capture:
-    stopped: false            # L7 dissection enabled
-    stopAfter: 5m             # Auto-stop after 5 minutes idle
+    dissection:
+      enabled: true           # L7 dissection enabled
+      stopAfter: 5m           # Auto-stop after 5 minutes idle
     raw:
       enabled: true           # Raw capture always on
       storageSize: 2Gi        # 2GB per node
