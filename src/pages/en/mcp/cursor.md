@@ -33,24 +33,22 @@ Cursor supports two configuration locations:
 
 ## Configuration
 
-### URL Mode
+### Default (kubectl context)
 
-Connect to an existing Kubeshark deployment:
+Uses your current kubectl context to connect to Kubeshark in the cluster:
 
 ```json
 {
   "mcpServers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
 ```
 
-### Proxy Mode
-
-Let the CLI proxy into your cluster via kubectl:
+To use a specific kubeconfig file:
 
 ```json
 {
@@ -70,7 +68,22 @@ To enable cluster management operations (start/stop Kubeshark):
   "mcpServers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--allow-destructive", "--kubeconfig", "/path/to/.kube/config"]
+      "args": ["mcp", "--allow-destructive"]
+    }
+  }
+}
+```
+
+### URL Mode (Optional)
+
+If you don't have kubectl access (e.g., a shared instance set up by an SRE), connect directly via URL:
+
+```json
+{
+  "mcpServers": {
+    "kubeshark": {
+      "command": "kubeshark",
+      "args": ["mcp", "--url", "https://kubeshark.example.com"]
     }
   }
 }
@@ -87,7 +100,7 @@ For team sharing, create `.cursor/mcp.json` in your project root:
   "mcpServers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -158,9 +171,12 @@ Since Cursor has access to both your codebase and Kubeshark's network data, you 
 
 ```bash
 # Test the binary directly
+kubeshark mcp --list-tools
+
+# If using URL mode, test with the URL
 kubeshark mcp --list-tools --url https://kubeshark.example.com
 
-# If using proxy mode, verify kubectl access
+# Verify kubectl access
 kubectl get pods -l app=kubeshark-hub
 ```
 
@@ -175,6 +191,5 @@ kubectl get pods -l app=kubeshark-hub
 ## What's Next
 
 - [MCP CLI Reference](/en/mcp/cli) — All CLI options and modes
-- [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
-- [Autonomous Development](/en/mcp/autonomous_development) — Closed-loop coding with network feedback
+- [AI Integration](/en/mcp_intro) — Conversational debugging, autonomous development
 - [How MCP Works](/en/mcp) — Technical details of the protocol

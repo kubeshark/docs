@@ -22,13 +22,13 @@ Create `.vscode/mcp.json` in your project root:
   "servers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
 ```
 
-This configuration is shared with your team when committed to version control.
+This uses your current kubectl context and is shared with your team when committed to version control.
 
 ### Option 2: User Configuration
 
@@ -39,7 +39,7 @@ For personal configuration across all projects, add to your VS Code settings (`s
   "mcp.servers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -63,7 +63,7 @@ Navigate to **Settings → Copilot → Coding agent** and add:
 {
   "type": "stdio",
   "command": "kubeshark",
-  "args": ["mcp", "--url", "https://kubeshark.example.com"]
+  "args": ["mcp"]
 }
 ```
 
@@ -82,7 +82,7 @@ Supported transport types: `"local"`, `"stdio"`, `"http"`, or `"sse"`
 If you're using [Copilot CLI](https://docs.github.com/en/copilot/github-copilot-in-the-cli), add Kubeshark with:
 
 ```bash
-/mcp add kubeshark -- kubeshark mcp --url https://kubeshark.example.com
+/mcp add kubeshark -- kubeshark mcp
 ```
 
 Configuration is saved to `~/.copilot` directory.
@@ -93,10 +93,26 @@ Configuration is saved to `~/.copilot` directory.
 
 | Mode | Command | Use When |
 |------|---------|----------|
-| **URL Mode** | `kubeshark mcp --url <url>` | Kubeshark is already running and accessible |
-| **Proxy Mode** | `kubeshark mcp --kubeconfig ~/.kube/config` | Let the CLI proxy into your cluster |
+| **Default** | `kubeshark mcp` | You have kubectl access (uses current context) |
+| **Kubeconfig** | `kubeshark mcp --kubeconfig ~/.kube/config` | Specify a kubeconfig file explicitly |
+| **URL Mode** | `kubeshark mcp --url <url>` | No kubectl access (e.g., shared instance set up by an SRE) |
 
-### Proxy Mode Example
+### URL Mode Example
+
+If you don't have kubectl access, connect directly via URL:
+
+```json
+{
+  "servers": {
+    "kubeshark": {
+      "command": "kubeshark",
+      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+    }
+  }
+}
+```
+
+### Kubeconfig Example
 
 ```json
 {
@@ -183,9 +199,12 @@ See [GitHub's MCP access documentation](https://docs.github.com/en/copilot/how-t
 
 ```bash
 # Test the binary directly
+kubeshark mcp --list-tools
+
+# If using URL mode, test with the URL
 kubeshark mcp --list-tools --url https://kubeshark.example.com
 
-# If using proxy mode, verify kubectl access
+# Verify kubectl access
 kubectl get pods -l app=kubeshark-hub
 ```
 
@@ -198,5 +217,5 @@ If you receive permission errors, contact your organization administrator to ena
 ## What's Next
 
 - [MCP CLI Reference](/en/mcp/cli) — All CLI options and modes
-- [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
+- [AI Integration](/en/mcp_intro) — Conversational debugging, autonomous development
 - [How MCP Works](/en/mcp) — Technical details of the protocol

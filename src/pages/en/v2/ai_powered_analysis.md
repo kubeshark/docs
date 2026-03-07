@@ -175,11 +175,11 @@ One Kubeshark deployment. Every AI tool connected.
 ## Get Started
 
 ```bash
-# Connect Claude Code
-claude mcp add kubeshark -- kubeshark mcp --url https://your-kubeshark.example.com
+# Connect Claude Code (uses kubectl context)
+claude mcp add kubeshark -- kubeshark mcp
 
-# Or use proxy mode
-claude mcp add kubeshark -- kubeshark mcp --proxy
+# Or connect via URL (without kubectl access)
+claude mcp add kubeshark -- kubeshark mcp --url https://your-kubeshark.example.com
 ```
 
 Then ask:
@@ -190,7 +190,6 @@ Then ask:
 
 ## What's Next
 
-- [AI Integration](/en/mcp_intro) — What AI can do with network data
-- [Conversational Debugging](/en/mcp/troubleshooting) — Deep dive investigation
-- [Autonomous Development](/en/mcp/autonomous_development) — Closed-loop coding
+- [AI Integration](/en/mcp_intro) — Conversational debugging, autonomous development
+- [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes
 - [How MCP Works](/en/mcp) — Technical details

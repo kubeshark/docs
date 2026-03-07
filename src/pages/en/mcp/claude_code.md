@@ -16,11 +16,10 @@ mascot: Bookworm
 The fastest way to add Kubeshark as an MCP server in Claude Code:
 
 ```bash
-claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add --transport stdio kubeshark -- kubeshark mcp
 ```
 
-Replace `/path/to/kubeshark` with the actual path to your Kubeshark binary, and the URL with your Kubeshark deployment.
+This uses your current kubectl context to connect to Kubeshark in the cluster.
 
 Then start Claude Code:
 
@@ -48,29 +47,33 @@ Claude Code supports three scopes for MCP server configuration:
 
 ### Option 1: CLI (Recommended)
 
-#### URL Mode
-
-Connect directly to an existing Kubeshark deployment:
+The default mode uses your kubectl context to connect to Kubeshark in the cluster:
 
 ```bash
-claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add --transport stdio kubeshark -- kubeshark mcp
 ```
 
-#### Proxy Mode
-
-Let Kubeshark proxy into the cluster via kubectl:
+To use a specific kubeconfig file:
 
 ```bash
 claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --kubeconfig ~/.kube/config
+  kubeshark mcp --kubeconfig ~/.kube/config
 ```
 
 To enable cluster management operations (start/stop Kubeshark):
 
 ```bash
 claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --allow-destructive --kubeconfig ~/.kube/config
+  kubeshark mcp --allow-destructive
+```
+
+#### URL Mode (Optional)
+
+If you don't have kubectl access (e.g., a shared instance set up by an SRE), connect directly via URL:
+
+```bash
+claude mcp add --transport stdio kubeshark -- \
+  kubeshark mcp --url https://kubeshark.example.com
 ```
 
 #### Scoping
@@ -79,12 +82,10 @@ Add `--scope` to control where the config is stored:
 
 ```bash
 # Available across all your projects
-claude mcp add --scope user --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add --scope user --transport stdio kubeshark -- kubeshark mcp
 
 # Shared with your team via git
-claude mcp add --scope project --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add --scope project --transport stdio kubeshark -- kubeshark mcp
 ```
 
 ### Option 2: Config File
@@ -97,14 +98,29 @@ You can also edit the config files directly.
 {
   "mcpServers": {
     "kubeshark": {
-      "command": "/path/to/kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "command": "kubeshark",
+      "args": ["mcp"]
     }
   }
 }
 ```
 
 #### Project Scope (`.mcp.json` in project root)
+
+```json
+{
+  "mcpServers": {
+    "kubeshark": {
+      "command": "kubeshark",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+#### URL Mode (without kubectl access)
+
+If you need to connect to a remote Kubeshark instance directly:
 
 ```json
 {
@@ -224,9 +240,12 @@ claude mcp remove kubeshark
 
 ```bash
 # Test the binary directly
-/path/to/kubeshark mcp --list-tools --url https://kubeshark.example.com
+kubeshark mcp --list-tools
 
-# If using proxy mode, verify kubectl access
+# If using URL mode, test with the URL
+kubeshark mcp --list-tools --url https://kubeshark.example.com
+
+# Verify kubectl access
 kubectl get pods -l app=kubeshark-hub
 ```
 

@@ -23,7 +23,7 @@ With Kubeshark's MCP server, your AI assistant can:
 
 ## Conversational Debugging
 
-Instead of manually querying dashboards, you have a conversation:
+Instead of manually querying dashboards, you have a conversation. Here's an example — a developer gets paged about checkout latency:
 
 ```
 +---------------------------------------------------------------------------------+
@@ -59,6 +59,46 @@ Instead of manually querying dashboards, you have a conversation:
 
 What would take 4-6 hours of manual investigation takes a 3-minute conversation.
 
+Here's another example — debugging a webhook integration issue:
+
+```
++---------------------------------------------------------------------------------+
+| Terminal                                                                        |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+|  > My webhook endpoint isn't receiving events from the payment provider.        |
+|    What's going on?                                                             |
+|                                                                                 |
+|  * Investigating webhook traffic...                                             |
+|                                                                                 |
+|  Payment provider IS sending webhooks, but they're failing:                     |
+|                                                                                 |
+|  Last 5 attempts (from 203.0.113.50 - Stripe IP):                              |
+|    14:23:15  /webhooks/payment  -> 415 Unsupported Media Type                   |
+|    14:18:22  /webhooks/payment  -> 415 Unsupported Media Type                   |
+|    14:13:30  /webhooks/payment  -> 415 Unsupported Media Type                   |
+|                                                                                 |
+|  Root cause: Content-Type mismatch                                              |
+|    Provider sends:  application/json; charset=utf-8                             |
+|    Your endpoint expects: application/json (exact match)                        |
+|                                                                                 |
+|  The "; charset=utf-8" suffix causes your framework to reject it.              |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+```
+
+**Common debugging scenarios:**
+
+| Issue | What to Ask |
+|-------|-------------|
+| Not receiving requests | "Is my service receiving any traffic? Show me recent requests." |
+| Wrong response | "What exactly is service X returning for endpoint Y?" |
+| Header issues | "Show me all headers being sent to my endpoint" |
+| Payload mismatch | "Compare what's sent vs. what's received" |
+| Connection errors | "Why am I getting connection refused/reset errors?" |
+| Auth failures | "What auth headers are being sent? Are they valid?" |
+| Timeout issues | "Which requests are timing out and how long do they take?" |
+
 ---
 
 ## Autonomous Development
@@ -93,6 +133,17 @@ AI coding tools can write code, but they can't see how it behaves in a real clus
 
 The AI writes code, Kubeshark shows what that code actually does, and the AI fixes issues based on real network evidence — all without manual intervention.
 
+### What Network Feedback Catches
+
+Kubeshark provides feedback that logs, metrics, and test assertions miss:
+
+| Traditional Testing | Network-Level Verification |
+|---------------------|---------------------------|
+| "Test passed (200 OK)" | "Response was 200, but payload had wrong field types" |
+| "No errors in logs" | "3 unexpected retries occurred, masking a connection issue" |
+| "Latency within SLA" | "Latency is fine, but you're making 5 redundant DB calls" |
+| "Auth test passed" | "Auth works, but token is sent to downstream services unmasked" |
+
 | Without Kubeshark | With Kubeshark |
 |------------------|----------------|
 | AI writes code, hopes it works | AI writes code, verifies it works |
@@ -116,5 +167,4 @@ Kubeshark's MCP server works with any MCP-compatible AI assistant:
 
 - [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes
 - [How It Works](/en/mcp) — Technical details of the MCP protocol
-- [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
-- [MCP CLI Reference](/en/mcp/cli) — All connection options
+- [The MCP CLI](/en/mcp/cli) — All connection options

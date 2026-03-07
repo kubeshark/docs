@@ -94,8 +94,6 @@ export const SIDEBAR: Sidebar = {
       { text: 'Introduction', link: 'en/mcp_intro' },
       { text: 'Getting Started', link: 'en/mcp_getting_started' },
       { text: 'How It Works', link: 'en/mcp' },
-      { text: 'Conversational Debugging', link: 'en/mcp/troubleshooting' },
-      { text: 'Autonomous Development', link: 'en/mcp/autonomous_development' },
       { text: 'L7 API Calls', link: 'en/mcp/l7_tools' },
       { text: 'L4 Traffic Flows', link: 'en/mcp/l4_tools' },
       { text: 'TCP Expert Insights', link: 'en/mcp/tcp_insights' },

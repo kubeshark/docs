@@ -76,6 +76,4 @@ The AI will use Kubeshark's MCP tools to query your traffic and return insights.
 ## What's Next
 
 - [How It Works](/en/mcp) — Technical details of the MCP protocol
-- [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
-- [Autonomous Development](/en/mcp/autonomous_development) — Deploy, verify, and fix in a loop
-- [MCP CLI Reference](/en/mcp/cli) — All connection options
+- [The MCP CLI](/en/mcp/cli) — All connection options
