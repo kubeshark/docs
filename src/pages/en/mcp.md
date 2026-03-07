@@ -236,5 +236,5 @@ kubectl port-forward svc/kubeshark-hub 8898:8898
 ## What's Next
 
 - [Why Network Data Matters](/en/why_network_data) — The value of network-level visibility
-- [Use Cases](/en/mcp_use_cases) — Detailed scenarios and example prompts
+- [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes
 - [KFL2 Filters](/en/v2/kfl2) — Write powerful traffic filters

@@ -693,4 +693,4 @@ Within a cluster, you may notice recurring `cgroup_id` values for host processes
 
 - [How MCP Works](/en/mcp) — Understanding the Model Context Protocol
 - [L4/L7 Workload Map](/en/v2/service_map) — Visualize service dependencies
-- [Use Cases](/en/mcp_use_cases) — More AI-powered analysis scenarios
+- [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes

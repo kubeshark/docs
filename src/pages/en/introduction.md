@@ -102,7 +102,7 @@ This enables:
 
 Kubeshark connects AI assistants directly to your network data via the **Model Context Protocol (MCP)**—the open standard for AI tool integration. Ask questions in natural language, investigate incidents, and analyze traffic patterns—all through your preferred AI tool.
 
-[Learn more about AI Integration →](/en/mcp_use_cases)
+[Learn more about AI Integration →](/en/mcp_intro)
 
 ---
 

@@ -14,15 +14,15 @@ The `kubeshark mcp` command runs an MCP (Model Context Protocol) server over std
 ## Quick Start
 
 ```bash
-kubeshark mcp --url https://kubeshark.example.com
+kubeshark mcp
 ```
 
-This starts an MCP server that communicates over stdin/stdout using the MCP protocol, connecting to an existing Kubeshark deployment.
+This starts an MCP server that communicates over stdin/stdout using the MCP protocol, connecting to Kubeshark in the cluster via your current kubectl context.
 
 To see available tools:
 
 ```bash
-kubeshark mcp --list-tools --url https://kubeshark.example.com
+kubeshark mcp --list-tools
 ```
 
 ---
@@ -35,9 +35,54 @@ Add to your Claude Desktop configuration file:
 
 **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
-### URL Mode (Recommended)
+### Default Mode (Recommended)
 
-Connect directly to an existing Kubeshark deployment:
+Uses your current kubectl context to connect to Kubeshark in the cluster:
+
+```json
+{
+  "mcpServers": {
+    "kubeshark": {
+      "command": "/path/to/kubeshark",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+In default mode, the MCP CLI will:
+
+1. **Proxy into the cluster** using kubectl port-forward
+2. **Connect to deployed Kubeshark** if it's running
+3. All traffic analysis tools work normally
+
+```json
+{
+  "mcpServers": {
+    "kubeshark": {
+      "command": "/path/to/kubeshark",
+      "args": ["mcp", "--kubeconfig", "/path/to/.kube/config"]
+    }
+  }
+}
+```
+
+By default, this mode operates in **read-only mode**. To enable AI assistants to start or stop Kubeshark, add `--allow-destructive`:
+
+```json
+{
+  "mcpServers": {
+    "kubeshark": {
+      "command": "/path/to/kubeshark",
+      "args": ["mcp", "--allow-destructive", "--kubeconfig", "/path/to/.kube/config"]
+    }
+  }
+}
+```
+
+### URL Mode (Optional)
+
+If you don't have kubectl access (e.g., a shared instance set up by an SRE), connect directly via URL:
 
 ```json
 {
@@ -56,38 +101,6 @@ In URL mode:
 - Cluster management tools (start/stop) are disabled
 - All traffic analysis tools work normally
 
-### Proxy Mode
-
-When no `--url` is provided, the MCP CLI will:
-
-1. **Proxy into the cluster** using kubectl port-forward
-2. **Connect to deployed Kubeshark** if it's running
-3. All traffic analysis tools work normally
-
-```json
-{
-  "mcpServers": {
-    "kubeshark": {
-      "command": "/path/to/kubeshark",
-      "args": ["mcp", "--kubeconfig", "/path/to/.kube/config"]
-    }
-  }
-}
-```
-
-By default, proxy mode operates in **read-only mode**. To enable AI assistants to start or stop Kubeshark, add `--allow-destructive`:
-
-```json
-{
-  "mcpServers": {
-    "kubeshark": {
-      "command": "/path/to/kubeshark",
-      "args": ["mcp", "--allow-destructive", "--kubeconfig", "/path/to/.kube/config"]
-    }
-  }
-}
-```
-
 ---
 
 ## CLI Options
@@ -105,7 +118,7 @@ By default, proxy mode operates in **read-only mode**. To enable AI assistants t
 To generate the Claude Desktop configuration automatically:
 
 ```bash
-kubeshark mcp --mcp-config --url https://kubeshark.example.com
+kubeshark mcp --mcp-config
 ```
 
 Output:
@@ -114,7 +127,7 @@ Output:
   "mcpServers": {
     "kubeshark": {
       "command": "/usr/local/bin/kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -123,14 +136,20 @@ Output:
 ### Examples
 
 ```bash
-# List available tools from a Kubeshark instance
-kubeshark mcp --list-tools --url https://kubeshark.example.com
+# List available tools (uses kubectl context)
+kubeshark mcp --list-tools
 
-# Use specific kubeconfig (proxy mode)
+# Use specific kubeconfig
 kubeshark mcp --kubeconfig ~/.kube/config
 
-# Enable destructive operations (proxy mode)
+# Enable destructive operations
 kubeshark mcp --allow-destructive --kubeconfig ~/.kube/config
+
+# Connect via URL (without kubectl access)
+kubeshark mcp --url https://kubeshark.example.com
+
+# List tools from a URL-accessible instance
+kubeshark mcp --list-tools --url https://kubeshark.example.com
 
 # Connect to local port-forwarded instance
 kubeshark mcp --url http://localhost:8899
@@ -308,4 +327,4 @@ Removes Kubeshark from the cluster. Requires `--allow-destructive` flag.
 - [How MCP Works](/en/mcp) — Understanding the Model Context Protocol
 - [L7 Tools Reference](/en/mcp/l7_tools) — L7 API traffic analysis tools
 - [L4 Tools Reference](/en/mcp/l4_tools) — L4 network flow tools
-- [Use Cases](/en/mcp_use_cases) — What you can do with MCP
+- [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes
