@@ -308,4 +308,4 @@ Removes Kubeshark from the cluster. Requires `--allow-destructive` flag.
 - [How MCP Works](/en/mcp) — Understanding the Model Context Protocol
 - [L7 Tools Reference](/en/mcp/l7_tools) — L7 API traffic analysis tools
 - [L4 Tools Reference](/en/mcp/l4_tools) — L4 network flow tools
-- [Use Cases](/en/mcp_use_cases) — What you can do with MCP
+- [Getting Started](/en/mcp_intro) — Connect your AI assistant to Kubeshark

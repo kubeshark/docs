@@ -5,8 +5,6 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
-
 Connect any MCP-compatible AI assistant to Kubeshark and query your Kubernetes network traffic using natural language.
 
 ---
@@ -16,7 +14,7 @@ Connect any MCP-compatible AI assistant to Kubeshark and query your Kubernetes n
 ### Claude Code (Terminal)
 
 ```bash
-claude mcp add kubeshark -- kubeshark mcp --url https://your-kubeshark.example.com
+claude mcp add kubeshark -- kubeshark mcp
 ```
 
 ### Claude Desktop
@@ -28,7 +26,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
   "mcpServers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--url", "https://your-kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -42,17 +40,19 @@ Configure in your editor's MCP settings with the same command and arguments.
 
 ## Connection Modes
 
+By default, the MCP server uses your local `kubectl` context to connect to Kubeshark running in your cluster. If you don't have `kubectl` access (e.g. a developer using a shared Kubeshark instance installed by an SRE), use the `--url` option to connect directly.
+
 | Mode | Use When |
 |------|----------|
-| **URL Mode** | Kubeshark is already running and accessible |
-| **Proxy Mode** | Let the CLI proxy into your cluster via kubectl |
+| **Default** | You have `kubectl` access to the cluster |
+| **URL Mode** | Kubeshark is accessible via a known URL (no `kubectl` needed) |
 
 ```bash
-# URL mode - connect to running instance
-kubeshark mcp --url https://kubeshark.example.com
+# Default - uses kubectl context
+kubeshark mcp
 
-# Proxy mode - CLI handles the connection
-kubeshark mcp --proxy
+# URL mode - connect directly (no kubectl required)
+kubeshark mcp --url https://kubeshark.example.com
 ```
 
 ---

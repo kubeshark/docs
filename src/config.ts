@@ -91,7 +91,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Reference', link: 'en/helm_reference' },
     ],
     'AI Integration': [
-      { text: 'Introduction', link: 'en/mcp_use_cases' },
+      { text: 'Introduction', link: 'en/mcp_intro' },
       { text: 'Conversational Debugging', link: 'en/mcp/troubleshooting' },
       { text: 'Autonomous Development', link: 'en/mcp/autonomous_development' },
       { text: 'MCP in Action', link: 'en/mcp_in_action' },

@@ -144,6 +144,6 @@ Ask debugging questions naturally:
 
 ## What's Next
 
-- [AI Use Cases](/en/mcp_use_cases) — Common scenarios for AI-powered analysis
+- [Getting Started](/en/mcp_intro) — Connect your AI assistant to Kubeshark
 - [Autonomous Development](/en/mcp/autonomous_development) — Verify code in local cluster
 - [MCP in Action](/en/mcp_in_action) — See a complete investigation example

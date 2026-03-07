@@ -190,7 +190,7 @@ Then ask:
 
 ## What's Next
 
-- [AI Assistant - Getting Started](/en/mcp_use_cases) — Connect your AI tools
+- [AI Assistant - Getting Started](/en/mcp_intro) — Connect your AI tools
 - [Conversational Debugging](/en/mcp/troubleshooting) — Deep dive investigation
 - [Autonomous Development](/en/mcp/autonomous_development) — Closed-loop coding
 - [How MCP Works](/en/mcp) — Technical details

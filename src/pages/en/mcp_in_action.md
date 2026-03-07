@@ -358,6 +358,6 @@ The AI will handle the snapshot creation, dissection, and analysis—you just as
 
 ## What's Next
 
-- [Use Cases](/en/mcp_use_cases) — More scenarios for AI-powered analysis
+- [Getting Started](/en/mcp_intro) — Connect your AI assistant to Kubeshark
 - [How It Works](/en/mcp) — Technical details of the MCP protocol
 - [L7 API Dissection](/en/v2/l7_api_dissection) — How Kubeshark parses protocols

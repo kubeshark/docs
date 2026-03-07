@@ -242,5 +242,5 @@ kubectl get pods -l app=kubeshark-hub
 
 - [MCP CLI Reference](/en/mcp/cli) — All CLI options and modes
 - [MCP in Action](/en/mcp_in_action) — Full walkthrough of an AI-driven investigation
-- [Use Cases](/en/mcp_use_cases) — Scenarios and example prompts
+- [Getting Started](/en/mcp_intro) — Connect your AI assistant to Kubeshark
 - [How MCP Works](/en/mcp) — Technical details of the protocol
