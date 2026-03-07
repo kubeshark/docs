@@ -1,79 +1,120 @@
 ---
-title: Getting Started
-description: Connect your AI assistant to Kubeshark and start querying network traffic in minutes.
+title: AI Integration
+description: Connect AI assistants to real Kubernetes network data for conversational debugging, autonomous development, and incident investigation.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Connect any MCP-compatible AI assistant to Kubeshark and query your Kubernetes network traffic using natural language.
+Kubeshark connects AI assistants directly to your live Kubernetes network traffic via the **Model Context Protocol (MCP)**. Instead of sifting through dashboards and logs, you ask questions in natural language and get answers backed by real network evidence.
 
 ---
 
-## Quick Setup
+## What AI Can Do With Network Data
 
-### Claude Code (Terminal)
+With Kubeshark's MCP server, your AI assistant can:
 
-```bash
-claude mcp add kubeshark -- kubeshark mcp
-```
-
-### Claude Desktop
-
-Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
-
-```json
-{
-  "mcpServers": {
-    "kubeshark": {
-      "command": "kubeshark",
-      "args": ["mcp"]
-    }
-  }
-}
-```
-
-### Cursor / VS Code
-
-Configure in your editor's MCP settings with the same command and arguments.
+- **Investigate incidents** — Ask "why is checkout failing?" and get root cause analysis across thousands of API calls
+- **Verify code changes** — Deploy code and confirm it behaves correctly at the network level
+- **Audit security** — Identify unencrypted traffic, unexpected external calls, or leaked credentials in headers
+- **Map dependencies** — Discover how services communicate, including hidden dependencies
+- **Analyze performance** — Find latency bottlenecks, connection churn, and retry storms
 
 ---
 
-## Connection Modes
+## Conversational Debugging
 
-By default, the MCP server uses your local `kubectl` context to connect to Kubeshark running in your cluster. If you don't have `kubectl` access (e.g. a developer using a shared Kubeshark instance installed by an SRE), use the `--url` option to connect directly.
+Instead of manually querying dashboards, you have a conversation:
 
-| Mode | Use When |
-|------|----------|
-| **Default** | You have `kubectl` access to the cluster |
-| **URL Mode** | Kubeshark is accessible via a known URL (no `kubectl` needed) |
-
-```bash
-# Default - uses kubectl context
-kubeshark mcp
-
-# URL mode - connect directly (no kubectl required)
-kubeshark mcp --url https://kubeshark.example.com
 ```
++---------------------------------------------------------------------------------+
+| Terminal                                                                        |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+|  > What can you tell me about my frontend service?                              |
+|                                                                                 |
+|  * Analyzing 12,847 API calls over the last hour...                             |
+|                                                                                 |
+|  OK Healthy:                                                                    |
+|    - Latency is good (45ms P50)                                                 |
+|    - TCP connections are fast (< 5ms)                                           |
+|    - 97.7% success rate                                                         |
+|                                                                                 |
+|  ! Needs Attention:                                                             |
+|    1. Checkout failures - 2.3% of /api/v1/checkout return 503                   |
+|    2. Retry storms - cart-service retrying 3x within 100ms                      |
+|    3. Connection churn - 847 new connections/min to catalogue-db                |
+|                                                                                 |
+|  > Tell me more about those checkout 503 errors.                                |
+|                                                                                 |
+|  * Examining 127 failed requests...                                             |
+|                                                                                 |
+|  All 503 errors occur when payment-service exceeds its 5s timeout.              |
+|  Root cause: synchronous calls to an external gateway that spiked               |
+|  to 4.8s P99 latency at 14:22 UTC, exhausting the connection pool.             |
+|                                                                                 |
+|  Recommendation: Add circuit breaker on payment-service gateway calls.          |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+```
+
+What would take 4-6 hours of manual investigation takes a 3-minute conversation.
 
 ---
 
-## Your First Query
+## Autonomous Development
 
-Once connected, try:
+AI coding tools can write code, but they can't see how it behaves in a real cluster. Kubeshark closes this gap with a **deploy → verify → fix** loop:
 
-> "What services are running in my cluster?"
+```
++---------------------------------------------------------------------------------+
+| Terminal                                                                        |
++---------------------------------------------------------------------------------+
+|                                                                                 |
+|  > I've updated order-service to add caching. Deploy and verify.                |
+|                                                                                 |
+|  * Deploying and analyzing 847 API calls...                                     |
+|                                                                                 |
+|  ! Issues detected:                                                             |
+|    1. Cache miss on every request - all 12 requests hit the database            |
+|       Root cause: cache key includes a timestamp (cache.go:47)                  |
+|    2. Missing Cache-Control header in responses                                 |
+|                                                                                 |
+|  > Fix it                                                                       |
+|                                                                                 |
+|  * Applying fix, redeploying, re-verifying...                                   |
+|                                                                                 |
+|  OK All verifications passed:                                                   |
+|    - First request: DB call (45ms)                                              |
+|    - Subsequent requests: Cache hit, no DB call (2ms)                           |
+|    - Cache-Control header present                                               |
+|                                                                                 |
++---------------------------------------------------------------------------------+
+```
 
-> "Show me any HTTP 500 errors in the last hour."
+The AI writes code, Kubeshark shows what that code actually does, and the AI fixes issues based on real network evidence — all without manual intervention.
 
-> "Which services communicate with the payment service?"
+| Without Kubeshark | With Kubeshark |
+|------------------|----------------|
+| AI writes code, hopes it works | AI writes code, verifies it works |
+| Issues found in production | Issues found before commit |
+| "Works in tests" ≠ works in prod | Verified against real cluster behavior |
 
-The AI will use Kubeshark's MCP tools to query your traffic and return insights.
+---
+
+## Works With Your Tools
+
+Kubeshark's MCP server works with any MCP-compatible AI assistant:
+
+- **Claude Code** — Terminal-based AI coding
+- **Claude Desktop** — Conversational analysis
+- **Cursor** — AI-powered IDE
+- **GitHub Copilot** — VS Code and GitHub integration
 
 ---
 
 ## What's Next
 
-- [Network Intelligence](/en/v2/ai_powered_analysis) — What AI can do with network data
+- [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes
+- [How It Works](/en/mcp) — Technical details of the MCP protocol
 - [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
 - [MCP CLI Reference](/en/mcp/cli) — All connection options
-- [How MCP Works](/en/mcp) — Technical details

@@ -144,6 +144,6 @@ Ask debugging questions naturally:
 
 ## What's Next
 
-- [Getting Started](/en/mcp_intro) — Connect your AI assistant to Kubeshark
+- [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes
 - [Autonomous Development](/en/mcp/autonomous_development) — Verify code in local cluster
-- [MCP in Action](/en/mcp_in_action) — See a complete investigation example
+- [How It Works](/en/mcp) — Technical details of the MCP protocol

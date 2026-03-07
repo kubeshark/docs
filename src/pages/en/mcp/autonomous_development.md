@@ -243,5 +243,5 @@ Kubeshark transforms AI coding tools from "code generators" into "production-rea
 ## What's Next
 
 - [Conversational Debugging](/en/mcp/troubleshooting) — Debug integration issues
-- [Getting Started](/en/mcp_intro) — Connect your AI assistant to Kubeshark
-- [MCP in Action](/en/mcp_in_action) — See a complete investigation example
+- [Getting Started](/en/mcp_getting_started) — Set up MCP in minutes
+- [How It Works](/en/mcp) — Technical details of the MCP protocol
