@@ -5,8 +5,6 @@ layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
-
 Kubeshark's TCP Expert Insights give you [Wireshark Expert Information](https://www.wireshark.org/docs/wsug_html_chunked/ChAdvTCPAnalysis.html) for **every TCP connection in your cluster** — retransmissions, RTT jitter, window saturation, connection lifecycle, and goodput — all queryable by AI through MCP.
 
 ---
