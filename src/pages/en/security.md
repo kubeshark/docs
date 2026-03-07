@@ -9,7 +9,7 @@ All security and compliance-related topics listed in this document pertain to Ku
 
 ## Terms Used in This Document
 
-- **Vendor** - KubeHQ (developer of Kubeshark) and its employees.
+- **Vendor** - Kubeshark, Inc. (developer of Kubeshark) and its employees.
 - **Customer** - The company and the employees that use Kubeshark on the company's premises.
 - **Viewer** - An employee of the Customer using Kubeshark to inspect traffic.
 - **Admin** - An employee of the Customer responsible for deploying, running, and maintaining Kubeshark within the Customer's premises.
