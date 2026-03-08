@@ -24,6 +24,10 @@ Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI
 | `/mcp/snapshots/:name/pcap` | GET | Export snapshot as PCAP (with filters) |
 | `get_file_url` | MCP tool | Resolve a relative path to a download URL |
 | `download_file` | MCP tool | Download a file from Kubeshark to local disk |
+| `get_cloud_storage_status` | MCP tool | Check cloud storage configuration and connectivity |
+| `upload_snapshot_to_cloud` | MCP tool | Upload a snapshot to cloud storage (async) |
+| `download_snapshot_from_cloud` | MCP tool | Download a snapshot from cloud storage (async) |
+| `get_cloud_job_status` | MCP tool | Poll async cloud job progress |
 
 ---
 
@@ -291,6 +295,130 @@ export_snapshot_pcap → relative path → download_file → local .pcap file
 
 ---
 
+## Cloud Storage Tools
+
+These tools manage snapshot upload/download to cloud object storage (Amazon S3 or Azure Blob Storage). Cloud storage must be configured via [Helm values](/en/snapshots_cloud_storage) before these tools can be used.
+
+### `get_cloud_storage_status`
+
+Check whether cloud storage is configured and connected.
+
+**Parameters:** None
+
+**Response:**
+```json
+{
+  "enabled": true,
+  "provider": "s3",
+  "connected": true
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `enabled` | boolean | Whether cloud storage is configured |
+| `provider` | string | Provider name (`s3` or `azblob`), only present when enabled |
+| `connected` | boolean | Whether the connection to the provider is active |
+
+### `upload_snapshot_to_cloud`
+
+Upload a completed snapshot to cloud storage. The operation runs asynchronously — use `get_cloud_job_status` to poll progress.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | Yes | Snapshot ID to upload |
+
+**Example:**
+```json
+{
+  "tool": "upload_snapshot_to_cloud",
+  "arguments": {
+    "id": "incident-001"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "job_id": "job-abc123"
+}
+```
+
+> The snapshot must be in `completed` status before uploading.
+
+### `download_snapshot_from_cloud`
+
+Download a snapshot from cloud storage to the local hub. The operation runs asynchronously — use `get_cloud_job_status` to poll progress.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | Yes | Snapshot ID to download from cloud |
+
+**Example:**
+```json
+{
+  "tool": "download_snapshot_from_cloud",
+  "arguments": {
+    "id": "incident-001"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "job_id": "job-xyz789"
+}
+```
+
+> Fails if the snapshot already exists locally.
+
+### `get_cloud_job_status`
+
+Poll the status of an async cloud upload or download job.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `job_id` | string | Yes | Job ID returned by `upload_snapshot_to_cloud` or `download_snapshot_from_cloud` |
+
+**Response:**
+```json
+{
+  "job_id": "job-abc123",
+  "snapshot_id": "incident-001",
+  "operation": "upload",
+  "status": "completed",
+  "started_at": 1706745000000,
+  "completed_at": 1706745060000
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `job_id` | string | Job identifier |
+| `snapshot_id` | string | Associated snapshot ID |
+| `operation` | string | `upload` or `download` |
+| `status` | string | `in_progress`, `completed`, or `failed` |
+| `error` | string | Error details (only present when `status=failed`) |
+| `started_at` | int64 | Job start time (Unix ms) |
+| `completed_at` | int64 | Job completion time (Unix ms, only present when completed or failed) |
+
+### Typical Cloud Storage Workflow
+
+1. **Check** — `get_cloud_storage_status` to verify cloud storage is configured
+2. **Upload** — `upload_snapshot_to_cloud` to start the upload (returns `job_id`)
+3. **Poll** — `get_cloud_job_status` with the `job_id` until status is `completed` or `failed`
+
+```
+get_cloud_storage_status → upload_snapshot_to_cloud → get_cloud_job_status (poll)
+                         → download_snapshot_from_cloud → get_cloud_job_status (poll)
+```
+
+---
+
 ## Use Cases
 
 ### Incident Evidence Collection
@@ -349,6 +477,16 @@ Snapshots allow teams to capture traffic during debugging sessions for later rev
                      |    Export    |<-----------+
                      |    (PCAP)    |            |
                      +--------------+            |
+                                                 |
+                     +--------------+            |
+                     | Cloud Upload |<-----------+
+                     |   (async)    |            |
+                     +--------------+            |
+                                                 |
+                     +----------------+          |
+                     | Cloud Download |--------->+
+                     |    (async)     |
+                     +----------------+
                                                  |
                      +--------------+            |
                      |    Delete    |<-----------+

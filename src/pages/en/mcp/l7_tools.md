@@ -30,6 +30,7 @@ This provides deep visibility into what services are actually saying to each oth
 |----------|--------|-------------|
 | `/mcp` | GET | Discovery endpoint - list all available MCP capabilities |
 | `/mcp/calls` | GET | Query L7 API transactions |
+| `/mcp/tools/get_api_call_details` | POST | Get full details for a single API call |
 | `/mcp/dissection` | GET | Get current dissection status |
 | `/mcp/dissection/enable` | POST | Enable L7 protocol parsing |
 | `/mcp/dissection/disable` | POST | Disable L7 protocol parsing |
@@ -110,6 +111,109 @@ GET /mcp/calls?kfl=src.ns == "frontend" and dst.ns == "backend"&format=full
 
 GET /mcp/calls?start=1706745000000&end=1706748600000
 → "Show all API calls in this time window"
+```
+
+---
+
+## Endpoint: `/mcp/tools/get_api_call_details`
+
+Fetch full details for a single API call found via `list_api_calls`. Returns extended request/response payloads, L4 flow statistics, L4 connection info, and optionally the connection PCAP.
+
+### Parameters
+
+| Parameter | Type | Required | Default | Description |
+|-----------|------|----------|---------|-------------|
+| `id` | string | Yes | - | Entry ID from `list_api_calls` (e.g. `/170710/0`) |
+| `node_id` | string | Yes | - | Node name from the entry's `src.node` or `dst.node` field |
+| `include_payload` | boolean | No | `true` | Fetch full request/response body |
+| `include_l4` | boolean | No | `true` | Fetch L4 flow and connection info |
+| `include_pcap` | boolean | No | `false` | Include connection PCAP data as base64 |
+| `max_payload_size` | integer | No | `65536` | Max bytes per payload body. Larger payloads are truncated |
+
+> **Note:** `id` and `node_id` come from `list_api_calls` results with `format=full`. Each entry in the full format includes `conn_id`, `flow_id`, and `node_id` fields needed for this drill-down.
+
+### Response
+
+```json
+{
+  "entry": {
+    "id": "/170710/0",
+    "ts": 1769998106100,
+    "src": { "ip": "10.0.1.5", "port": 51148, "pod": "frontend-abc123", "ns": "default" },
+    "dst": { "ip": "10.0.2.10", "port": 8080, "pod": "backend-xyz789", "ns": "default", "svc": "backend" },
+    "proto": "http",
+    "method": "POST",
+    "path": "/api/orders",
+    "status": 201,
+    "latency_ms": 87,
+    "conn_id": 42,
+    "node_id": "worker-1"
+  },
+  "req_body": "{\"item\":\"widget\",\"qty\":3}",
+  "resp_body": "{\"order_id\":\"ord-12345\",\"status\":\"created\"}",
+  "truncated": false,
+  "l4_flow": {
+    "flow_id": 170710,
+    "state": "established",
+    "local_pkts": 1250,
+    "local_bytes": 524288,
+    "remote_pkts": 980,
+    "remote_bytes": 412600,
+    "local_pps": 42,
+    "local_bps": 17476,
+    "remote_pps": 33,
+    "remote_bps": 13753
+  },
+  "l4_conn": {
+    "conn_id": 42,
+    "state": "established",
+    "local_pkts": 320,
+    "local_bytes": 131072,
+    "remote_pkts": 280,
+    "remote_bytes": 115200
+  }
+}
+```
+
+### Response Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `entry` | APICallFull | Full entry details (same format as `list_api_calls` with `format=full`) |
+| `req_body` | string | Extended request body (when `include_payload=true`) |
+| `resp_body` | string | Extended response body (when `include_payload=true`) |
+| `truncated` | boolean | `true` if payload was truncated to `max_payload_size` |
+| `l4_flow` | object | L4 flow statistics — bytes, packets, PPS, BPS (when `include_l4=true`) |
+| `l4_conn` | object | L4 connection info — state, byte/packet counts (when `include_l4=true`) |
+
+### Typical Drill-Down Workflow
+
+1. **List calls** — `list_api_calls` with `format=full` to get entries with `id`, `node_id`, and `conn_id`
+2. **Pick an entry** — Identify the call you want to inspect
+3. **Get details** — `get_api_call_details` with the entry's `id` and `node_id`
+4. **Analyze** — Inspect full payloads, L4 stats, or download PCAP
+
+```
+list_api_calls (format=full) → pick entry → get_api_call_details(id, node_id)
+                                                ├── req_body / resp_body
+                                                ├── l4_flow (traffic stats)
+                                                ├── l4_conn (connection info)
+                                                └── pcap (if include_pcap=true)
+```
+
+### Example: Debugging a Failed Request
+
+```json
+{
+  "tool": "get_api_call_details",
+  "arguments": {
+    "id": "/170710/0",
+    "node_id": "worker-1",
+    "include_payload": true,
+    "include_l4": true,
+    "include_pcap": false
+  }
+}
 ```
 
 ---
@@ -266,6 +370,23 @@ See [KFL2 Documentation](/en/v2/kfl2) for full syntax.
 | `path` | string | Request path |
 | `status` | int | Response status code |
 | `latency_ms` | float | Request-response latency |
+
+### Additional Fields in `format=full`
+
+The `full` format includes all compact fields plus:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `conn_id` | uint64 | Connection identifier (used by `get_api_call_details`) |
+| `node_id` | string | Node name where the call was captured (used by `get_api_call_details`) |
+| `flow_id` | uint64 | L4 flow identifier |
+| `req_headers` | object | Request headers |
+| `resp_headers` | object | Response headers |
+| `req_body` | string | Request body preview |
+| `resp_body` | string | Response body preview |
+| `req_size` | int | Request body size in bytes |
+| `resp_size` | int | Response body size in bytes |
+| `worker` | string | Worker pod that captured the call |
 
 ### Endpoint Object
 

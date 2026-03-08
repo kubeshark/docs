@@ -162,6 +162,11 @@ These tools are fetched from the Hub and work in both URL and proxy modes:
 | `get_snapshot` | Get snapshot details |
 | `delete_snapshot` | Delete a snapshot |
 | `export_snapshot_pcap` | Export snapshot as PCAP file |
+| `get_api_call_details` | Get full details for a single API call (payload, L4 info, PCAP) |
+| `get_cloud_storage_status` | Check cloud storage configuration and connectivity |
+| `upload_snapshot_to_cloud` | Upload a snapshot to cloud storage |
+| `download_snapshot_from_cloud` | Download a snapshot from cloud storage |
+| `get_cloud_job_status` | Poll async cloud upload/download job status |
 
 ### Cluster Management Tools (Proxy Mode Only)
 
