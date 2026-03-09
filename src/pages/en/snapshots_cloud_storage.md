@@ -382,3 +382,4 @@ tap:
 - [Dashboard Cloud Storage](/en/dashboard_snapshots#cloud-storage) -- Connection status and location filtering
 - [Helm Configuration Reference](/en/helm_reference#snapshots--cloud-storage) -- All snapshot Helm values
 - [Raw Capture Configuration](/en/v2/raw_capture_config) -- Local storage and capture settings
+- [MCP Cloud Storage Tools](/en/mcp/raw_capture_tools#cloud-storage-tools) -- Upload/download snapshots via AI assistants
