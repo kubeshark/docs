@@ -6,7 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 **License**: BSL 1.1
 
-**Licensor**: KubeHQ, Inc.
+**Licensor**: Kubeshark, Inc.
 
 **Licensed Work**: Kubeshark's Hub, Worker or Front, including the software components, or any portion of them, and any modification.
 
