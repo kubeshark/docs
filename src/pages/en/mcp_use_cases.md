@@ -5,8 +5,6 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-> **Coming Soon — V2.00:** MCP integration is coming as part of Kubeshark V2.00. [Read the announcement](https://kubeshark.com/post/kubeshark-v2-00-coming-soon).
-
 Connect any MCP-compatible AI assistant to Kubeshark and query your Kubernetes network traffic using natural language.
 
 ---
