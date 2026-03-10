@@ -17,6 +17,7 @@ When you create a snapshot, you specify how far back to capture—last 5 minutes
 | Constraint | Description |
 |------------|-------------|
 | Maximum window | Limited by raw capture retention (buffer size / traffic rate) |
+| Maximum size   | 2 GB per snapshot. Control size by selecting fewer nodes or narrowing the time window. |
 | Storage | Snapshots persist until explicitly deleted |
 
 ### Dedicated Snapshot Storage

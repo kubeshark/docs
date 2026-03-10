@@ -24,6 +24,7 @@ The snapshot is extracted from [Raw Capture](/en/v2/raw_capture) buffers and mov
 | Constraint | Description |
 |------------|-------------|
 | Maximum window | Limited by raw capture buffer size and traffic rate |
+| Maximum size   | 2 GB per snapshot. Reduce by selecting fewer nodes or a shorter time window. |
 | Availability | Data must not have been recycled from raw capture |
 
 ---
