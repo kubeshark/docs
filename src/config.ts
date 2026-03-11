@@ -1,6 +1,6 @@
 export const SITE = {
   title: 'Kubeshark',
-  description: 'Kubernetes deep visibility.',
+  description: 'Network Observability for the AI Era.',
   defaultLanguage: 'en_US',
 };
 

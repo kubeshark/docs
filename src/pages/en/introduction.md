@@ -1,11 +1,11 @@
 ---
-title: Kubeshark - Kubernetes Network Observability
-description: Real-time Kubernetes network visibility and forensics, capturing and monitoring all traffic and payloads going in, out, and across containers, pods, nodes, and clusters.
+title: Kubeshark - Network Observability for the AI Era
+description: Give AI agents and SREs real-time and retrospective access to every packet and API call, cluster-wide — purpose-built to plug into AI-driven workflows.
 layout: ../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-Think [Wireshark](https://www.wireshark.org/)—reimagined for [Kubernetes](https://kubernetes.io/). Capture every packet, inspect every API call, and investigate ongoing and past incidents with complete traffic history—all with minimal production overhead.
+Give AI agents and SREs real-time and retrospective access to **every packet and API call**, cluster-wide — purpose-built to plug into **AI-driven workflows**.
 
 [Kubeshark](https://kubeshark.com) delivers cluster-wide, real-time, identity and protocol-aware, visibility into API (L7) and L4 (TCP, UDP, SCTP) traffic, including encrypted (TLS) payloads, as it flows through your containers, pods, namespaces, nodes, and clusters.
 
@@ -20,23 +20,23 @@ Investigate network data with AI-powered natural language prompts. Identify anom
 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1.5rem 0;">
 
 <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Cluster-Wide API Visibility</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Inspect real-time, cluster-wide API calls with full Kubernetes and operating system contexts. Troubleshoot your applications, trace service dependencies, and accelerate root cause analysis.</p>
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Network Data for AI-Driven Workflows</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Kubeshark serves up token-efficient L4 and L7 network data — ready for AI agents to query, correlate, and act on. Responses are sized for AI consumption, not raw packet dumps.</p>
 </div>
 
 <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">AI-Powered Root Cause Analysis</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Identify root causes at the speed of LLMs. Provide direct access to L4, L7, and API traffic data. Ask in natural language: "Which APIs violate their OAS specs?" or "What services show poor health?"</p>
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Deep Visibility for Engineers</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Deep packet inspection with full Kubernetes and API context — so SREs, network engineers, DevOps, and platform engineers can trace any request to its source, from TCP connections to API payloads.</p>
 </div>
 
 <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">AI-Driven Incident Response</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Never lose a packet. At the onset of an incident—or first symptoms—trigger a snapshot of recent hours traffic from involved workloads and replay every step like CCTV footage.</p>
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Incident Response</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Export PCAPs from any point in time. Immutable, long-term PCAP retention. A CCTV + flight recorder for Kubernetes — with all actions controllable by AI agents.</p>
 </div>
 
 <div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 1.25rem; background: #f8fafc; min-height: 8rem;">
-<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Continuous Forensics</h4>
-<p style="margin: 0; color: #475569; font-size: 0.95rem;">Store all raw traffic indefinitely and create a snapshot from any time window—days, weeks, or months later. When a customer complains, rewind to the exact moment and replay every packet and API call.</p>
+<h4 style="margin: 0 0 0.5rem 0; color: #1e293b;">Root Cause Analysis</h4>
+<p style="margin: 0; color: #475569; font-size: 0.95rem;">Crush MTTR. Slice and dice network data for insight, query any point in time cluster-wide, get instant root cause visualization — works with your favorite AI assistants.</p>
 </div>
 
 </div>
