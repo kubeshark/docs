@@ -30,6 +30,21 @@ Complete reference for Kubeshark Helm configuration values.
 | `tap.capture.raw.storageSize` | FIFO buffer size per node | `1Gi` |
 | `tap.capture.dbMaxSize` | Max dissection database size | `500Mi` |
 
+### Dashboard
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `tap.dashboard.streamingType` | Dashboard streaming protocol | `connect-rpc` |
+| `tap.dashboard.completeStreamingEnabled` | Enable complete streaming | `true` |
+| `tap.dashboard.clusterWideMapEnabled` | Enable L4 cluster-wide connectivity map (experimental) | `false` |
+
+### Delayed Dissection
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `tap.delayedDissection.cpu` | CPU allocation for delayed dissection jobs | `1` |
+| `tap.delayedDissection.memory` | Memory allocation for delayed dissection jobs | `4Gi` |
+
 ### Protocol & TLS
 
 | Parameter | Description | Default |
@@ -126,7 +141,9 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
+| `tap.packetCapture` | Packet capture backend: `best`, `af_packet`, or `pf_ring` | `best` |
 | `tap.misc.trafficSampleRate` | Percentage of traffic to process (0-100) | `100` |
+| `tap.misc.tcpStreamChannelTimeoutMs` | Timeout in milliseconds for TCP stream channel | `10000` |
 
 ---
 

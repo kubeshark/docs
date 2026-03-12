@@ -1,6 +1,6 @@
 export const SITE = {
   title: 'Kubeshark',
-  description: 'Kubernetes deep visibility.',
+  description: 'Network Observability for the AI Era.',
   defaultLanguage: 'en_US',
 };
 
@@ -46,7 +46,7 @@ export const SIDEBAR: Sidebar = {
     'Getting Started': [
       { text: 'Introduction', link: 'en/introduction' },
       { text: 'Installation', link: 'en/install' },
-      { text: 'Why Network Data Matters', link: 'en/why_network_data' },
+      { text: 'Why Kubeshark', link: 'en/why_network_data' },
       { text: 'Ask AI', link: 'en/ask-ai' },
     ],
     'Core Concepts': [
@@ -57,7 +57,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Real-time Dissection', link: 'en/v2/l7_api_realtime' },
       { text: 'Delayed Dissection', link: 'en/v2/l7_api_delayed' },
       { text: 'Protocol Support', link: 'en/protocols' },
-      { text: 'AI-Powered Analysis', link: 'en/v2/ai_powered_analysis' },
+      { text: 'AI-Driven Workflows', link: 'en/v2/ai_powered_analysis' },
       // { text: 'Running Headless', link: 'en/headless' },
       // { text: 'Pod-to-pod   Connection Analysis', link: 'en/pod_to_pod_connections' },
       // { text: 'Network Error Detection & Analysis', link: 'en/half_connections' },
@@ -92,8 +92,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'AI Integration': [
       { text: 'Introduction', link: 'en/mcp_use_cases' },
-      { text: 'Conversational Debugging', link: 'en/mcp/troubleshooting' },
-      { text: 'Autonomous Development', link: 'en/mcp/autonomous_development' },
+      { text: 'Installation', link: 'en/mcp/cli' },
       { text: 'MCP in Action', link: 'en/mcp_in_action' },
       { text: 'How It Works', link: 'en/mcp' },
       { text: 'L7 API Calls', link: 'en/mcp/l7_tools' },
@@ -101,7 +100,6 @@ export const SIDEBAR: Sidebar = {
       { text: 'TCP Expert Insights', link: 'en/mcp/tcp_insights' },
       { text: 'Snapshots & Raw Capture', link: 'en/mcp/raw_capture_tools' },
       { text: 'Delayed Dissection', link: 'en/mcp/delayed_dissection' },
-      { text: 'MCP CLI', link: 'en/mcp/cli' },
       { text: 'Claude Code Integration', link: 'en/mcp/claude_code', icon: '/claude-icon.svg' },
       { text: 'GitHub Copilot Integration', link: 'en/mcp/github_copilot', icon: '/copilot-icon.svg' },
       { text: 'Cursor Integration', link: 'en/mcp/cursor', icon: '/cursor-icon.svg' },

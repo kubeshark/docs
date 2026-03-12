@@ -80,7 +80,7 @@ Supported transport types: `"local"`, `"stdio"`, `"http"`, or `"sse"`
 If you're using [Copilot CLI](https://docs.github.com/en/copilot/github-copilot-in-the-cli), add Kubeshark with:
 
 ```bash
-/mcp add kubeshark -- kubeshark mcp --url https://kubeshark.example.com
+/mcp add kubeshark -- kubeshark mcp
 ```
 
 Configuration is saved to `~/.copilot` directory.
@@ -91,8 +91,9 @@ Configuration is saved to `~/.copilot` directory.
 
 | Mode | Command | Use When |
 |------|---------|----------|
-| **URL Mode** | `kubeshark mcp --url <url>` | Kubeshark is already running and accessible |
-| **Proxy Mode** | `kubeshark mcp --kubeconfig ~/.kube/config` | Let the CLI proxy into your cluster |
+| **Default** | `kubeshark mcp` | Uses current kubeconfig |
+| **URL Mode** | `kubeshark mcp --url <url>` | Connect to a running instance directly |
+| **Explicit kubeconfig** | `kubeshark mcp --kubeconfig ~/.kube/config` | Specify a kubeconfig path |
 
 ### Proxy Mode Example
 
@@ -181,7 +182,7 @@ See [GitHub's MCP access documentation](https://docs.github.com/en/copilot/how-t
 
 ```bash
 # Test the binary directly
-kubeshark mcp --list-tools --url https://kubeshark.example.com
+kubeshark mcp --list-tools
 
 # If using proxy mode, verify kubectl access
 kubectl get pods -l app=kubeshark-hub
@@ -195,6 +196,6 @@ If you receive permission errors, contact your organization administrator to ena
 
 ## What's Next
 
-- [MCP CLI Reference](/en/mcp/cli) — All CLI options and modes
+- [MCP Installation](/en/mcp/cli) — All CLI options and modes
 - [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
 - [How MCP Works](/en/mcp) — Technical details of the protocol

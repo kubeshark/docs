@@ -14,7 +14,7 @@ Connect any MCP-compatible AI assistant to Kubeshark and query your Kubernetes n
 ### Claude Code (Terminal)
 
 ```bash
-claude mcp add kubeshark -- kubeshark mcp --url https://your-kubeshark.example.com
+claude mcp add kubeshark -- kubeshark mcp
 ```
 
 ### Claude Desktop
@@ -26,7 +26,7 @@ Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_
   "mcpServers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--url", "https://your-kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -46,11 +46,14 @@ Configure in your editor's MCP settings with the same command and arguments.
 | **Proxy Mode** | Let the CLI proxy into your cluster via kubectl |
 
 ```bash
-# URL mode - connect to running instance
+# Default - uses current kubeconfig
+kubeshark mcp
+
+# URL mode - connect to a running instance
 kubeshark mcp --url https://kubeshark.example.com
 
-# Proxy mode - CLI handles the connection
-kubeshark mcp --proxy
+# Explicit kubeconfig
+kubeshark mcp --kubeconfig ~/.kube/config
 ```
 
 ---
@@ -69,9 +72,39 @@ The AI will use Kubeshark's MCP tools to query your traffic and return insights.
 
 ---
 
+## Conversational Debugging
+
+Ask debugging questions naturally instead of writing queries:
+
+> *"Is my user-service receiving requests from the API gateway? Show me the last 10 requests."*
+
+> *"What exactly is the notification-service sending to the email-provider? Show me the request body."*
+
+> *"The frontend says it's sending the right headers, but the backend disagrees. Show me what's actually in the HTTP request."*
+
+> *"Find all 4xx errors returned by my service in the last 30 minutes. What requests caused them?"*
+
+The AI can show actual request/response payloads, verify headers, find errors and their corresponding requests, compare what's sent vs. what's received, and show connection-level issues like TCP resets and timeouts.
+
+---
+
+## Autonomous Development
+
+AI coding assistants can write and deploy code, but they lack visibility into how that code actually behaves in Kubernetes. Kubeshark closes this gap by providing real-time network feedback, enabling AI tools to identify issues and fix them — deploy, verify, and fix in one autonomous loop.
+
+> *"Deploy my changes and verify the new /api/orders endpoint works correctly."*
+
+> *"Run the integration tests and use Kubeshark to verify the API calls are correct — check payloads, headers, and downstream calls."*
+
+> *"I changed the retry logic. Deploy and verify that failed requests are retried exactly 3 times with exponential backoff."*
+
+Kubeshark provides feedback that logs, metrics, and test assertions miss — malformed payloads, unexpected retries, missing headers, N+1 queries, serialization bugs, and connection pooling issues.
+
+---
+
 ## What's Next
 
-- [Network Intelligence](/en/v2/ai_powered_analysis) — What AI can do with network data
-- [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
-- [MCP CLI Reference](/en/mcp/cli) — All connection options
+- [AI-Driven Workflows](/en/v2/ai_powered_analysis) — What AI can do with network data
+- [MCP in Action](/en/mcp_in_action) — Full walkthrough of an AI-driven investigation
+- [Installation](/en/mcp/cli) — All connection options and CLI reference
 - [How MCP Works](/en/mcp) — Technical details

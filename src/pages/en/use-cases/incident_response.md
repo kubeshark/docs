@@ -233,4 +233,4 @@ After the investigation, the snapshot and its dissected data serve a dual purpos
 - [Real-time Traffic Inspection](/en/use-cases/real_time_traffic_inspection) — Live traffic visibility for debugging and monitoring
 - [Traffic Snapshots](/en/v2/traffic_snapshots) — Creating and managing point-in-time snapshots
 - [Raw Capture](/en/v2/raw_capture) — How continuous packet capture works
-- [AI-Powered Analysis](/en/v2/ai_powered_analysis) — Conversational investigation of captured traffic
+- [AI-Driven Workflows](/en/v2/ai_powered_analysis) — Conversational investigation of captured traffic
