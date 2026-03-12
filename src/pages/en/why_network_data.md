@@ -11,11 +11,11 @@ Kubeshark brings Wireshark-like capabilities to Kubernetes, with instant, cluste
 
 Wireshark requires a PCAP file, typically obtained through something like tcpdump. This works well for targeted analysis on a single machine. In Kubernetes, two things break down:
 
-1. **File size.** Wireshark is designed for manageable capture files. Kubernetes clusters generate gigabytes of traffic per minute across distributed nodes. Capturing, copying, and loading these files on an analysis desktop doesn't scale.
+1. **PCAP friction.** Wireshark requires a PCAP file. The traditional process — install tcpdump on target pods, capture, copy files off the node — is high friction. One node, one file, might be reasonable. 100 nodes means 100x files and 100x the size. It doesn't scale.
 
 2. **Human inspection.** Wireshark assumes a network engineer will visually inspect the traffic. The volume of data in a Kubernetes cluster exceeds what a human can process.
 
-Beyond scalability, there is a **context gap**. Raw PCAPs contain IPs and ports — not pod names, service names, namespaces, or deployment labels. Mapping IPs to Kubernetes workload identities is a challenge Wireshark was never designed to solve.
+3. **Kubernetes context.** Raw PCAPs contain IPs and ports — not pod names, service names, namespaces, or deployment labels. Without Kubernetes context you're running blind, unable to tell who is who. Mapping IPs to workload identities is a challenge Wireshark was never designed to solve.
 
 **Kubeshark** addresses all three problems. It delivers cluster-wide, instant access to L4 and L7 traffic — structured, Kubernetes-enriched, and optimized for AI consumption. AI agents can process massive network data without prohibitive token costs. The result: AI-driven RCA workflows capable of processing 10x the traffic in 1/10th the time.
 
