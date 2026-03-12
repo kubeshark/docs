@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubeshark MCP Demo</title>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        .mcp-demo-container,.mcp-demo-container *{box-sizing:border-box;margin:0;padding:0}
+        .mcp-demo-container{font-family:'SF Mono',Monaco,monospace;background:linear-gradient(135deg,#1a1a2e,#16213e);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);max-width:900px;margin:0 auto}
+        .mcp-header{background:rgba(0,0,0,.3);padding:12px 16px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.1)}
+        .mcp-header-dot{width:12px;height:12px;border-radius:50%}
+        .mcp-header-dot.red{background:#ff5f56}.mcp-header-dot.yellow{background:#ffbd2e}.mcp-header-dot.green{background:#27ca40}
+        .mcp-header-title{color:#888;font-size:13px;margin-left:8px}
+        .mcp-chat{height:600px;overflow-y:auto;padding:20px;scroll-behavior:smooth}
+        .mcp-message{margin-bottom:16px;animation:fadeIn .3s ease-out}
+        @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+        .mcp-message-header{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+        .mcp-avatar{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold}
+        .mcp-avatar.user{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+        .mcp-avatar.claude{background:linear-gradient(135deg,#f093fb,#f5576c);color:#fff}
+        .mcp-sender{font-size:13px;font-weight:600}.mcp-sender.user{color:#667eea}.mcp-sender.claude{color:#f5576c}
+        .mcp-content{color:#e0e0e0;font-size:14px;line-height:1.6;padding-left:32px}
+        .mcp-tool-call{background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.3);border-radius:8px;padding:12px;margin:8px 0;font-size:12px}
+        .mcp-tool-header{color:#00d4ff;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+        .mcp-tool-args{color:#888;font-size:11px;margin-bottom:8px}
+        .mcp-tool-result{background:rgba(0,0,0,.3);border-radius:6px;padding:10px;color:#7fff7f;font-size:11px;max-height:100px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
+        .mcp-typing{display:flex;gap:4px;padding-left:32px}
+        .mcp-typing-dot{width:8px;height:8px;background:#888;border-radius:50%;animation:typing 1.4s infinite}
+        .mcp-typing-dot:nth-child(2){animation-delay:.2s}.mcp-typing-dot:nth-child(3){animation-delay:.4s}
+        @keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-4px);opacity:1}}
+        .mcp-report{background:rgba(20,20,40,.8);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:20px;margin-top:12px}
+        .mcp-report-title{color:#00d4ff;font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .mcp-report-section{margin-bottom:20px}
+        .mcp-report-section-title{color:#f5576c;font-size:13px;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:1px}
+        .mcp-mesh{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:20px;background:rgba(0,0,0,.3);border-radius:8px}
+        .mcp-mesh-node{background:linear-gradient(135deg,#1e3a5f,#0f2744);border:2px solid #00d4ff;border-radius:8px;padding:12px 16px;min-width:120px;text-align:center}
+        .mcp-mesh-node.client{border-color:#667eea}.mcp-mesh-node.server{border-color:#7fff7f}
+        .mcp-mesh-node-name{color:#fff;font-size:12px;font-weight:600;margin-bottom:4px}
+        .mcp-mesh-node-ns{color:#888;font-size:10px}.mcp-mesh-node-stats{color:#00d4ff;font-size:10px;margin-top:6px}
+        .mcp-mesh-arrow{display:flex;align-items:center;color:#666;font-size:20px}
+        .mcp-flow-table{width:100%;border-collapse:collapse;font-size:11px}
+        .mcp-flow-table th{background:rgba(0,212,255,.2);color:#00d4ff;padding:8px;text-align:left;font-weight:600}
+        .mcp-flow-table td{padding:8px;border-bottom:1px solid rgba(255,255,255,.1);color:#ccc}
+        .mcp-api-card{background:rgba(0,0,0,.3);border-radius:8px;padding:12px;margin-bottom:10px}
+        .mcp-api-method{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;margin-right:8px}
+        .mcp-api-method.get{background:#2d5a27;color:#7fff7f}
+        .mcp-api-path{color:#fff;font-size:13px}.mcp-api-stats{display:flex;gap:16px;margin-top:8px;font-size:11px;color:#888}
+        .mcp-health-indicator{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:12px;font-size:12px;font-weight:600}
+        .mcp-health-indicator.healthy{background:rgba(127,255,127,.2);color:#7fff7f}
+        .mcp-health-indicator.warning{background:rgba(255,170,0,.2);color:#ffaa00}
+        .mcp-health-dot{width:8px;height:8px;border-radius:50%}.mcp-health-dot.healthy{background:#7fff7f}.mcp-health-dot.warning{background:#ffaa00}
+        .mcp-issue{background:rgba(255,107,107,.1);border-left:3px solid #ff6b6b;padding:10px 12px;margin:8px 0;border-radius:0 6px 6px 0;font-size:12px;color:#ffaaaa}
+        .mcp-oas-spec{background:rgba(0,0,0,.4);border-radius:6px;padding:12px;font-size:11px;color:#7fff7f;max-height:200px;overflow-y:auto}
+        .mcp-stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+        .mcp-stat-card{background:rgba(0,0,0,.3);border-radius:8px;padding:14px;text-align:center}
+        .mcp-stat-value{color:#00d4ff;font-size:24px;font-weight:700}
+        .mcp-stat-label{color:#888;font-size:11px;margin-top:4px;text-transform:uppercase}
+        .mcp-summary{background:rgba(127,255,127,.1);border-left:3px solid #7fff7f;padding:10px 12px;margin-top:8px;border-radius:0 6px 6px 0;font-size:13px}
+        .mcp-stat{display:inline-block;background:rgba(0,212,255,.2);color:#00d4ff;padding:2px 8px;border-radius:4px;font-size:12px;margin:2px 4px 2px 0}
+        .mcp-progress{display:flex;align-items:center;gap:8px;color:#888;font-size:12px;margin:8px 0}
+        .mcp-progress-bar{flex:1;height:4px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+        .mcp-progress-fill{height:100%;background:linear-gradient(90deg,#00d4ff,#7fff7f);transition:width .3s ease}
+    </style>
+</head>
+<body>
+    <div id="mcp-demo-root"></div>
+    <script type="text/babel">
+        const {useState,useEffect,useRef}=React;
+        const MOCK={
+            dissection:{enabled:false,workers:[{node:"gke-node-1",status:"disabled"},{node:"gke-node-2",status:"disabled"}]},
+            summary:{total_flows:847,total_bytes:125829120,protocols:{tcp:723,udp:124}},
+            boundaries:{nodes:[{name:"gke-node-1.internal",oldest_ts:Date.now()-3600000,newest_ts:Date.now()},{name:"gke-node-2.internal",oldest_ts:Date.now()-3600000,newest_ts:Date.now()}]},
+            ksload:{total:12,flows:[
+                {proto:"tcp",client:{pod:"ks-load-client-7d8f9b",ns:"ks-load-c",ip:"10.0.1.15"},server:{pod:"ks-load-server-6b8f7d",ns:"ks-load-s",svc:"ks-load-svc",port:8080},totals:{bytes:1548000,pkts:1250},client_stats:{tcp_handshake_p50_us:450,tcp_handshake_p99_us:1200}},
+                {proto:"tcp",client:{pod:"ks-load-client-8e9f0a",ns:"ks-load-c",ip:"10.0.1.16"},server:{pod:"ks-load-server-6b8f7d",ns:"ks-load-s",svc:"ks-load-svc",port:8080},totals:{bytes:2340000,pkts:1890},client_stats:{tcp_handshake_p50_us:380,tcp_handshake_p99_us:950}},
+                {proto:"tcp",client:{pod:"ks-load-client-9f0g1b",ns:"ks-load-c",ip:"10.0.1.17"},server:{pod:"ks-load-server-7c9g8e",ns:"ks-load-s",svc:"ks-load-svc",port:8080},totals:{bytes:890000,pkts:720},client_stats:{tcp_handshake_p50_us:520,tcp_handshake_p99_us:1450}}
+            ]},
+            sockshop:{total:24,flows:[
+                {proto:"tcp",client:{pod:"front-end-7d8f9b",ns:"sock-shop",ip:"10.0.1.50"},server:{pod:"catalogue-6b8f7d",ns:"sock-shop",svc:"catalogue",port:80},totals:{bytes:2450000,pkts:1980},client_stats:{tcp_handshake_p50_us:320,tcp_handshake_p99_us:890}},
+                {proto:"tcp",client:{pod:"orders-5c6d7e",ns:"sock-shop",ip:"10.0.1.52"},server:{pod:"orders-db-8g9h0i",ns:"sock-shop",svc:"orders-db",port:27017},totals:{bytes:8900000,pkts:7200},client_stats:{tcp_handshake_p50_us:180,tcp_handshake_p99_us:450}},
+                {proto:"tcp",client:{pod:"carts-4b5c6d",ns:"sock-shop",ip:"10.0.1.54"},server:{pod:"carts-db-9h0i1j",ns:"sock-shop",svc:"carts-db",port:27017},totals:{bytes:3200000,pkts:2600},client_stats:{tcp_handshake_p50_us:210,tcp_handshake_p99_us:520}},
+                {proto:"tcp",client:{pod:"front-end-7d8f9b",ns:"sock-shop",ip:"10.0.1.50"},server:{pod:"payment-2a3b4c",ns:"sock-shop",svc:"payment",port:80},totals:{bytes:560000,pkts:450},client_stats:{tcp_handshake_p50_us:290,tcp_handshake_p99_us:780}}
+            ]},
+            tcp:{total:45,flows:[
+                {proto:"tcp",client:{pod:"frontend-7d8f9b",ns:"default",ip:"10.0.1.10"},server:{pod:"api-gateway-6b8f7d",ns:"default",svc:"api-gateway",port:8080},totals:{bytes:4500000,pkts:3600},client_stats:{tcp_handshake_p50_us:120,tcp_handshake_p99_us:280}},
+                {proto:"tcp",client:{pod:"worker-8e9f0a",ns:"jobs",ip:"10.0.1.20"},server:{pod:"redis-5c6d7e",ns:"cache",svc:"redis",port:6379},totals:{bytes:890000,pkts:720},client_stats:{tcp_handshake_p50_us:85,tcp_handshake_p99_us:190}},
+                {proto:"tcp",client:{pod:"checkout-9f0g1b",ns:"shop",ip:"10.0.1.30"},server:{pod:"postgres-4a5b6c",ns:"database",svc:"postgres",port:5432},totals:{bytes:12500000,pkts:10100},client_stats:{tcp_handshake_p50_us:150,tcp_handshake_p99_us:380}},
+                {proto:"tcp",client:{pod:"legacy-app-1a2b3c",ns:"legacy",ip:"10.0.1.40"},server:{svc:"external-api",port:80,ip:"203.0.113.50"},totals:{bytes:2300000,pkts:1850},client_stats:{tcp_handshake_p50_us:45000,tcp_handshake_p99_us:125000}},
+                {proto:"tcp",client:{pod:"batch-2b3c4d",ns:"batch",ip:"10.0.1.45"},server:{pod:"rabbitmq-6c7d8e",ns:"messaging",svc:"rabbitmq",port:5672},totals:{bytes:6700000,pkts:5400},client_stats:{tcp_handshake_p50_us:95,tcp_handshake_p99_us:220}},
+                {proto:"tcp",client:{pod:"monitor-3c4d5e",ns:"observability",ip:"10.0.1.50"},server:{pod:"prometheus-7d8e9f",ns:"observability",svc:"prometheus",port:9090},totals:{bytes:450000,pkts:360},client_stats:{tcp_handshake_p50_us:65,tcp_handshake_p99_us:145}}
+            ]}
+        };
+        const getMock=(tool,args)=>{
+            if(tool==='list_l4_flows'){
+                if(args?.ns?.startsWith('ks-load'))return MOCK.ksload;
+                if(args?.ns==='sock-shop')return MOCK.sockshop;
+                if(args?.l4proto==='tcp')return MOCK.tcp;
+                return MOCK.tcp;
+            }
+            if(tool==='get_dissection_status')return MOCK.dissection;
+            if(tool==='get_l4_flow_summary')return MOCK.summary;
+            if(tool==='get_data_boundaries')return MOCK.boundaries;
+            return{};
+        };
+        const fmtBytes=(b)=>{if(!b)return'0 B';const k=1024,s=['B','KB','MB','GB'],i=Math.floor(Math.log(b)/Math.log(k));return parseFloat((b/Math.pow(k,i)).toFixed(1))+' '+s[i]};
+        const fmtLat=(us)=>!us?'-':us<1000?us+'us':(us/1000).toFixed(1)+'ms';
+
+        function PerformanceReport({data}){
+            const{flows,dissection}=data,flowList=flows?.flows||[];
+            const withLat=flowList.filter(f=>f.client_stats?.tcp_handshake_p99_us>0).map(f=>({
+                client:f.client?.pod||f.client?.ip||'unknown',server:f.server?.pod||f.server?.svc||'unknown',
+                port:f.server?.port,p50:f.client_stats.tcp_handshake_p50_us,p99:f.client_stats.tcp_handshake_p99_us
+            })).sort((a,b)=>b.p99-a.p99);
+            const worst=withLat.slice(0,5),best=withLat.slice(-5).reverse();
+            return(<div className="mcp-report">
+                <div className="mcp-report-title"><span>📈</span> API Performance Analysis</div>
+                {!dissection?.enabled&&<div className="mcp-issue" style={{background:'rgba(255,170,0,.1)',borderColor:'#ffaa00'}}><strong>⚠️ Note:</strong> L7 dissection disabled. Using L4 TCP metrics.</div>}
+                <div className="mcp-report-section"><div className="mcp-report-section-title">🔴 Worst Performing</div>
+                    <table className="mcp-flow-table"><thead><tr><th>Client</th><th>Server</th><th>Port</th><th>P50</th><th>P99</th></tr></thead>
+                    <tbody>{worst.map((f,i)=><tr key={i}><td style={{color:'#ff6b6b'}}>{f.client.substring(0,20)}</td><td>{f.server.substring(0,20)}</td><td>{f.port}</td><td>{fmtLat(f.p50)}</td><td style={{color:'#ff6b6b',fontWeight:'bold'}}>{fmtLat(f.p99)}</td></tr>)}</tbody></table></div>
+                <div className="mcp-report-section"><div className="mcp-report-section-title">🟢 Best Performing</div>
+                    <table className="mcp-flow-table"><thead><tr><th>Client</th><th>Server</th><th>Port</th><th>P50</th><th>P99</th></tr></thead>
+                    <tbody>{best.map((f,i)=><tr key={i}><td style={{color:'#7fff7f'}}>{f.client.substring(0,20)}</td><td>{f.server.substring(0,20)}</td><td>{f.port}</td><td>{fmtLat(f.p50)}</td><td style={{color:'#7fff7f',fontWeight:'bold'}}>{fmtLat(f.p99)}</td></tr>)}</tbody></table></div>
+                <div className="mcp-summary"><strong>Summary:</strong> Analyzed {withLat.length} flows.{worst[0]?.p99>10000?<span style={{color:'#ff6b6b'}}> ⚠️ High latency ({fmtLat(worst[0].p99)} P99)</span>:<span style={{color:'#7fff7f'}}> ✓ All connections OK</span>}</div>
+            </div>);
+        }
+
+        function SensitiveDataReport({data}){
+            const{flows,dissection}=data,flowList=flows?.flows||[],findings=[];
+            flowList.forEach(f=>{
+                const port=f.server?.port,svc=f.server?.svc||f.server?.pod||'';
+                if([3306,5432,27017,6379,5672].includes(port))findings.push({type:'warning',cat:'Database Traffic',desc:`${f.client?.pod||f.client?.ip} → ${svc}:${port}`,detail:'Ensure credentials not exposed.'});
+                if(port===80&&f.totals?.bytes>1000)findings.push({type:'critical',cat:'Unencrypted HTTP',desc:`Port 80 (${fmtBytes(f.totals.bytes)})`,detail:'May expose sensitive data.'});
+                if([9090,9100].includes(port))findings.push({type:'info',cat:'Metrics Endpoint',desc:`${svc}:${port}`,detail:'Ensure not publicly exposed.'});
+            });
+            const unique=findings.reduce((a,f)=>{if(!a.find(x=>x.cat+x.desc===f.cat+f.desc))a.push(f);return a;},[]).slice(0,6);
+            const crit=unique.filter(f=>f.type==='critical').length,warn=unique.filter(f=>f.type==='warning').length;
+            return(<div className="mcp-report">
+                <div className="mcp-report-title"><span>🔒</span> Sensitive Data Analysis</div>
+                {!dissection?.enabled&&<div className="mcp-issue" style={{background:'rgba(255,170,0,.1)',borderColor:'#ffaa00'}}><strong>⚠️ Limited:</strong> L7 disabled. Cannot inspect payloads.</div>}
+                <div className="mcp-stat-grid" style={{marginBottom:'20px'}}>
+                    <div className="mcp-stat-card"><div className="mcp-stat-value" style={{color:crit>0?'#ff6b6b':'#7fff7f'}}>{crit}</div><div className="mcp-stat-label">Critical</div></div>
+                    <div className="mcp-stat-card"><div className="mcp-stat-value" style={{color:'#ffaa00'}}>{warn}</div><div className="mcp-stat-label">Warnings</div></div>
+                    <div className="mcp-stat-card"><div className="mcp-stat-value">{flowList.length}</div><div className="mcp-stat-label">Flows</div></div>
+                </div>
+                <div className="mcp-report-section"><div className="mcp-report-section-title">Findings</div>
+                    {unique.length===0?<div style={{color:'#7fff7f',padding:'12px'}}>✓ No issues detected.</div>:unique.map((f,i)=><div key={i} className="mcp-issue" style={{borderColor:f.type==='critical'?'#ff6b6b':f.type==='warning'?'#ffaa00':'#00d4ff',background:f.type==='critical'?'rgba(255,107,107,.1)':f.type==='warning'?'rgba(255,170,0,.1)':'rgba(0,212,255,.1)'}}>
+                        <div style={{color:f.type==='critical'?'#ff6b6b':f.type==='warning'?'#ffaa00':'#00d4ff',fontWeight:'bold',marginBottom:'4px'}}>{f.type==='critical'?'🔴':f.type==='warning'?'🟡':'ℹ️'} {f.cat}</div>
+                        <div style={{fontSize:'12px',color:'#ccc'}}>{f.desc}</div><div style={{fontSize:'11px',color:'#888',marginTop:'4px'}}>{f.detail}</div>
+                    </div>)}</div>
+            </div>);
+        }
+
+        function WorkloadReport({data}){
+            const{flows,dissection,boundaries}=data,workloads={};
+            (flows?.flows||[]).forEach(f=>{
+                if(f.client?.pod&&f.client?.ns?.startsWith('ks-load')){const k=f.client.pod;if(!workloads[k])workloads[k]={name:f.client.pod,ns:f.client.ns,type:'client',bytes:0};workloads[k].bytes+=f.totals?.bytes||0;}
+                if(f.server?.pod&&f.server?.ns?.startsWith('ks-load')){const k=f.server.pod;if(!workloads[k])workloads[k]={name:f.server.pod,ns:f.server.ns,type:'server',bytes:0};workloads[k].bytes+=f.totals?.bytes||0;}
+            });
+            const wl=Object.values(workloads),clients=wl.filter(w=>w.type==='client'),servers=wl.filter(w=>w.type==='server');
+            const total=flows?.total||0,health=total>0?'healthy':'warning';
+            const issues=[];if(!dissection?.enabled)issues.push({type:'warning',msg:'L7 dissection disabled'});
+            const oas={openapi:"3.0.0",info:{title:"ks-load API",version:"1.0.0"},paths:{"/1k.png":{get:{summary:"Load test"}},"/health":{get:{summary:"Health check"}}}};
+            return(<div className="mcp-report">
+                <div className="mcp-report-title"><span>📊</span> Workload Report: ks-load*</div>
+                <div className="mcp-report-section"><div className="mcp-report-section-title">Health Overview</div>
+                    <div className="mcp-stat-grid">
+                        <div className="mcp-stat-card"><div className="mcp-stat-value">{wl.length}</div><div className="mcp-stat-label">Workloads</div></div>
+                        <div className="mcp-stat-card"><div className="mcp-stat-value">{total}</div><div className="mcp-stat-label">Flows</div></div>
+                        <div className="mcp-stat-card"><div className="mcp-stat-value">{fmtBytes(wl.reduce((a,w)=>a+w.bytes,0))}</div><div className="mcp-stat-label">Traffic</div></div>
+                        <div className="mcp-stat-card"><div className="mcp-stat-value"><span className={`mcp-health-indicator ${health}`}><span className={`mcp-health-dot ${health}`}></span>{health.toUpperCase()}</span></div><div className="mcp-stat-label">Status</div></div>
+                    </div></div>
+                {issues.length>0&&<div className="mcp-report-section"><div className="mcp-report-section-title">⚠️ Issues</div>{issues.map((issue,i)=><div key={i} className="mcp-issue"><strong>🟡</strong> {issue.msg}</div>)}</div>}
+                <div className="mcp-report-section"><div className="mcp-report-section-title">Architecture</div>
+                    <div className="mcp-mesh">
+                        {clients.slice(0,3).map(c=><React.Fragment key={c.name}><div className="mcp-mesh-node client"><div className="mcp-mesh-node-name">{c.name.substring(0,18)}</div><div className="mcp-mesh-node-ns">{c.ns}</div><div className="mcp-mesh-node-stats">{fmtBytes(c.bytes)}</div></div><div className="mcp-mesh-arrow">→</div></React.Fragment>)}
+                        {servers.slice(0,2).map(s=><div key={s.name} className="mcp-mesh-node server"><div className="mcp-mesh-node-name">{s.name.substring(0,18)}</div><div className="mcp-mesh-node-ns">{s.ns}</div><div className="mcp-mesh-node-stats">{fmtBytes(s.bytes)}</div></div>)}
+                        {wl.length===0&&<div style={{color:'#888',padding:'20px'}}>No ks-load* workloads found</div>}
+                    </div></div>
+                <div className="mcp-report-section"><div className="mcp-report-section-title">Traffic Flows</div>
+                    <table className="mcp-flow-table"><thead><tr><th>Proto</th><th>Client</th><th>Server</th><th>Bytes</th><th>RTT</th></tr></thead>
+                    <tbody>{(flows?.flows||[]).slice(0,5).map((f,i)=><tr key={i}><td style={{color:'#7fff7f'}}>{f.proto.toUpperCase()}</td><td>{f.client?.pod||f.client?.ip||'-'}</td><td>{f.server?.pod||f.server?.svc}:{f.server?.port}</td><td>{fmtBytes(f.totals?.bytes)}</td><td>{fmtLat(f.client_stats?.tcp_handshake_p50_us)}/{fmtLat(f.client_stats?.tcp_handshake_p99_us)}</td></tr>)}</tbody></table></div>
+                <div className="mcp-report-section"><div className="mcp-report-section-title">API Endpoints</div>
+                    <div className="mcp-api-card"><span className="mcp-api-method get">GET</span><span className="mcp-api-path">/1k.png</span><div className="mcp-api-stats"><span>Load test endpoint</span></div></div>
+                    <div className="mcp-api-card"><span className="mcp-api-method get">GET</span><span className="mcp-api-path">/health</span><div className="mcp-api-stats"><span>Health check</span></div></div></div>
+                <div className="mcp-report-section"><div className="mcp-report-section-title">OpenAPI Spec</div><div className="mcp-oas-spec"><pre>{JSON.stringify(oas,null,2)}</pre></div></div>
+                <div className="mcp-report-section"><div className="mcp-report-section-title">Data Window</div><div style={{color:'#888',fontSize:'12px'}}>{boundaries?.nodes?.map(n=><div key={n.name} style={{marginBottom:'4px'}}><span style={{color:'#00d4ff'}}>{n.name.split('.')[0]}</span>: {new Date(n.oldest_ts).toLocaleTimeString()} - {new Date(n.newest_ts).toLocaleTimeString()}</div>)}</div></div>
+            </div>);
+        }
+
+        const SCENARIOS=[
+            {userPrompt:"Create a report describing how my workloads are performing. My workloads reside in namespaces starting with ks-load.",isComplex:true,tools:[{name:"get_dissection_status",args:{},label:"Checking dissection..."},{name:"list_l4_flows",args:{ns:"ks-load",limit:20},label:"Fetching flows..."},{name:"list_l4_flows",args:{ns:"ks-load-c",limit:20},label:"Fetching client flows..."},{name:"get_l4_flow_summary",args:{},label:"Getting summary..."},{name:"get_data_boundaries",args:{},label:"Getting boundaries..."}]},
+            {userPrompt:"Show me flows in sock-shop namespace",tool:"list_l4_flows",args:{ns:"sock-shop",limit:10},formatResponse:d=>{const p=JSON.parse(d);return{summary:`Found **${p.total} flows** in sock-shop.`,details:p.flows.slice(0,4).map(f=>`${f.client?.pod||'?'} → ${f.server?.svc||'?'}:${f.server?.port}`)}}},
+            {userPrompt:"Which are the best and worst performing APIs?",isComplex:true,isPerformanceReport:true,tools:[{name:"list_l4_flows",args:{l4proto:"tcp",limit:50},label:"Analyzing TCP..."},{name:"get_l4_flow_summary",args:{},label:"Getting summary..."},{name:"get_dissection_status",args:{},label:"Checking L7..."}]},
+            {userPrompt:"Do you see any sensitive data in my APIs?",isComplex:true,isSensitiveDataReport:true,tools:[{name:"get_dissection_status",args:{},label:"Checking L7..."},{name:"list_l4_flows",args:{limit:30},label:"Analyzing traffic..."},{name:"get_l4_flow_summary",args:{},label:"Getting overview..."}]}
+        ];
+
+        function MCPDemo(){
+            const[messages,setMessages]=useState([]),[isTyping,setIsTyping]=useState(false),[progress,setProgress]=useState(null),[idx,setIdx]=useState(0);
+            const chatRef=useRef(null);
+            const scroll=()=>{if(chatRef.current)chatRef.current.scrollTop=chatRef.current.scrollHeight};
+            useEffect(()=>{scroll()},[messages,isTyping,progress]);
+            const addMsg=msg=>setMessages(p=>[...p,{...msg,id:Date.now()+Math.random()}]);
+            const callTool=async(tool,args)=>{await new Promise(r=>setTimeout(r,150+Math.random()*200));return JSON.stringify(getMock(tool,args))};
+            const run=async()=>{
+                const s=SCENARIOS[idx];
+                addMsg({type:'user',content:s.userPrompt});
+                await new Promise(r=>setTimeout(r,1000));setIsTyping(true);
+                try{
+                    if(s.isComplex){
+                        const results={},toolResults=[];
+                        for(let i=0;i<s.tools.length;i++){
+                            const t=s.tools[i];setProgress({current:i+1,total:s.tools.length,label:t.label});
+                            const r=await callTool(t.name,t.args);toolResults.push({tool:t.name,args:t.args,result:r});
+                            try{const p=JSON.parse(r);if(t.name==='get_dissection_status')results.dissection=p;if(t.name==='list_l4_flows'){if(!results.flows)results.flows={flows:[],total:0};results.flows.flows.push(...(p.flows||[]));results.flows.total+=p.total||0;}if(t.name==='get_l4_flow_summary')results.summary=p;if(t.name==='get_data_boundaries')results.boundaries=p;}catch{}
+                            await new Promise(r=>setTimeout(r,300));
+                        }
+                        setProgress(null);setIsTyping(false);
+                        addMsg({type:'claude',isReport:true,isPerformanceReport:s.isPerformanceReport,isSensitiveDataReport:s.isSensitiveDataReport,toolResults,reportData:results});
+                    }else{
+                        const r=await callTool(s.tool,s.args);await new Promise(r=>setTimeout(r,500));setIsTyping(false);
+                        addMsg({type:'claude',tool:s.tool,args:s.args,rawResult:r,formatted:s.formatResponse(r)});
+                    }
+                }catch(e){setIsTyping(false);setProgress(null);addMsg({type:'claude',error:e.message})}
+                setIdx(p=>(p+1)%SCENARIOS.length);
+            };
+            useEffect(()=>{const t=setTimeout(run,2000);return()=>clearTimeout(t)},[]);
+            useEffect(()=>{if(messages.length>0&&!isTyping&&!progress){const d=messages[messages.length-1]?.isReport?15000:6000;const t=setTimeout(()=>{if(messages.length>8)setMessages(p=>p.slice(-2));run()},d);return()=>clearTimeout(t)}},[messages,isTyping,progress]);
+            return(<div className="mcp-demo-container">
+                <div className="mcp-header"><div className="mcp-header-dot red"></div><div className="mcp-header-dot yellow"></div><div className="mcp-header-dot green"></div><span className="mcp-header-title">Claude Code + Kubeshark MCP</span></div>
+                <div className="mcp-chat" ref={chatRef}>
+                    {messages.map(msg=><div key={msg.id} className="mcp-message">
+                        <div className="mcp-message-header"><div className={`mcp-avatar ${msg.type}`}>{msg.type==='user'?'U':'C'}</div><span className={`mcp-sender ${msg.type}`}>{msg.type==='user'?'User':'Claude Code'}</span></div>
+                        <div className="mcp-content">
+                            {msg.type==='user'?msg.content:msg.error?<span style={{color:'#ff6b6b'}}>{msg.error}</span>:msg.isReport?<>
+                                <div style={{marginBottom:'12px',color:'#888'}}>Executed {msg.toolResults.length} MCP tool calls:</div>
+                                {msg.toolResults.map((tr,i)=><div key={i} className="mcp-tool-call" style={{marginBottom:'8px'}}><div className="mcp-tool-header"><span>⚙</span> {tr.tool}</div>{Object.keys(tr.args||{}).length>0&&<div className="mcp-tool-args">Args: {JSON.stringify(tr.args)}</div>}</div>)}
+                                {msg.isPerformanceReport?<PerformanceReport data={msg.reportData}/>:msg.isSensitiveDataReport?<SensitiveDataReport data={msg.reportData}/>:<WorkloadReport data={msg.reportData}/>}
+                            </>:<>
+                                <div className="mcp-tool-call"><div className="mcp-tool-header"><span>⚙</span> {msg.tool}</div>{Object.keys(msg.args||{}).length>0&&<div className="mcp-tool-args">Args: {JSON.stringify(msg.args)}</div>}<div className="mcp-tool-result">{(()=>{try{return JSON.stringify(JSON.parse(msg.rawResult),null,2).substring(0,300)}catch{return msg.rawResult?.substring(0,300)}})()}</div></div>
+                                <div className="mcp-summary"><div dangerouslySetInnerHTML={{__html:msg.formatted?.summary?.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')}}/>{msg.formatted?.details?.length>0&&<div style={{marginTop:'8px'}}>{msg.formatted.details.map((d,i)=><span key={i} className="mcp-stat">{d}</span>)}</div>}</div>
+                            </>}
+                        </div>
+                    </div>)}
+                    {isTyping&&<div className="mcp-message"><div className="mcp-message-header"><div className="mcp-avatar claude">C</div><span className="mcp-sender claude">Claude Code</span></div>
+                        {progress?<div className="mcp-content"><div className="mcp-progress"><span>{progress.label}</span><span>({progress.current}/{progress.total})</span></div><div className="mcp-progress-bar"><div className="mcp-progress-fill" style={{width:`${(progress.current/progress.total)*100}%`}}></div></div></div>:<div className="mcp-typing"><div className="mcp-typing-dot"></div><div className="mcp-typing-dot"></div><div className="mcp-typing-dot"></div></div>}
+                    </div>}
+                </div>
+            </div>);
+        }
+        ReactDOM.createRoot(document.getElementById('mcp-demo-root')).render(<MCPDemo/>);
+    </script>
+</body>
+</html>

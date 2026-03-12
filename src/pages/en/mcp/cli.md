@@ -1,6 +1,6 @@
 ---
-title: MCP CLI
-description: Run Kubeshark's MCP server from the command line for AI assistant integration.
+title: MCP Installation
+description: Install and configure Kubeshark's MCP server for AI assistant integration.
 layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
@@ -12,15 +12,15 @@ The `kubeshark mcp` command runs an MCP (Model Context Protocol) server over std
 ## Quick Start
 
 ```bash
-kubeshark mcp --url https://kubeshark.example.com
+kubeshark mcp
 ```
 
-This starts an MCP server that communicates over stdin/stdout using the MCP protocol, connecting to an existing Kubeshark deployment.
+This starts an MCP server that communicates over stdin/stdout using the MCP protocol.
 
 To see available tools:
 
 ```bash
-kubeshark mcp --list-tools --url https://kubeshark.example.com
+kubeshark mcp --list-tools
 ```
 
 ---
@@ -33,54 +33,44 @@ Add to your Claude Desktop configuration file:
 
 **Windows:** `%APPDATA%\Claude\claude_desktop_config.json`
 
-### URL Mode (Recommended)
-
-Connect directly to an existing Kubeshark deployment:
+### Default
 
 ```json
 {
   "mcpServers": {
     "kubeshark": {
-      "command": "/path/to/kubeshark",
+      "command": "kubeshark",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+
+### URL Mode
+
+Connect directly to an existing Kubeshark deployment (no kubectl required):
+
+```json
+{
+  "mcpServers": {
+    "kubeshark": {
+      "command": "kubeshark",
       "args": ["mcp", "--url", "https://kubeshark.example.com"]
     }
   }
 }
 ```
 
-In URL mode:
-- Connects directly to the Kubeshark Hub
-- No kubectl or kubeconfig required
-- Cluster management tools (start/stop) are disabled
-- All traffic analysis tools work normally
+### With Destructive Operations
 
-### Proxy Mode
-
-When no `--url` is provided, the MCP CLI will:
-
-1. **Proxy into the cluster** using kubectl port-forward
-2. **Connect to deployed Kubeshark** if it's running
-3. All traffic analysis tools work normally
+To enable AI assistants to start or stop Kubeshark, add `--allow-destructive`:
 
 ```json
 {
   "mcpServers": {
     "kubeshark": {
-      "command": "/path/to/kubeshark",
-      "args": ["mcp", "--kubeconfig", "/path/to/.kube/config"]
-    }
-  }
-}
-```
-
-By default, proxy mode operates in **read-only mode**. To enable AI assistants to start or stop Kubeshark, add `--allow-destructive`:
-
-```json
-{
-  "mcpServers": {
-    "kubeshark": {
-      "command": "/path/to/kubeshark",
-      "args": ["mcp", "--allow-destructive", "--kubeconfig", "/path/to/.kube/config"]
+      "command": "kubeshark",
+      "args": ["mcp", "--allow-destructive"]
     }
   }
 }
@@ -103,7 +93,7 @@ By default, proxy mode operates in **read-only mode**. To enable AI assistants t
 To generate the Claude Desktop configuration automatically:
 
 ```bash
-kubeshark mcp --mcp-config --url https://kubeshark.example.com
+kubeshark mcp --mcp-config
 ```
 
 Output:
@@ -112,7 +102,7 @@ Output:
   "mcpServers": {
     "kubeshark": {
       "command": "/usr/local/bin/kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -121,17 +111,17 @@ Output:
 ### Examples
 
 ```bash
-# List available tools from a Kubeshark instance
-kubeshark mcp --list-tools --url https://kubeshark.example.com
+# List available tools
+kubeshark mcp --list-tools
 
-# Use specific kubeconfig (proxy mode)
+# Connect to a specific URL
+kubeshark mcp --url https://kubeshark.example.com
+
+# Use specific kubeconfig
 kubeshark mcp --kubeconfig ~/.kube/config
 
-# Enable destructive operations (proxy mode)
-kubeshark mcp --allow-destructive --kubeconfig ~/.kube/config
-
-# Connect to local port-forwarded instance
-kubeshark mcp --url http://localhost:8899
+# Enable destructive operations
+kubeshark mcp --allow-destructive
 ```
 
 ---
@@ -300,7 +290,7 @@ Removes Kubeshark from the cluster. Requires `--allow-destructive` flag.
 
 ### MCP server not responding
 
-1. Test with `--list-tools`: `kubeshark mcp --list-tools --url <your-url>`
+1. Test with `--list-tools`: `kubeshark mcp --list-tools`
 2. Check that Kubeshark Hub is running and accessible
 3. Check Claude Desktop logs for errors
 

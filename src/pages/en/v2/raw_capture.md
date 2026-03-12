@@ -4,7 +4,7 @@ description: Continuous L4 packet capture with minimal CPU overhead and zero dat
 layout: ../../../layouts/MainLayout.astro
 ---
 
-Raw Capture provides continuous L4 (TCP/UDP) packet capture across all nodes with minimal CPU overhead. It operates independently from L7 dissection and stores all traffic in a node-level FIFO buffer.
+Raw Capture provides continuous L4 (TCP/UDP) packet capture across all nodes with minimal CPU overhead. It operates independently from real-time API dissection and stores all traffic in a node-level FIFO buffer.
 
 <div class="callout callout-info">
 
@@ -40,16 +40,16 @@ Each worker node writes captured data to a local FIFO buffer. When the buffer re
 
 ---
 
-## Independence from L7 Dissection
+## Independence from Real-time API Dissection
 
-Raw Capture and L7 dissection are controlled separately:
+Raw Capture and real-time API dissection are controlled separately:
 
 | Setting | Effect |
 |---------|--------|
 | `tap.capture.raw.enabled=true` | Raw capture active |
-| `tap.capture.dissection.enabled=false` | L7 dissection stopped |
+| `tap.capture.dissection.enabled=false` | Real-time API dissection stopped |
 
-Both can run simultaneously, or raw capture can run alone. This enables continuous packet retention with L7 dissection enabled only when needed.
+Both can run simultaneously, or raw capture can run alone. This enables continuous packet retention with real-time API dissection enabled only when needed.
 
 These settings are configured via Helm values. See [Raw Capture Configuration](/en/v2/raw_capture_config) for the full configuration reference and [Enabling/Disabling Dissection](/en/on_off_switch) for operational details.
 
@@ -57,10 +57,10 @@ These settings are configured via Helm values. See [Raw Capture Configuration](/
 
 ## Resource Characteristics
 
-| Metric | Raw Capture | L7 Dissection |
+| Metric | Raw Capture | Real-time API Dissection |
 |--------|-------------|---------------|
 | CPU | Low (disk I/O bound) | High (protocol parsing) |
 | Memory | Fixed buffer | Scales with traffic |
 | Data loss risk | Minimal | Higher under load |
 
-Raw Capture's low CPU footprint eliminates packet loss under normal conditions. L7 dissection requires more resources but can be deferred to non-production systems.
+Raw Capture's low CPU footprint eliminates packet loss under normal conditions. Real-time API dissection requires more resources but can be deferred to non-production systems via [delayed dissection](/en/v2/l7_api_delayed).

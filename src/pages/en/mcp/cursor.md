@@ -156,7 +156,7 @@ Since Cursor has access to both your codebase and Kubeshark's network data, you 
 
 ```bash
 # Test the binary directly
-kubeshark mcp --list-tools --url https://kubeshark.example.com
+kubeshark mcp --list-tools
 
 # If using proxy mode, verify kubectl access
 kubectl get pods -l app=kubeshark-hub
@@ -172,7 +172,7 @@ kubectl get pods -l app=kubeshark-hub
 
 ## What's Next
 
-- [MCP CLI Reference](/en/mcp/cli) — All CLI options and modes
+- [MCP Installation](/en/mcp/cli) — All CLI options and modes
 - [Conversational Debugging](/en/mcp/troubleshooting) — Investigation workflows
 - [Autonomous Development](/en/mcp/autonomous_development) — Closed-loop coding with network feedback
 - [How MCP Works](/en/mcp) — Technical details of the protocol

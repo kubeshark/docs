@@ -14,11 +14,8 @@ mascot: Bookworm
 The fastest way to add Kubeshark as an MCP server in Claude Code:
 
 ```bash
-claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add kubeshark -- kubeshark mcp
 ```
-
-Replace `/path/to/kubeshark` with the actual path to your Kubeshark binary, and the URL with your Kubeshark deployment.
 
 Then start Claude Code:
 
@@ -46,29 +43,21 @@ Claude Code supports three scopes for MCP server configuration:
 
 ### Option 1: CLI (Recommended)
 
-#### URL Mode
-
-Connect directly to an existing Kubeshark deployment:
-
 ```bash
-claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add kubeshark -- kubeshark mcp
 ```
 
-#### Proxy Mode
-
-Let Kubeshark proxy into the cluster via kubectl:
+#### Other Connection Options
 
 ```bash
-claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --kubeconfig ~/.kube/config
-```
+# Connect to a specific URL
+claude mcp add kubeshark -- kubeshark mcp --url https://kubeshark.example.com
 
-To enable cluster management operations (start/stop Kubeshark):
+# Explicit kubeconfig
+claude mcp add kubeshark -- kubeshark mcp --kubeconfig ~/.kube/config
 
-```bash
-claude mcp add --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --allow-destructive --kubeconfig ~/.kube/config
+# Enable cluster management operations (start/stop Kubeshark)
+claude mcp add kubeshark -- kubeshark mcp --allow-destructive
 ```
 
 #### Scoping
@@ -77,12 +66,10 @@ Add `--scope` to control where the config is stored:
 
 ```bash
 # Available across all your projects
-claude mcp add --scope user --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add --scope user kubeshark -- kubeshark mcp
 
 # Shared with your team via git
-claude mcp add --scope project --transport stdio kubeshark -- \
-  /path/to/kubeshark mcp --url https://kubeshark.example.com
+claude mcp add --scope project kubeshark -- kubeshark mcp
 ```
 
 ### Option 2: Config File
@@ -96,7 +83,7 @@ You can also edit the config files directly.
   "mcpServers": {
     "kubeshark": {
       "command": "/path/to/kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -109,7 +96,7 @@ You can also edit the config files directly.
   "mcpServers": {
     "kubeshark": {
       "command": "kubeshark",
-      "args": ["mcp", "--url", "https://kubeshark.example.com"]
+      "args": ["mcp"]
     }
   }
 }
@@ -222,7 +209,7 @@ claude mcp remove kubeshark
 
 ```bash
 # Test the binary directly
-/path/to/kubeshark mcp --list-tools --url https://kubeshark.example.com
+kubeshark mcp --list-tools
 
 # If using proxy mode, verify kubectl access
 kubectl get pods -l app=kubeshark-hub
@@ -238,7 +225,7 @@ kubectl get pods -l app=kubeshark-hub
 
 ## What's Next
 
-- [MCP CLI Reference](/en/mcp/cli) — All CLI options and modes
+- [MCP Installation](/en/mcp/cli) — All CLI options and modes
 - [MCP in Action](/en/mcp_in_action) — Full walkthrough of an AI-driven investigation
 - [Use Cases](/en/mcp_use_cases) — Scenarios and example prompts
 - [How MCP Works](/en/mcp) — Technical details of the protocol

@@ -14,19 +14,6 @@ The map type can be selected from the Settings dialog:
 
 ![Map Settings](/map_settings.png)
 
-### L4: Cluster-wide L4 Connectivity
-
-Shows all L4 (TCP/UDP) connections across the entire cluster, regardless of any filter rules. This map is created from information gathered at the node level, tracking all workloads and their egress and ingress connections on each node.
-
-![Cluster-wide L4 Connectivity Map](/cluster_wide_l4_map.png)
-
-**Characteristics:**
-- Shows everything regardless of [Capture Filters](/en/pod_targeting) or [Display Filters](/en/v2/kfl2)
-- Based on L4 traffic
-- **Displays real-world bandwidth and throughput metrics**
-- Egress and ingress bandwidth metrics
-- Throughput (packets) metrics
-
 ### L7: Targeted Workloads Only
 
 An L7 map based on API dissection that shows only traffic and workloads that pass through both [Capture Filters](/en/pod_targeting) and [Display Filters (KFL2)](/en/v2/kfl2). This map measures protocol-based L7 interactions and displays the protocol on each connection (e.g., HTTP, DNS, gRPC, Redis, Kafka).
@@ -40,6 +27,31 @@ An L7 map based on API dissection that shows only traffic and workloads that pas
 - Displays application-level protocols on connections (color-coded in legend)
 
 > **Note:** The bandwidth measurements shown on the L7 map are an aggregation of items streaming to the dashboard, calculated in the browser. These numbers do not reflect real-world bandwidth - they represent the aggregated size of items that reached the dashboard. For real-world bandwidth metrics, use the L4 Cluster-wide map.
+
+### L4: Cluster-wide L4 Connectivity
+
+<div class="callout callout-info">
+
+**Experimental feature.** The L4 connectivity map is hidden by default and not yet optimized for large or busy clusters. To enable it, set the Helm value:
+
+```yaml
+tap:
+  dashboard:
+    clusterWideMapEnabled: true
+```
+
+</div>
+
+Shows all L4 (TCP/UDP) connections across the entire cluster, regardless of any filter rules. This map is created from information gathered at the node level, tracking all workloads and their egress and ingress connections on each node.
+
+![Cluster-wide L4 Connectivity Map](/cluster_wide_l4_map.png)
+
+**Characteristics:**
+- Shows everything regardless of [Capture Filters](/en/pod_targeting) or [Display Filters](/en/v2/kfl2)
+- Based on L4 traffic
+- **Displays real-world bandwidth and throughput metrics**
+- Egress and ingress bandwidth metrics
+- Throughput (packets) metrics
 
 ## Display Options
 
