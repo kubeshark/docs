@@ -11,6 +11,26 @@ The `kubeshark mcp` command runs an MCP (Model Context Protocol) server over std
 
 ## Quick Start
 
+First, install the Kubeshark CLI:
+
+```bash
+brew install kubeshark
+```
+
+Then add Kubeshark as an MCP server to your AI assistant:
+
+**Claude Code:**
+
+```bash
+claude mcp add kubeshark -- kubeshark mcp
+```
+
+**Cursor / Claude Desktop:** See [Configuration for Claude Desktop](#configuration-for-claude-desktop) below.
+
+---
+
+To run the MCP server manually:
+
 ```bash
 kubeshark mcp
 ```
