@@ -191,6 +191,7 @@ claude mcp remove kubeshark
 
 ## Tips
 
+- **Install AI skills** — Add [AI skills](/en/mcp/skills) for guided workflows like root cause analysis and traffic filtering: `/plugin marketplace add kubeshark/kubeshark`
 - **Use natural language** — Ask questions like you would to a colleague: *"Why is the checkout service slow?"*
 - **Follow up** — Claude Code maintains conversation context. Ask follow-up questions to drill into specific issues.
 - **Combine with code** — Since Claude Code also has access to your codebase, you can ask it to correlate network issues with source code: *"The payment service is timing out. Can you find where the timeout is configured in the code?"*

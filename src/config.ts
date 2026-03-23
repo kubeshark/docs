@@ -100,6 +100,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'TCP Expert Insights', link: 'en/mcp/tcp_insights' },
       { text: 'Snapshots & Raw Capture', link: 'en/mcp/raw_capture_tools' },
       { text: 'Delayed Dissection', link: 'en/mcp/delayed_dissection' },
+      { text: 'AI Skills', link: 'en/mcp/skills' },
       { text: 'Claude Code Integration', link: 'en/mcp/claude_code', icon: '/claude-icon.svg' },
       { text: 'GitHub Copilot Integration', link: 'en/mcp/github_copilot', icon: '/copilot-icon.svg' },
       { text: 'Cursor Integration', link: 'en/mcp/cursor', icon: '/cursor-icon.svg' },
