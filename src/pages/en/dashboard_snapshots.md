@@ -56,7 +56,7 @@ When [Cloud Storage](/en/snapshots_cloud_storage) is configured, a connection ba
 
 ![Snapshots tab showing Connected to S3 badge](/snapshots-connected-s3.png)
 
-A green **Connected to S3** (or **Connected to Azure Blob**) badge confirms the hub has validated access to the configured bucket or container. If the connection fails, the hub will not start — see [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for troubleshooting.
+A green **Connected to S3** (or **Connected to Azure Blob** or **Connected to GCS**) badge confirms the hub has validated access to the configured bucket or container. If the connection fails, the hub will not start — see [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for troubleshooting.
 
 ### Snapshot Location
 
@@ -86,6 +86,6 @@ Snapshots can be deleted independently from each location. When a snapshot exist
 
 ## What's Next
 
-- [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) — Configure S3 or Azure Blob storage
+- [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) — Configure S3, Azure Blob, or GCS storage
 - [KFL Reference](/en/v2/kfl2) — Query language for indexed snapshots
 - [Raw Capture Configuration](/en/v2/raw_capture_config) — Storage size and capture settings

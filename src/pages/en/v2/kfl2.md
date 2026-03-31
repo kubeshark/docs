@@ -66,6 +66,14 @@ http && response_body_size > 10000
 | `node_name` | string | Node name | `"ks-node-001"` |
 | `node_ip` | string | Node IP address | `"10.0.0.12"` |
 
+### DNS Resolution Variables
+
+| Variable | Type | Description | Example |
+|----------|------|-------------|---------|
+| `src.dns` | string | DNS resolution of the source peer's IP | `"web.example.com"` |
+| `dst.dns` | string | DNS resolution of the destination peer's IP | `"db.example.com"` |
+| `dns_resolutions` | list | All DNS resolutions from both peers (deduplicated) | `["web.example.com", "db.example.com"]` |
+
 #### Labels and Annotations
 
 | Variable | Type | Description |
@@ -240,6 +248,24 @@ dns && "google.com" in dns_questions
 
 # DNS responses with answers
 dns && dns_response && size(dns_answers) > 0
+```
+
+### DNS Resolution Filtering
+
+Use `src.dns` and `dst.dns` to filter traffic by the resolved DNS name of a peer's IP address. This works on any protocol, not just DNS traffic.
+
+```cel
+# Traffic to a specific external domain
+dst.dns == "db.example.com"
+
+# Traffic involving a domain (either direction)
+src.dns.contains("example.com") || dst.dns.contains("example.com")
+
+# Check if any peer resolved to a domain
+"db.example.com" in dns_resolutions
+
+# External traffic (resolved DNS, not internal)
+dst.dns != "" && !dst.dns.endsWith(".internal")
 ```
 
 ### Database Filtering

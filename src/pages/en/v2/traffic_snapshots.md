@@ -55,7 +55,7 @@ Correlating all three sources enables indexing to show traffic with full Kuberne
 |--------|-------------|
 | [PCAP Export](/en/dashboard_snapshots#pcap-export) | Download raw packets for Wireshark or any PCAP-compatible tool |
 | [Delayed Indexing](/en/v2/l7_api_dissection#delayed-indexing) | Run full L7 traffic indexing on non-production compute |
-| [Cloud Backup](/en/snapshots_cloud_storage) | Upload to S3 or Azure Blob for long-term retention and cross-cluster sharing |
+| [Cloud Backup](/en/snapshots_cloud_storage) | Upload to S3, Azure Blob, or GCS for long-term retention and cross-cluster sharing |
 
 ---
 
@@ -69,7 +69,7 @@ See [Helm Configuration Reference](/en/helm_reference#snapshots--local-storage) 
 
 ### Cloud Storage
 
-Snapshots can also be uploaded to cloud object storage for cross-cluster sharing, backup/restore, and long-term retention. Supported providers: **Amazon S3** and **Azure Blob Storage**.
+Snapshots can also be uploaded to cloud object storage for cross-cluster sharing, backup/restore, and long-term retention. Supported providers: **Amazon S3**, **Azure Blob Storage**, and **Google Cloud Storage**.
 
 See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for setup instructions.
 
