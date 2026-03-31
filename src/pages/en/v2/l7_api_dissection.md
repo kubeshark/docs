@@ -17,6 +17,8 @@ Dissected API components, enriched with Kubernetes and network contexts, are sto
 dst.pod.name == "bifrost-0" && http && dst.port == 8000 && path.contains("/v1/chat/completions")
 ```
 
+![KFL query combining Kubernetes, API, and network semantics](/kfl-query.png)
+
 Query language covers most Kubernetes identifiers (e.g. pod, service, namespace, labels, annotations, node, etc), IPs and ports as network identifiers, and every API component based on supported protocol specs.
 
 
