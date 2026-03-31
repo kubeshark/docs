@@ -4,42 +4,11 @@ description: Cluster-wide traffic snapshots for a specific time window, enabling
 layout: ../../../layouts/MainLayout.astro
 ---
 
-Traffic Snapshots freeze a window of historical traffic from [Raw Capture](/en/v2/raw_capture) and preserve it permanently.
+Traffic Snapshots extract any time window from the available [Raw Capture](/en/v2/raw_capture) data and preserve it permanently in dedicated, immutable storage.
 
-When you create a snapshot, you specify how far back to capture—last 5 minutes, last 1 hour, last 12 hours. The snapshot extracts that time window from raw capture buffers and moves it to dedicated storage where it becomes immutable.
-
-<div class="callout callout-info">
-
-**Use Cases:** Traffic Snapshots are central to both [Incident Response](/en/use-cases/incident_response) (preserve evidence on demand when an incident is detected) and [Traffic Forensics](/en/use-cases/forensics) (pull any time window from cloud storage for after-the-fact investigation).
-
-</div>
-
-| Constraint | Description |
-|------------|-------------|
-| Maximum window | Limited by raw capture retention (buffer size / traffic rate) |
-| Storage | Snapshots persist until explicitly deleted |
-
-### Dedicated Snapshot Storage
-
-A dedicated persistent volume can be attached to the Hub specifically for snapshot storage. Since snapshots are centralized on the Hub (not distributed across worker nodes), a single volume serves all snapshot storage needs. This enables:
-
-- **Larger capacity** — Store months of snapshots independent of worker node storage
-- **Different storage class** — Use cost-effective storage tiers for long-term retention
-- **Centralized management** — All snapshots in one location for easy access and cleanup
-
-See [Helm Configuration Reference](/en/helm_reference#snapshots--local-storage) for `tap.snapshots.local.storageClass` and `tap.snapshots.local.storageSize` settings.
-
-### Cloud Storage
-
-Snapshots can also be uploaded to cloud object storage for cross-cluster sharing, backup/restore, and long-term retention. Supported providers: **Amazon S3** and **Azure Blob Storage**.
-
-See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for setup instructions.
-
-| Resource | Link |
-|----------|------|
-| Local Storage Configuration | [Snapshot Storage Settings](/en/v2/raw_capture_config#snapshot-storage) |
-| Cloud Storage Configuration | [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) |
-| User Guide | [Creating & Managing Snapshots](/en/dashboard_snapshots) |
+**Key value:**
+- **Download cluster-wide PCAPs** — filtered by time, nodes, workloads, and IPs. Get exactly what matters, ready for Wireshark or any PCAP-compatible tool.
+- **Long-term retention** — store snapshots and PCAPs in cloud storage (S3, Azure Blob) for compliance, audits, and future investigation.
 
 ---
 
@@ -66,9 +35,7 @@ See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for setup instruc
 +------------------------------------------------------------------+
 ```
 
-[Raw Capture](/en/v2/raw_capture) continuously stores traffic in a node-level FIFO buffer. The buffer size is fixed—when it fills, older data is recycled to make room for new traffic. This allows continuous capture indefinitely, but past data is eventually lost.
-
-**Snapshots solve this**: by creating a snapshot before data is recycled, you extract and preserve a specific time window. The snapshot is moved to dedicated storage on the Hub, where it becomes immutable and persists until you delete it.
+When you create a snapshot, the selected time window is extracted from raw capture buffers and moved to dedicated storage on the Hub, where it becomes immutable and persists until you delete it.
 
 ### What's in a Snapshot
 
@@ -78,13 +45,36 @@ Snapshots contain three correlated data sources from raw capture:
 - **Kubernetes events** - Control plane activity
 - **Operating system events** - eBPF-based insights
 
-Correlating all three sources enables future dissection to show traffic with full Kubernetes and operating system context.
+Correlating all three sources enables indexing to show traffic with full Kubernetes and operating system context.
 
-### Snapshot Lifecycle
+---
 
-1. **Request**: User selects nodes and a time window from raw capture
-2. **Extract**: Traffic data is copied from raw capture buffers
-3. **Transfer**: The snapshot archive is moved to the Hub's snapshot storage
-4. **Immutable**: The snapshot is now permanent—raw capture can recycle the original data
+## What You Can Do with a Snapshot
 
-**Key point**: Once a snapshot is created, it's independent of raw capture. The original data in raw capture may be recycled over time, but the snapshot persists until you explicitly delete it.
+| Action | Description |
+|--------|-------------|
+| [PCAP Export](/en/dashboard_snapshots#pcap-export) | Download raw packets for Wireshark or any PCAP-compatible tool |
+| [Delayed Indexing](/en/v2/l7_api_dissection#delayed-indexing) | Run full L7 traffic indexing on non-production compute |
+| [Cloud Backup](/en/snapshots_cloud_storage) | Upload to S3 or Azure Blob for long-term retention and cross-cluster sharing |
+
+---
+
+## Storage Options
+
+### Local Storage
+
+A dedicated persistent volume can be attached to the Hub for snapshot storage. Since snapshots are centralized on the Hub (not distributed across worker nodes), a single volume serves all needs.
+
+See [Helm Configuration Reference](/en/helm_reference#snapshots--local-storage) for `tap.snapshots.local.storageClass` and `tap.snapshots.local.storageSize` settings.
+
+### Cloud Storage
+
+Snapshots can also be uploaded to cloud object storage for cross-cluster sharing, backup/restore, and long-term retention. Supported providers: **Amazon S3** and **Azure Blob Storage**.
+
+See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) for setup instructions.
+
+| Resource | Link |
+|----------|------|
+| Local Storage Configuration | [Snapshot Storage Settings](/en/v2/raw_capture_config#snapshot-storage) |
+| Cloud Storage Configuration | [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) |
+| User Guide | [Creating & Managing Snapshots](/en/dashboard_snapshots) |

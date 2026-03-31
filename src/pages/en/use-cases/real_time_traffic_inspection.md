@@ -34,7 +34,7 @@ No code changes. No redeployments. No waiting.
 
 ### L7 API Traffic
 
-Kubeshark performs [real-time L7 dissection](/en/v2/l7_api_realtime), reconstructing full application-layer conversations from raw packets:
+Kubeshark performs [real-time L7 dissection](/en/v2/l7_api_dissection#real-time-indexing), reconstructing full application-layer conversations from raw packets:
 
 | Protocol | What You See |
 |----------|-------------|
@@ -62,7 +62,7 @@ Below the application layer, Kubeshark captures [L4 flow data](/en/v2/service_ma
 
 ### L4 Expert Insights
 
-When [real-time dissection](/en/v2/l7_api_realtime) is enabled, Kubeshark goes deeper — providing [Wireshark-grade TCP metrics](/en/mcp/tcp_insights) for every TCP connection in real time:
+When [real-time dissection](/en/v2/l7_api_dissection#real-time-indexing) is enabled, Kubeshark goes deeper — providing [Wireshark-grade TCP metrics](/en/mcp/tcp_insights) for every TCP connection in real time:
 
 | Metric | What It Reveals |
 |---|---|
@@ -199,7 +199,7 @@ Real-time inspection and [traffic forensics](/en/use-cases/forensics) are comple
 ## What's Next
 
 - [TCP Expert Insights](/en/mcp/tcp_insights) — Full metric reference, diagnostic decision trees, and interpretation guide
-- [Real-time Dissection](/en/v2/l7_api_realtime) — How real-time L7 protocol parsing works
+- [Real-time Dissection](/en/v2/l7_api_dissection#real-time-indexing) — How real-time L7 protocol parsing works
 - [Display Filters](/en/display_filters) — KFL syntax for filtering live traffic
 - [Dashboard](/en/ui) — The Kubeshark web interface for real-time inspection
 - [Incident Response](/en/use-cases/incident_response) — When real-time turns into an investigation

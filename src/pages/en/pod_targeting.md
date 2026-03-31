@@ -11,11 +11,11 @@ Rules include:
 - Namespaces to include and exclude
 - Explicit BPF statement
   
-Capture Filters impact both [Raw Capture](/en/v2/raw_capture) and [L7 API dissection](/en/v2/l7_api_dissection). Using these filters wisely can significantly reduce compute resource consumption, as consumption is directly correlated with the number of workloads being captured and dissected.
+Capture Filters impact both [Raw Capture](/en/v2/raw_capture) and [L7 traffic indexing](/en/v2/l7_api_dissection). Using these filters wisely can significantly reduce compute resource consumption, as consumption is directly correlated with the number of workloads being captured and indexed.
 
-For example, running **Kubeshark** on an entire cluster without filters can consume significant compute resources, even though most workloads may not be of interest. By focusing on specific workloads, **Kubeshark** captures and dissects only the targeted traffic, significantly reducing compute resource consumption.
+For example, running **Kubeshark** on an entire cluster without filters can consume significant compute resources, even though most workloads may not be of interest. By focusing on specific workloads, **Kubeshark** captures and indexes only the targeted traffic, significantly reducing compute resource consumption.
 
-> For another method to control resource consumption, see [Enabling / Disabling L7 API Dissection](/en/on_off_switch).
+> For another method to control resource consumption, see [Enabling / Disabling L7 Traffic Indexing](/en/on_off_switch).
 
 Capture Filters help you focus on traffic of interest and avoid processing traffic that isn't relevant.
 

@@ -1,48 +1,48 @@
 ---
 title: Performance
-description: Understanding and optimizing L7 API dissection performance in Kubeshark.
+description: Understanding and optimizing L7 traffic indexing performance in Kubeshark.
 layout: ../../../layouts/MainLayout.astro
 ---
 
-**L7 API dissection** requires significant CPU and memory resources to process and analyze network traffic in real-time. Understanding performance characteristics helps optimize Kubeshark for your environment.
+**L7 traffic indexing** requires significant CPU and memory resources to process and analyze network traffic in real-time. Understanding performance characteristics helps optimize Kubeshark for your environment.
 
 ## Resource Consumption
 
-Real-time API dissection accounts for most of Kubeshark's resource usage. Traffic capture itself remains comparatively lightweight—parsing operations consume far more compute than the initial packet capture phase.
+Real-time traffic indexing accounts for most of Kubeshark's resource usage. Traffic capture itself remains comparatively lightweight—parsing operations consume far more compute than the initial packet capture phase.
 
 | Operation | CPU Usage | Memory Usage | Where |
 |-----------|-----------|--------------|-------|
 | Raw Capture (L4) | Low | Low | Production |
-| Real-time API Dissection (L7) | High | High | Production |
-| Delayed API Dissection | Low (configurable) | Low (configurable) | Non-production |
+| Real-time Traffic Indexing (L7) | High | High | Production |
+| Delayed Traffic Indexing | Low (configurable) | Low (configurable) | Non-production |
 
-## Raw Capture vs Real-Time Dissection
+## Raw Capture vs Real-Time Indexing
 
 ![Resource Comparison](/resource_comparison.png)
 
-Most of the heavy lifting in V2.00 involves writing data to disk, which is far less resource-intensive than real-time parsing. This is why [Raw Capture](/en/v2/raw_capture) can run continuously with minimal impact, while real-time dissection should be enabled on-demand.
+Most of the heavy lifting in V2.00 involves writing data to disk, which is far less resource-intensive than real-time parsing. This is why [Raw Capture](/en/v2/raw_capture) can run continuously with minimal impact, while real-time indexing should be enabled on-demand.
 
 - **Raw Capture** - Primarily disk I/O, minimal CPU
-- **Real-time Dissection** - CPU and memory intensive parsing operations
+- **Real-time Indexing** - CPU and memory intensive parsing operations
 
-## Delayed Dissection
+## Delayed Indexing
 
-To minimize production impact, V2.00 introduces [delayed API dissection](/en/v2/raw_capture#delayed-api-dissection). Dissection is executed on non-production compute resources with low, configurable resource consumption.
+To minimize production impact, V2.00 introduces [delayed traffic indexing](/en/v2/raw_capture#delayed-api-dissection). Indexing is executed on non-production compute resources with low, configurable resource consumption.
 
 This enables:
 - Continuous lightweight capture on production nodes
-- Dissection processing on non-production compute with configurable resources
-- Real-time dissection enabled on-demand only when needed for investigation
+- Indexing processing on non-production compute with configurable resources
+- Real-time indexing enabled on-demand only when needed for investigation
 
 ## Reducing Resource Consumption
 
-### Automatic Dissection Timeout
+### Automatic Indexing Timeout
 
-To preserve resources, L7 API dissection automatically stops after a configurable idle period (default: 5 minutes). This behavior can be overridden. See [Enabling / Disabling L7 API Dissection](/en/on_off_switch) for details.
+To preserve resources, L7 traffic indexing automatically stops after a configurable idle period (default: 5 minutes). This behavior can be overridden. See [Enabling / Disabling L7 Traffic Indexing](/en/on_off_switch) for details.
 
-### Disable Dissection
+### Disable Indexing
 
-Disable L7 API dissection entirely using `tap.capture.dissection.enabled=false`. Dissection can be [enabled on-demand](/en/on_off_switch) when needed:
+Disable L7 traffic indexing entirely using `tap.capture.dissection.enabled=false`. Indexing can be [enabled on-demand](/en/on_off_switch) when needed:
 
 ```yaml
 tap:
@@ -64,16 +64,16 @@ tap:
 
 ### Run Raw Capture Only
 
-Let [Raw Capture](/en/v2/raw_capture) run continuously while keeping dissection disabled:
+Let [Raw Capture](/en/v2/raw_capture) run continuously while keeping indexing disabled:
 
 ```yaml
 tap:
   capture:
     dissection:
-      enabled: false        # Dissection disabled
+      enabled: false        # Indexing disabled
     raw:
       enabled: true         # Raw capture active
 ```
 
-This provides complete traffic history with minimal overhead, enabling dissection only when investigation is needed.
+This provides complete traffic history with minimal overhead, enabling indexing only when investigation is needed.
 

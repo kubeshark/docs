@@ -1,37 +1,26 @@
 ---
-title: API (L7) Dissection
+title: Traffic Indexing
 description: How Kubeshark reconstructs complete API calls from network traffic with full Kubernetes context.
 layout: ../../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-[Kubeshark](https://kubeshark.com) performs L7/API dissection to enrich captured traffic and payloads with full [Kubernetes](https://kubernetes.io/) context (e.g., workload identities, node, namespace, pod, and service names) and API context (e.g., request/response matching, endpoint and status codes, headers, and payloads).
+Kubeshark indexes cluster-wide network traffic by parsing it according to protocol specifications, with support for HTTP, gRPC, Redis, Kafka, DNS, and more. Dissected elements are broken down to the smallest protocol components and stored in a database. This enables queries using Kubernetes semantics (e.g. pod, namespace, node), API semantics (e.g. path, headers, status), and network semantics (e.g. IP, port) — whether from a dashboard or from an AI agent. No code instrumentation required.
 
 ![API Dissection](/api_context.png)
 
-## The API Context (L7)
+## Queries with API, Kubernetes and Network Semantics
 
-**The problem**: [Kubernetes](https://kubernetes.io/) is distributed and multilayered, with critical information scattered across the network, the nodes’ operating systems, and the control plane.
+Dissected API components, enriched with Kubernetes and network contexts, are stored in a DB, ready for queries with Kubernetes, network, and API semantics.
 
-![Fragment Kubernetes and API contexts](/fragmented2.png)
+```javascript
+dst.pod.name == "bifrost-0" && http && dst.port == 8000 && path.contains("/v1/chat/completions")
+```
 
-Fragmentation is most pronounced at the API layer, where much of the API context resides within the network and is distributed across multiple L4 streams. The network is large, highly distributed, and less accessible than other parts of the infrastructure, making it difficult to reconstruct the complete API context without correlating data across layers and focusing analysis at the network level.
+Query language covers most Kubernetes identifiers (e.g. pod, service, namespace, labels, annotations, node, etc), IPs and ports as network identifiers, and every API component based on supported protocol specs.
 
-## API (L7) Dissection
 
-API dissection goes beyond basic traffic inspection. It reconstructs complete API calls from network data by identifying requests and responses, protocol metadata, and payloads.
-
-This process requires buffering both ingress and egress traffic between two peers, matching requests to responses, detecting the underlying protocol, and parsing payloads according to the protocol specification.
-
-Once API calls are successfully dissected, each call is enriched with workload and application identities. These identities are derived by correlating Kubernetes events from the Kubernetes API server with operating system context collected from distributed nodes via eBPF. The result links each API call to its originating pod, service, namespace, labels, and, when available, the specific process that generated the traffic.
-
-Unlike raw packet data, which lacks higher-level context, API dissection provides structured, semantically meaningful information.
-
-### Raw TCP and UDP Packets
-Raw traffic includes IPs, ports, and raw packets. It lacks the API context, and IPs and ports alone aren't sufficient for establishing communication identities.
-![See raw packet information in Wireshark](/wireshark.png)
-
-### Workload Identities
+### Kubernetes Semantics
 
 [Kubernetes](https://kubernetes.io/) orchestrates workload identities (e.g., service, pod, namespace). It's impossible to establish workload identities by inspecting raw packets alone. To establish workload identities, [Kubeshark](https://kubeshark.com) maintains a name-to-IP resolution table that enables correlating IP addresses to workload identities.
 
@@ -46,7 +35,16 @@ This comes in addition to:
 - Port
 - Protocol
 
-### API Components
+### Network Semantics
+
+Network-level identifiers are available for every captured packet:
+- Source and destination IP
+- Source and destination port
+- Protocol (TCP, UDP, SCTP)
+
+These can be used independently or combined with Kubernetes and API semantics for precise filtering.
+
+### API Semantics
 API components are parsed according to protocol specifications. For example, in HTTP, the following information is parsed:
 - Request
 - Matched response
@@ -56,3 +54,73 @@ API components are parsed according to protocol specifications. For example, in 
 - Response status code
 
 ![API Payload](/api_payload.png)
+
+---
+
+## Real-time vs Delayed Indexing
+
+Kubeshark offers two independent indexing modes that can run in parallel or separately. Each can be enabled or disabled independently.
+
+| Approach | Compute | How It Works | When to Use |
+|----------|---------|--------------|-------------|
+| Real-time | Production (worker nodes) | Automatically dissects traffic as it flows, in real time | Active debugging, development, live investigation |
+| Delayed | Non-production | [Raw Capture](/en/v2/raw_capture) → [Snapshot](/en/v2/traffic_snapshots) → Dissection | Production monitoring, forensics, incident response |
+
+The two pipelines are independent. Real-time indexing does not capture raw traffic — it dissects on the fly using production resources. Delayed indexing relies on a separate pipeline: [Raw Capture](/en/v2/raw_capture) stores packets continuously, [Traffic Snapshots](/en/v2/traffic_snapshots) preserve a time window, and dissection runs later on non-production compute.
+
+For detailed resource consumption information, see [Performance](/en/v2/performance).
+
+---
+
+## Real-time Indexing
+
+Real-time indexing provides instant visibility into L7 traffic as it happens. Requests and responses are parsed, correlated, and displayed immediately in the Dashboard.
+
+| Feature | Description |
+|---------|-------------|
+| Live traffic view | See API calls as they occur |
+| Request/response correlation | Matched pairs with timing |
+| Full payload inspection | Headers, body, status codes |
+| Kubernetes context | Pod, service, namespace identity |
+
+Real-time indexing uses a distributed, federated database architecture. Each worker node runs its own DB instance, where traffic is dissected on the wire and stored locally. When a query is issued — from the dashboard, MCP, or API — the Hub routes it to the relevant DB instances and aggregates the results.
+
+This means real-time indexing consumes production compute resources on every worker node. If production resource usage is a concern and you can wait for results, use delayed indexing instead.
+
+---
+
+## Delayed Indexing
+
+Delayed indexing enables full L7 protocol analysis on captured traffic using non-production compute. Capture raw packets on production nodes with minimal overhead, then run complete protocol analysis later — on your schedule.
+
+The result is identical to real-time indexing: full request/response payloads, headers, timing, and Kubernetes context. Unlike real-time's federated DB across worker nodes, a snapshot produces a single centralized DB stored on the Hub — queryable from the dashboard or via MCP, and capable of being uploaded to cloud storage for long-term retention.
+
+```
+PRODUCTION                           NON-PRODUCTION
++------------------+                 +------------------+
+|                  |                 |                  |
+|  Raw Capture     |--- Snapshot --->|  L7 Dissection   |
+|  (minimal CPU)   |                 |  (full parsing)  |
+|                  |                 |                  |
++------------------+                 +--------+---------+
+                                              |
+                                              v
+                                     +------------------+
+                                     |  Dissection DB   |
+                                     |  (queryable)     |
+                                     +------------------+
+```
+
+### Workflow
+
+1. **Capture**: [Raw Capture](/en/v2/raw_capture) continuously stores L4 traffic with minimal CPU
+2. **Snapshot**: Create a [Traffic Snapshot](/en/v2/traffic_snapshots) for the time window of interest
+3. **Dissect**: Run L7 protocol analysis on the snapshot
+4. **Query**: Access the dissected data via the Dashboard or [MCP](/en/mcp/delayed_dissection)
+
+### Key Benefits
+
+- **Production safe** — Raw capture uses minimal CPU. The heavy lifting of protocol parsing happens elsewhere.
+- **No data loss** — Since capture requires minimal resources, packet loss is eliminated.
+- **Flexible timing** — Run dissection immediately after an incident, periodically in the background, or on-demand.
+- **Complete context** — Produces the same rich data as real-time: full payloads, headers, status codes, timing, and Kubernetes identity.

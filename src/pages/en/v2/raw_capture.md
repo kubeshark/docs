@@ -4,25 +4,19 @@ description: Continuous L4 packet capture with minimal CPU overhead and zero dat
 layout: ../../../layouts/MainLayout.astro
 ---
 
-Raw Capture provides continuous L4 (TCP/UDP) packet capture across all nodes with minimal CPU overhead. It operates independently from real-time API dissection and stores all traffic in a node-level FIFO buffer.
-
-<div class="callout callout-info">
-
-**Use Cases:** Raw Capture is the foundation for both [Incident Response](/en/use-cases/incident_response) (on-demand snapshots from the local rolling buffer) and [Traffic Forensics](/en/use-cases/forensics) (continuous backup to cloud storage for long-term historical investigation).
-
-</div>
+Raw Capture provides continuous L4 (TCP/UDP) packet capture across all nodes with minimal CPU overhead. It operates independently from real-time traffic indexing and stores all traffic in a node-level FIFO buffer.
 
 > **Helm Configuration:** Control raw capture settings—storage size, capture filters, snapshot storage, and more—via Helm values. See [Raw Capture Configuration](/en/v2/raw_capture_config) for details.
 
 ---
 
-## Capabilities
+## A Prerequisite for:
 
 | Capability | Description |
 |------------|-------------|
 | [Traffic Snapshots](/en/v2/traffic_snapshots) | Extract and preserve traffic for a specific time window |
 | [PCAP Export](/en/dashboard_snapshots#pcap-export) | Download raw packets for Wireshark analysis |
-| [Delayed Dissection](/en/v2/l7_api_delayed) | Run L7 protocol analysis on non-production compute |
+| [Delayed Indexing](/en/v2/l7_api_dissection#delayed-indexing) | Run L7 protocol analysis on non-production compute |
 
 ---
 
@@ -40,27 +34,27 @@ Each worker node writes captured data to a local FIFO buffer. When the buffer re
 
 ---
 
-## Independence from Real-time API Dissection
+## Independence from Real-time Traffic Indexing
 
-Raw Capture and real-time API dissection are controlled separately:
+Raw Capture and real-time traffic indexing are controlled separately:
 
 | Setting | Effect |
 |---------|--------|
 | `tap.capture.raw.enabled=true` | Raw capture active |
-| `tap.capture.dissection.enabled=false` | Real-time API dissection stopped |
+| `tap.capture.dissection.enabled=false` | Real-time traffic indexing stopped |
 
-Both can run simultaneously, or raw capture can run alone. This enables continuous packet retention with real-time API dissection enabled only when needed.
+Both can run simultaneously, or raw capture can run alone. This enables continuous packet retention with real-time traffic indexing enabled only when needed.
 
-These settings are configured via Helm values. See [Raw Capture Configuration](/en/v2/raw_capture_config) for the full configuration reference and [Enabling/Disabling Dissection](/en/on_off_switch) for operational details.
+These settings are configured via Helm values. See [Raw Capture Configuration](/en/v2/raw_capture_config) for the full configuration reference and [Enabling/Disabling Indexing](/en/on_off_switch) for operational details.
 
 ---
 
 ## Resource Characteristics
 
-| Metric | Raw Capture | Real-time API Dissection |
+| Metric | Raw Capture | Real-time Traffic Indexing |
 |--------|-------------|---------------|
 | CPU | Low (disk I/O bound) | High (protocol parsing) |
 | Memory | Fixed buffer | Scales with traffic |
 | Data loss risk | Minimal | Higher under load |
 
-Raw Capture's low CPU footprint eliminates packet loss under normal conditions. Real-time API dissection requires more resources but can be deferred to non-production systems via [delayed dissection](/en/v2/l7_api_delayed).
+Raw Capture's low CPU footprint eliminates packet loss under normal conditions. Real-time traffic indexing requires more resources but can be deferred to non-production systems via [delayed indexing](/en/v2/l7_api_dissection#delayed-indexing).

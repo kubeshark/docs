@@ -147,7 +147,7 @@ tap:
 
 ## Database Size
 
-Configure the maximum size for dissected API data:
+Configure the maximum size for indexed API data:
 
 ```yaml
 tap:
@@ -155,28 +155,28 @@ tap:
     dbMaxSize: 500Mi          # Maximum database size
 ```
 
-This controls storage for L7 dissection results, not raw capture data.
+This controls storage for L7 indexing results, not raw capture data.
 
 ---
 
-## Independence from L7 Dissection
+## Independence from L7 Indexing
 
-Raw capture operates independently from real-time L7 API dissection:
+Raw capture operates independently from real-time L7 traffic indexing:
 
 ```yaml
 tap:
   capture:
     dissection:
-      enabled: true           # Whether L7 dissection is active
-      stopAfter: 5m           # Auto-stop dissection after idle period
+      enabled: true           # Whether L7 indexing is active
+      stopAfter: 5m           # Auto-stop indexing after idle period
     raw:
       enabled: true           # Raw capture continues regardless
 ```
 
-- `dissection.enabled: false` stops L7 dissection but raw capture continues
-- `raw.enabled: true` enables raw capture regardless of dissection state
+- `dissection.enabled: false` stops L7 indexing but raw capture continues
+- `raw.enabled: true` enables raw capture regardless of indexing state
 
-This allows continuous raw capture with minimal overhead while [enabling L7 dissection on demand](/en/on_off_switch).
+This allows continuous raw capture with minimal overhead while [enabling L7 indexing on demand](/en/on_off_switch).
 
 ---
 
@@ -194,12 +194,12 @@ tap:
 
   capture:
     dissection:
-      enabled: true           # L7 dissection enabled
+      enabled: true           # L7 indexing enabled
       stopAfter: 5m           # Auto-stop after 5 minutes idle
     raw:
       enabled: true           # Raw capture always on
       storageSize: 2Gi        # 2GB per node
-    dbMaxSize: 500Mi          # 500MB for dissection DB
+    dbMaxSize: 500Mi          # 500MB for indexing DB
 
   snapshots:
     local:

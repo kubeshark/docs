@@ -73,7 +73,7 @@ The snapshot pulls all raw data from that time window — packets, Kubernetes ev
 
 ### Dissection: See What Actually Happened
 
-Once a snapshot is created, [on-demand dissection](/en/v2/l7_api_delayed) reconstructs the raw data into a complete, human-readable view of everything that occurred during that window:
+Once a snapshot is created, [on-demand dissection](/en/v2/l7_api_dissection#delayed-indexing) reconstructs the raw data into a complete, human-readable view of everything that occurred during that window:
 
 | What You See | What It Tells You |
 |---|---|
@@ -198,6 +198,6 @@ The only requirement is to have Kubeshark running in the cluster with cloud stor
 
 - [Raw Capture Configuration](/en/v2/raw_capture_config) — Configure retention and cloud storage
 - [Traffic Snapshots](/en/v2/traffic_snapshots) — Creating and managing snapshots
-- [Delayed Dissection](/en/v2/l7_api_delayed) — On-demand reconstruction of snapshot data
+- [Delayed Dissection](/en/v2/l7_api_dissection#delayed-indexing) — On-demand reconstruction of snapshot data
 - [TCP Expert Insights](/en/mcp/tcp_insights) — Wireshark-grade TCP metrics for deep network analysis
 - [Incident Response](/en/use-cases/incident_response) — The end-to-end incident response workflow

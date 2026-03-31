@@ -41,7 +41,7 @@ Network traffic is the richest source of information in a Kubernetes cluster, ye
 
 Kubeshark closes this gap. It enables AI agents to slice and dice network data, serving it up significantly reduced in size and optimized to be digested by AI agents:
 
-- Cluster-wide packets and dissected API calls, filtered to what matters
+- Cluster-wide packets and indexed API calls, filtered to what matters
 - Data sized for AI consumption
 - Works in real-time and retrospectively
 
@@ -57,9 +57,9 @@ Kubeshark is built to integrate into AI-driven workflows — particularly [incid
 
 2. **[Snapshot and retain](/en/dashboard_snapshots)** — PCAP snapshots can be created at any point from the short-term retention data, filtered by time window, nodes, and workloads. Snapshots can be exported to [long-term, immutable cloud storage](/en/snapshots_cloud_storage) (AWS S3, Azure Blob, Google Cloud Storage).
 
-3. **[Real-time inspection](/en/use-cases/real_time_traffic_inspection)** — A parallel and independent route from the capture-snapshot-dissect process. Traffic is dissected on the wire at the speed of Kubernetes, enabling real-time monitoring and real-time troubleshooting. Consumes CPU and memory resources on the nodes.
+3. **[Real-time inspection](/en/use-cases/real_time_traffic_inspection)** — A parallel and independent route from the capture-snapshot-index process. Traffic is indexed on the wire at the speed of Kubernetes, enabling real-time monitoring and real-time troubleshooting. Consumes CPU and memory resources on the nodes.
 
-4. **[Retrospective dissection and indexing](/en/v2/l7_api_delayed)** — Snapshots are parsed into application-layer protocols (HTTP, gRPC, Redis, Kafka, DNS, and more), indexed, and can respond to any query instantly. Every record is tagged with full Kubernetes context.
+4. **[Retrospective indexing](/en/v2/l7_api_dissection#delayed-indexing)** — Snapshots are parsed into application-layer protocols (HTTP, gRPC, Redis, Kafka, DNS, and more), indexed, and can respond to any query instantly. Every record is tagged with full Kubernetes context.
 
 5. **[AI access via MCP](/en/mcp)** — AI agents get tools to slice and dice, query, and correlate network data at a reasonable token cost.
 

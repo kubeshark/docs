@@ -1,11 +1,11 @@
 ---
-title: MCP Snapshots & Raw Capture Tools
-description: MCP endpoints for snapshots, raw packet capture, and PCAP export.
+title: MCP Snapshots, Raw Capture & Delayed Indexing Tools
+description: MCP endpoints for snapshots, raw packet capture, PCAP export, workload & IP resolution, and delayed indexing.
 layout: ../../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI assistants to create point-in-time traffic snapshots, query data boundaries, and export PCAP files for external analysis.
+Kubeshark's MCP server exposes **snapshot, raw capture, resolution, and delayed indexing tools** that enable AI assistants to create point-in-time traffic snapshots, discover which workloads and IPs are present in a snapshot, export PCAP files (including per-pod filtered exports), and run delayed indexing to make snapshots queryable.
 
 ---
 
@@ -26,6 +26,16 @@ Kubeshark's MCP server exposes **snapshot and raw capture tools** that enable AI
 | `upload_snapshot_to_cloud` | MCP tool | Upload a snapshot to cloud storage (async) |
 | `download_snapshot_from_cloud` | MCP tool | Download a snapshot from cloud storage (async) |
 | `get_cloud_job_status` | MCP tool | Poll async cloud job progress |
+| `list_workloads` | MCP tool | List or look up workloads (pods/services) in a snapshot |
+| `list_ips` | MCP tool | List or look up IPs in a snapshot |
+| `/mcp/resolve/workloads` | GET | REST endpoint for workload resolution |
+| `/mcp/resolve/ips` | GET | REST endpoint for IP resolution |
+| `/mcp/databases` | GET | List all databases (real-time + indexed snapshots) |
+| `/mcp/dissections` | POST | Start a delayed indexing job |
+| `/mcp/dissections` | GET | List indexing jobs |
+| `/mcp/dissections/:snapshot/:name` | GET | Get indexing job status |
+| `/mcp/dissections/:snapshot/:name/stop` | POST | Stop a running indexing job |
+| `/mcp/dissections/:snapshot/:name` | DELETE | Delete an indexed snapshot |
 
 ---
 
@@ -221,6 +231,189 @@ The `export_snapshot_pcap` MCP tool exposes the same filtering capabilities:
     "bpf_filter": "tcp port 443",
     "start_time": 1706745000000,
     "end_time": 1706746000000
+  }
+}
+```
+
+---
+
+## Workload & IP Resolution Tools
+
+Snapshots store a resolution database that maps IPs to Kubernetes workloads and vice versa. The `list_workloads` and `list_ips` tools let AI agents query this database to discover which pods and services are present in a snapshot, what IPs they used, and use that information to scope further analysis — for example, downloading a PCAP filtered to specific pods.
+
+### `list_workloads`
+
+List or look up workloads (pods and services) recorded in a snapshot's resolution database. Supports both singular lookup (by name + namespace) and filtered listing over the entire snapshot.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `snapshot_id` | string | No | Snapshot ID (required for filtered listing) |
+| `name` | string | No | Exact workload name (singular lookup) |
+| `namespace` | string | No | Exact namespace (required with `name`) |
+| `namespaces` | array | No | Filter by one or more namespaces |
+| `name_regex` | string | No | Filter workload names by regex |
+| `labels` | object | No | Filter by Kubernetes labels (AND logic) |
+| `type` | string | No | Filter by workload type: `pod` or `service` |
+| `timestamp` | integer | No | Filter IP records by timestamp (Unix ms) |
+
+**Singular lookup** — find a specific workload by name and namespace (works live and against snapshots):
+
+```json
+{
+  "tool": "list_workloads",
+  "arguments": {
+    "name": "payment-api",
+    "namespace": "default"
+  }
+}
+```
+
+**Filtered listing** — discover all workloads in a snapshot matching criteria:
+
+```json
+{
+  "tool": "list_workloads",
+  "arguments": {
+    "snapshot_id": "incident-001",
+    "namespaces": ["production"],
+    "labels": { "app": "checkout" },
+    "type": "pod"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "workloads": [
+    {
+      "name": "checkout-7f8b9c6d4-xk2lm",
+      "namespace": "production",
+      "kind": "pod",
+      "labels": { "app": "checkout", "version": "v2" },
+      "ips": [
+        { "ip": "10.244.1.15", "timestamp": 1706745000000 }
+      ]
+    }
+  ],
+  "total": 1
+}
+```
+
+### `list_ips`
+
+List or look up IPs recorded in a snapshot's resolution database. Supports singular lookup (by IP) and filtered listing.
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `snapshot_id` | string | No | Snapshot ID (required for filtered listing) |
+| `ip` | string | No | Exact IP address (singular lookup) |
+| `namespaces` | array | No | Filter by one or more namespaces |
+| `name_regex` | string | No | Filter associated workload names by regex |
+| `labels` | object | No | Filter by Kubernetes labels (AND logic) |
+| `timestamp` | integer | No | Filter records by timestamp (Unix ms) |
+
+**Singular lookup** — resolve a single IP to its workload (works live and against snapshots):
+
+```json
+{
+  "tool": "list_ips",
+  "arguments": {
+    "ip": "10.244.1.15"
+  }
+}
+```
+
+**Filtered listing** — find all IPs belonging to workloads matching criteria:
+
+```json
+{
+  "tool": "list_ips",
+  "arguments": {
+    "snapshot_id": "incident-001",
+    "namespaces": ["production"],
+    "name_regex": "checkout.*"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "ips": [
+    {
+      "ip": "10.244.1.15",
+      "records": [
+        {
+          "name": "checkout-7f8b9c6d4-xk2lm",
+          "namespace": "production",
+          "timestamp": 1706745000000
+        }
+      ]
+    }
+  ],
+  "total": 1
+}
+```
+
+### REST Endpoints
+
+The same capabilities are available via REST:
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /mcp/resolve/workloads?name=...&namespace=...` | Singular workload lookup |
+| `GET /mcp/resolve/workloads?snapshot_id=...&namespaces=...&name_regex=...&labels=key=val` | Filtered workload listing |
+| `GET /mcp/resolve/ips?ip=...` | Singular IP lookup |
+| `GET /mcp/resolve/ips?snapshot_id=...&namespaces=...&name_regex=...&labels=key=val` | Filtered IP listing |
+
+The `labels` query parameter uses comma-separated `key=value` pairs: `labels=app=checkout,version=v2`.
+
+### Combining Resolution with PCAP Export
+
+A powerful workflow is using resolution tools to discover workload IPs, then filtering PCAP exports to only include traffic for specific pods:
+
+1. **Discover pods** — Use `list_workloads` to find pods in a snapshot by namespace, labels, or name pattern
+2. **Get IPs** — Extract the IP addresses from the workload response
+3. **Export filtered PCAP** — Use `export_snapshot_pcap` with a BPF filter targeting those IPs
+
+```
+list_workloads (snapshot + filters)
+  → workload IPs: [10.244.1.15, 10.244.2.23]
+    → export_snapshot_pcap with bpf_filter="host 10.244.1.15 or host 10.244.2.23"
+      → download_file → pod-specific.pcap
+```
+
+**Example — export PCAP for a specific pod:**
+
+```json
+// Step 1: Find the pod
+{
+  "tool": "list_workloads",
+  "arguments": {
+    "snapshot_id": "incident-001",
+    "namespaces": ["production"],
+    "name_regex": "payment-api.*",
+    "type": "pod"
+  }
+}
+// → Returns IPs: ["10.244.1.15"]
+
+// Step 2: Export PCAP filtered to that pod's IP
+{
+  "tool": "export_snapshot_pcap",
+  "arguments": {
+    "id": "incident-001",
+    "bpf_filter": "host 10.244.1.15"
+  }
+}
+
+// Step 3: Download the file
+{
+  "tool": "download_file",
+  "arguments": {
+    "path": "/mcp/snapshots/incident-001/pcap?bpf_filter=host%2010.244.1.15",
+    "dest": "/tmp/payment-api-traffic.pcap"
   }
 }
 ```
@@ -451,6 +644,18 @@ PCAP exports provide immutable evidence for compliance requirements.
 
 PCAP files can be analyzed with standard network tools outside of Kubeshark. Use BPF filters to reduce file size and focus on relevant protocols.
 
+### Workload Discovery & Targeted PCAP
+
+> *"Which pods are present in this snapshot?"*
+
+> *"Show me all workloads in the production namespace from this snapshot"*
+
+> *"Download a PCAP with only the payment-api pod's traffic"*
+
+> *"Find all pods with the label app=checkout and export their traffic"*
+
+Resolution tools let you discover what workloads were active during a snapshot and extract traffic for specific pods — no need to know IPs upfront.
+
 ### Debugging Sessions
 
 > *"Capture the next hour of traffic while I reproduce the bug"*
@@ -494,9 +699,71 @@ Snapshots allow teams to capture traffic during debugging sessions for later rev
 
 ---
 
+## Delayed Indexing Endpoints
+
+Delayed indexing runs L7 protocol analysis on a snapshot, making its traffic queryable with KFL — via the dashboard or AI agents. PCAP export does **not** require indexing.
+
+### POST `/mcp/dissections`
+
+Start a delayed indexing job on a snapshot.
+
+**Request:**
+```json
+{
+  "snapshot": "incident-2024-02-01",
+  "name": "full-indexing"
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `snapshot` | string | Name of the snapshot to index |
+| `name` | string | Name for this indexing job |
+
+### GET `/mcp/dissections/:snapshot/:name`
+
+Get the status of an indexing job.
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Created, not started |
+| `downloading` | Downloading snapshot from hub |
+| `running` | Processing PCAPs |
+| `uploading` | Uploading results |
+| `completed` | Done, ready to query |
+| `failed` | Error occurred |
+| `cancelled` | User cancelled |
+
+### GET `/mcp/databases`
+
+List all available databases for querying — includes both real-time worker databases and indexed snapshot databases.
+
+### Querying Indexed Snapshots
+
+Once indexing is complete, query the snapshot using the `db` parameter on `/mcp/calls`:
+
+```bash
+# Real-time (default)
+GET /mcp/calls?kfl=http
+
+# Indexed snapshot
+GET /mcp/calls?kfl=http&db=incident-2024-02-01/full-indexing
+```
+
+The `db` parameter format is: `<snapshot>/<indexing-job-name>`
+
+### Other Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/mcp/dissections` | GET | List all indexing jobs (optionally filter by snapshot) |
+| `/mcp/dissections/:snapshot/:name/stop` | POST | Stop a running indexing job |
+| `/mcp/dissections/:snapshot/:name` | DELETE | Delete an indexing job and its database |
+
+---
+
 ## What's Next
 
 - [L7 Tools Reference](/en/mcp/l7_tools) — Query API transactions
 - [L4 Tools Reference](/en/mcp/l4_tools) — Lightweight connectivity visibility
 - [Traffic Snapshots](/en/v2/traffic_snapshots) — More about snapshots
-- [Snapshots](/en/dashboard_snapshots) — Create snapshots and export PCAP
