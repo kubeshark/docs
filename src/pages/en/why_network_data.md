@@ -5,65 +5,45 @@ layout: ../../layouts/MainLayout.astro
 mascot: Bookworm
 ---
 
-## Wireshark vs. Kubeshark
+Network traffic is the ground truth of what happens in a Kubernetes cluster. It's also nearly impossible to use: **invisible** (pod-to-pod traffic never hits a physical interface), **enormous** (gigabytes per minute), and **ephemeral** (IP-to-workload mappings shift constantly).
 
-Kubeshark brings Wireshark-like capabilities to Kubernetes, with instant, cluster-wide PCAP access. You can still go deep with Wireshark. But Wireshark serves a different purpose: it is built for human inspection, which is limited in scale and takes a lot of time.
-
-Wireshark requires a PCAP file, typically obtained through something like tcpdump. This works well for targeted analysis on a single machine. In Kubernetes, two things break down:
-
-1. **PCAP friction.** Wireshark requires a PCAP file. The traditional process — install tcpdump on target pods, capture, copy files off the node — is high friction. One node, one file, might be reasonable. 100 nodes means 100x files and 100x the size. It doesn't scale.
-
-2. **Human inspection.** Wireshark assumes a network engineer will visually inspect the traffic. The volume of data in a Kubernetes cluster exceeds what a human can process.
-
-3. **Kubernetes context.** Raw PCAPs contain IPs and ports — not pod names, service names, namespaces, or deployment labels. Without Kubernetes context you're running blind, unable to tell who is who. Mapping IPs to workload identities is a challenge Wireshark was never designed to solve.
-
-**Kubeshark** addresses all three problems. It delivers cluster-wide, instant access to L4 and L7 traffic — structured, Kubernetes-enriched, and optimized for AI consumption. AI agents can process massive network data without prohibitive token costs. The result: AI-driven RCA workflows capable of processing 10x the traffic in 1/10th the time.
-
-When deep inspection is needed, Kubeshark delivers the right PCAP to Wireshark — small, filtered, and contextually relevant.
+Kubeshark makes it accessible — to humans and AI agents alike.
 
 ---
 
-## Challenges Processing Network Data
+## Beyond Wireshark
 
-Three properties of Kubernetes networking make traffic difficult to capture and use:
+Wireshark is built for a single engineer inspecting a single PCAP on a single machine. In Kubernetes, that model breaks:
 
-- **Invisible.** Pods communicate through virtual network interfaces in isolated namespaces. In-node pod-to-pod traffic never touches a physical interface. Span ports and physical taps cannot see it.
+- **Doesn't scale.** 100 nodes = 100 tcpdump sessions, 100 files, 100x the size.
+- **Can't keep up.** Cluster traffic volume exceeds what a human can visually inspect.
+- **Missing context.** Raw PCAPs have IPs and ports — not pod names, namespaces, or labels.
 
-- **Enormous.** A moderately busy cluster generates gigabytes of traffic per minute. Capturing, transferring, and processing it at scale is resource-intensive.
-
-- **Ephemeral.** Pods are created and destroyed continuously. The mapping between IPs/ports and services/deployments/namespaces shifts constantly.
+Kubeshark delivers cluster-wide L4/L7 traffic — structured, Kubernetes-enriched, and ready for consumption. When deep inspection is needed, it hands the right PCAP to Wireshark: small, filtered, and contextually relevant.
 
 ---
 
-## The AI Gap
+## Built for AI
 
-Network traffic is the richest source of information in a Kubernetes cluster, yet AI agents are effectively prohibited from processing it — the token cost of raw packet data would be unbearable.
+Network data is the richest signal in a cluster, yet raw packets are too expensive for AI agents to process. Kubeshark closes this gap — think of it as **Google Search for network data**:
 
-Kubeshark closes this gap. It enables AI agents to slice and dice network data, serving it up significantly reduced in size and optimized to be digested by AI agents:
-
-- Cluster-wide packets and indexed API calls, filtered to what matters
-- Data sized for AI consumption
+- Indexes cluster-wide traffic so queries are fast and low-cost
+- Filters and structures data for AI-friendly token budgets
 - Works in real-time and retrospectively
+- Integrates into [incident response](/en/use-cases/incident_response) and [root cause analysis](/en/use-cases/forensics) workflows via [MCP](/en/mcp)
 
-Think of Kubeshark as Google Search for network data — it indexes cluster-wide traffic so that querying it is fast and low-cost, whether the consumer is a human or an AI agent.
-
-Kubeshark is built to integrate into AI-driven workflows — particularly [incident response](/en/use-cases/incident_response) and [root cause analysis](/en/use-cases/forensics) — by providing AI-optimized access to the information hidden in network traffic.
+The result: AI-driven RCA that processes 10x the traffic in 1/10th the time.
 
 ---
 
-## What Kubeshark Does
+## How It Works
 
-1. **[Capture](/en/pod_targeting)** — Targets important workloads using eBPF at the kernel level. No packet loss. No sidecars. Hardly consumes any compute resources. Raw traffic is stored in short-term FIFO retention on each node, automatically cycling old data as new data arrives.
-
-2. **[Snapshot and retain](/en/dashboard_snapshots)** — PCAP snapshots can be created at any point from the short-term retention data, filtered by time window, nodes, and workloads. Snapshots can be exported to [long-term, immutable cloud storage](/en/snapshots_cloud_storage) (AWS S3, Azure Blob, Google Cloud Storage).
-
-3. **[Real-time inspection](/en/use-cases/real_time_traffic_inspection)** — A parallel and independent route from the capture-snapshot-index process. Traffic is indexed on the wire at the speed of Kubernetes, enabling real-time monitoring and real-time troubleshooting. Consumes CPU and memory resources on the nodes.
-
-4. **[Retrospective indexing](/en/v2/l7_api_dissection#delayed-indexing)** — Snapshots are parsed into application-layer protocols (HTTP, gRPC, Redis, Kafka, DNS, and more), indexed, and can respond to any query instantly. Every record is tagged with full Kubernetes context.
-
-5. **[AI access via MCP](/en/mcp)** — AI agents get tools to slice and dice, query, and correlate network data at a reasonable token cost.
-
-6. **[Dashboard](/en/ui)** — A rich UI with Wireshark-like capabilities, giving human operators instant, cluster-wide visibility into L4 and L7 traffic.
+1. **[Capture](/en/pod_targeting)** — eBPF at the kernel level. No sidecars, no packet loss, minimal overhead. Raw traffic sits in short-term FIFO retention per node.
+2. **[Snapshot & retain](/en/dashboard_snapshots)** — Create filtered PCAP snapshots anytime; export to [cloud storage](/en/snapshots_cloud_storage) (S3, Azure Blob, GCS) for long-term retention.
+3. **[Real-time inspection](/en/use-cases/real_time_traffic_inspection)** — Traffic indexed on the wire at cluster speed for live monitoring and troubleshooting.
+4. **[Retrospective indexing](/en/v2/l7_api_dissection#delayed-indexing)** — Snapshots parsed into L7 protocols (HTTP, gRPC, Redis, Kafka, DNS, …), fully indexed with Kubernetes context.
+5. **[AI access via MCP](/en/mcp)** — AI agents query and correlate network data at reasonable token cost.
+6. **[Dashboard](/en/ui)** — Wireshark-like UI with cluster-wide L4/L7 visibility.
 
 ---
 
