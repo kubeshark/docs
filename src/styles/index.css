@@ -286,6 +286,14 @@ tr:nth-of-type(odd) {
 	background: transparent;
 }
 
+.content li + li {
+	margin-top: 0.75rem;
+}
+
+.content li {
+	line-height: 1.5;
+}
+
 blockquote code {
 	background-color: var(--theme-bg);
 }

@@ -38,5 +38,5 @@ From the Settings panel, you can adjust:
 ## What's Next
 
 - [Capture Filters](/en/pod_targeting) — Detailed filter configuration
-- [Enabling / Disabling Dissection](/en/on_off_switch) — Dissection control options
+- [Enabling / Disabling Indexing](/en/on_off_switch) — Indexing control options
 - [Helm Configuration](/en/helm_reference) — Full configuration reference

@@ -1,28 +1,24 @@
 ---
-title: Display Filters (KFL2)
-description: Filter network traffic using the Kubeshark Filter Language 2 (KFL2), powered by CEL expressions.
+title: KFL Reference
+description: Query network traffic using KFL (Kubeshark Filter Language), powered by CEL expressions.
 layout: ../../../layouts/MainLayout.astro
 ---
 
-**Kubeshark Filter Language 2 (KFL2)** is the display filter system introduced in V2.00. It uses [Common Expression Language (CEL)](https://github.com/google/cel-go) to provide powerful, flexible filtering of captured network traffic.
+**KFL (Kubeshark Filter Language)** is the query language used across Kubeshark — the dashboard, MCP, and API all return results matching KFL queries. It uses [Common Expression Language (CEL)](https://github.com/google/cel-go) to query traffic with Kubernetes, API, and network semantics.
 
-> Display filters only affect what is shown in the dashboard. They do not impact which traffic is captured. For controlling what traffic is captured, see [Capture Filters](/en/pod_targeting).
+> KFL queries affect what traffic is returned from the indexed database. They do not impact which traffic is captured. For controlling what traffic is captured, see [Capture Filters](/en/pod_targeting).
 
-## Using Display Filters
+## Using KFL
 
-Enter your KFL2 filter expression in the filter input box at the top of the dashboard:
+In the dashboard, enter a KFL expression in the query input box:
 
-![KFL2 Filter Input](/kfl2_filter_input.png)
+![KFL Query Input](/kfl2_filter_input.png)
 
-### Building Filters with Click-to-Add
+Every element visible in the dashboard has a green **+** button that can be clicked to automatically add query expressions — helping build complex queries without typing.
 
-Every element visible in the dashboard has a green **+** button that can be clicked to automatically add filter expressions. This helps build complex filtering statements without typing.
+![Click to Add Query](/kfl2_click_to_add.png)
 
-![Click to Add Filter](/kfl2_click_to_add.png)
-
-Clicking the **+** button next to any value adds the corresponding filter expression (e.g., `status_code == 200`) to the filter input.
-
-Once a filter is applied, only traffic matching the filter statement flows from the distributed Workers to the Hub to the Dashboard, reducing noise and focusing on relevant traffic.
+KFL queries also work via MCP (for AI agents) and the API, using the `kfl` parameter.
 
 ## Quick Examples
 
@@ -69,6 +65,14 @@ http && response_body_size > 10000
 | `services` | list | All service names involved | `["web-service", "db-service"]` |
 | `node_name` | string | Node name | `"ks-node-001"` |
 | `node_ip` | string | Node IP address | `"10.0.0.12"` |
+
+### DNS Resolution Variables
+
+| Variable | Type | Description | Example |
+|----------|------|-------------|---------|
+| `src.dns` | string | DNS resolution of the source peer's IP | `"web.example.com"` |
+| `dst.dns` | string | DNS resolution of the destination peer's IP | `"db.example.com"` |
+| `dns_resolutions` | list | All DNS resolutions from both peers (deduplicated) | `["web.example.com", "db.example.com"]` |
 
 #### Labels and Annotations
 
@@ -246,6 +250,24 @@ dns && "google.com" in dns_questions
 dns && dns_response && size(dns_answers) > 0
 ```
 
+### DNS Resolution Filtering
+
+Use `src.dns` and `dst.dns` to filter traffic by the resolved DNS name of a peer's IP address. This works on any protocol, not just DNS traffic.
+
+```cel
+# Traffic to a specific external domain
+dst.dns == "db.example.com"
+
+# Traffic involving a domain (either direction)
+src.dns.contains("example.com") || dst.dns.contains("example.com")
+
+# Check if any peer resolved to a domain
+"db.example.com" in dns_resolutions
+
+# External traffic (resolved DNS, not internal)
+dst.dns != "" && !dst.dns.endsWith(".internal")
+```
+
 ### Database Filtering
 
 ```cel
@@ -286,7 +308,7 @@ elapsed_time <= 300000000
 
 ## CEL Language Reference
 
-KFL2 uses [Common Expression Language (CEL)](https://github.com/google/cel-go) syntax.
+KFL uses [Common Expression Language (CEL)](https://github.com/google/cel-go) syntax.
 
 ### Operators
 
@@ -340,13 +362,13 @@ request.headers["content-type"]
 3. **Prefer `startsWith`/`endsWith`** over `contains` for prefix/suffix matching
 4. **Empty filters match all** - An empty filter string matches all traffic
 
-## KFL2 vs Capture Filters
+## KFL vs Capture Filters
 
-| Aspect | Display Filters (KFL2) | Capture Filters |
-|--------|----------------------|-----------------|
-| Purpose | Filter what is displayed | Filter what is captured |
-| Impact | Dashboard view only | Resource consumption |
-| Applied | After capture | Before capture |
+| Aspect | KFL Queries | Capture Filters |
+|--------|------------|-----------------|
+| Purpose | Query indexed traffic | Control what is captured |
+| Impact | Dashboard, MCP, API | Resource consumption |
+| Applied | After indexing | Before capture |
 | Syntax | CEL expressions | Helm values / Dashboard settings |
 
-For those familiar with Wireshark, KFL2 is analogous to Wireshark's Display Filters, while [Capture Filters](/en/pod_targeting) are analogous to Wireshark's BPF filters.
+For those familiar with Wireshark: KFL is analogous to Wireshark's display filters, while [Capture Filters](/en/pod_targeting) are analogous to Wireshark's BPF filters.

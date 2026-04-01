@@ -1,110 +1,121 @@
 ---
-title: Getting Started
-description: Connect your AI assistant to Kubeshark and start querying network traffic in minutes.
+title: AI Integration
+description: Connect AI agents to Kubeshark via MCP to query, analyze, and investigate Kubernetes network traffic using natural language.
 layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-Connect any MCP-compatible AI assistant to Kubeshark and query your Kubernetes network traffic using natural language.
+Kubeshark exposes cluster-wide network data to AI agents via **MCP (Model Context Protocol)** — enabling them to query traffic, investigate API calls, and perform root cause analysis through natural language.
 
----
-
-## Quick Setup
-
-### Claude Code (Terminal)
+Works with Claude Code, Cursor, and any MCP-compatible AI.
 
 ```bash
+brew install kubeshark
 claude mcp add kubeshark -- kubeshark mcp
 ```
 
-### Claude Desktop
+[Full installation instructions →](/en/mcp/cli)
 
-Add to your Claude Desktop config (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+---
 
-```json
-{
-  "mcpServers": {
-    "kubeshark": {
-      "command": "kubeshark",
-      "args": ["mcp"]
-    }
-  }
-}
+## Example: AI-Driven Investigation
+
+A developer gets paged — checkout latency has spiked. Instead of diving into dashboards and logs, they ask their AI assistant:
+
+```
+> What can you tell me about my frontend service?
+
+  * Creating snapshot from last 1 hour of traffic...
+  * Running L7 protocol indexing...
+  * Querying API calls (12,847 found)...
+
+  Based on analyzing 12,847 API calls over the last hour:
+
+  Healthy:
+    - Overall latency is good (45ms P50)
+    - TCP connection establishment is fast (< 5ms)
+    - Most endpoints return success (97.7% 2xx responses)
+
+  Needs Attention:
+    1. Checkout failures — 2.3% of /api/v1/checkout return 503
+    2. Retry storms — cart-service retrying 3x within 100ms
+    3. Connection churn — 847 new connections/min to catalogue-db
+
+> Tell me more about those checkout 503 errors.
+
+  I examined all 127 failed checkout requests:
+
+  Pattern: All 503 errors occur when payment-service response time
+  exceeds 5 seconds (your configured timeout).
+
+  Root cause: payment-service makes synchronous calls to an external
+  payment gateway. When the gateway is slow (P99: 4.8s), requests
+  stack up and exhaust the connection pool.
+
+  Timeline:
+    14:22:58  Gateway latency: 200ms -> 4.2s
+    14:23:15  First 503 from payment-service
+    14:23:45  Connection pool exhausted (TCP RST packets observed)
+
+  Recommendation: Add circuit breaker on payment-service's gateway
+  calls, or increase connection pool with shorter timeouts.
 ```
 
-### Cursor / VS Code
+### Behind the Scenes
 
-Configure in your editor's MCP settings with the same command and arguments.
+The AI agent uses MCP tools to autonomously:
+
+1. Check what raw capture data is available across nodes
+2. Create a snapshot isolating the relevant time window
+3. Run delayed indexing to parse L7 protocols
+4. Query the indexed traffic with KFL filters
+5. Analyze patterns and anomalies across thousands of API calls
 
 ---
 
-## Connection Modes
+## What AI Agents Can Do
 
-| Mode | Use When |
-|------|----------|
-| **URL Mode** | Kubeshark is already running and accessible |
-| **Proxy Mode** | Let the CLI proxy into your cluster via kubectl |
+Through MCP, AI agents get tools to:
 
-```bash
-# Default - uses current kubeconfig
-kubeshark mcp
+- Query L4 flows and L7 API calls cluster-wide
+- Create [snapshots](/en/v2/traffic_snapshots) from any point in time
+- Run [delayed indexing](/en/v2/l7_api_dissection#delayed-indexing) to make traffic queryable
+- Filter by service, endpoint, status code, latency, or any Kubernetes identity
+- Drill into specific API calls for full request/response payloads
+- Export filtered PCAPs for archival or Wireshark analysis
+- Access [TCP Expert Insights](/en/mcp/tcp_insights) — retransmissions, RTT, jitter, connection lifecycle
 
-# URL mode - connect to a running instance
-kubeshark mcp --url https://kubeshark.example.com
+---
 
-# Explicit kubeconfig
-kubeshark mcp --kubeconfig ~/.kube/config
+## How MCP Works
+
+**MCP (Model Context Protocol)** is an open standard for connecting AI assistants to external data sources. Any AI that supports MCP can interact with Kubeshark.
+
+```
++------------------+                     +------------------+
+|                  |    MCP Protocol     |                  |
+|  AI Assistant    | <-----------------> |  Kubeshark MCP   |
+|  (Claude, etc.)  |   (JSON-RPC 2.0)    |     Server       |
+|                  |                     |                  |
++------------------+                     +--------+---------+
+                                                  |
+                                                  v
+                                         +------------------+
+                                         |   Kubernetes     |
+                                         |  Network Data    |
+                                         |  (L4/L7, PCAP)   |
+                                         +------------------+
 ```
 
----
+The MCP server exposes tools dynamically from the Kubeshark Hub. AI agents discover available tools at runtime and use them to query indexed traffic, create snapshots, export PCAPs, and more.
 
-## Your First Query
-
-Once connected, try:
-
-> "What services are running in my cluster?"
-
-> "Show me any HTTP 500 errors in the last hour."
-
-> "Which services communicate with the payment service?"
-
-The AI will use Kubeshark's MCP tools to query your traffic and return insights.
-
----
-
-## Conversational Debugging
-
-Ask debugging questions naturally instead of writing queries:
-
-> *"Is my user-service receiving requests from the API gateway? Show me the last 10 requests."*
-
-> *"What exactly is the notification-service sending to the email-provider? Show me the request body."*
-
-> *"The frontend says it's sending the right headers, but the backend disagrees. Show me what's actually in the HTTP request."*
-
-> *"Find all 4xx errors returned by my service in the last 30 minutes. What requests caused them?"*
-
-The AI can show actual request/response payloads, verify headers, find errors and their corresponding requests, compare what's sent vs. what's received, and show connection-level issues like TCP resets and timeouts.
-
----
-
-## Autonomous Development
-
-AI coding assistants can write and deploy code, but they lack visibility into how that code actually behaves in Kubernetes. Kubeshark closes this gap by providing real-time network feedback, enabling AI tools to identify issues and fix them — deploy, verify, and fix in one autonomous loop.
-
-> *"Deploy my changes and verify the new /api/orders endpoint works correctly."*
-
-> *"Run the integration tests and use Kubeshark to verify the API calls are correct — check payloads, headers, and downstream calls."*
-
-> *"I changed the retry logic. Deploy and verify that failed requests are retried exactly 3 times with exponential backoff."*
-
-Kubeshark provides feedback that logs, metrics, and test assertions miss — malformed payloads, unexpected retries, missing headers, N+1 queries, serialization bugs, and connection pooling issues.
+Use `kubeshark mcp --list-tools` to see all available tools.
 
 ---
 
 ## What's Next
 
-- [AI-Driven Workflows](/en/v2/ai_powered_analysis) — What AI can do with network data
-- [MCP in Action](/en/mcp_in_action) — Full walkthrough of an AI-driven investigation
-- [Installation](/en/mcp/cli) — All connection options and CLI reference
-- [How MCP Works](/en/mcp) — Technical details
+- [Installation](/en/mcp/cli) — Install and connect your AI assistant
+- [AI-Driven Workflows](/en/v2/ai_powered_analysis) — Deeper look at AI capabilities
+- [AI Skills](/en/mcp/skills) — Open-source skills for specific workflows
+- [KFL Reference](/en/v2/kfl2) — Query language syntax

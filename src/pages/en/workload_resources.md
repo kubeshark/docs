@@ -13,7 +13,7 @@ Configure resource allocations for Kubeshark's three main components: Hub, Worke
 | Component | Role | Runs On |
 |-----------|------|---------|
 | **Hub** | Central aggregator, API server, snapshot storage | Single pod |
-| **Worker** | Traffic capture and dissection | DaemonSet (every targeted node) |
+| **Worker** | Traffic capture and indexing | DaemonSet (every targeted node) |
 | **Front** | Dashboard UI | Single pod |
 
 ---
@@ -50,7 +50,7 @@ tap:
 
 ## Worker Resources
 
-Workers run on each node as a DaemonSet, capturing and dissecting traffic.
+Workers run on each node as a DaemonSet, capturing and indexing traffic.
 
 ### Sniffer
 
@@ -92,7 +92,7 @@ tap:
 | `requests.memory` | `50Mi` | Guaranteed memory |
 
 **Sizing considerations:**
-- CPU usage scales with traffic volume and dissection complexity
+- CPU usage scales with traffic volume and indexing complexity
 - Memory scales with connection tracking and payload buffering
 - Use [Capture Filters](/en/pod_targeting) to reduce load
 
@@ -211,7 +211,7 @@ If containers exceed memory limits, they are OOMKilled. If storage exceeds limit
 1. Increase resource limits
 2. Use [Capture Filters](/en/pod_targeting) to target fewer workloads
 3. Reduce `trafficSampleRate`
-4. Disable real-time dissection and use [Delayed Dissection](/en/v2/l7_api_delayed) instead
+4. Disable real-time indexing and use [Delayed Indexing](/en/v2/l7_api_dissection#delayed-indexing) instead
 
 ---
 

@@ -15,7 +15,7 @@ Kubeshark solves this by acting as a "network flight recorder" for your Kubernet
 
 - **Continuously records** all raw network traffic, Kubernetes events, and OS events across every node — with [configurable retention](/en/v2/raw_capture_config) from hours to months or indefinitely with cloud backup
 - **Preserves evidence on demand** — a single action creates an immutable [traffic snapshot](/en/v2/traffic_snapshots) of any time window, consolidating data from all nodes into dedicated storage
-- **Reconstructs the full picture** — [on-demand dissection](/en/v2/l7_api_delayed) turns raw packets into a complete, chronological view of every API call, DNS query, TCP connection, and system event
+- **Reconstructs the full picture** — [on-demand dissection](/en/v2/l7_api_dissection#delayed-indexing) turns raw packets into a complete, chronological view of every API call, DNS query, TCP connection, and system event
 - **Makes investigation accessible** — explore captured traffic visually through the [Dashboard](/en/ui) or conversationally through [AI-powered MCP tools](/en/mcp)
 - **Retains artifacts for compliance** — snapshots serve as immutable forensic evidence, exportable to cloud storage or as PCAP files for independent analysis
 
@@ -132,7 +132,7 @@ The AI agent calls the snapshot MCP tool, targeting the specific nodes in the af
 
 > *"Please dissect the snapshot and show me all traffic related to the namespace: critical-production-assets."*
 
-The AI agent triggers [on-demand dissection](/en/v2/l7_api_delayed) of the snapshot, then queries the reconstructed traffic filtered to the target namespace. The engineer now sees a complete, chronological view of every API call, DNS query, TCP connection, and system event involving workloads in that namespace — spanning the entire 2.5-hour window, across all nodes in the availability zone.
+The AI agent triggers [on-demand dissection](/en/v2/l7_api_dissection#delayed-indexing) of the snapshot, then queries the reconstructed traffic filtered to the target namespace. The engineer now sees a complete, chronological view of every API call, DNS query, TCP connection, and system event involving workloads in that namespace — spanning the entire 2.5-hour window, across all nodes in the availability zone.
 
 From here, the engineer can continue the conversation — drilling into specific connections, examining payloads, identifying anomalous patterns — all through natural language, with the AI agent translating each question into the appropriate MCP tool calls.
 

@@ -1,31 +1,53 @@
 ---
 title: L4 to L7 & PCAP Viewer
-description: Map L4 connections to L7 API calls and inspect raw packet data with the integrated PCAP viewer.
+description: Navigate the hierarchy from L4 flows to connections to L7 API calls, with PCAP download and inline viewer.
 layout: ../../../layouts/MainLayout.astro
 mascot: Hello
 ---
 
-## L4 (TCP or UDP) Connection
+As part of traffic indexing, Kubeshark stores PCAPs at two levels: per **L4 connection** (from socket creation to socket end) and per **L4 flow** (all communication between two peers).
 
-Each dissected API call now includes a reference to its corresponding L4 connection, which contains the raw packets of the traffic.
+## Hierarchy
 
-An L4 connection represents a stream of traffic between a source (identified by an IP) and a destination (identified by an IP and port).
-Each connection has a defined start and end, and a state: OPEN, CLOSED, or IN-PROGRESS.
-Connections include both ingress and egress raw packets, which can be downloaded as a PCAP file or viewed directly in [Kubeshark](https://kubeshark.com)'s new online PCAP viewer.
+The relationship between L4 and L7 is hierarchical:
 
-## Online PCAP Viewer
+- **L4 Flow** — all connections between two peers (e.g. pod A ↔ pod B)
+  - **L4 Connection** — a single connection within a flow (socket open → socket close)
+    - **L7 API Call** — an individual API call within the connection
 
-While you can download the raw packets of any L4 connection as a PCAP file for inspection in Wireshark, [Kubeshark](https://kubeshark.com) also provides a built-in online PCAP Viewer for quick and easy packet analysis.
+A single connection can include multiple L7 API calls — for example, HTTP/2, WebSocket, or any long-lived connection that carries multiple requests over time.
+
+![Flow, connection, and API call hierarchy](/l4_l7_map.png)
+
+---
+
+## Navigating from L7 to L4
+
+Users query traffic and see a stream of API calls matching the query. To view the underlying L4 data and PCAPs, click the **TCP** or **UDP** button on any API call entry.
+
+![TCP/UDP button on an API call entry](/l4_l7_map_cta.png)
+
+This switches the dashboard to show the full hierarchy on the left: Flow → Connection → API Call.
+
+![Dashboard showing Flow, Connection, and API Call hierarchy](/l7-l4.png)
+
+### PCAP at Each Level
+
+| Level | PCAP Contents | Size Limit |
+|-------|---------------|------------|
+| **Connection** | Full PCAP of the connection, including all L7 API calls within it | None |
+| **Flow** | PCAP of the entire flow between two peers | First 12 MB per flow |
+
+---
+
+## PCAP Viewer
+
+Kubeshark includes a built-in PCAP viewer for quick inline inspection — no download required. For deeper analysis, download the PCAP and open it in Wireshark.
 
 ![Online PCAP Viewer](/pcapviewer.png)
 
-## L4 to L7 Mapping
+---
 
-You can now view the relationship between all L7 API calls dissected from a specific L4 connection.
+## When Dissection Fails
 
-![L4 to L7 Mapping](/l4_l7_map.png)
-
-In the example above, all dissected Kafka API calls are associated with the first listed TCP connection.
-This functionality is accessible by clicking the L4 to L7 mapping icon:
-
-![L4 to L7 Mapping](/l4_l7_map_cta.png)
+L4 flows are also valuable when L7 dissection fails — due to an unsupported protocol or a parsing error. Indexing still succeeds with full Kubernetes context (pod, service, namespace, node) and network context (IPs, ports) — only the API context is missing. The raw packets remain available in the L4 view for inspection.

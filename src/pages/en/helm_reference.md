@@ -23,12 +23,12 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.capture.dissection.enabled` | Enable L7 protocol dissection at startup | `true` |
-| `tap.capture.dissection.stopAfter` | Auto-stop dissection after inactivity | `5m` |
+| `tap.capture.dissection.enabled` | Enable L7 traffic indexing at startup | `true` |
+| `tap.capture.dissection.stopAfter` | Auto-stop indexing after inactivity | `5m` |
 | `tap.capture.captureSelf` | Include Kubeshark's own traffic | `false` |
 | `tap.capture.raw.enabled` | Enable raw packet capture | `true` |
 | `tap.capture.raw.storageSize` | FIFO buffer size per node | `1Gi` |
-| `tap.capture.dbMaxSize` | Max dissection database size | `500Mi` |
+| `tap.capture.dbMaxSize` | Max indexing database size | `500Mi` |
 
 ### Dashboard
 
@@ -38,12 +38,12 @@ Complete reference for Kubeshark Helm configuration values.
 | `tap.dashboard.completeStreamingEnabled` | Enable complete streaming | `true` |
 | `tap.dashboard.clusterWideMapEnabled` | Enable L4 cluster-wide connectivity map (experimental) | `false` |
 
-### Delayed Dissection
+### Delayed Indexing
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.delayedDissection.cpu` | CPU allocation for delayed dissection jobs | `1` |
-| `tap.delayedDissection.memory` | Memory allocation for delayed dissection jobs | `4Gi` |
+| `tap.delayedDissection.cpu` | CPU allocation for delayed indexing jobs | `1` |
+| `tap.delayedDissection.memory` | Memory allocation for delayed indexing jobs | `4Gi` |
 
 ### Protocol & TLS
 

@@ -16,7 +16,7 @@ Through MCP, AI agents get tools to:
 
 - Query L4 flows and L7 API calls cluster-wide
 - Create [snapshots](/en/dashboard_snapshots) from any point in time
-- Trigger [dissection](/en/v2/l7_api_delayed) to index traffic into queryable records
+- Trigger [indexing](/en/v2/l7_api_dissection#delayed-indexing) to index traffic into queryable records
 - Filter by service, endpoint, status code, latency, or any Kubernetes identity
 - Drill into specific API calls for full request/response payloads
 - Export filtered PCAPs for archival or Wireshark analysis
@@ -55,9 +55,29 @@ claude mcp add kubeshark -- kubeshark mcp
 
 ---
 
+## AI Skills
+
+AI Skills are open-source, reusable instructions that teach AI agents how to use Kubeshark's MCP tools for specific workflows. Skills follow the open [Agent Skills](https://github.com/anthropics/skills) format and work with Claude Code, OpenAI Codex CLI, Gemini CLI, Cursor, and other compatible agents.
+
+| Skill | Description |
+|-------|-------------|
+| [`network-rca`](https://github.com/kubeshark/kubeshark/tree/master/skills/network-rca) | Network Root Cause Analysis — retrospective traffic analysis via snapshots, with PCAP export (for Wireshark/compliance) and delayed indexing (for AI-driven API-level investigation) |
+| [`kfl`](https://github.com/kubeshark/kubeshark/tree/master/skills/kfl) | KFL2 (Kubeshark Filter Language) expert — complete reference for writing, debugging, and optimizing traffic filters across all supported protocols |
+
+**Planned skills:**
+- `api-security` — OWASP API Top 10 assessment against live or snapshot traffic
+- `incident-response` — 7-phase forensic incident investigation methodology
+- `network-engineering` — Real-time traffic analysis, latency debugging, dependency mapping
+
+More skills coming soon. See the [skills repository](https://github.com/kubeshark/kubeshark/tree/master/skills) for installation instructions and contributing guidelines.
+
+[AI Skills documentation →](/en/mcp/skills)
+
+---
+
 ## What's Next
 
-- [AI Assistant - Getting Started](/en/mcp_use_cases) — Connect your AI tools
-- [Conversational Debugging](/en/mcp/troubleshooting) — Deep dive investigation
-- [Autonomous Development](/en/mcp/autonomous_development) — Closed-loop coding
+- [AI Integration - Introduction](/en/mcp_use_cases) — Connect your AI tools
+- [MCP in Action](/en/mcp_in_action) — See AI-driven workflows in practice
 - [How MCP Works](/en/mcp) — Technical details
+- [AI Skills](/en/mcp/skills) — Open-source skills for specific workflows
