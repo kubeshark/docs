@@ -101,7 +101,7 @@ http && request.headers["content-type"] == "application/json"
 ```
 timestamp >= now()                    # Live traffic only
 timestamp > timestamp("2024-02-01T14:00:00Z")   # After specific time
-elapsed_time <= 300000000             # Last 5 minutes
+timestamp > now() - duration("5m")    # Last 5 minutes
 ```
 
 ---

@@ -11,6 +11,7 @@ Kubeshark indexes cluster-wide network traffic at the kernel level using eBPF �
 
 * **Download Retrospective PCAPs** — cluster-wide packet captures filtered by nodes, time, workloads, and IPs. Store PCAPs for long-term retention and later investigation.
 * **Visualize Network Data** — explore traffic matching queries with API, Kubernetes, or network semantics through a real-time dashboard.
+* **Decrypt TLS Traffic** — inspect encrypted traffic — including mTLS in service meshes — in clear text, with no keys, no certificates, and no sidecars.
 * **Integrate with AI** — connect your favorite AI assistant (e.g. Claude, Copilot) to include network data in AI-driven workflows like incident response and root cause analysis.
 
 ![Kubeshark UI](/kubeshark-ui.png)
@@ -32,9 +33,21 @@ Works with Claude Code, Cursor, and any MCP-compatible AI.
 
 ---
 
+## TLS Decryption — See Encrypted Traffic in Clear Text
+
+Encrypted traffic is a blind spot for most observability tools. Kubeshark removes that blind spot: it hooks the cryptographic library inside each workload with eBPF and captures plaintext directly from process memory — **no private keys, no certificates, no sidecars, no application changes**.
+
+- Works across **OpenSSL**, **BoringSSL**, and **Go `crypto/tls`** — dynamically or statically linked, stripped or unstripped.
+- Covers the dominant share of cloud-native workloads: nginx, HAProxy, Envoy, Istio, Traefik, Kong, APISIX, PostgreSQL, MySQL, Redis, MongoDB, RabbitMQ, and more.
+- **Service-mesh mTLS** (Istio, Cilium Service Mesh, Consul Connect, Envoy-based meshes) is decrypted automatically — no extra setup.
+
+[See supported images and how it works →](/en/encrypted_traffic)
+
+---
+
 ## Protocol Support
 
-Kubeshark supports **20+ protocols** across multiple layers, with automatic TLS decryption:
+Kubeshark supports **20+ protocols** across multiple layers:
 
 | Category | Protocols |
 |----------|-----------|
@@ -44,12 +57,6 @@ Kubeshark supports **20+ protocols** across multiple layers, with automatic TLS 
 | **Authentication** | LDAP, RADIUS, DIAMETER |
 | **Network** | DNS, ICMP, TCP, UDP, SCTP |
 | **Security** | TLS (with automatic decryption) |
-
-<div class="callout callout-tip">
-
-**TLS Decryption**: Kubeshark can intercept encrypted traffic **without requiring access to private keys** by hooking into runtime cryptographic libraries (OpenSSL, Go crypto/tls, BoringSSL).
-
-</div>
 
 [View full protocol documentation →](/en/protocols)
 
