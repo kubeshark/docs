@@ -23,6 +23,18 @@ Kubeshark delivers cluster-wide L4/L7 traffic — structured, Kubernetes-enriche
 
 ---
 
+## Decrypting Encrypted Traffic for AI and People
+
+Most of the traffic inside a modern cluster is encrypted — and that's where other tools go silent. Kubeshark doesn't.
+
+By hooking the cryptographic library inside each workload with eBPF, Kubeshark captures **TLS and mTLS traffic in clear text** — with **no private keys, no certificates, no sidecars, no application changes**. That covers nginx, HAProxy, Envoy, Istio, Traefik, Kong, APISIX, PostgreSQL, MySQL, Redis, MongoDB, RabbitMQ, and more, across **OpenSSL**, **BoringSSL**, and **Go `crypto/tls`** — dynamically or statically linked, stripped or unstripped.
+
+Service-mesh mTLS (Istio, Cilium, Consul, Envoy-based meshes) is decrypted automatically, with no extra setup.
+
+[See how TLS decryption works →](/en/encrypted_traffic)
+
+---
+
 ## Built for AI
 
 Network data is the richest signal in a cluster, yet raw packets are too expensive for AI agents to process. Kubeshark closes this gap — think of it as **Google Search for network data**:
