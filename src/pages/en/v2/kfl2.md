@@ -35,6 +35,9 @@ dns && "google.com" in dns_questions
 # Large HTTP responses
 http && response_body_size > 10000
 
+# Failed gRPC calls
+grpc && grpc_status != 0
+
 # Slow requests (over 5 seconds)
 http && elapsed_time > 5000000
 
@@ -161,9 +164,9 @@ Boolean variables that indicate which protocol was detected. Use these as the fi
 | `udp` | UDP | `ws` | WebSocket |
 | `sctp` | SCTP | `gql` | GraphQL (v1 + v2) |
 | `icmp` | ICMP | `gqlv1` / `gqlv2` | GraphQL version-specific |
-| `radius` | RADIUS | `conn` / `flow` | L4 connection/flow tracking |
-| `diameter` | Diameter | `tcp_conn` / `udp_conn` | Transport-specific connections |
-| | | `tcp_flow` / `udp_flow` | Transport-specific flows |
+| `grpc` | gRPC over HTTP/2 | `conn` / `flow` | L4 connection/flow tracking |
+| `radius` | RADIUS | `tcp_conn` / `udp_conn` | Transport-specific connections |
+| `diameter` | Diameter | `tcp_flow` / `udp_flow` | Transport-specific flows |
 
 ### Identity and Metadata Variables
 
@@ -213,6 +216,15 @@ Boolean variables that indicate which protocol was detected. Use these as the fi
 | `response_body_size` | int | Response body size in bytes |
 
 GraphQL requests have `gql` (or `gqlv1`/`gqlv2`) set to true and all HTTP variables available.
+
+### gRPC Variables
+
+gRPC traffic is detected as a sub-protocol of HTTP/2. When `grpc` is true, all HTTP variables are also available.
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `grpc_method` | string | gRPC method name extracted from the `:path` trailing segment (e.g. `/helloworld.Greeter/SayHello` → `SayHello`) |
+| `grpc_status` | int | gRPC status code from the `Grpc-Status` response header/trailer (defaults to `0` / OK when absent) |
 
 ### DNS Variables
 
@@ -492,6 +504,25 @@ dns && "A" in dns_question_types
 
 # DNS responses with answers
 dns && dns_response && size(dns_answers) > 0
+```
+
+### gRPC Filtering
+
+```cel
+# All gRPC traffic
+grpc
+
+# Filter by gRPC method name
+grpc && grpc_method == "SayHello"
+
+# Failed gRPC calls (non-OK status)
+grpc && grpc_status != 0
+
+# Specific gRPC status code (e.g. 5 = NOT_FOUND)
+grpc && grpc_status == 5
+
+# Combine with HTTP variables
+grpc && method == "POST" && status_code == 200
 ```
 
 ### DNS Resolution Filtering
