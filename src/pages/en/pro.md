@@ -10,13 +10,13 @@ The Community edition is offered at no cost and supports clusters of up to 4 nod
 
 > To get started with the Community edition, [install **Kubeshark**](/en/install).
 
-## Pro
+## Pro ($200/month)
 
-Volume-based pricing for any cluster size. Download a license key from the [License Portal](https://console.kubeshark.com) for cluster-wide, multi-user access — no cloud login required.
+A single plan at **$200/month** with **100K API calls** included — for any cluster size. Download a license key from the [License Portal](https://console.kubeshark.com) for cluster-wide, multi-user access — no cloud login required.
 
 Pro licenses require an active internet connection (telemetry must succeed).
 
-See [Plans](/en/plans) for pricing tiers.
+See [Plans](/en/plans) for details.
 
 ## Enterprise
 
