@@ -25,13 +25,15 @@ auth:
   # Optional: name of a role inside `roles` applied when an authenticated
   # user has no matching role in their assertion. Empty = no fallback.
   defaultRole: ""
-  # Optional: KFL filter substituted in for any role whose `filter` is
-  # empty. Set to "1==0" to opt the deployment into data-level deny-default.
-  # Empty string preserves the legacy allow-all-on-blank behaviour.
-  defaultFilter: ""
   roles:
     admin:
-      filter: ""
+      # Comma-separated namespace list controlling traffic visibility:
+      #   ""        — deny all
+      #   "*"       — every namespace
+      #   "foo"     — single literal namespace
+      #   "foo,bar" — OR over literals
+      #   "foo-*"   — glob expansion against the cluster's known namespaces
+      namespaces: "*"
       canDownloadPCAP: true
       canUseScripting: true
       scriptingPermissions:
@@ -48,7 +50,11 @@ auth:
     x509key: ""
 ```
 
-> **Breaking changes since the unified-roles rollout:** legacy `auth.saml.roles` and `auth.saml.roleAttribute` are no longer read — move their values to the top-level `auth.roles` and `auth.rolesClaim`. Empty/unset `auth.roles` no longer grants all permissions; admins relying on that behaviour must either populate `auth.roles` explicitly or set `auth.defaultRole`.
+> **Breaking changes since the unified-roles rollout:**
+> - Legacy `auth.saml.roles` and `auth.saml.roleAttribute` are no longer read — move their values to the top-level `auth.roles` and `auth.rolesClaim`.
+> - Empty/unset `auth.roles` no longer grants all permissions; admins relying on that behaviour must either populate `auth.roles` explicitly or set `auth.defaultRole`.
+> - Per-role `filter` (raw KFL string) was replaced with `namespaces` (comma list, see below). Configs carrying `filter:` are ignored at unmarshal — migrate to `namespaces:`.
+> - `auth.defaultFilter` is removed. The deny-default semantic moves into per-role `namespaces: ""`; opt out for admin roles with `namespaces: "*"`.
 
 ### X.509 Certificate & Key
 
@@ -71,15 +77,20 @@ For example, in [Auth0](https://auth0.com/) it looks like this:
 
 Each role key inside `auth.roles` is matched against the values returned in this attribute.
 
-### Filter Authorization Rules
+### Namespace Authorization Rules
 
-Each role can specify a KFL `filter` that limits the traffic visible to users in that role. For example:
+Each role specifies a `namespaces` list that limits the Kubernetes namespaces whose traffic is visible to users in that role. The hub expands the list internally into a KFL filter (`src.pod.namespace.name=="…" || dst.pod.namespace.name=="…"`) AND-ed onto every query and stream.
 
-```yaml
-filter: src.namespace=="ks-load" or dst.namespace=="ks-load"
-```
+| Value | Effect |
+|---|---|
+| `""` (unset) | Deny all — explicit deny-default for the role. |
+| `"*"` | Every namespace; no scope filter applied. |
+| `"foo"` | Only the literal namespace `foo` (src or dst). |
+| `"foo,bar"` | OR over literal namespaces; whitespace tolerated. |
+| `"foo-*"` | Glob expansion against the cluster's currently-watched namespaces (e.g. `payments-api`, `payments-db`). Re-evaluated at each role-resolve, so newly-deployed namespaces matching the pattern become visible at the next sign-in / token refresh. |
+| `"a, b, c-*"` | Mix of literals and globs in the same list. |
 
-Users assigned to multiple roles see the union of every role's filter (logical OR). A role with `filter: ""` adds no restriction by default; if `auth.defaultFilter` is set, blank filters are substituted with that expression — the canonical opt-in to deny-default scoping.
+Users assigned to multiple roles see the union of every role's namespaces (logical OR). A role with `namespaces: "*"` lifts every restriction the user would otherwise carry from another role.
 
 ### Feature Authorization Rules
 
@@ -106,7 +117,7 @@ auth:
   defaultRole: ""
   roles:
     developers:
-      filter: src.namespace=="ks-load" or dst.namespace=="ks-load"
+      namespaces: "ks-load"
       canDownloadPCAP: false
       canUseScripting: false
       scriptingPermissions:
@@ -115,7 +126,7 @@ auth:
         canDelete: false
       canUpdateTargetedPods: false
     devops:
-      filter: src.namespace=="default" or dst.namespace=="default"
+      namespaces: "default"
       canDownloadPCAP: true
       canUseScripting: true
       scriptingPermissions:
@@ -124,7 +135,7 @@ auth:
         canDelete: true
       canUpdateTargetedPods: false
     admins:
-      filter: ""
+      namespaces: "*"
       canDownloadPCAP: true
       canUseScripting: true
       scriptingPermissions:

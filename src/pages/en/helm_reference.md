@@ -210,12 +210,15 @@ The `roles` map is shared by both SAML and OIDC backends — admins maintain a s
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.auth.roles` | Role-name → permission map. See [SAML](/en/saml) or [OIDC](/en/oidc) for the per-role schema. | `{}` |
+| `tap.auth.roles` | Role-name → permission map. Each role carries action flags plus `namespaces` (comma list controlling traffic visibility — `""` deny, `"*"` allow-all, `"foo"` literal, `"foo,bar"` OR, `"foo-*"` glob expansion against the cluster's watched namespaces). See [SAML](/en/saml) or [OIDC](/en/oidc) for the full per-role schema. | `{}` |
 | `tap.auth.rolesClaim` | JWT claim name (OIDC) or SAML attribute name carrying the user's role memberships | `role` (SAML) / `groups` (OIDC) |
 | `tap.auth.defaultRole` | Name of a role inside `tap.auth.roles` applied when an authenticated user has no matching role in their token/assertion. Empty string means no fallback (authenticated but no elevated permissions). | `""` |
-| `tap.auth.defaultFilter` | KFL filter substituted in for any role whose `filter` is empty. Set to `1==0` to opt the deployment into data-level deny-default. Empty string preserves legacy allow-all-on-blank. | `""` |
 
-> **Breaking change since the unified rollout:** empty/unset `tap.auth.roles` no longer grants all permissions — it grants none. Set `tap.auth.defaultRole` to keep a "every authenticated user gets X" baseline. Legacy `tap.auth.saml.roles` and `tap.auth.saml.roleAttribute` are no longer read; migrate to the top-level keys above.
+> **Breaking changes since the unified rollout:**
+> - Empty/unset `tap.auth.roles` no longer grants all permissions — it grants none. Set `tap.auth.defaultRole` to keep a "every authenticated user gets X" baseline.
+> - Per-role `filter` (raw KFL string) was replaced with `namespaces` (comma list). Configs carrying `filter:` are silently ignored; migrate.
+> - `tap.auth.defaultFilter` is removed; `namespaces: ""` is the explicit per-role deny-default.
+> - Legacy `tap.auth.saml.roles` and `tap.auth.saml.roleAttribute` are no longer read; migrate to the top-level keys above.
 
 ### SAML
 
