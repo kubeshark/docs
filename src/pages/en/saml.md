@@ -5,130 +5,160 @@ layout: ../../layouts/MainLayout.astro
 mascot: Cute
 ---
 
-SAML integration provides the following benefits:
-1. Authentication using corporate identities
-2. Role-based traffic visibility authorization
-3. Role-based feature accessibility
+SAML integration provides:
+1. Authentication using corporate identities.
+2. Role-based feature accessibility (`authorizedActions`).
+3. Role-based traffic visibility (KFL filter applied to every query).
+
+The `roles` map and `rolesClaim` are **shared with OIDC** — see the [OIDC page](/en/oidc) for the same configuration applied against an OIDC identity provider.
 
 ### SAML Configuration Clause
 
 ```yaml
 auth:
-    enabled: false
-    type: saml
-    saml:
-      idpMetadataUrl: ""
-      x509crt: ""
-      x509key: ""
-      roleAttribute: role   # See: IDP Authorization Configuration
-      roles:
-        admin:
-          filter: ""
-          canReplayTraffic: true
-          canDownloadPCAP: true
-          canUseScripting: true
-          canUpdateTargetedPods: true
+  enabled: true
+  type: saml
+  # SAML attribute carrying the user's role memberships.
+  # In the example IdP below this is named "users-roles"; it can be any
+  # attribute name the IdP exposes.
+  rolesClaim: role
+  # Optional: name of a role inside `roles` applied when an authenticated
+  # user has no matching role in their assertion. Empty = no fallback.
+  defaultRole: ""
+  # Optional: KFL filter substituted in for any role whose `filter` is
+  # empty. Set to "1==0" to opt the deployment into data-level deny-default.
+  # Empty string preserves the legacy allow-all-on-blank behaviour.
+  defaultFilter: ""
+  roles:
+    admin:
+      filter: ""
+      canDownloadPCAP: true
+      canUseScripting: true
+      scriptingPermissions:
+        canSave: true
+        canActivate: true
+        canDelete: true
+      canUpdateTargetedPods: true
+      canStopTrafficCapturing: true
+      canControlDissection: true
+      showAdminConsoleLink: true
+  saml:
+    idpMetadataUrl: ""
+    x509crt: ""
+    x509key: ""
 ```
 
-### X.509 Certificate & Key
-**How to:**
+> **Breaking changes since the unified-roles rollout:** legacy `auth.saml.roles` and `auth.saml.roleAttribute` are no longer read — move their values to the top-level `auth.roles` and `auth.rolesClaim`. Empty/unset `auth.roles` no longer grants all permissions; admins relying on that behaviour must either populate `auth.roles` explicitly or set `auth.defaultRole`.
 
-```yaml
+### X.509 Certificate & Key
+
+```shell
 openssl genrsa -out mykey.key 2048
 openssl req -new -key mykey.key -out mycsr.csr
 openssl x509 -signkey mykey.key -in mycsr.csr -req -days 365 -out mycert.crt
 ```
 
-**What You Get:**
-- `mycert.crt` - Use this for `AUTH_SAML_X509_CRT`
-- `mykey.key` - Use this for `AUTH_SAML_X509_KEY`
+- `mycert.crt` — use for `tap.auth.saml.x509crt`.
+- `mykey.key` — use for `tap.auth.saml.x509key`.
 
+### IdP Authorization Configuration
 
-### IDP Authorization Configuration
+`auth.rolesClaim` should match the name of the SAML attribute set in the App Metadata (`app_metadata`) section of the IdP — e.g. `role`, `roles`, or any attribute name the IdP emits. The value can be a single text value or an array of values (multi-role users).
 
-The `roleAttribute` should match the name of the `key` set in the App Metadata (app_metadata) section of the IDP. It can be `role`, `roles`, or any other word. The content can be a single text value or an array of text values (to indicate multiple roles apply to the user).
+For example, in [Auth0](https://auth0.com/) it looks like this:
 
-For example, in [Auth0](https://auth0.com/), it looks like this:
+![IdP App Metadata](/app_metadata.png)
 
-![IDP App Metadata](/app_metadata.png)
-
-Each `role` is assigned a set of rules that govern the users feature accessibility and traffic visibility.
+Each role key inside `auth.roles` is matched against the values returned in this attribute.
 
 ### Filter Authorization Rules
 
-Each `role` is assigned a KFL-based (filter) authorization rule. This rule allows any traffic seen by a specific user to be filtered and limited.
-
-For example, a filter like this:
+Each role can specify a KFL `filter` that limits the traffic visible to users in that role. For example:
 
 ```yaml
-src.namespace=="ks-load" or dst.namespace=="ks-load"
+filter: src.namespace=="ks-load" or dst.namespace=="ks-load"
 ```
-This filter will limit the viewer to seeing incoming and outgoing traffic to a specific namespace named: `ks-load`.
 
-Users can be assigned multiple `roles` and be authorized to view the sum of what is authorized by all rules.
-
+Users assigned to multiple roles see the union of every role's filter (logical OR). A role with `filter: ""` adds no restriction by default; if `auth.defaultFilter` is set, blank filters are substituted with that expression — the canonical opt-in to deny-default scoping.
 
 ### Feature Authorization Rules
 
-These rules also dictate what features users can use. For example, replaying traffic, downloading PCAPs, changing pod targeting rules, using scripts.
+Each role's flags map to UI / API actions:
+
+| Flag                                          | Gates                                                                   |
+|-----------------------------------------------|-------------------------------------------------------------------------|
+| `canDownloadPCAP`                             | PCAP download endpoints (`/pcaps/download/...`).                        |
+| `canUseScripting`                             | Reading scripts (`GET /scripts`).                                       |
+| `scriptingPermissions.canSave`                | `POST` / `PUT /scripts`.                                                |
+| `scriptingPermissions.canActivate`            | Activate/deactivate scripts (`/scripts/:index/activate`).               |
+| `scriptingPermissions.canDelete`              | Delete scripts (`DELETE /scripts/...`).                                 |
+| `canUpdateTargetedPods`                       | Pod targeting endpoints (`/pods/target/...`).                           |
+| `canStopTrafficCapturing` / `canControlDissection` | Dissection controls (`POST /settings/dissection`).                  |
+| `showAdminConsoleLink`                        | Frontend gate for the admin console link.                               |
 
 ### Example
 
-Assume this configuration clause:
-
-
 ```yaml
- auth:
-    enabled: true
-    type: saml
-    saml:
-      idpMetadataUrl: https://dev-....us.auth0.com/samlp/metadata/9K...pO
-      x509crt: |
-        -----BEGIN CERTIFICATE-----
-        MIIDgzCCAmsCFDtG4VpACGCxV9cAsa6Z+9dA3suWMA0GCSqGSIb3DQEBCwUAMH4x
-        CzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlhMRIwEAYDVQQHDAlQYWxv
-        ...
-        0tPlMoliIEacOfzyfNW/PZ/rQ36nXC5awg/ByrfkzazikZr0lv2Wnqb2K5Lns2nv
-        uR7kK02ruXgW5qfuGPBHZy5Lu+vVM++XV7kOLjWf4Bfp/Y01wYfq
-        -----END CERTIFICATE-----
-      x509key: |
-        -----BEGIN PRIVATE KEY-----
-        MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCW6rSxwgOW5ZvY
-        ...
-        jUxLqUsvrErsjl+VpUfHCloPeYpn7zC+0V/Kyk20IjckPArAfeUaqWnjLtfj7QfR
-        b6N0fptN0RJjxQIv67RVPxI=
-        -----END PRIVATE KEY-----  
-      roleAttribute: users-roles    
-      roles:
-        developers:
-          filter: src.namespace=="ks-load" or dst.namespace=="ks-load"
-          canReplayTraffic: false
-          canDownloadPCAP: false
-          canUseScripting: false
-          canUpdateTargetedPods: false
-        devops:
-          filter: src.namespace=="default" or dst.namespace=="default"
-          canReplayTraffic: true
-          canDownloadPCAP: true
-          canUseScripting: true
-          canUpdateTargetedPods: false
-        admins:
-          filter: ""
-          canReplayTraffic: true
-          canDownloadPCAP: true
-          canUseScripting: true
-          canUpdateTargetedPods: true
+auth:
+  enabled: true
+  type: saml
+  rolesClaim: users-roles
+  defaultRole: ""
+  roles:
+    developers:
+      filter: src.namespace=="ks-load" or dst.namespace=="ks-load"
+      canDownloadPCAP: false
+      canUseScripting: false
+      scriptingPermissions:
+        canSave: false
+        canActivate: false
+        canDelete: false
+      canUpdateTargetedPods: false
+    devops:
+      filter: src.namespace=="default" or dst.namespace=="default"
+      canDownloadPCAP: true
+      canUseScripting: true
+      scriptingPermissions:
+        canSave: true
+        canActivate: true
+        canDelete: true
+      canUpdateTargetedPods: false
+    admins:
+      filter: ""
+      canDownloadPCAP: true
+      canUseScripting: true
+      scriptingPermissions:
+        canSave: true
+        canActivate: true
+        canDelete: true
+      canUpdateTargetedPods: true
+      canStopTrafficCapturing: true
+      canControlDissection: true
+      showAdminConsoleLink: true
+  saml:
+    idpMetadataUrl: https://dev-....us.auth0.com/samlp/metadata/9K...pO
+    x509crt: |
+      -----BEGIN CERTIFICATE-----
+      MIIDgzCCAmsCFDtG4VpACGCxV9cAsa6Z+9dA3suWMA0GCSqGSIb3DQEBCwUAMH4x
+      ...
+      -----END CERTIFICATE-----
+    x509key: |
+      -----BEGIN PRIVATE KEY-----
+      MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCW6rSxwgOW5ZvY
+      ...
+      -----END PRIVATE KEY-----
 ```
 
-Assume a user has the following `app_metadata` in the IDP:
+A user with the `app_metadata` below:
 
 ```yaml
 {
-    users-roles: [ 
-        "devops", 
-        "developer" 
-    ] 
-} 
+  users-roles: [ "devops", "developers" ]
+}
 ```
 
-The user will see all traffic in both the `ks-load` and `default` namespaces. In terms of features, they can do anything except change Pod Targeting rules. Only users with the `admins` permission can use the Pod Targeting dialog box.
+…sees traffic in both the `ks-load` and `default` namespaces and gets the `devops` action set (everything except `canUpdateTargetedPods`/dissection control). Only users with the `admins` role can change pod targeting or dissection settings.
+
+### Verifying the active role with `/whoami`
+
+`GET /whoami` returns the authenticated user's identity, resolved `authorizedActions`, and merged `authzFilters`. Useful for diagnosing "why don't I have access to X?" — the response shows exactly which roles the IdP returned (`user.roles`), which keys actually matched `auth.roles` (`user.effectiveRoles`), and the resulting permissions.

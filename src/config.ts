@@ -82,7 +82,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Cloud Storage for Snapshots', link: 'en/snapshots_cloud_storage' },
       { text: 'Workload Resources', link: 'en/workload_resources' },
       { text: 'SAML', link: 'en/saml' },
-      { text: 'OIDC w/ DEX', link: 'en/oidc' },
+      { text: 'OIDC', link: 'en/oidc' },
       { text: 'Reverse Proxy w/ Custom Path', link: 'en/custom_path' },
       { text: 'EFS Persistent Volume', link: 'en/efs' },
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
