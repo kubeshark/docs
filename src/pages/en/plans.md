@@ -13,17 +13,17 @@ The Community edition is designed for small workloads:
 - Requires internet connectivity
 - Community support
 
-## Pro (Starting at $20/month)
+## Pro (Starting at $190/month)
 
 The Pro edition offers volume-based pricing for any cluster size. Choose a tier based on your usage needs:
 
 | Tier | Monthly Price | Daily API Capacity | Monthly Capacity |
 |------|---------------|-------------------|------------------|
-| Pro 100K | $20 | 100K API calls | ~3M API calls |
-| Pro 700K | $100 | 700K API calls | ~21M API calls |
-| Pro 2M | $200 | 2M API calls | ~60M API calls |
+| Pro 190 | $190 | 100K API calls | ~3M API calls |
+| Pro 380 | $380 | 500K API calls | ~15M API calls |
+| Pro 760 | $760 | 2M API calls | ~60M API calls |
 
-> The $200 tier provides 20x the capacity of the $20 tier at only 10x the price.
+> The $760 tier provides 20x the capacity of the $190 tier at 4x the price.
 
 **Key features:**
 - **Unlimited** cluster size and pods on all tiers
@@ -33,7 +33,7 @@ The Pro edition offers volume-based pricing for any cluster size. Choose a tier 
 - Requires active internet connectivity (telemetry must succeed)
 - Community support
 
-**On-demand capacity:** Additional capacity can be purchased at **$5 per 100K API calls** when you exceed your daily limit.
+**On-demand capacity:** Additional capacity can be purchased at **$50 per 100K API calls** when you exceed your daily limit.
 
 > API capacity is measured in dissected API calls that appear in the dashboard.
 
