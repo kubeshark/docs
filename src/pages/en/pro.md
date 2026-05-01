@@ -21,7 +21,7 @@ See [Plans](/en/plans) for pricing tiers.
 ## Enterprise
 
 With support for clusters of any size with dedicated support and SSO.
-Our enterprise pricing starts at $20 per node per month. Operates in air-gapped environments with no internet required.
+Custom enterprise pricing is available. Operates in air-gapped environments with no internet required.
 
 ### Obtaining an Enterprise POC License
 
