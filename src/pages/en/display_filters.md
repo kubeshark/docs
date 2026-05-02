@@ -69,6 +69,8 @@ http                    # HTTP traffic
 dns                     # DNS traffic
 redis                   # Redis traffic
 kafka                   # Kafka traffic
+mysql                   # MySQL traffic
+postgresql              # PostgreSQL traffic
 tls                     # TLS/encrypted traffic
 ```
 
