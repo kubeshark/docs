@@ -21,6 +21,13 @@ Kubeshark supports a comprehensive range of network protocols across multiple la
 | [WebSocket](https://datatracker.ietf.org/doc/html/rfc6455) | RFC 6455 | Full-duplex communication over HTTP |
 | [GraphQL](https://graphql.org/learn/serving-over-http/) | HTTP/1.1 & HTTP/2 | Query language for APIs |
 
+### Database Protocols
+
+| Protocol | Description |
+|----------|-------------|
+| [MySQL](https://dev.mysql.com/doc/dev/mysql-server/latest/page_protocol_basics.html) | MySQL wire protocol (COM_QUERY, COM_STMT_PREPARE, COM_INIT_DB) |
+| [PostgreSQL](https://www.postgresql.org/docs/current/protocol.html) | PostgreSQL wire protocol (Simple Query and Extended Query) |
+
 ### Messaging & Streaming
 
 | Protocol | Description |
