@@ -29,6 +29,14 @@ Kubeshark supports a comprehensive range of network protocols across multiple la
 | [AMQP](https://www.rabbitmq.com/amqp-0-9-1-reference.html) | Advanced Message Queuing Protocol (RabbitMQ) |
 | [Redis](https://redis.io/topics/protocol) | In-memory data structure store protocol |
 
+### Database Protocols
+
+| Protocol | Description |
+|----------|-------------|
+| [MongoDB](https://www.mongodb.com/docs/manual/reference/mongodb-wire-protocol/) | MongoDB Wire Protocol |
+| [MySQL](https://dev.mysql.com/doc/dev/mysql-server/latest/PAGE_PROTOCOL.html) | MySQL Client/Server Protocol |
+| [PostgreSQL](https://www.postgresql.org/docs/current/protocol.html) | PostgreSQL Frontend/Backend Protocol |
+
 ### RPC & API Protocols
 
 | Protocol | Description |

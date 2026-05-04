@@ -47,12 +47,13 @@ Encrypted traffic is a blind spot for most observability tools. Kubeshark remove
 
 ## Protocol Support
 
-Kubeshark supports **20+ protocols** across multiple layers:
+Kubeshark supports **23+ protocols** across multiple layers:
 
 | Category | Protocols |
 |----------|-----------|
 | **HTTP/REST** | HTTP/1.0, HTTP/1.1, HTTP/2, WebSocket, GraphQL |
 | **Messaging** | Apache Kafka, AMQP (RabbitMQ), Redis |
+| **Database** | MongoDB, MySQL, PostgreSQL |
 | **RPC** | gRPC over HTTP/2 |
 | **Authentication** | LDAP, RADIUS, DIAMETER |
 | **Network** | DNS, ICMP, TCP, UDP, SCTP |
