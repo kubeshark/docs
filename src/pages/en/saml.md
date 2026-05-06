@@ -79,7 +79,7 @@ Each role key inside `auth.roles` is matched against the values returned in this
 
 ### Namespace Authorization Rules
 
-Each role specifies a `namespaces` list that limits the Kubernetes namespaces whose traffic is visible to users in that role. The hub expands the list internally into a KFL filter (`src.pod.namespace.name=="…" || dst.pod.namespace.name=="…"`) AND-ed onto every query and stream.
+Each role specifies a `namespaces` list that limits the Kubernetes namespaces whose traffic is visible to users in that role. The hub expands the list internally into a KFL filter (`src.pod.namespace.name=="…" || dst.pod.namespace.name=="…"`) AND-ed onto every query and stream. Enforcement covers all hub data paths: REST queries, the legacy `/ws` stream, and the Connect-RPC streaming endpoints used by the dashboard.
 
 | Value | Effect |
 |---|---|
@@ -106,6 +106,15 @@ Each role's flags map to UI / API actions:
 | `canUpdateTargetedPods`                       | Pod targeting endpoints (`/pods/target/...`).                           |
 | `canStopTrafficCapturing` / `canControlDissection` | Dissection controls (`POST /settings/dissection`).                  |
 | `showAdminConsoleLink`                        | Frontend gate for the admin console link.                               |
+
+### Behaviour when the SAML session can't be resolved
+
+If the hub fails to resolve a SAML session for a request — service provider not initialized, session cookie missing or expired, claims malformed, or the session-stored `authzActions` block is missing — both action-level and data-level RBAC fail closed:
+
+- `authorizedActions` is set to a deny-all (zero-value) action set, so every gated UI action returns 403.
+- `authzFilters` is published as an explicit deny-all KFL clause (`1==0`). The data path AND-s this into every query, so REST results, the legacy WebSocket stream, and Connect-RPC dashboard streams all return empty for the failed request, not "everything in the cluster."
+
+This closes a previous gap where a partially-broken SAML session would deny actions but leave the data path wide open. If you see "no permission" alerts paired with an empty entries list, inspect `/whoami` first — `authenticated: false` (or an `authType: saml` response with no `user`) usually points at the SAML session, not the role config.
 
 ### Example
 
@@ -173,3 +182,5 @@ A user with the `app_metadata` below:
 ### Verifying the active role with `/whoami`
 
 `GET /whoami` returns the authenticated user's identity, resolved `authorizedActions`, and merged `authzFilters`. Useful for diagnosing "why don't I have access to X?" — the response shows exactly which roles the IdP returned (`user.roles`), which keys actually matched `auth.roles` (`user.effectiveRoles`), and the resulting permissions.
+
+The same data is surfaced in the dashboard as the **Identity & Access** modal — click your name in the top-right to open it. The modal shows the authenticated identity, claimed vs. effective roles, the per-action flag table, and the per-role namespace scope side-by-side, so non-admins can self-diagnose access without curl-ing `/whoami` directly.

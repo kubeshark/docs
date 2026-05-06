@@ -16,6 +16,8 @@ The `roles` map and `rolesClaim` are **shared with SAML** — see the [SAML page
 
 ## Prerequisites
 
+> **Bundled Dex vs external IdP.** Kubeshark's Helm chart can deploy a Dex instance inside the cluster — set `tap.auth.dexConfig` in your chart values and the chart provisions Dex alongside the hub (see the [helm chart README](https://github.com/kubeshark/kubeshark/blob/master/helm-chart/README.md) for the full `dexConfig` schema). This is a convenience for clusters that don't already have an IdP; the hub still speaks generic OIDC against it. If you already run Okta, Auth0, Keycloak, Azure AD, Google, or an external Dex, leave `dexConfig` unset and just point `tap.auth.oidc.issuer` at your existing issuer.
+
 If you're integrating with [Dex](https://dexidp.io/), add the following static client configuration to your Dex IdP's `config.yaml`:
 
 ```yaml
@@ -129,7 +131,7 @@ Kubeshark reads role memberships from the JWT claim named in `auth.rolesClaim` (
 
 ### Namespace Authorization Rules
 
-Each role specifies a `namespaces` list that limits the Kubernetes namespaces whose traffic is visible to users in that role. The hub expands the list internally into a KFL filter (`src.pod.namespace.name=="…" || dst.pod.namespace.name=="…"`) AND-ed onto every query and stream.
+Each role specifies a `namespaces` list that limits the Kubernetes namespaces whose traffic is visible to users in that role. The hub expands the list internally into a KFL filter (`src.pod.namespace.name=="…" || dst.pod.namespace.name=="…"`) AND-ed onto every query and stream. Enforcement covers all hub data paths: REST queries, the legacy `/ws` stream, and the Connect-RPC streaming endpoints used by the dashboard. Earlier OIDC builds enforced action-level RBAC but skipped the Connect-RPC data path — that gap is closed, so cross-namespace entries that previously slipped through the dashboard stream are now filtered out.
 
 | Value | Effect |
 |---|---|
@@ -160,3 +162,5 @@ Each role's flags map to UI / API actions:
 ### Verifying the active role with `/whoami`
 
 `GET /whoami` returns the authenticated user's identity, resolved `authorizedActions`, and merged `authzFilters`. Useful for diagnosing "why don't I have access to X?" — the response shows exactly which roles the token claim returned (`user.roles`), which keys actually matched `auth.roles` (`user.effectiveRoles`), and the resulting permissions.
+
+The same data is surfaced in the dashboard as the **Identity & Access** modal — click your name in the top-right to open it. The modal shows the authenticated identity, claimed vs. effective roles, the per-action flag table, and the per-role namespace scope side-by-side, so non-admins can self-diagnose access without curl-ing `/whoami` directly.
