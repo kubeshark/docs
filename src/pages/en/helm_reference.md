@@ -200,30 +200,46 @@ Complete reference for Kubeshark Helm configuration values.
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `tap.auth.enabled` | Enable authentication | `false` |
-| `tap.auth.type` | Auth type (`saml` or `dex`) | `saml` |
+| `tap.auth.type` | Auth backend: `saml`, `oidc` (generic OIDC — Dex, Okta, Auth0, Keycloak, Azure AD, Google), `dex` (permanent alias of `oidc`), `descope`, `default` (also Descope) | `saml` |
 | `tap.auth.approvedEmails` | Approved email addresses | `[]` |
 | `tap.auth.approvedDomains` | Approved email domains | `[]` |
+
+### Roles & Authorization
+
+The `roles` map is shared by both SAML and OIDC backends — admins maintain a single role definition and switch backends without rewriting it.
+
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `tap.auth.roles` | Role-name → permission map. Each role carries action flags plus `namespaces` (comma list controlling traffic visibility — `""` deny, `"*"` allow-all, `"foo"` literal, `"foo,bar"` OR, `"foo-*"` glob expansion against the cluster's watched namespaces). See [SAML](/en/saml) or [OIDC](/en/oidc) for the full per-role schema. | `{}` |
+| `tap.auth.rolesClaim` | JWT claim name (OIDC) or SAML attribute name carrying the user's role memberships | `role` (SAML) / `groups` (OIDC) |
+| `tap.auth.defaultRole` | Name of a role inside `tap.auth.roles` applied when an authenticated user has no matching role in their token/assertion. Empty string means no fallback (authenticated but no elevated permissions). | `""` |
+
+> **Breaking changes since the unified rollout:**
+> - Empty/unset `tap.auth.roles` no longer grants all permissions — it grants none. Set `tap.auth.defaultRole` to keep a "every authenticated user gets X" baseline.
+> - Per-role `filter` (raw KFL string) was replaced with `namespaces` (comma list). Configs carrying `filter:` are silently ignored; migrate.
+> - `tap.auth.defaultFilter` is removed; `namespaces: ""` is the explicit per-role deny-default.
+> - Legacy `tap.auth.saml.roles` and `tap.auth.saml.roleAttribute` are no longer read; migrate to the top-level keys above.
 
 ### SAML
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.auth.saml.idpMetadataUrl` | IDP metadata URL | `""` |
+| `tap.auth.saml.idpMetadataUrl` | IdP metadata URL | `""` |
 | `tap.auth.saml.x509crt` | X.509 certificate | `""` |
 | `tap.auth.saml.x509key` | X.509 private key | `""` |
-| `tap.auth.saml.roleAttribute` | Role attribute name | `role` |
-| `tap.auth.saml.roles` | Role definitions | Admin with full access |
 
-### OIDC (Dex)
+### OIDC
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.auth.dexOidc.issuer` | Dex issuer URL | `""` |
-| `tap.auth.dexOidc.clientId` | Client ID | `""` |
-| `tap.auth.dexOidc.clientSecret` | Client secret | `""` |
-| `tap.auth.dexOidc.refreshTokenLifetime` | Refresh token lifetime | `3960h` |
-| `tap.auth.dexOidc.oauth2StateParamExpiry` | OAuth2 state expiry | `10m` |
-| `tap.auth.dexOidc.bypassSslCaCheck` | Bypass SSL CA check | `false` |
+| `tap.auth.oidc.issuer` | OIDC issuer URL (Dex, Okta, Auth0, Keycloak, Azure AD, Google, …) | `""` |
+| `tap.auth.oidc.clientId` | Client ID | `""` |
+| `tap.auth.oidc.clientSecret` | Client secret | `""` |
+| `tap.auth.oidc.refreshTokenLifetime` | Refresh token lifetime | `3960h` |
+| `tap.auth.oidc.oauth2StateParamExpiry` | OAuth2 `state` param expiry | `10m` |
+| `tap.auth.oidc.bypassSslCaCheck` | Bypass SSL CA check on the issuer | `false` |
+
+> **Breaking change:** `tap.auth.type=oidc` now routes to the generic OIDC middleware. Earlier releases routed `oidc` to Descope. If you were using `oidc` to mean Descope, switch to `tap.auth.type=descope` (or `default`). The `dex` label remains a permanent alias of `oidc`.
 
 ---
 
