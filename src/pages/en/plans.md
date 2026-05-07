@@ -9,7 +9,7 @@ layout: ../../layouts/MainLayout.astro
 The Community edition is designed for small workloads:
 
 - Up to **3 nodes** or **60 pods**
-- Single-user license requiring cloud login
+- Download a license key from the [License Portal](https://console.kubeshark.com) and set it as a Helm value
 - Requires internet connectivity
 - Community support
 
@@ -59,10 +59,10 @@ The Enterprise edition includes the complete feature set:
 | Real-time protocol visibility | Yes | Yes | Yes |
 | TLS decryption | Yes | Yes | Yes |
 | Traffic recording & offline analysis | Yes | Yes | Yes |
-| License key download | No | Yes | Yes |
-| Cloud login required | Yes | No | No |
+| License key download | Yes | Yes | Yes |
+| Cloud login required | No | No | No |
 | Internet required | Yes | Yes | No (air-gapped OK) |
-| Multi-user access | No | Yes | Yes |
+| Multi-user access | Yes | Yes | Yes |
 | Air-gapped support | No | No | Yes |
 | AI root cause analysis | No | No | Yes |
 | Dedicated support | No | No | Yes |

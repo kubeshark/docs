@@ -31,7 +31,7 @@ license: <your-license-key>
 
 Once the license key is set, all users in the cluster can access Kubeshark without individual authentication.
 
-> **Note:** Pro licenses require an active internet connection. Telemetry must succeed for the license to remain valid.
+> **Note:** Community and Pro licenses require an active internet connection. Telemetry must succeed for the license to remain valid.
 
 ## Downgrading
 

@@ -32,9 +32,9 @@ The License tab provides instructions for obtaining and using your license key.
 
 ![License Tab](/license_portal_license.png)
 
-### Pro & Enterprise Users
+### Downloading and Applying a License Key
 
-Pro and Enterprise users can download their license key from the portal and configure it for cluster-wide access, allowing all team members to use Kubeshark without individual authentication.
+All users — Community, Pro, and Enterprise — can download their license key from the portal and configure it as a Helm value.
 
 **With Helm:**
 
@@ -57,16 +57,7 @@ license: <your-license-key>
 
 You can also store the license key as a Kubernetes secret for secure deployment.
 
-> **Note:** Pro licenses require an active internet connection — telemetry must succeed for the license to remain valid. Enterprise licenses can operate in air-gapped environments with no internet connectivity.
-
-### Community Users
-
-Community licenses are personal and require:
-
-- **Cloud login**: Users must log in to access Kubeshark
-- **Internet connectivity**: An active connection to https://api.kubeshark.com is required
-
-Community users will see instructions on how to log in to obtain their license. The license key cannot be downloaded or set as a Helm value.
+> **Note:** Community and Pro licenses require an active internet connection — telemetry must succeed for the license to remain valid. Only Enterprise licenses can operate in air-gapped environments with no internet connectivity.
 
 ## Subscription Tab
 
@@ -104,11 +95,11 @@ Licensees can remove their license key from a cluster by:
 
 > Only the Licensee can remove their license key.
 
-## Pro & Enterprise Features
+## License Key Features
 
 ### Cluster-Wide Dashboard Access
 
-When a license key is configured locally in the cluster, all users within your organization can access the Kubeshark dashboard without requiring individual authentication. This applies to both Pro and Enterprise licenses.
+When a license key is configured locally in the cluster, all users within your organization can access the Kubeshark dashboard without requiring individual authentication. This applies to all license editions (Community, Pro, and Enterprise).
 
 ### Optional IDP Authentication
 
