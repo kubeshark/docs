@@ -10,7 +10,7 @@ layout: ../../layouts/MainLayout.astro
 
 [Contact us](https://kubeshark.com/contact-us) to get an ENTERPRISE license.
 
-> A PRO license requires an active internet connection and cannot function properly in an air-gapped environment.
+> Community and Pro licenses require an active internet connection and cannot function properly in an air-gapped environment.
 
 ## Docker Registry
 
