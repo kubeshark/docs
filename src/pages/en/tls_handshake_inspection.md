@@ -81,7 +81,7 @@ tlsx && tls_sni.contains("amazonaws.com")
 ```
 
 ```
-tlsx && tls_version < 771
+tlsx && tls_cipher_suites.exists(s, s.contains("RC4"))
 ```
 
 ### Available KFL Variables
@@ -93,7 +93,7 @@ tlsx && tls_version < 771
 | `tls_cipher_suite` | int | Negotiated cipher suite ID (from ServerHello) |
 | `tls_cipher_suites` | []string | Offered cipher suite names (from ClientHello) |
 | `tls_alpn` | string | Negotiated ALPN protocol |
-| `tls_version` | int | Negotiated TLS version (772 = TLS 1.3, 771 = TLS 1.2) |
+| `tls_version` | int | Negotiated TLS version from ServerHello |
 | `tls_summary` | string | Entry summary (SNI, ALPN, or cipher suite name) |
 | `tls_info` | string | Entry method (`ClientHello` or `ServerHello`) |
 
