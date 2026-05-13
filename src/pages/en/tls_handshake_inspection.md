@@ -9,7 +9,7 @@ Kubeshark's TLS handshake dissector (`tlsx`) captures and displays TLS ClientHel
 
 This is different from [TLS Decryption](/en/encrypted_traffic), which decrypts the application data inside the encrypted tunnel. Handshake inspection shows the negotiation metadata: who is connecting where, which TLS version and cipher suite are being used, and what the client advertises.
 
-<!-- TODO: Add screenshot of TLS entries in the traffic list showing ClientHello and ServerHello -->
+![TLSX - Handshake](/tlsx_summary.png)
 
 ## What You Can See
 
@@ -23,13 +23,15 @@ Every TLS connection begins with a handshake. Kubeshark captures both sides:
 - **Extensions** — all TLS extensions present
 - **JA3 fingerprint** — a standard hash that uniquely identifies the client's TLS stack
 
+![TLSX - Client Hello](/clienthello.png)
+
 **ServerHello** — what the server negotiated:
 - **Cipher suite** — the encryption algorithm selected by the server
 - **Negotiated version** — the TLS version both sides agreed on
 - **ALPN protocol** — the selected application protocol
 - **JA3S fingerprint** — a standard hash that uniquely identifies the server's TLS response
 
-<!-- TODO: Add screenshot of the DATA tab showing ClientHello and ServerHello details -->
+![TLSX - Server Hello](/serverhello.png)
 
 ## Security Auditing
 
