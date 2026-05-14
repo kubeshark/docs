@@ -6,7 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## Community (Free)
 
-The Community edition is offered at no cost and supports clusters of up to 4 nodes and up to 80 pods. Requires cloud login.
+The Community edition is offered at no cost and supports clusters of up to 4 nodes and up to 80 pods. Download a license key from the [License Portal](https://console.kubeshark.com) and set it as a Helm value. Requires internet connectivity.
 
 > To get started with the Community edition, [install **Kubeshark**](/en/install).
 

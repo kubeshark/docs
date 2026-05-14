@@ -349,7 +349,7 @@ The `roles` map is shared by both SAML and OIDC backends — admins maintain a s
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `license` | Pro/Enterprise license key | `""` |
+| `license` | License key (Community, Pro, or Enterprise) | `""` |
 | `timezone` | IANA time zone | `""` (local) |
 | `headless` | Headless mode | `false` |
 | `internetConnectivity` | Allow internet requests | `true` |
