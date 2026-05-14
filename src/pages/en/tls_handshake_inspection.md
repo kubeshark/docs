@@ -79,11 +79,11 @@ tlsx && src.pod.namespace == "production"
 ```
 
 ```
-tlsx && tls_sni.contains("amazonaws.com")
+tlsx && tlsx_sni.contains("amazonaws.com")
 ```
 
 ```
-tlsx && tls_cipher_suites.exists(s, s.contains("RC4"))
+tlsx && tlsx_cipher_suites.exists(s, s.contains("RC4"))
 ```
 
 ### Available KFL Variables
@@ -91,13 +91,13 @@ tlsx && tls_cipher_suites.exists(s, s.contains("RC4"))
 | Variable | Type | Description |
 |----------|------|-------------|
 | `tlsx` | bool | TLS handshake entry (ClientHello or ServerHello) |
-| `tls_sni` | string | Server Name Indication hostname |
-| `tls_cipher_suite` | int | Negotiated cipher suite ID (from ServerHello) |
-| `tls_cipher_suites` | []string | Offered cipher suite names (from ClientHello) |
-| `tls_alpn` | string | Negotiated ALPN protocol |
-| `tls_version` | int | Negotiated TLS version from ServerHello |
-| `tls_summary` | string | Entry summary (SNI, ALPN, or cipher suite name) |
-| `tls_info` | string | Entry method (`ClientHello` or `ServerHello`) |
+| `tlsx_sni` | string | Server Name Indication hostname |
+| `tlsx_cipher_suite` | int | Negotiated cipher suite ID (from ServerHello) |
+| `tlsx_cipher_suites` | []string | Offered cipher suite names (from ClientHello) |
+| `tlsx_alpn` | string | Negotiated ALPN protocol |
+| `tlsx_version` | int | Negotiated TLS version from ServerHello |
+| `tlsx_summary` | string | Entry summary (SNI, ALPN, or cipher suite name) |
+| `tlsx_info` | string | Entry method (`ClientHello` or `ServerHello`) |
 
 <div class="callout callout-tip">
 The <code>tls</code> filter (without the <code>x</code>) is different — it matches traffic captured via eBPF TLS interception (decrypted HTTPS, Redis, etc.). Use <code>tlsx</code> for TLS handshake entries.
