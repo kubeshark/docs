@@ -107,7 +107,11 @@ Create a new snapshot.
 ```json
 {
   "name": "incident-001",
-  "duration": "1h"
+  "duration": "1h",
+  "workload_filter": {
+    "namespaces": ["production", "payments"],
+    "pod_regex": "checkout-.*"
+  }
 }
 ```
 
@@ -115,6 +119,11 @@ Create a new snapshot.
 |-------|------|-------------|
 | `name` | string | Unique snapshot identifier |
 | `duration` | string | Time duration to capture (e.g., `30m`, `1h`, `2h`) |
+| `workload_filter` | object | (Optional) Scope the snapshot to specific workloads |
+| `workload_filter.namespaces` | []string | Include only traffic involving pods in these namespaces |
+| `workload_filter.pod_regex` | string | Include only traffic involving pods matching this regex |
+
+When `workload_filter` is provided, the resulting PCAP contains only packets where at least one peer matches the filter. Both fields are optional within the filter object — omit either to not filter on that dimension.
 
 **Response:**
 ```json

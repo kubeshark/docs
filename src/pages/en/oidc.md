@@ -100,6 +100,10 @@ After configuring the values file, install Kubeshark:
 helm install kubeshark kubeshark/kubeshark -f ./values.yaml
 ```
 
+### Login Behavior
+
+Kubeshark sends `prompt=login` on every OIDC authorize request, forcing the IdP to re-prompt for credentials on each login. After logging out of Kubeshark, the IdP will not silently re-authenticate the user from a leftover SSO session cookie — operators can pick a different user without clearing browser state. This does not affect the IdP session for other applications in the same org.
+
 ### Try Your OIDC-Enabled Kubeshark
 
 Once OIDC is enabled you'll be redirected to your IdP's login page. The screenshots below show Dex; Okta / Auth0 / Keycloak follow the same flow.

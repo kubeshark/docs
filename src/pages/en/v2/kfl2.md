@@ -167,6 +167,8 @@ Boolean variables that indicate which protocol was detected. Use these as the fi
 | `grpc` | gRPC over HTTP/2 | `conn` / `flow` | L4 connection/flow tracking |
 | `radius` | RADIUS | `tcp_conn` / `udp_conn` | Transport-specific connections |
 | `diameter` | Diameter | `tcp_flow` / `udp_flow` | Transport-specific flows |
+| `tlsx` | TLS handshake (ClientHello/ServerHello) | `mongodb` | MongoDB |
+| `mysql` | MySQL | `postgresql` | PostgreSQL |
 
 ### Identity and Metadata Variables
 
@@ -248,6 +250,20 @@ gRPC traffic is detected as a sub-protocol of HTTP/2. When `grpc` is true, all H
 | `tls_request_size` | int | TLS request size in bytes |
 | `tls_response_size` | int | TLS response size in bytes |
 | `tls_total_size` | int | Sum of request + response sizes |
+
+### TLS Handshake Variables (TLSX)
+
+These variables are available when `tlsx` is true (TLS ClientHello or ServerHello entries). See [TLS Handshake Inspection](/en/tls_handshake_inspection) for details.
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `tls_sni` | string | Server Name Indication hostname (from ClientHello) |
+| `tls_cipher_suite` | int | Negotiated cipher suite ID (from ServerHello) |
+| `tls_cipher_suites` | []string | Offered cipher suite names (from ClientHello) |
+| `tls_alpn` | string | Negotiated ALPN protocol |
+| `tls_version` | int | Negotiated TLS version (from ServerHello) |
+
+> **Note:** `tlsx` is different from `tls`. The `tls` flag indicates traffic captured via eBPF TLS interception (decrypted HTTPS). The `tlsx` flag indicates TLS handshake entries (ClientHello/ServerHello) parsed from unencrypted handshake bytes.
 
 ### TCP Variables
 
@@ -648,6 +664,37 @@ KFL is statically typed. Common gotchas:
 - Map access on missing keys errors — use `key in map` or `map_get()` first
 - List membership uses `value in list` — not `list.contains(value)`
 
+## Protocol Scoping
+
+Protocol-specific variables are automatically scoped to their owning protocol. A filter like `status_code == 200` only matches HTTP entries — it will never match DNS, Kafka, or other protocol entries, even when their default value would satisfy the comparison.
+
+This applies to all comparison operators (`==`, `!=`, `<`, `<=`, `>`, `>=`), membership (`in`), string functions (`contains`, `startsWith`, `endsWith`, `matches`), and CEL list macros (`.exists`, `.all`, `.filter`, `.map`).
+
+You can still prefix with the protocol flag for readability (`http && status_code == 200`), but it is no longer required for correctness.
+
+### Field Existence and Absence
+
+Use a protocol-specific variable as a bareword to test whether entries of that protocol exist:
+
+```cel
+# Every HTTP entry (field existence)
+status_code
+
+# Every non-HTTP entry (field absence)
+!status_code
+
+# Every DNS entry
+dns_questions
+
+# Every Kafka entry
+kafka_api_key
+
+# Every TLS handshake entry
+tls_sni
+```
+
+This works for all non-boolean protocol variables. Boolean protocol variables (`dns_request`, `kafka_request`, `ws_request`, etc.) retain their original value semantics when used as barewords.
+
 ## Default Values
 
 When a variable is not present in an entry, KFL uses these defaults:
@@ -660,6 +707,8 @@ When a variable is not present in an entry, KFL uses these defaults:
 | list | `[]` |
 | map | `{}` |
 | bytes | `[]` |
+
+> **Note:** Default values only apply within the owning protocol's scope. A filter like `status_code == 0` matches only HTTP entries where the status is actually zero — it does not match non-HTTP entries.
 
 ## Performance Tips
 
