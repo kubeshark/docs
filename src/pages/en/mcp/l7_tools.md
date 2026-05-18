@@ -363,7 +363,7 @@ See [KFL2 Documentation](/en/v2/kfl2) for full syntax.
 | `ts` | int64 | Timestamp (Unix ms) |
 | `src` | Endpoint | Source endpoint |
 | `dst` | Endpoint | Destination endpoint |
-| `proto` | string | Protocol: `http`, `grpc`, `redis`, etc. |
+| `proto` | string | Protocol: `http`, `grpc`, `redis`, `mysql`, `postgresql`, etc. |
 | `method` | string | HTTP method or RPC name |
 | `path` | string | Request path |
 | `status` | int | Response status code |

@@ -165,8 +165,10 @@ Boolean variables that indicate which protocol was detected. Use these as the fi
 | `sctp` | SCTP | `gql` | GraphQL (v1 + v2) |
 | `icmp` | ICMP | `gqlv1` / `gqlv2` | GraphQL version-specific |
 | `grpc` | gRPC over HTTP/2 | `conn` / `flow` | L4 connection/flow tracking |
-| `radius` | RADIUS | `tcp_conn` / `udp_conn` | Transport-specific connections |
-| `diameter` | Diameter | `tcp_flow` / `udp_flow` | Transport-specific flows |
+| `mysql` | MySQL | `tcp_conn` / `udp_conn` | Transport-specific connections |
+| `postgresql` | PostgreSQL | `tcp_flow` / `udp_flow` | Transport-specific flows |
+| `radius` | RADIUS | | |
+| `diameter` | Diameter | | |
 
 ### Identity and Metadata Variables
 
@@ -225,6 +227,36 @@ gRPC traffic is detected as a sub-protocol of HTTP/2. When `grpc` is true, all H
 |----------|------|-------------|
 | `grpc_method` | string | gRPC method name extracted from the `:path` trailing segment (e.g. `/helloworld.Greeter/SayHello` → `SayHello`) |
 | `grpc_status` | int | gRPC status code from the `Grpc-Status` response header/trailer (defaults to `0` / OK when absent) |
+
+### MySQL Variables
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `mysql_command` | string | MySQL command name (COM_QUERY, COM_STMT_PREPARE, COM_INIT_DB) |
+| `mysql_query` | string | SQL query text |
+| `mysql_database` | string | Database name |
+| `mysql_statement_id` | int | Prepared statement identifier |
+| `mysql_request_size` | int | Request size in bytes |
+| `mysql_response_size` | int | Response size in bytes |
+| `mysql_total_size` | int | Sum of request + response sizes |
+| `mysql_success` | bool | True if response is OK (not ERR) |
+| `mysql_error_code` | int | MySQL error code |
+| `mysql_error_message` | string | MySQL error message text |
+
+### PostgreSQL Variables
+
+| Variable | Type | Description |
+|----------|------|-------------|
+| `postgresql_command` | string | Command tag (Query, Parse, Bind, Execute) |
+| `postgresql_query` | string | SQL query text |
+| `postgresql_database` | string | Database name |
+| `postgresql_user` | string | Username |
+| `postgresql_request_size` | int | Request size in bytes |
+| `postgresql_response_size` | int | Response size in bytes |
+| `postgresql_total_size` | int | Sum of request + response sizes |
+| `postgresql_success` | bool | True if no ErrorResponse |
+| `postgresql_error_code` | string | SQLSTATE error code |
+| `postgresql_error_message` | string | Error message text |
 
 ### DNS Variables
 
@@ -546,6 +578,24 @@ dst.dns != "" && !dst.dns.endsWith(".internal")
 ### Database and Messaging Filtering
 
 ```cel
+# MySQL queries
+mysql && mysql_command == "COM_QUERY"
+
+# MySQL queries to a specific database
+mysql && mysql_database == "orders"
+
+# Failed MySQL queries
+mysql && !mysql_success
+
+# PostgreSQL queries
+postgresql && postgresql_command == "Query"
+
+# PostgreSQL errors by SQLSTATE code
+postgresql && postgresql_error_code != ""
+
+# PostgreSQL queries by user
+postgresql && postgresql_user == "app_service"
+
 # Redis GET commands
 redis && redis_type == "GET"
 
