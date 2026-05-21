@@ -15,7 +15,8 @@ Looking for MCP installation? See the [MCP integration guide](/en/mcp) for conne
 Install [Kubeshark](https://kubeshark.com) using one of the following methods:  
 - [Helm](#helm): Recommended
 - [Homebrew](#homebrew): Use `brew install`
-- [Kubernetes Manifest](#k8s-manifest): Use `kubectl apply`
+- [Kubernetes Manifest](#kubernetes-manifest): Use `kubectl apply`
+- [Download CLI Binary](#download-cli-binary): Download a prebuilt binary from GitHub releases
 - [Build from source](#build-from-source): For those who prefer to build locally rather than download
 
 ## Helm  
@@ -55,6 +56,35 @@ kubectl delete -f https://raw.githubusercontent.com/kubeshark/kubeshark/refs/tag
 ```
 
 You can choose a `tag` from: https://github.com/kubeshark/kubeshark/tags.  
+
+## Download CLI Binary
+
+You can download prebuilt CLI binaries directly from [GitHub Releases](https://github.com/kubeshark/kubeshark/releases). Binaries are available for Linux, macOS, and Windows.
+
+```shell
+# Example: download the latest release for macOS (Apple Silicon)
+export TAG=v53.2.5
+curl -Lo kubeshark https://github.com/kubeshark/kubeshark/releases/download/$TAG/kubeshark_darwin_arm64
+chmod +x kubeshark
+sudo mv kubeshark /usr/local/bin/
+
+kubeshark tap
+
+# cleanup
+kubeshark clean
+```
+
+Available binaries per release:
+
+| OS      | Architecture | Asset                      |
+|---------|-------------|----------------------------|
+| macOS   | ARM64       | `kubeshark_darwin_arm64`   |
+| macOS   | AMD64       | `kubeshark_darwin_amd64`   |
+| Linux   | ARM64       | `kubeshark_linux_arm64`    |
+| Linux   | AMD64       | `kubeshark_linux_amd64`    |
+| Windows | AMD64       | `kubeshark.exe`            |
+
+SHA256 checksums (`.sha256` files) are provided alongside each binary for verification.
 
 ## Build from Source  
 
