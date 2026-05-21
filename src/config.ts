@@ -64,6 +64,10 @@ export const SIDEBAR: Sidebar = {
       // { text: 'PCAP Dumper (Capturing Raw Traffic)', link: 'en/raw_traffic_capture' },
       // { text: 'Envoy/Istio Support', link: 'en/envoy' },
     ],
+    'TLS & Decryption': [
+      { text: 'TLS Decryption', link: 'en/encrypted_traffic' },
+      { text: 'TLS Handshake Inspection', link: 'en/tls_handshake_inspection' },
+    ],
     'Dashboard': [
       { text: 'Overview', link: 'en/ui' },
       { text: 'L4/L7 Workload Map', link: 'en/v2/service_map' },
