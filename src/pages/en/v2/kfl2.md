@@ -117,6 +117,18 @@ timestamp > now() - duration("5m")
 
 Pod fields automatically fall back to service data when pod info is unavailable — `dst.pod.namespace` works even when only service-level resolution exists.
 
+For traffic involving non-namespaced endpoints (IPs that don't resolve to a pod or service), the namespace field contains an identity label instead:
+
+| Label | Meaning |
+|-------|---------|
+| `internal` | Cluster-internal IP — node, pod CIDR, or RFC 1918 private address |
+| `public` | Globally routable IP address |
+
+```cel
+dst.pod.namespace == "internal"    // traffic to cluster-internal non-pod IPs
+src.pod.namespace == "public"      // traffic from public IPs
+```
+
 #### Labels and Annotations
 
 | Variable | Type | Description |
@@ -128,12 +140,18 @@ Pod fields automatically fall back to service data when pod info is unavailable 
 | `local_process_name` | string | Process name on the local peer |
 | `remote_process_name` | string | Process name on the remote peer |
 
-Always use `map_get()` for labels and annotations — direct access like `local_labels["app"]` errors if the key doesn't exist:
+You can access labels and annotations directly — missing keys safely return an empty string:
+
+```cel
+local_labels["app"] == "checkout"
+remote_labels["version"] == "canary"
+"tier" in local_labels
+```
+
+`map_get()` also works and is equivalent for labels and annotations:
 
 ```cel
 map_get(local_labels, "app", "") == "checkout"
-map_get(remote_labels, "version", "") == "canary"
-"tier" in local_labels
 ```
 
 #### DNS Resolution
@@ -159,7 +177,8 @@ Boolean variables that indicate which protocol was detected. Use these as the fi
 |----------|----------|----------|----------|
 | `http` | HTTP/1.1, HTTP/2 | `redis` | Redis |
 | `dns` | DNS | `kafka` | Kafka |
-| `tls` | TLS/SSL | `amqp` | AMQP |
+| `tls` | TLS/SSL (eBPF-intercepted) | `amqp` | AMQP |
+| `tlsx` | TLS handshake (ClientHello/ServerHello) | | |
 | `tcp` | TCP | `ldap` | LDAP |
 | `udp` | UDP | `ws` | WebSocket |
 | `sctp` | SCTP | `gql` | GraphQL (v1 + v2) |
@@ -446,8 +465,8 @@ src.service.name == "api-gateway" && dst.service.name == "user-service"
 # Traffic involving production namespace
 "production" in namespaces
 
-# Filter by pod labels (safe access)
-map_get(local_labels, "app", "") == "payments"
+# Filter by pod labels
+local_labels["app"] == "payments"
 
 # Filter by process name
 local_process_name == "nginx"
@@ -666,7 +685,7 @@ When a variable is not present in an entry, KFL uses these defaults:
 1. **Protocol flags first** — `http && ...` is faster than `... && http`
 2. **`startsWith`/`endsWith` over `contains`** — prefix/suffix checks are faster
 3. **Specific ports before string ops** — `dst.port == 80` is cheaper than `url.contains(...)`
-4. **Use `map_get` for labels** — avoids errors on missing keys
+4. **Labels are safe to access directly** — `local_labels["app"]` returns `""` if the key is missing
 5. **Keep filters simple** — CEL short-circuits on `&&`, so put cheap checks first
 6. **Empty filters match all** — an empty filter string matches all traffic
 
