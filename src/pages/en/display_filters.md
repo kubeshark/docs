@@ -69,7 +69,8 @@ http                    # HTTP traffic
 dns                     # DNS traffic
 redis                   # Redis traffic
 kafka                   # Kafka traffic
-tls                     # TLS/encrypted traffic
+tls                     # TLS/encrypted traffic (eBPF-intercepted)
+tlsx                    # TLS handshake inspection (ClientHello/ServerHello)
 ```
 
 ### By HTTP Status
