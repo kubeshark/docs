@@ -6,6 +6,10 @@ layout: ../../layouts/MainLayout.astro
 
 **Kubeshark** provides UDP layer visibility into [Kubernetes’ DNS traffic](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/) by capturing all UDP streams that include DNS traffic. Once captured, DNS traffic is dissected and become available as any other protocol supported by **Kubeshark**.
 
+### Self-Traffic Filtering
+
+When `tap.capture.captureSelf` is disabled (the default), Kubeshark automatically filters out its own DNS queries to the configured cloud API endpoint from the traffic stream. This prevents Kubeshark's internal housekeeping DNS lookups from appearing alongside your application traffic. Other DNS queries made by Kubeshark pods (e.g., resolving in-cluster services) are still visible.
+
 ### DNS Log
 
 Use **Kubeshark** to view a DNS log and export into a PCAP file. To view only DNS entries, use: `dns` in the [filter](/en/v2/kfl2) input. Use the [export to PCAP button](/en/pcap#manual-pcap-export) to export the DNS traffic to a PCAP file.

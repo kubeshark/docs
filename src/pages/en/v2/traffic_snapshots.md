@@ -8,6 +8,7 @@ Traffic Snapshots extract any time window from the available [Raw Capture](/en/v
 
 **Key value:**
 - **Download cluster-wide PCAPs** — filtered by time, nodes, workloads, and IPs. Get exactly what matters, ready for Wireshark or any PCAP-compatible tool.
+- **Workload-scoped snapshots** — scope a snapshot to specific Kubernetes namespaces and/or a pod-name regex, so the resulting PCAP contains only traffic involving the matching pods.
 - **Long-term retention** — store snapshots and PCAPs in cloud storage (S3, Azure Blob) for compliance, audits, and future investigation.
 
 ---

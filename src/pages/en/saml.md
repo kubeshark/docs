@@ -56,6 +56,10 @@ auth:
 > - Per-role `filter` (raw KFL string) was replaced with `namespaces` (comma list, see below). Configs carrying `filter:` are ignored at unmarshal — migrate to `namespaces:`.
 > - `auth.defaultFilter` is removed. The deny-default semantic moves into per-role `namespaces: ""`; opt out for admin roles with `namespaces: "*"`.
 
+### Login Behavior
+
+Kubeshark sends `ForceAuthn=true` on every SAML AuthnRequest, forcing the IdP to re-prompt for credentials on each login. After logging out of Kubeshark, the IdP will not silently re-authenticate the user from a leftover SSO session cookie — operators can pick a different user without clearing browser state. This does not affect the IdP session for other applications in the same org.
+
 ### X.509 Certificate & Key
 
 ```shell

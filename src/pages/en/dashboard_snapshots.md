@@ -17,9 +17,14 @@ To create a new snapshot:
 1. **Name** — Enter a descriptive name (e.g., `incident-2024-02-01`, `checkout-debug`)
 2. **Nodes** — Select all nodes or specific worker nodes to include
 3. **Time Window** — Select any start and end time within the available raw capture data using the date/time picker
-4. Click **Create**
+4. **Workload Filter** (optional) — Scope the snapshot to specific workloads:
+   - **Namespaces** — Include only traffic involving pods in the selected namespaces
+   - **Pod name regex** — Include only traffic involving pods whose names match the regex pattern
+5. Click **Create**
 
 The snapshot is extracted from [Raw Capture](/en/v2/raw_capture) buffers and moved to dedicated storage on the Hub. The time window can span from minutes to days — limited only by how much raw capture data is available.
+
+When a workload filter is applied, the resulting PCAP contains only packets where at least one peer (source or destination) matches the filter criteria. This is useful in multi-tenant clusters where most captured traffic is irrelevant to the investigation.
 
 ---
 
