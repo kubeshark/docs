@@ -50,7 +50,7 @@ tap:
 
 The chart defaults (`requests: cpu 50m, memory 50Mi`) are intentionally low so a first install fits anywhere — they are **not** appropriate for production. Under any real traffic the Hub will be running unguaranteed and will rely entirely on burst, which is fine on idle nodes and painful under contention.
 
-The profiles below come from end-to-end load tests run with [perfshark](https://github.com/kubeshark/perfshark) against the Hub at four representative cluster sizes. Each profile assumes the same per-worker traffic pattern: 100 captured entries per second per worker, 50 flows per response, 1 connected dashboard client, sustained for 10 minutes.
+The profiles below come from end-to-end load testing of the Hub at four representative cluster sizes. Each profile assumes the same per-worker traffic pattern: 100 captured entries per second per worker, 50 flows per response, 1 connected dashboard client, sustained for 10 minutes.
 
 | Cluster size | Workers (DaemonSet pods) | Captured pods | Aggregate entries/s | Hub CPU (avg / peak) | Hub memory (avg / peak) |
 |:---|---:|---:|---:|---:|---:|
@@ -93,12 +93,12 @@ tap:
 
 #### When to deviate
 
-These profiles assume the perfshark traffic shape (100 entries/s/worker, average flow size). Two patterns push the Hub above the profiles:
+These profiles assume the traffic shape used in the tests above (100 entries/s/worker, average flow size). Two patterns push the Hub above the profiles:
 
 - **Heavy per-flow payloads or many dashboard clients** — both inflate stream-buffer memory. Raise `requests.memory` and `limits.memory` by roughly the ratio of your observed throughput to the table's.
 - **Bursty traffic** — if peak entries/s far exceed average, raise `requests.cpu` so the scheduler keeps a larger guaranteed share for the Hub; if CPU contention on the node is a concern, address it at the node level (node sizing, taints, dedicated node pool) rather than by capping the Hub.
 
-You can reproduce these numbers against your own cluster shape with `perfshark perf run tier-<size>`; the [perfshark repo](https://github.com/kubeshark/perfshark) documents the harness and lets you swap the scenario YAML to match your traffic profile.
+If your workload differs substantially from the assumed traffic shape, measure the Hub's actual `cpu` and `memory` usage in your environment for a representative window and adjust the requests upward from the closest profile.
 
 ---
 
