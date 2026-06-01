@@ -61,14 +61,16 @@ The profiles below come from end-to-end load tests run with [perfshark](https://
 
 #### Suggested requests / limits
 
-| Cluster size | `requests.cpu` | `requests.memory` | `limits.cpu` | `limits.memory` |
-|:---|---:|---:|---:|---:|
-| Small  | `250m`  | `4Gi` | `1`   | `5Gi` |
-| Medium | `1`     | `4Gi` | `2`   | `5Gi` |
-| Large  | `1500m` | `4Gi` | `2`   | `5Gi` |
-| X-Large | `2`     | `5Gi` | `3`   | `6Gi` |
+| Cluster size | `requests.cpu` | `requests.memory` | `limits.memory` |
+|:---|---:|---:|---:|
+| Small  | `250m`  | `4Gi` | `5Gi` |
+| Medium | `1`     | `4Gi` | `5Gi` |
+| Large  | `1500m` | `4Gi` | `5Gi` |
+| X-Large | `2`     | `5Gi` | `6Gi` |
 
-`requests.cpu` is sized to roughly the observed average (CPU is throttleable, so giving the scheduler a realistic baseline matters more than ceiling); `requests.memory` is sized above the observed peak so the Hub is guaranteed enough memory not to be OOM-killed during bursts. Limits add roughly 25-30% headroom on top.
+`requests.cpu` is sized to roughly the observed average (CPU is throttleable, so a realistic scheduling baseline matters more than a ceiling). `requests.memory` is sized above the observed peak so the Hub is guaranteed enough memory not to be OOM-killed during bursts. `limits.memory` adds ~25-30% headroom on top.
+
+**`limits.cpu` is intentionally not set** — and the chart's default leaves it unset too. The CFS bandwidth controller that enforces CPU limits throttles based on a fixed quota window, which on bursty workloads (the Hub's pattern during traffic spikes, dashboard joins, and dissector hot paths) produces latency spikes even when the node has idle CPU available. Letting the Hub burst into spare CPU is what you want; CPU contention between pods is handled correctly by the scheduler via `requests`. Set `limits.cpu` only if you have a specific reason (strict multi-tenant billing, hard latency SLOs against noisy neighbors).
 
 **What the numbers reveal:**
 
@@ -86,7 +88,6 @@ tap:
         cpu: 2
         memory: 5Gi
       limits:
-        cpu: 3
         memory: 6Gi
 ```
 
@@ -95,7 +96,7 @@ tap:
 These profiles assume the perfshark traffic shape (100 entries/s/worker, average flow size). Two patterns push the Hub above the profiles:
 
 - **Heavy per-flow payloads or many dashboard clients** — both inflate stream-buffer memory. Raise `requests.memory` and `limits.memory` by roughly the ratio of your observed throughput to the table's.
-- **Bursty traffic** — if peak entries/s far exceed average, raise `limits.cpu` first; the Hub will burn through it during bursts and idle the rest of the time.
+- **Bursty traffic** — if peak entries/s far exceed average, raise `requests.cpu` so the scheduler keeps a larger guaranteed share for the Hub; if CPU contention on the node is a concern, address it at the node level (node sizing, taints, dedicated node pool) rather than by capping the Hub.
 
 You can reproduce these numbers against your own cluster shape with `perfshark perf run tier-<size>`; the [perfshark repo](https://github.com/kubeshark/perfshark) documents the harness and lets you swap the scenario YAML to match your traffic profile.
 
