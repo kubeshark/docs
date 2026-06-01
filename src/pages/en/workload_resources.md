@@ -48,57 +48,20 @@ tap:
 
 ### Recommended Sizing by Cluster Size
 
-The chart defaults (`requests: cpu 50m, memory 50Mi`) are intentionally low so a first install fits anywhere — they are **not** appropriate for production. Under any real traffic the Hub will be running unguaranteed and will rely entirely on burst, which is fine on idle nodes and painful under contention.
+The chart defaults (`requests: cpu 50m, memory 50Mi`) are intentionally low so a first install fits anywhere — they are **not** appropriate for production.
 
-The profiles below come from end-to-end load testing of the Hub at four representative cluster sizes. Each profile assumes the same per-worker traffic pattern: 100 captured entries per second per worker, 50 flows per response, 1 connected dashboard client, sustained for 10 minutes.
+The profiles below are sized against load tests at the corresponding cluster sizes, assuming roughly ~100 captured entries per second per worker (e.g. ~1k entries/s aggregate for a 10-worker cluster, ~20k for a 200-worker cluster).
 
-| Cluster size | Workers (DaemonSet pods) | Captured pods | Aggregate entries/s | Hub CPU (avg / peak) | Hub memory (avg / peak) |
-|:---|---:|---:|---:|---:|---:|
-| Small  | 10  | 100  | 1,000  | 194m / 205m   | 2.6 Gi / 3.3 Gi |
-| Medium | 50  | 500  | 5,000  | 912m / 935m   | 3.0 Gi / 3.9 Gi |
-| Large  | 100 | 1,000 | 10,000 | 1,587m / 1,620m | 2.8 Gi / 3.7 Gi |
-| X-Large | 200 | 2,000 | 20,000 | 1,646m / 1,919m | 3.0 Gi / 4.3 Gi |
+| Cluster size | Workers (DaemonSet pods) | `requests.cpu` | `requests.memory` | `limits.memory` |
+|:---|---:|---:|---:|---:|
+| Small   | ≤10  | `250m`  | `4Gi` | `5Gi` |
+| Medium  | ≤50  | `1`     | `4Gi` | `5Gi` |
+| Large   | ≤100 | `1500m` | `4Gi` | `5Gi` |
+| X-Large | ≤200 | `2`     | `5Gi` | `6Gi` |
 
-#### Suggested requests / limits
+**`limits.cpu` is intentionally not set** — the chart's default leaves it unset too. The CFS bandwidth controller that enforces CPU limits can throttle bursty workloads (the Hub's pattern during traffic spikes and dashboard joins) even when the node has idle CPU available. Set `limits.cpu` only for specific reasons such as strict multi-tenant billing or hard latency SLOs.
 
-| Cluster size | `requests.cpu` | `requests.memory` | `limits.memory` |
-|:---|---:|---:|---:|
-| Small  | `250m`  | `4Gi` | `5Gi` |
-| Medium | `1`     | `4Gi` | `5Gi` |
-| Large  | `1500m` | `4Gi` | `5Gi` |
-| X-Large | `2`     | `5Gi` | `6Gi` |
-
-`requests.cpu` is sized to roughly the observed average (CPU is throttleable, so a realistic scheduling baseline matters more than a ceiling). `requests.memory` is sized above the observed peak so the Hub is guaranteed enough memory not to be OOM-killed during bursts. `limits.memory` adds ~25-30% headroom on top.
-
-**`limits.cpu` is intentionally not set** — and the chart's default leaves it unset too. The CFS bandwidth controller that enforces CPU limits throttles based on a fixed quota window, which on bursty workloads (the Hub's pattern during traffic spikes, dashboard joins, and dissector hot paths) produces latency spikes even when the node has idle CPU available. Letting the Hub burst into spare CPU is what you want; CPU contention between pods is handled correctly by the scheduler via `requests`. Set `limits.cpu` only if you have a specific reason (strict multi-tenant billing, hard latency SLOs against noisy neighbors).
-
-**What the numbers reveal:**
-
-- **Memory is largely flat across cluster sizes** (~3-4 Gi). The dominant cost is the dissector working set and stream buffers, not the number of connections. Going from a 10-worker cluster to a 200-worker cluster adds roughly 1 Gi of memory.
-- **Memory is stable**: growth on the largest tiers ran **negative** (~-1.9 %/min) across the 10-minute window — no sustained leak. On the smallest tier the growth rate is positive but the absolute footprint stays under 4 Gi.
-- **CPU scales sublinearly with workers**: doubling from 100 to 200 workers only added ~4% to average CPU, suggesting a single Hub replica still has headroom past 200 workers on commodity hardware.
-
-#### Example: X-Large profile
-
-```yaml
-tap:
-  resources:
-    hub:
-      requests:
-        cpu: 2
-        memory: 5Gi
-      limits:
-        memory: 6Gi
-```
-
-#### When to deviate
-
-These profiles assume the traffic shape used in the tests above (100 entries/s/worker, average flow size). Two patterns push the Hub above the profiles:
-
-- **Heavy per-flow payloads or many dashboard clients** — both inflate stream-buffer memory. Raise `requests.memory` and `limits.memory` by roughly the ratio of your observed throughput to the table's.
-- **Bursty traffic** — if peak entries/s far exceed average, raise `requests.cpu` so the scheduler keeps a larger guaranteed share for the Hub; if CPU contention on the node is a concern, address it at the node level (node sizing, taints, dedicated node pool) rather than by capping the Hub.
-
-If your workload differs substantially from the assumed traffic shape, measure the Hub's actual `cpu` and `memory` usage in your environment for a representative window and adjust the requests upward from the closest profile.
+If your per-worker entry rate is materially higher than ~100/s, or you have many concurrent dashboard clients, raise `requests.cpu` and both memory values proportionally and measure actual usage from the closest profile.
 
 ---
 
