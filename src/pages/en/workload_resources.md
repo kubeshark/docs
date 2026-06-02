@@ -46,6 +46,23 @@ tap:
 - Increase limits for high-traffic clusters
 - Snapshot storage is separate (see [Snapshots Configuration](/en/v2/raw_capture_config#snapshot-storage))
 
+### Recommended Sizing by Cluster Size
+
+The chart defaults (`requests: cpu 50m, memory 50Mi`) are intentionally low so a first install fits anywhere — they are **not** appropriate for production.
+
+The profiles below are sized against load tests at the corresponding cluster sizes, assuming roughly ~100 captured entries per second per worker (e.g. ~1k entries/s aggregate for a 10-worker cluster, ~20k for a 200-worker cluster).
+
+| Cluster size | Workers (DaemonSet pods) | `requests.cpu` | `requests.memory` | `limits.memory` |
+|:---|---:|---:|---:|---:|
+| Small   | ≤10  | `250m`  | `4Gi` | `5Gi` |
+| Medium  | ≤50  | `1`     | `4Gi` | `5Gi` |
+| Large   | ≤100 | `1500m` | `4Gi` | `5Gi` |
+| X-Large | ≤200 | `2`     | `5Gi` | `6Gi` |
+
+**`limits.cpu` is intentionally not set** — the chart's default leaves it unset too. The CFS bandwidth controller that enforces CPU limits can throttle bursty workloads (the Hub's pattern during traffic spikes and dashboard joins) even when the node has idle CPU available. Set `limits.cpu` only for specific reasons such as strict multi-tenant billing or hard latency SLOs.
+
+If your per-worker entry rate is materially higher than ~100/s, or you have many concurrent dashboard clients, raise `requests.cpu` and both memory values proportionally and measure actual usage from the closest profile.
+
 ---
 
 ## Worker Resources
