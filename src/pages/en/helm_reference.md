@@ -206,19 +206,20 @@ Complete reference for Kubeshark Helm configuration values.
 
 ### Roles & Authorization
 
-The `roles` map is shared by both SAML and OIDC backends — admins maintain a single role definition and switch backends without rewriting it.
+The role configuration is shared by both SAML and OIDC backends — admins maintain a single set of definitions and switch backends without rewriting them. See [Roles & Permissions](/en/roles) for the full model (built-in roles, capability vocabulary, custom roles, namespace scope, license-side feature ceiling).
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.auth.roles` | Role-name → permission map. Each role carries action flags plus `namespaces` (comma list controlling traffic visibility — `""` deny, `"*"` allow-all, `"foo"` literal, `"foo,bar"` OR, `"foo-*"` glob expansion against the cluster's watched namespaces). See [SAML](/en/saml) or [OIDC](/en/oidc) for the full per-role schema. | `{}` |
-| `tap.auth.rolesClaim` | JWT claim name (OIDC) or SAML attribute name carrying the user's role memberships | `role` (SAML) / `groups` (OIDC) |
-| `tap.auth.defaultRole` | Name of a role inside `tap.auth.roles` applied when an authenticated user has no matching role in their token/assertion. Empty string means no fallback (authenticated but no elevated permissions). | `""` |
+| `tap.auth.rolesClaim` | JWT claim name (OIDC) or SAML attribute name carrying the user's group / role memberships. | `groups` |
+| `tap.auth.defaultRole` | Built-in role (`kubeshark-admin` / `kubeshark-realtime` / `kubeshark-snapshot` / `kubeshark-viewer`) or custom role applied when an authenticated user has no recognized claim value. Empty string means strict-deny (authenticated but no capabilities). | `kubeshark-viewer` |
+| `tap.auth.groupMapping` | Map of SSO group / attribute value → role name. Values may reference one of the four built-in roles or a custom role declared under `tap.auth.roles`. Built-in role names also identity-match without an entry here. | `{}` |
+| `tap.auth.roles` | Operator-defined custom roles, keyed by role name. Each role declares `capabilities` (closed vocabulary — see [Roles & Permissions](/en/roles)) and `namespaces` (comma list with `*` and glob support: `""` deny, `"*"` allow-all, `"foo"` literal, `"foo,bar"` OR, `"foo-*"` glob). Names starting with `kubeshark-` are reserved and rejected at hub startup. | `{}` |
 
-> **Breaking changes since the unified rollout:**
-> - Empty/unset `tap.auth.roles` no longer grants all permissions — it grants none. Set `tap.auth.defaultRole` to keep a "every authenticated user gets X" baseline.
-> - Per-role `filter` (raw KFL string) was replaced with `namespaces` (comma list). Configs carrying `filter:` are silently ignored; migrate.
-> - `tap.auth.defaultFilter` is removed; `namespaces: ""` is the explicit per-role deny-default.
+> **Breaking changes since the unified-roles rollout:**
+> - Per-role action flags (`canDownloadPCAP`, `canUseScripting`, `scriptingPermissions`, etc.) are replaced by a closed `capabilities` vocabulary. See [Roles & Permissions](/en/roles).
 > - Legacy `tap.auth.saml.roles` and `tap.auth.saml.roleAttribute` are no longer read; migrate to the top-level keys above.
+> - Per-role `filter` (raw KFL string) is replaced by `namespaces` (comma list). Configs carrying `filter:` are ignored at unmarshal — migrate.
+> - `tap.auth.defaultFilter` is removed; per-role `namespaces: ""` is the explicit deny-default.
 
 ### SAML
 
