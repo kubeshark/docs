@@ -1,6 +1,6 @@
 ---
-title: Community vs Pro vs Enterprise
-description: Overview of the available Kubeshark editions—Community, Pro, and Enterprise.
+title: Getting-Started Packages
+description: Overview of the available Kubeshark editions—Community, Getting-Started Packages, and Enterprise.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -13,31 +13,64 @@ The Community edition is designed for small workloads:
 - Requires internet connectivity
 - Community support
 
-## Pro (Starting at $190/month)
+## Getting-Started Packages
 
-The Pro edition offers volume-based pricing for any cluster size. Choose a tier based on your usage needs:
+Budget-friendly entry points to start using Kubeshark quickly, and without waiting for any sales meeting. While these are popular pre-packaged options, they are no proper replacement to a custom plan tailored to your needs and budget.
 
-| Tier | Monthly Price | Daily API Capacity | Monthly Capacity |
-|------|---------------|-------------------|------------------|
-| Pro 190 | $190 | 100K API calls | ~3M API calls |
-| Pro 380 | $380 | 500K API calls | ~15M API calls |
-| Pro 760 | $760 | 2M API calls | ~60M API calls |
+Running into any issue? [Contact us](https://kubeshark.com/contact-us) and we guarantee swift resolution.
 
-> The $760 tier provides 20x the capacity of the $190 tier at 4x the price.
+### MICRO — $30/month
 
-**Key features:**
-- **Unlimited** cluster size and pods on all tiers
+| | |
+|---|---|
+| **Nodes** | 6 |
+| **Pods** | 120 |
+| **Consumption** | **Unlimited** |
+| **Clusters** | **Unlimited** (single license-key) |
+
+- For a super small production cluster
+- **Unlimited** API call consumption
+- **Unlimited** number of clusters using a single license-key
+
+### DYNAMIC — $190/month
+
+| | |
+|---|---|
+| **Nodes** | **Unlimited** |
+| **Pods** | **Unlimited** |
+| **Consumption** | 100K daily API calls (extendable) |
+| **Clusters** | **Unlimited** (single license-key) |
+
+- Gets you started on any cluster in any environment
+- **Unlimited** nodes and pods
+- **Unlimited** number of clusters using a single license-key
+- **Limited** daily API call consumption with expansion option ($50 per extra 100K)
+
+> Capacity extension is available after the license has been operational for at least one month.
+
+### SMALL — $360/month
+
+| | |
+|---|---|
+| **Nodes** | 20 |
+| **Pods** | 400 |
+| **Consumption** | **Unlimited** |
+| **Clusters** | **Unlimited** (single license-key) |
+
+- Ideal for small production clusters
+- **Unlimited** API call consumption
+- **Unlimited** number of clusters using a single license-key
+
+### Common to All Packages
+
 - **Cluster-wide license** — download a license key from the [License Portal](https://console.kubeshark.com) and all users in the cluster can access Kubeshark without individual authentication
-- Use across **any number of clusters**
 - No cloud login required — license key based
 - Requires active internet connectivity (telemetry must succeed)
 - Community support
 
-**On-demand capacity:** Additional capacity can be purchased at **$50 per 100K API calls** when you exceed your daily limit.
+Need a custom plan, an annual discount, or running into any issue? [Contact us](https://kubeshark.com/contact-us) — we guarantee swift resolution.
 
-> API capacity is measured in dissected API calls that appear in the dashboard.
-
-Subscribe to the Pro edition at the [License Portal](https://console.kubeshark.com/?tab=pro)
+Subscribe at the [License Portal](https://console.kubeshark.com/?tab=pro)
 
 ## Enterprise
 
@@ -54,8 +87,8 @@ The Enterprise edition includes the complete feature set:
 
 ## Feature Comparison
 
-| Feature | Community | Pro | Enterprise |
-|---------|-----------|-----|------------|
+| Feature | Community | Getting-Started | Enterprise |
+|---------|-----------|-----------------|------------|
 | Real-time protocol visibility | Yes | Yes | Yes |
 | TLS decryption | Yes | Yes | Yes |
 | Traffic recording & offline analysis | Yes | Yes | Yes |
@@ -63,6 +96,7 @@ The Enterprise edition includes the complete feature set:
 | Cloud login required | No | No | No |
 | Internet required | Yes | Yes | No (air-gapped OK) |
 | Multi-user access | Yes | Yes | Yes |
+| Node/pod limit enforcement | 3/60 | Per plan | Unlimited |
 | Air-gapped support | No | No | Yes |
 | AI root cause analysis | No | No | Yes |
 | Dedicated support | No | No | Yes |
