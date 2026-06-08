@@ -89,6 +89,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Workload Resources', link: 'en/workload_resources' },
       { text: 'SAML', link: 'en/saml' },
       { text: 'OIDC w/ DEX', link: 'en/oidc' },
+      { text: 'Roles & Permissions', link: 'en/roles' },
       { text: 'Reverse Proxy w/ Custom Path', link: 'en/custom_path' },
       { text: 'EFS Persistent Volume', link: 'en/efs' },
       { text: 'Node Scheduling', link: 'en/node_scheduling' },
