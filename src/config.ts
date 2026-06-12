@@ -54,8 +54,6 @@ export const SIDEBAR: Sidebar = {
       { text: 'Raw Capture', link: 'en/v2/raw_capture' },
       { text: 'Traffic Snapshots', link: 'en/v2/traffic_snapshots' },
       { text: 'API (L7) Dissection', link: 'en/v2/l7_api_dissection' },
-      { text: 'Real-time Dissection', link: 'en/v2/l7_api_realtime' },
-      { text: 'Delayed Dissection', link: 'en/v2/l7_api_delayed' },
       { text: 'Protocol Support', link: 'en/protocols' },
       { text: 'AI-Driven Workflows', link: 'en/v2/ai_powered_analysis' },
       // { text: 'Running Headless', link: 'en/headless' },
