@@ -38,6 +38,7 @@ Capabilities are the atomic units of authorization. Each gated UI control and AP
 | `snapshot:read`        | List / read snapshots, download PCAPs, view delayed-dissection results.              |
 | `snapshot:write`       | Create / delete / rename / upload snapshots.                                         |
 | `snapshot:dissection`  | Start / stop delayed-dissection job lifecycle.                                       |
+| `mcp:use`              | Use the MCP (Model Context Protocol) tool surface (`/mcp/*`). Coarse all-or-nothing — a principal with it may use every MCP tool, otherwise none. |
 
 The vocabulary is closed: unknown capability strings in a custom role are dropped with a warning at hub startup (visible in `kubectl logs`).
 
@@ -52,6 +53,9 @@ The vocabulary is closed: unknown capability strings in a custom role are droppe
 | `snapshot:read`        |    ✓    |            |     ✓      |    ✓     |
 | `snapshot:write`       |    ✓    |            |     ✓      |          |
 | `snapshot:dissection`  |    ✓    |            |     ✓      |          |
+| `mcp:use`              |    ✓    |            |            |          |
+
+Only `kubeshark-admin` carries `mcp:use`, so by default the MCP tool surface is admin-only. The in-cluster CLI credential (see [CLI & headless credentials](#cli-and-headless-credentials-on-a-gated-hub)) resolves to `kubeshark-admin`, so `kubeshark mcp` keeps working against a gated Hub. Other roles are `403`'d on `/mcp/*` — the dashboard reads data boundaries via the Connect-RPC API instead, so it does not need `mcp:use`.
 
 ## Mapping SSO groups to roles
 
@@ -142,10 +146,21 @@ Three deployment-admin capabilities are **always granted** regardless of the lic
 Three code paths skip the role resolution entirely and grant the full `kubeshark-admin` capability set:
 
 - **Anonymous mode** (`tap.auth.enabled: false`) — every request runs as admin.
-- **License-Key header** — the in-cluster controller path used by Kubeshark's own tooling (CLI, MCP).
-- **InternalAuth bearer token** — the in-cluster controller path used by dissection-job pods.
+- **License-Key header** — the in-cluster controller path used by Kubeshark's own tooling (CLI, MCP). Also the CLI's transitional fallback credential when it cannot mint a ServiceAccount token (see below).
+- **InternalAuth bearer token** — the in-cluster controller path used by dissection-job pods and by the Worker DaemonSet when it seeds name resolution and capture targets over HTTP.
 
 These bypasses ensure that AI agents on MCP and delayed-dissection jobs continue to function regardless of how restrictively the role config is set.
+
+## CLI and headless credentials on a gated Hub
+
+When the Hub enforces authentication, the CLI and its `mcp` / `console` subcommands need a real credential — the dashboard's browser SSO flow isn't available to headless callers. Kubeshark issues a **scoped ServiceAccount token** for this:
+
+- The CLI mints a short-lived token for the `kubeshark-cli` ServiceAccount via the Kubernetes TokenRequest API (audience `kubeshark-hub`) and presents it to the Hub in the custom **`X-Kubeshark-Authorization`** header. (The standard `Authorization` header is consumed by the Kubernetes API-server proxy before it reaches the Hub, so a custom header is used.)
+- Who may use the CLI against a gated Hub is bounded by **Kubernetes RBAC** — specifically, who is allowed to `create serviceaccounts/token` for `kubeshark-cli`. The chart provisions this ServiceAccount and its token-minter Role when `tap.auth.cli.enabled: true`, and controls the allowed subjects via `tap.auth.cli.subjects`.
+- The Hub only accepts tokens for ServiceAccounts named in its `AUTH_CLI_SERVICE_ACCOUNTS` allowlist (populated by the chart as `<namespace>:kubeshark-cli`). The ServiceAccount identity resolves to a role through the same `groupMapping` / `defaultRole` pipeline as SSO users; `kubeshark-cli` resolves to `kubeshark-admin`.
+- If the CLI cannot mint a token (no kube access — e.g. `mcp --url` against a remote deployment), pass the token explicitly via `--token` / `KUBESHARK_HUB_TOKEN`. See [MCP Installation](/en/mcp/cli).
+
+With `tap.auth.enabled: false` the token path is a no-op and requests are admitted anonymously as admin.
 
 ## Verifying the active role
 

@@ -205,6 +205,8 @@ When you ask a question, the AI:
 
 The MCP server respects Kubeshark's data redaction policies. If you've configured sensitive data redaction, the AI sees redacted values.
 
+When the Hub runs with authentication enabled (`tap.auth.enabled: true`), the entire MCP tool surface (`/mcp/*`) is gated on the `mcp:use` capability, which by default only `kubeshark-admin` carries. Callers without it are rejected with `403`. Headless clients authenticate with a scoped ServiceAccount token — see [MCP Installation](/en/mcp/cli) and [Roles & Permissions](/en/roles#cli-and-headless-credentials-on-a-gated-hub).
+
 ---
 
 ## Troubleshooting
