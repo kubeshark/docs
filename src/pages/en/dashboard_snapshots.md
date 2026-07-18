@@ -21,6 +21,12 @@ To create a new snapshot:
 
 The snapshot is extracted from [Raw Capture](/en/v2/raw_capture) buffers and moved to dedicated storage on the Hub. The time window can span from minutes to days — limited only by how much raw capture data is available.
 
+### Completion Status
+
+Each worker node's data is copied to the Hub in parallel. If some nodes copy successfully while others fail, the snapshot finalizes as **Partially Completed** rather than being discarded — the captured data from the healthy nodes is kept. The status renders with an orange warning chip in the snapshots table, and each failed node shows its copy error.
+
+A partially completed snapshot holds real captured data, so **PCAP** export and [Delayed Indexing](#delayed-indexing-optional) remain available for it, just like a fully completed snapshot. If every node fails, the snapshot is marked failed instead.
+
 ---
 
 ## PCAP Export

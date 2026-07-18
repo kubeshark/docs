@@ -35,6 +35,8 @@ Hovering over UI elements with a green plus sign indicates they are queryable �
 
 The stream will be empty if [traffic indexing is disabled](/en/on_off_switch).
 
+At very high dissection throughput, the live stream may fall behind and the Hub drops entries the UI cannot keep up with. When this happens, a warning chip appears in the traffic stats footer showing the drop rate — for example `{N}/s · {X}% not shown` — with a per-second breakdown in its tooltip. The indicator is visible only while entries are actively being dropped and refreshes on the Hub's heartbeat cadence, so it appears a few seconds into a sustained spike. Live view remains a complete sample as long as the chip is not shown; retrospective analysis over [snapshots](/en/v2/traffic_snapshots) is unaffected.
+
 ---
 
 ## KFL — Query Language
