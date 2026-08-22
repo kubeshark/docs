@@ -128,7 +128,11 @@ Existing metrics provide essential insights for monitoring [Kubeshark](https://k
 | kubeshark_reassembled_tcp_payloads_total  | Counter | Total number of reassembled TCP payloads     |
 | kubeshark_matched_pairs_total             | Counter | Total number of matched pairs                |
 | kubeshark_dropped_tcp_streams_total       | Counter | Total number of dropped TCP streams          |
+| kubeshark_dropped_chunks_total            | Counter | Total number of dropped payload chunks       |
 | kubeshark_live_tcp_streams                | Gauge   | Number of live TCP streams                   |
+| kubeshark_capture_db_lsm_bytes            | Gauge   | Capture database sstable footprint — the stored data the size limit is enforced against |
+| kubeshark_capture_db_disk_bytes           | Gauge   | Total capture database size on disk, including the WAL and obsolete tables |
+| kubeshark_capture_db_limit_bytes          | Gauge   | Configured capture database size limit       |
 
 ## Ready-to-use Dashboard
 
