@@ -81,6 +81,7 @@ tap:
 > - Set `tap.auth.oidc.bypassSslCaCheck: true` to allow the hub to communicate with an issuer presenting an unknown SSL Certificate Authority. This prevents errors like `tls: failed to verify certificate: x509: certificate signed by unknown authority`. Do not use in production unless you understand the trust implications.
 > - Unknown capability strings under a custom role are dropped with a warning at hub startup (visible in `kubectl logs`). The capability vocabulary is closed — see [Roles & Permissions](/en/roles).
 > - Custom role names MUST appear in `groupMapping` to participate in resolution. Identity-match (SSO group name === role name) only works for the four built-in `kubeshark-*` names.
+> - `tap.auth.type: oidc` (or `dex`) with no `issuer` fails the Helm render rather than installing a Hub that authenticates nobody.
 
 After configuring the values file, install Kubeshark:
 
