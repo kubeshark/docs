@@ -4,6 +4,8 @@ description: This guide explains how to activate Kubeshark Network Agents automa
 layout: ../../layouts/MainLayout.astro
 ---
 
+> **Prerequisite:** scripting is off by default. Set `scripting.enabled: true` in your Helm values — with it off the Hub answers `/scripts`, `/scripts/exec` and `/jobs` with `409` and the dashboard hides the scripting UI, so none of the activation paths below will work. See the [Helm reference](/en/helm_reference#scripting).
+
 **Network Agents** can be activated either on demand or automatically in several ways:
 
 1. Using Agent templates
