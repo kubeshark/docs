@@ -20,6 +20,10 @@ wscat --connect ws://127.0.0.1:8899/api/wsFull
 ```
 Once open, the connection awaits a KFL (Key Filtering Logic) to start sending traffic. The KFL instructs the Hub on which data to filter and send back.
 
+> **Authentication.** Every Hub route is behind the authentication middleware, so on a Hub with `tap.auth.enabled: true` this connection needs a credential — either a `License-Key` header or a ServiceAccount token in `X-Kubeshark-Authorization`. See [CLI & headless credentials](/en/roles#cli-and-headless-credentials-on-a-gated-hub).
+>
+> Note that `/ws*` is authenticated but **not** capability-gated, and role namespace scope is not applied to it. Any caller who can authenticate receives the full stream. Prefer the [MCP tools](/en/mcp) or the dashboard for scoped access.
+
 Data will continue streaming until the connection is closed.
 
 Here's an example where we send the KFL: `response.status > 300` once the connection is open. The returning stream will include traffic with response status codes that are greater than 300.
