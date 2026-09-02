@@ -44,13 +44,17 @@ Sensitive Data can be redacted at the source, making it unavailable to Viewers.
 
 ## Viewer / Data Authorization
 
-Viewer access can be restricted using specific authorization rules, enabling users to view only the Data they are permitted to see. For instance, developers can have access to certain namespaces, while DevOps may access different ones.
+Every caller is resolved to a role carrying a set of capabilities and an optional namespace scope, so users see only the data they are permitted to see — developers can be given certain namespaces while DevOps get others. The scope is applied server-side: out-of-scope traffic never leaves the Hub.
+
+Authorization does not depend on authentication. With `tap.auth.enabled: false` nobody is identified, but every caller is still resolved to `tap.auth.defaultRole` and held to it, which is how a deployment is made read-only without an identity provider.
+
+> Learn about the role model [here](/en/roles).
 
 ## Authentication
 
-To prevent unauthorized access, **Kubeshark** employs SAML to authenticate users using their corporate identities.
+To prevent unauthorized access, **Kubeshark** identifies users against your corporate identity provider. Supported backends are SAML, generic OIDC (Dex, Okta, Auth0, Keycloak, Azure AD, Google) and Kubeshark's own cloud login.
 
-> Learn about SAML capabilities [here](/en/saml).
+> Learn about [SAML](/en/saml), [OIDC](/en/oidc) and [Authentication](/en/authentication).
 
 ## Dashboard Encryption
 
