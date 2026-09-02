@@ -199,10 +199,10 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.auth.enabled` | Enable authentication | `false` |
-| `tap.auth.type` | Auth backend: `saml`, `oidc` (generic OIDC — Dex, Okta, Auth0, Keycloak, Azure AD, Google), `dex` (permanent alias of `oidc`), `descope`, `default` (also Descope) | `saml` |
-| `tap.auth.approvedEmails` | Approved email addresses | `[]` |
-| `tap.auth.approvedDomains` | Approved email domains | `[]` |
+| `tap.auth.enabled` | Identify callers through an identity provider. When `false` nobody logs in, but `tap.auth.defaultRole` is still applied and enforced — a deployment can be read-only without configuring an identity provider. | `false` |
+| `tap.auth.type` | Auth backend: `saml`, `oidc` (generic OIDC — Dex, Okta, Auth0, Keycloak, Azure AD, Google), `dex` (permanent alias of `oidc`), `descope`, `default` (also Descope). Rendered verbatim — no value rewrites this at runtime. | `saml` |
+
+The chart validates the pair: `type: saml` without `tap.auth.saml.idpMetadataUrl`, and `type: oidc` / `dex` without an issuer, fail the render rather than installing a Hub that authenticates nobody.
 
 ### Roles & Authorization
 
@@ -211,10 +211,10 @@ The role configuration is shared by both SAML and OIDC backends — admins maint
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `tap.auth.rolesClaim` | JWT claim name (OIDC) or SAML attribute name carrying the user's group / role memberships. | `groups` |
-| `tap.auth.defaultRole` | Built-in role (`kubeshark-admin` / `kubeshark-realtime` / `kubeshark-snapshot` / `kubeshark-viewer`) or custom role applied when an authenticated user has no recognized claim value. Empty string means strict-deny (authenticated but no capabilities). | `kubeshark-viewer` |
+| `tap.auth.defaultRole` | Built-in role (`kubeshark-admin` / `kubeshark-realtime` / `kubeshark-snapshot` / `kubeshark-viewer`) or custom role applied when a caller has no recognized claim value. Respected whether or not `tap.auth.enabled` is set: with authentication off it is the role *every* caller gets, so `kubeshark-viewer` yields a read-only deployment with no login. With authentication on, an empty string means strict-deny; with it off, an empty or unrecognized value falls back to `kubeshark-admin` so an installation that never configured authorization keeps working. | `kubeshark-admin` |
 | `tap.auth.groupMapping` | Map of SSO group / attribute value → role name. Values may reference one of the four built-in roles or a custom role declared under `tap.auth.roles`. Built-in role names also identity-match without an entry here. | `{}` |
 | `tap.auth.roles` | Operator-defined custom roles, keyed by role name. Each role declares `capabilities` (closed vocabulary — see [Roles & Permissions](/en/roles)) and `namespaces` (comma list with `*` and glob support: `""` deny, `"*"` allow-all, `"foo"` literal, `"foo,bar"` OR, `"foo-*"` glob). Names starting with `kubeshark-` are reserved and rejected at hub startup. | `{}` |
-| `tap.auth.cli.enabled` | Create the `kubeshark-cli` ServiceAccount and its token-minter Role so the CLI (and its `mcp` / `console` subcommands) can authenticate to a gated Hub with a short-lived ServiceAccount token. Adds `<namespace>:kubeshark-cli` to the Hub's `AUTH_CLI_SERVICE_ACCOUNTS` allowlist. See [CLI & headless credentials](/en/roles#cli-and-headless-credentials-on-a-gated-hub). | `false` |
+| `tap.auth.cli.enabled` | Create the `kubeshark-cli` ServiceAccount and its token-minter Role so the CLI (and its `mcp` subcommand) can authenticate to a gated Hub with a short-lived ServiceAccount token. Adds `<namespace>:kubeshark-cli` to the Hub's `AUTH_CLI_SERVICE_ACCOUNTS` allowlist. `kubeshark-cli` is not a built-in role name, so map it through `tap.auth.groupMapping` if you narrow `tap.auth.defaultRole`. See [CLI & headless credentials](/en/roles#cli-and-headless-credentials-on-a-gated-hub). | `false` |
 | `tap.auth.cli.subjects` | RBAC subjects (users / groups / ServiceAccounts) permitted to mint the `kubeshark-cli` token — i.e. who may use the CLI against a gated Hub. Bound to the token-minter Role via a RoleBinding. | `[]` |
 
 > **Breaking changes since the unified-roles rollout:**
@@ -332,8 +332,11 @@ The role configuration is shared by both SAML and OIDC backends — admins maint
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
+| `scripting.enabled` | Enable scripting. Gates the scripting **API** as well as the UI: with it `false` the Hub answers `/scripts`, `/scripts/exec`, `/jobs` and the AI assistant with `409`, and the dashboard hides the scripting UI. Scripting is deployment-wide rather than a per-role capability, so this is the only switch that closes it. | `false` |
 | `scripting.env` | Environment variables | `{}` |
 | `scripting.source` | Script source directory | `""` |
+| `scripting.sources` | Additional script source directories, read alongside `scripting.source` | `[]` |
+| `scripting.active` | Scripts to activate on startup, by title (rendered into `SCRIPTING_ACTIVE_SCRIPTS`) | `[]` |
 | `scripting.watchScripts` | Watch mode for scripts | `true` |
 
 ---
@@ -387,7 +390,7 @@ The role configuration is shared by both SAML and OIDC backends — admins maint
 | Parameter | Description | Default |
 |-----------|-------------|---------|
 | `tap.resourceGuard.enabled` | Resource usage monitoring | `false` |
-| `tap.liveConfigMapChangesDisabled` | Disable dynamic ConfigMap changes | `false` |
+| `tap.networkPolicies.enabled` | Expose the Hub's network-policy routes, which create and remove Kubernetes NetworkPolicy objects and compute pod-reachability impact. Off by default: the feature acts outside Kubeshark's own data and no role grants it, so whether a deployment offers it at all is an operator decision rather than a permission. When `false` those routes answer `409`. | `false` |
 | `tap.gitops.enabled` | GitOps functionality | `false` |
 | `tap.secrets` | Secrets for env variables | `[]` |
 
