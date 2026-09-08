@@ -4,9 +4,9 @@ description: Upgrading & Downgrading
 layout: ../../layouts/MainLayout.astro
 ---
 
-## Upgrading to Pro
+## Applying a License
 
-Subscribe to a Pro plan at the [License Portal](https://console.kubeshark.com/?tab=pro), then download your license key from the portal.
+Subscribe to a plan at the [License Portal](https://console.kubeshark.com/), then download your license key from the portal. See [Getting-Started Packages](/en/plans) for what the packages cover.
 
 Apply the license key using one of the following methods:
 
@@ -31,13 +31,13 @@ license: <your-license-key>
 
 Once the license key is set, all users in the cluster can access Kubeshark without individual authentication.
 
-> **Note:** Community and Pro licenses require an active internet connection. Telemetry must succeed for the license to remain valid.
+> **Note:** Community and paid licenses alike require an active internet connection. Telemetry must succeed for the license to remain valid. Enterprise licenses operate air-gapped.
 
 ## Downgrading
 
-Using the Pro edition requires having a valid license key in the Kubeshark configuration file, that usually resides at ~/.kubeshark/config.yaml.
+A paid plan requires a valid license key in the Kubeshark configuration file, which usually resides at `~/.kubeshark/config.yaml`.
 
-To downgrade, simply erase the license key and Kubeshark will use the community version.
+To downgrade, erase the license key and Kubeshark falls back to the Community edition — 3 nodes and 60 pods.
 
 No need to save the license key. You can always download it again from the [License Portal](https://console.kubeshark.com).
 

@@ -16,10 +16,39 @@ To create a new snapshot:
 
 1. **Name** — Enter a descriptive name (e.g., `incident-2024-02-01`, `checkout-debug`)
 2. **Nodes** — Select all nodes or specific worker nodes to include
-3. **Time Window** — Select any start and end time within the available raw capture data using the date/time picker
+3. **Time Window** — Select a start and end time using the date/time picker. The picker marks the range for which L7 data exists, so you can tell at a glance whether the window you are about to snapshot was being indexed
 4. Click **Create**
 
 The snapshot is extracted from [Raw Capture](/en/v2/raw_capture) buffers and moved to dedicated storage on the Hub. The time window can span from minutes to days — limited only by how much raw capture data is available.
+
+---
+
+## Snapshot Status
+
+Worker nodes are copied in parallel, and each node's copy succeeds or fails on its own.
+
+| Status | Meaning |
+|--------|---------|
+| `in_progress` | The copy is still running |
+| `completed` | Every node copied successfully |
+| `partially_completed` | At least one node copied and at least one failed. Shown with warning styling and selectable in the status filter |
+| `failed` | No node succeeded, or the snapshot breached the size limit |
+
+A `partially_completed` snapshot is usable: download, PCAP export, cloud upload and delayed indexing are all available on it. It simply omits the failed nodes' data, so treat it as a partial view of the cluster for that window rather than a complete one. Only `failed` snapshots have nothing to offer.
+
+---
+
+## Permissions
+
+Each action is gated on a capability, so what the panel offers depends on the role the caller resolves to — with or without authentication enabled. See [Roles & Permissions](/en/roles).
+
+| Action | Capability | Built-in roles |
+|--------|------------|----------------|
+| Browse, download, export PCAP | `snapshot:read` | `kubeshark-admin`, `kubeshark-snapshot`, `kubeshark-viewer` |
+| Create, delete, rename, upload | `snapshot:write` | `kubeshark-admin`, `kubeshark-snapshot` |
+| Start / stop delayed indexing | `snapshot:dissection` | `kubeshark-admin`, `kubeshark-snapshot` |
+
+A role with a [namespace scope](/en/roles#namespace-scope) also sees the Download and Export PCAP buttons **disabled** on snapshots taken outside that scope, with the tooltip *"Snapshot is outside your namespace scope"*. The rows stay visible; the data does not leave the Hub.
 
 ---
 

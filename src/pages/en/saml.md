@@ -55,6 +55,8 @@ tap:
 
 > Custom role names MUST appear in `groupMapping` to participate in resolution. Identity-match (attribute value === role name) only works for the four built-in `kubeshark-*` names.
 
+> `tap.auth.type: saml` with an empty `idpMetadataUrl` fails the Helm render rather than installing. Earlier releases accepted the combination and silently produced a Hub that authenticated nobody, so an upgrade may surface a misconfiguration that used to pass unnoticed.
+
 ## X.509 Certificate & Key
 
 ```shell

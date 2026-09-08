@@ -59,13 +59,11 @@ The `vendor.elastic` helper is used to send the traffic logs to an Elasticsearch
 
 ## Prerequisites
 
-Using the Elasticsearch integration requires the Pro edition and is currently supported only by the CLI. If you haven't done so:
+Using the Elasticsearch integration requires a paid plan and is currently supported only by the CLI. If you haven't done so:
 1. Install the CLI, by following [these instructions](/en/install#cli).
-2. Sign up to the Pro edition by running the `pro` command:
-```shell
-kubeshark pro
-```
-> More information about upgrading to the Pro edition can be found in the [Upgrading & Downgrading](/en/pro_upgrade) section.
+2. Obtain a license from the [License Portal](https://console.kubeshark.com/) and add it to your configuration.
+
+> `kubeshark license` prints the license the CLI currently has loaded. More information about plans is in the [Plans](/en/plans) section.
 
 Ensure your configuration file includes the following configuration at a minimum:
 ```shell

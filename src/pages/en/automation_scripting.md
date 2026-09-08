@@ -5,6 +5,8 @@ layout: ../../layouts/MainLayout.astro
 ---
 ## With Network Agents
 
+> **Prerequisite:** scripting is off by default. Set `scripting.enabled: true` in your Helm values — with it off the Hub answers `/scripts`, `/scripts/exec` and `/jobs` with `409` and the dashboard hides the scripting UI, so nothing on this page will run. Scripting is a deployment-wide switch rather than a per-role capability; see the [Helm reference](/en/helm_reference#scripting).
+
 Users can create and use an unlimited number of **Network Agents**, each designed to perform a specific network-related automation task.
 
 Agents can detect anomalies and threats, generate reports, export metrics, traces, and logs, enforce network policies, record traffic, and more.

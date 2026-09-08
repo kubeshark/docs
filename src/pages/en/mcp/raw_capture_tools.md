@@ -413,7 +413,7 @@ list_workloads (snapshot + filters)
   "tool": "download_file",
   "arguments": {
     "path": "/mcp/snapshots/incident-001/pcap?bpf_filter=host%2010.244.1.15",
-    "dest": "/tmp/payment-api-traffic.pcap"
+    "dest": "payment-api-traffic.pcap"
   }
 }
 ```
@@ -451,7 +451,7 @@ Downloads a file from Kubeshark to the local filesystem. This is the preferred w
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | `path` | string | Yes | The relative file path returned by a Hub tool |
-| `dest` | string | No | Local destination file path. Defaults to the filename from the path in the current directory |
+| `dest` | string | No | Local destination, **relative to the download directory**. Defaults to the filename from the path |
 
 **Example:**
 ```json
@@ -459,7 +459,7 @@ Downloads a file from Kubeshark to the local filesystem. This is the preferred w
   "tool": "download_file",
   "arguments": {
     "path": "/mcp/snapshots/f4c41e9c/pcap",
-    "dest": "/tmp/incident.pcap"
+    "dest": "incidents/incident.pcap"
   }
 }
 ```
@@ -468,10 +468,22 @@ Downloads a file from Kubeshark to the local filesystem. This is the preferred w
 ```json
 {
   "url": "http://localhost:8898/api/mcp/snapshots/f4c41e9c/pcap",
-  "path": "/tmp/incident.pcap",
+  "path": "/home/you/work/incidents/incident.pcap",
   "size": 52428800
 }
 ```
+
+#### The download directory
+
+`dest` is confined to a single base directory: the working directory `kubeshark mcp` was launched from, unless `KUBESHARK_MCP_DOWNLOAD_DIR` points somewhere else.
+
+```shell
+KUBESHARK_MCP_DOWNLOAD_DIR=/var/tmp/kubeshark-pcaps kubeshark mcp
+```
+
+Anything that resolves outside it is rejected: absolute paths, `../` traversal, and destinations that reach outside through a symlink. Containment is checked lexically and again after resolving symlinks, so a symlinked subdirectory cannot redirect the write.
+
+The confinement is there because the caller is usually an AI agent acting on instructions it read somewhere. Without it, `"dest": "~/.ssh/authorized_keys"` is a valid download destination. Widen or relocate the sandbox deliberately with `KUBESHARK_MCP_DOWNLOAD_DIR`; do not expect an absolute `dest` to work.
 
 ### Typical PCAP Export Workflow
 

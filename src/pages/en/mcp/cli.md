@@ -67,6 +67,13 @@ The `--url` token is short-lived and does **not** auto-renew — on a `401` the 
 | `--allow-destructive` | Enable start/stop Kubeshark operations |
 | `--list-tools` | List available MCP tools and exit |
 
+## Environment
+
+| Variable | Description |
+|----------|-------------|
+| `KUBESHARK_HUB_TOKEN` | Bearer token for a gated Hub in `--url` mode; the `--token` flag takes precedence. |
+| `KUBESHARK_MCP_DOWNLOAD_DIR` | Base directory the `download_file` tool may write to. Defaults to the working directory `kubeshark mcp` was launched from. Destinations that resolve outside it — absolute paths, `../` traversal, symlinks pointing out — are rejected. See [`download_file`](/en/mcp/raw_capture_tools#the-download-directory). |
+
 ---
 
 ## What's Next

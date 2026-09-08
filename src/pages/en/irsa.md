@@ -40,10 +40,9 @@ helm install kubeshark kubeshark/kubeshark -n kubeshark --create-namespace \
 --set-json 'scripting.env={"AWS_ACCESS_KEY_ID":"<key-id-if-you-have-one>", "AWS_SECRET_ACCESS_KEY": "<key-if-you-have-one>", "AWS_REGION":"us-east-2", "S3_BUCKET":"demo-kubeshark-b"}' \
 --set-json 'tap.annotations={"eks.amazonaws.com/role-arn":"arn:aws:iam::74.....50:role/s3-role"}' \
 --set tap.ingress.enabled=true \
---set tap.ingress.host=demo.kubeshark.io \
---set "tap.ingress.auth.approveddomains={kubeshark.com}" \
+--set tap.ingress.host=demo.kubeshark.com \
 --set tap.release.namespace=kubeshark \
---set tap.resources.worker.limits.memory=2Gi
+--set tap.resources.sniffer.limits.memory=2Gi
 ```
 
 * The above includes optional value that can come handy.

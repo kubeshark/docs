@@ -13,6 +13,14 @@ Enabling or disabling traffic indexing directly controls **Kubeshark**'s compute
 
 **Kubeshark**'s Helm template includes a Helm value, `tap.capture.dissection.enabled`, that determines whether **Kubeshark** starts with L7 indexing active.
 
+## Who may change it
+
+Toggling indexing is gated on the `dissection:control` capability, whichever route you use. Of the built-in roles only `kubeshark-admin` and `kubeshark-realtime` carry it — a caller resolved to `kubeshark-viewer` or `kubeshark-snapshot` sees the dashboard button disabled and gets `403` from the API.
+
+This applies whether or not authentication is enabled: with `tap.auth.enabled: false` every caller is resolved to `tap.auth.defaultRole`, so a deployment that narrows that value cannot toggle indexing either. The chart default is `kubeshark-admin`, which can. See [Roles & Permissions](/en/roles).
+
+The MCP routes below carry a second requirement: the whole `/mcp/*` surface needs `mcp:use`, which only `kubeshark-admin` holds.
+
 ## Changing the Value Dynamically
 
 There are multiple ways to toggle indexing at runtime:
@@ -38,6 +46,8 @@ AI assistants can control indexing programmatically through the MCP server:
 | `/mcp/dissection` | GET | Get current indexing status |
 | `/mcp/dissection/enable` | POST | Enable L7 protocol parsing |
 | `/mcp/dissection/disable` | POST | Disable L7 protocol parsing |
+
+On a Hub that identifies its callers these need a credential — see [CLI & headless credentials](/en/roles#cli-and-headless-credentials-on-a-gated-hub) — which the examples below omit for brevity.
 
 **Check status:**
 ```bash

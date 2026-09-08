@@ -28,7 +28,7 @@ Alternatively, use the shell config option:
 kubeshark tap --proxy-host 0.0.0.0
 ```
 
-Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that access to the dashboard isn't encrypted or authenticated.
+Consider changing this address to `0.0.0.0` or any other publicly accessible IP, to allow public address. Keep in mind that the proxy does not terminate TLS, and that on a default installation the dashboard identifies nobody: `tap.auth.enabled` is `false`, so every caller is resolved to `tap.auth.defaultRole`, which defaults to `kubeshark-admin`. Before exposing this address, either enable authentication or narrow that role — see [Roles & Permissions](/en/roles).
 
 When you run [Kubeshark](https://kubeshark.com) on a remote server, make sure ports `8898`-`8899` are open for external connections.
 
@@ -39,17 +39,30 @@ Use to change the amount of resources assigned to [Kubeshark](https://kubeshark.
 ```shell
 tap:
     resources:
-        worker:
-            cpu-limit: 750m
-            memory-limit: 1Gi
-            cpu-requests: 50m
-            memory-requests: 50Mi
         hub:
-            cpu-limit: 750m
-            memory-limit: 1Gi
-            cpu-requests: 50m
-            memory-requests: 50Mi
+            limits:
+                cpu: 750m
+                memory: 1Gi
+            requests:
+                cpu: 50m
+                memory: 50Mi
+        sniffer:
+            limits:
+                cpu: 750m
+                memory: 1Gi
+            requests:
+                cpu: 50m
+                memory: 50Mi
+        tracer:
+            limits:
+                cpu: 750m
+                memory: 1Gi
+            requests:
+                cpu: 50m
+                memory: 50Mi
 ```
+
+The components are `hub`, `sniffer` and `tracer`; there is no `worker` key. See [Workload Resources](/en/workload_resources).
 
 ### Run Kubeshark Headless
 

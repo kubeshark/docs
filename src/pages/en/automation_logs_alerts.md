@@ -14,8 +14,12 @@ layout: ../../layouts/MainLayout.astro
 
 ## Console Log & Error Messages
 
-The [`console.log`](/en/automation_helpers#consolelogargs-string) helper enables writing log messages that can be read using the `kubeshark console` CLI command.
+The [`console.log`](/en/automation_helpers#consolelogargs-string) helper enables writing log messages that can be read in the dashboard's scripting console.
 The [`console.error`](/en/automation_helpers#consoleerrorargs-string) sends a message to [`stderr`](https://linux.die.net/man/3/stderr).
+
+> **`kubeshark console` is temporarily non-functional.** The Hub moved scripting-console log
+> streaming onto a Connect-RPC service and the CLI client has not been migrated yet, so the
+> command exits without streaming anything. The dashboard console is unaffected.
 
 This script example calculates and sends telemetry information once per minute.
 
@@ -42,17 +46,9 @@ function logPacketCountTotalBytes() {
 jobs.schedule("log-packet-count-total-bytes", "0 */1 * * * *", logPacketCountTotalBytes);
 ```
 
-When used in conjunctions with `kubeshark console` you can expect the following console log output:
+The console output looks like this:
 
 ![Console Log](/console-log-1.png)
-
-Redirecting the command's output to STDOUT will redirect only the results of [`console.log`](/en/automation_helpers#consolelogargs-string) and omit error messages that were sent to [`stderr`](https://linux.die.net/man/3/stderr).
-
-The following CLI command redirects the console log output to a file.
-
-```shell
-kubeshark console > /tmp/log.txt
-```
 
 ## Dashboard Alerts
 

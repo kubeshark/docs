@@ -78,4 +78,4 @@ Now you have successfully enabled ingress for [Kubeshark](https://kubeshark.com)
 Make sure to adjust the commands and configurations according to your environment and the path to your customized `values.yaml` file.
 
 ## AWS, EKS, ALB, Ingress & TLS
-> Read more how to how to use on AWS infra [here](/en/aws_ingress_auth)
+> Read more about running on AWS infra with an [ALB](/en/aws_ingress_auth) or an [NLB](/en/aws_ingress_nlb).

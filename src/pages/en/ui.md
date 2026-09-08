@@ -35,6 +35,14 @@ Hovering over UI elements with a green plus sign indicates they are queryable �
 
 The stream will be empty if [traffic indexing is disabled](/en/on_off_switch).
 
+### Dropped live traffic
+
+At high dissection throughput the Hub drops entries the dashboard cannot keep up with, and the live view becomes a partial sample of what was captured. When that happens the traffic stats footer shows a warning chip reading `{N}/s · {X}% not shown`, with a per-second breakdown in its tooltip. It is visible only while entries are actually being dropped.
+
+The counts arrive on the Hub's stream heartbeat, which fires every 20 seconds, so the indicator appears roughly 20–40 seconds into a sustained spike rather than instantly — and disappears on the same cadence once throughput falls back.
+
+Dropping affects the live view only. Nothing is lost from raw capture, so a [snapshot](/en/v2/traffic_snapshots) over the same window and its [delayed indexing](/en/v2/l7_api_dissection#delayed-indexing) still see every entry. Narrow the KFL query or the [pod targeting](/en/pod_targeting) to bring the live stream back under the threshold, and watch `kubeshark_rpc_messages_dropped_total` and `kubeshark_rpc_stream_buffer_utilization` in [Prometheus](/en/metrics#streaming-metrics) for the same signal over time.
+
 ---
 
 ## KFL — Query Language

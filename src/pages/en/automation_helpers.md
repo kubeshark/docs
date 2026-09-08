@@ -33,7 +33,12 @@ to statically-typed [native Go types](https://go.dev/ref/spec#Types).
 ## Console
 
 The `console.*` helpers provide a way to print messages or debug variables in the console.
-You can access this console through the [Kubeshark](https://kubeshark.com) dashboard or the `kubeshark console` command.
+You can access this console through the [Kubeshark](https://kubeshark.com) dashboard.
+
+> **`kubeshark console` is temporarily non-functional.** The Hub moved scripting-console log
+> streaming onto a Connect-RPC service and the CLI client has not been migrated yet, so the
+> command exits without streaming anything. Read the console in the dashboard until the
+> migration lands.
 
 ### `console.log(...args: string[])`
 
