@@ -60,7 +60,7 @@ These are **starting requests for a workload similar to the [Hub streaming bench
 | Large | Up to 100 | ~10,000 | `1500m` | `1Gi` | `5Gi` |
 | X-Large | Up to 200 | ~20,000 | `2` | `1Gi` | `5Gi` |
 
-The measured Hub RSS averages were 165, 211, and 274 MiB for Small, Medium, and Large. An XL soak with a `2` CPU request delivered **20,132.56 entries/s for 30 minutes with zero measured Hub UI-stream drops**, using 390 MiB average and 401 MiB peak RSS. These are Hub-only measurements with synthetic workers, not memory requirements for packet capture, indexing, snapshots, or the browser. See the [results, methodology, and limitations](/en/performance_benchmark).
+The measured Hub RSS averages were 165, 211, and 274 MiB for Small, Medium, and Large. An XL soak with a `2` CPU request delivered **20,132.56 entries/s for 30 minutes with zero measured Hub UI-stream drops**, using 390 MiB average and 401 MiB peak RSS. These are Hub-only measurements with synthetic workers, not memory requirements for packet capture, indexing, snapshots, or the browser. See the [benchmark results](/en/performance_benchmark) and [methodology and scope](/en/benchmark_methodology).
 
 ### Why a CPU Request Matters Without a Limit
 

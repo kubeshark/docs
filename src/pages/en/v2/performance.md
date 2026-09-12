@@ -22,7 +22,7 @@ Worker indexing and Hub streaming are separate resource budgets. The Hub aggrega
 
 In a synthetic Hub streaming test with 200 workers and one client, a Hub with a `2` CPU request and no CPU limit delivered **20,132.56 entries/s over 30 minutes with zero measured UI-stream drops**. Average/peak process RSS was **390/401 MiB**. This measures delivery of already prepared entries, not packet capture, L7 dissection, snapshot queries, or browser rendering.
 
-Use [Workload Resources](/en/workload_resources#recommended-sizing-by-cluster-size) for starting requests and [Hub Streaming Benchmarks](/en/performance_benchmark) for the measured tiers, controlled CPU-request comparison, and diagnostic limitations. Validate real traffic and concurrent clients before treating these numbers as deployment capacity.
+Use [Workload Resources](/en/workload_resources#recommended-sizing-by-cluster-size) for starting requests and [Hub Streaming Benchmarks](/en/performance_benchmark) for the measured tiers, controlled CPU-request comparison, and diagnostic limitations. The [methodology page](/en/benchmark_methodology) explains the private perfshark harness and what readers can verify from the public data. Validate real traffic and concurrent clients before treating these numbers as deployment capacity.
 
 ## Raw Capture vs Real-Time Indexing
 

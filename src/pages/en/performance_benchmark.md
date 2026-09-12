@@ -10,7 +10,7 @@ Measurements were collected on September 10-11, 2026 (UTC). The [downloadable me
 
 ## What Was Tested
 
-Perfshark used synthetic workers to stream entries from a fixed 2,000-entry corpus through one Hub to one streaming client. Each worker represented 10 pods. This tests Hub aggregation and delivery of prepared entries; it does **not** measure real worker packet capture, TLS decryption, L7 dissection, snapshot processing, browser rendering, or multiple simultaneous clients.
+[Perfshark](/en/benchmark_methodology) used synthetic workers to stream entries from a fixed 2,000-entry corpus through one Hub to one streaming client. Each worker represented 10 pods. This tests Hub aggregation and delivery of prepared entries; it does **not** measure real worker packet capture, TLS decryption, L7 dissection, snapshot processing, browser rendering, or multiple simultaneous clients.
 
 | Parameter | Configuration |
 | --- | --- |
@@ -77,18 +77,9 @@ The full-window delivery target was met. It was not a minimum for every short in
 
 **Diagnostic limitation:** the CI job failed because its separate Kubernetes CPU-counter stream disconnected before the benchmark finished. CPU scheduler diagnostics cover only the first 12 minutes 44 seconds of measurement, and Hub/front log streams are incomplete. The benchmark report itself contains all 181 delivery and RSS samples; client diagnostics contain all 1,860 one-second samples including warmup. The zero-drop and delivery verdict above was recomputed from the completed report. The harness did not reach its baseline comparison, so this is not described as a passing CI run. Cluster cleanup succeeded.
 
-## How to Interpret and Reproduce the Measurements
+## Interpreting These Results
 
-Use the recorded image digests and corpus/scenario hashes when repeating a comparison. The downloadable extract identifies the inputs but does not bundle the traffic corpus or provision a cluster. Reproduction requires access to the matching perfshark scenarios, images, and corpus. For deployment sizing, repeat with representative traffic and client concurrency as well.
-
-Calculate over the measured interval after warmup:
-
-```text
-delivered entries/s = (last entriesRecv - first entriesRecv) / (last t - first t)
-measured UI drops  = last uiDrops - first uiDrops
-RSS in MiB         = process_resident_memory_bytes / 1,048,576
-CPU cores          = cpuMillis / 1,000
-```
+See [Benchmark Methodology](/en/benchmark_methodology) for the data path, metric definitions, counter calculations, and how to inspect the public extract. Perfshark and the test corpus are private: the extract supports checking the published calculations, but does not enable independent reproduction of the full experiment.
 
 Use counter deltas rather than averaging rate samples that include the initial partial interval. For the soak, the built-in average was 20,022.46/s; the endpoint calculation yields 20,132.56/s. Both exceed the target, but the latter is the declared full-window calculation.
 

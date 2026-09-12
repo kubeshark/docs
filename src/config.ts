@@ -174,6 +174,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Istio', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
       { text: 'Hub Streaming Benchmarks', link: 'en/performance_benchmark' },
+      { text: 'Benchmark Methodology', link: 'en/benchmark_methodology' },
     ],
   },
 };
