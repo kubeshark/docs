@@ -1,0 +1,1769 @@
+{
+  "schemaVersion": 1,
+  "description": "Selected metric fields extracted from perfshark reports; zero-valued fields omitted in original reports are expanded to zero. No traffic payloads. RSS units MiB; CPU units millicores; bufUtil fraction.",
+  "hubRevision": "aed2cbc9c6a0981c13caee1333ddd5cb9ebca518",
+  "records": [
+    {
+      "label": "tier-sweep-small",
+      "startUTC": "2026-09-10T23:47:10Z",
+      "endUTC": "2026-09-10T23:57:10Z",
+      "workers": 10,
+      "representedPods": 100,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "50m",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metric coverage complete; worker placement not controlled as in later comparison.",
+      "provenance": {
+        "perfshark": {
+          "revision": "c9fe96c805a9c21a508d31aba90ec2e3f874ecdf",
+          "modified": true,
+          "buildTime": "2026-09-10T23:15:01Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": false
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": false
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 10,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-small",
+          "sha256": "e718169edc7752f0b3c9070e88d5ee4f9b96cde4d1046a54dcaa25dc88e2d77c"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 599809,
+        "deliveredEntriesPerSecond": 999.6816666666666,
+        "measuredUIDrops": 0
+      },
+      "summary": {
+        "avgCpuMillis": 171,
+        "maxCpuMillis": 175,
+        "avgMemoryMb": 165.25,
+        "maxMemoryMb": 165.75,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 200,"uiDrops": 0,"cpuMillis": 174,"memMb": 164.25,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 10113,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.5,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 20113,"uiDrops": 0,"cpuMillis": 170,"memMb": 164.63,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 30111,"uiDrops": 0,"cpuMillis": 175,"memMb": 164.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 40111,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 50111,"uiDrops": 0,"cpuMillis": 170,"memMb": 164.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 60106,"uiDrops": 0,"cpuMillis": 175,"memMb": 164.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 70106,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 80106,"uiDrops": 0,"cpuMillis": 175,"memMb": 164.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 90106,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 100106,"uiDrops": 0,"cpuMillis": 170,"memMb": 164.88,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 110099,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.88,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 120094,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.88,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 130100,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.88,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 140097,"uiDrops": 0,"cpuMillis": 174,"memMb": 164.88,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 150087,"uiDrops": 0,"cpuMillis": 172,"memMb": 164.88,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 160078,"uiDrops": 0,"cpuMillis": 170,"memMb": 164.88,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 170072,"uiDrops": 0,"cpuMillis": 172,"memMb": 165,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 180082,"uiDrops": 0,"cpuMillis": 172,"memMb": 165,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 190069,"uiDrops": 0,"cpuMillis": 170,"memMb": 165,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 200077,"uiDrops": 0,"cpuMillis": 174,"memMb": 165,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 210071,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 220068,"uiDrops": 0,"cpuMillis": 169,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 230056,"uiDrops": 0,"cpuMillis": 174,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 240066,"uiDrops": 0,"cpuMillis": 167,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 250053,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 260053,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 270053,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 280053,"uiDrops": 0,"cpuMillis": 167,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 290072,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 300052,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 310052,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 320051,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.13,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 330049,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.25,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 340043,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.25,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 350083,"uiDrops": 0,"cpuMillis": 169,"memMb": 165.25,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 360053,"uiDrops": 0,"cpuMillis": 169,"memMb": 165.38,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 370053,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.38,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 380053,"uiDrops": 0,"cpuMillis": 167,"memMb": 165.38,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 390042,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.63,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 400052,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.63,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 410034,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 420034,"uiDrops": 0,"cpuMillis": 169,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 430032,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 440039,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 450038,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 460038,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 470048,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 480038,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 490019,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 500039,"uiDrops": 0,"cpuMillis": 169,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 510046,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 520035,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 530025,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 540015,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 550015,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 560015,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 570025,"uiDrops": 0,"cpuMillis": 172,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 580024,"uiDrops": 0,"cpuMillis": 169,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 590019,"uiDrops": 0,"cpuMillis": 169,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 600009,"uiDrops": 0,"cpuMillis": 170,"memMb": 165.75,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ]
+    },
+    {
+      "label": "tier-sweep-medium",
+      "startUTC": "2026-09-10T23:59:55Z",
+      "endUTC": "2026-09-11T00:09:55Z",
+      "workers": 50,
+      "representedPods": 500,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "50m",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metric coverage complete; worker placement not controlled as in later comparison.",
+      "provenance": {
+        "perfshark": {
+          "revision": "c9fe96c805a9c21a508d31aba90ec2e3f874ecdf",
+          "modified": true,
+          "buildTime": "2026-09-10T23:15:01Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": false
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": false
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 50,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-medium",
+          "sha256": "8e908ef948e81d1bbbae5e9e9dc3425c14169489b2dab5c257550d7ce7f10e51"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 2998258,
+        "deliveredEntriesPerSecond": 4997.096666666666,
+        "measuredUIDrops": 0
+      },
+      "summary": {
+        "avgCpuMillis": 829,
+        "maxCpuMillis": 853,
+        "avgMemoryMb": 211.08,
+        "maxMemoryMb": 211.88,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 1001,"uiDrops": 0,"cpuMillis": 828,"memMb": 210.18,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 50581,"uiDrops": 0,"cpuMillis": 821,"memMb": 210.18,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 100537,"uiDrops": 0,"cpuMillis": 853,"memMb": 210.31,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 150515,"uiDrops": 0,"cpuMillis": 851,"memMb": 210.31,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 200484,"uiDrops": 0,"cpuMillis": 826,"memMb": 210.31,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 250519,"uiDrops": 0,"cpuMillis": 840,"memMb": 205.76,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 300529,"uiDrops": 0,"cpuMillis": 823,"memMb": 208.63,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 350436,"uiDrops": 0,"cpuMillis": 816,"memMb": 209.26,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 400423,"uiDrops": 0,"cpuMillis": 835,"memMb": 209.94,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 450372,"uiDrops": 0,"cpuMillis": 833,"memMb": 209.94,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 500334,"uiDrops": 0,"cpuMillis": 823,"memMb": 209.94,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 550303,"uiDrops": 0,"cpuMillis": 846,"memMb": 209.94,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 600281,"uiDrops": 0,"cpuMillis": 840,"memMb": 209.94,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 650272,"uiDrops": 0,"cpuMillis": 821,"memMb": 209.94,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 700233,"uiDrops": 0,"cpuMillis": 841,"memMb": 210.07,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 750209,"uiDrops": 0,"cpuMillis": 831,"memMb": 210.07,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 800192,"uiDrops": 0,"cpuMillis": 838,"memMb": 210.19,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 850159,"uiDrops": 0,"cpuMillis": 846,"memMb": 210.19,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 900131,"uiDrops": 0,"cpuMillis": 841,"memMb": 210.82,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 950137,"uiDrops": 0,"cpuMillis": 828,"memMb": 210.82,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 1000062,"uiDrops": 0,"cpuMillis": 837,"memMb": 211.07,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 1050110,"uiDrops": 0,"cpuMillis": 837,"memMb": 211.07,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 1100061,"uiDrops": 0,"cpuMillis": 828,"memMb": 211.07,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 1150079,"uiDrops": 0,"cpuMillis": 841,"memMb": 211.07,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 1199994,"uiDrops": 0,"cpuMillis": 831,"memMb": 211.07,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 1249972,"uiDrops": 0,"cpuMillis": 823,"memMb": 211.07,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 1299943,"uiDrops": 0,"cpuMillis": 842,"memMb": 211.07,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 1349930,"uiDrops": 0,"cpuMillis": 830,"memMb": 211.07,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 1399926,"uiDrops": 0,"cpuMillis": 826,"memMb": 211.25,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 1449885,"uiDrops": 0,"cpuMillis": 842,"memMb": 211.25,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 1499938,"uiDrops": 0,"cpuMillis": 831,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 1549893,"uiDrops": 0,"cpuMillis": 816,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 1600128,"uiDrops": 0,"cpuMillis": 832,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 1649909,"uiDrops": 0,"cpuMillis": 837,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 1699792,"uiDrops": 0,"cpuMillis": 828,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 1749782,"uiDrops": 0,"cpuMillis": 840,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 1799801,"uiDrops": 0,"cpuMillis": 831,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 1849764,"uiDrops": 0,"cpuMillis": 820,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 1899724,"uiDrops": 0,"cpuMillis": 832,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 1949715,"uiDrops": 0,"cpuMillis": 826,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 1999719,"uiDrops": 0,"cpuMillis": 824,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 2049661,"uiDrops": 0,"cpuMillis": 828,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 2099631,"uiDrops": 0,"cpuMillis": 820,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 2149615,"uiDrops": 0,"cpuMillis": 806,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 2199601,"uiDrops": 0,"cpuMillis": 823,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 2249623,"uiDrops": 0,"cpuMillis": 822,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 2299587,"uiDrops": 0,"cpuMillis": 818,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 2349603,"uiDrops": 0,"cpuMillis": 831,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 2399513,"uiDrops": 0,"cpuMillis": 823,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 2449605,"uiDrops": 0,"cpuMillis": 816,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 2499470,"uiDrops": 0,"cpuMillis": 833,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 2549444,"uiDrops": 0,"cpuMillis": 820,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 2599427,"uiDrops": 0,"cpuMillis": 811,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 2649427,"uiDrops": 0,"cpuMillis": 826,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 2699437,"uiDrops": 0,"cpuMillis": 828,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 2749365,"uiDrops": 0,"cpuMillis": 816,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 2799347,"uiDrops": 0,"cpuMillis": 826,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 2849288,"uiDrops": 0,"cpuMillis": 822,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 2899293,"uiDrops": 0,"cpuMillis": 815,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 2949274,"uiDrops": 0,"cpuMillis": 826,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 2999259,"uiDrops": 0,"cpuMillis": 826,"memMb": 211.88,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ]
+    },
+    {
+      "label": "tier-sweep-large",
+      "startUTC": "2026-09-11T00:13:51Z",
+      "endUTC": "2026-09-11T00:23:51Z",
+      "workers": 100,
+      "representedPods": 1000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "50m",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metric coverage complete; worker placement not controlled as in later comparison.",
+      "provenance": {
+        "perfshark": {
+          "revision": "c9fe96c805a9c21a508d31aba90ec2e3f874ecdf",
+          "modified": true,
+          "buildTime": "2026-09-10T23:15:01Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": false
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": false
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 100,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-large",
+          "sha256": "a0db612380d1bc0913a455d5916a3842078262840aaadb9b5ba2b165dc8903c0"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 5995757,
+        "deliveredEntriesPerSecond": 9992.928333333333,
+        "measuredUIDrops": 0
+      },
+      "summary": {
+        "avgCpuMillis": 1287,
+        "maxCpuMillis": 1307,
+        "avgMemoryMb": 273.97,
+        "maxMemoryMb": 275.41,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 1789,"uiDrops": 0,"cpuMillis": 1282,"memMb": 272.79,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 101153,"uiDrops": 0,"cpuMillis": 1284,"memMb": 272.91,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 201040,"uiDrops": 0,"cpuMillis": 1286,"memMb": 272.91,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 300968,"uiDrops": 0,"cpuMillis": 1286,"memMb": 272.91,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 400934,"uiDrops": 0,"cpuMillis": 1282,"memMb": 271.79,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 500845,"uiDrops": 0,"cpuMillis": 1291,"memMb": 271.79,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 600799,"uiDrops": 0,"cpuMillis": 1285,"memMb": 272.54,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 700699,"uiDrops": 0,"cpuMillis": 1282,"memMb": 272.54,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 800680,"uiDrops": 0,"cpuMillis": 1296,"memMb": 272.66,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 900609,"uiDrops": 0,"cpuMillis": 1294,"memMb": 272.66,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 1000545,"uiDrops": 0,"cpuMillis": 1277,"memMb": 272.79,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 1100416,"uiDrops": 0,"cpuMillis": 1292,"memMb": 272.79,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 1200384,"uiDrops": 0,"cpuMillis": 1288,"memMb": 272.79,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 1300312,"uiDrops": 0,"cpuMillis": 1292,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 1400235,"uiDrops": 0,"cpuMillis": 1282,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 1500189,"uiDrops": 0,"cpuMillis": 1287,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 1600171,"uiDrops": 0,"cpuMillis": 1281,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 1700091,"uiDrops": 0,"cpuMillis": 1291,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 1800020,"uiDrops": 0,"cpuMillis": 1287,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 1899933,"uiDrops": 0,"cpuMillis": 1280,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 1999833,"uiDrops": 0,"cpuMillis": 1290,"memMb": 273.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 2099740,"uiDrops": 0,"cpuMillis": 1289,"memMb": 273.54,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 2199745,"uiDrops": 0,"cpuMillis": 1281,"memMb": 273.54,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 2299690,"uiDrops": 0,"cpuMillis": 1274,"memMb": 273.54,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 2399746,"uiDrops": 0,"cpuMillis": 1282,"memMb": 273.54,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 2499614,"uiDrops": 0,"cpuMillis": 1284,"memMb": 273.54,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 2599833,"uiDrops": 0,"cpuMillis": 1284,"memMb": 273.54,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 2699477,"uiDrops": 0,"cpuMillis": 1292,"memMb": 273.54,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 2799406,"uiDrops": 0,"cpuMillis": 1278,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 2899305,"uiDrops": 0,"cpuMillis": 1291,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 2999291,"uiDrops": 0,"cpuMillis": 1282,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 3099262,"uiDrops": 0,"cpuMillis": 1282,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 3199187,"uiDrops": 0,"cpuMillis": 1281,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 3299093,"uiDrops": 0,"cpuMillis": 1288,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 3399060,"uiDrops": 0,"cpuMillis": 1288,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 3499119,"uiDrops": 0,"cpuMillis": 1291,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 3598979,"uiDrops": 0,"cpuMillis": 1281,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 3698951,"uiDrops": 0,"cpuMillis": 1287,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 3798843,"uiDrops": 0,"cpuMillis": 1282,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 3898822,"uiDrops": 0,"cpuMillis": 1292,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 3998694,"uiDrops": 0,"cpuMillis": 1291,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 4098642,"uiDrops": 0,"cpuMillis": 1301,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 4198572,"uiDrops": 0,"cpuMillis": 1292,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 4298709,"uiDrops": 0,"cpuMillis": 1279,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 4398417,"uiDrops": 0,"cpuMillis": 1284,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 4498370,"uiDrops": 0,"cpuMillis": 1282,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 4598296,"uiDrops": 0,"cpuMillis": 1297,"memMb": 275.29,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 4698338,"uiDrops": 0,"cpuMillis": 1294,"memMb": 275.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 4798161,"uiDrops": 0,"cpuMillis": 1307,"memMb": 275.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 4898190,"uiDrops": 0,"cpuMillis": 1295,"memMb": 275.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 4998115,"uiDrops": 0,"cpuMillis": 1288,"memMb": 275.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 5098572,"uiDrops": 0,"cpuMillis": 1285,"memMb": 275.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 5198010,"uiDrops": 0,"cpuMillis": 1285,"memMb": 275.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 5297961,"uiDrops": 0,"cpuMillis": 1287,"memMb": 275.41,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 5397898,"uiDrops": 0,"cpuMillis": 1284,"memMb": 274.13,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 5497862,"uiDrops": 0,"cpuMillis": 1292,"memMb": 274.13,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 5597763,"uiDrops": 0,"cpuMillis": 1296,"memMb": 274.13,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 5697712,"uiDrops": 0,"cpuMillis": 1285,"memMb": 274.13,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 5797724,"uiDrops": 0,"cpuMillis": 1295,"memMb": 266.95,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 5897664,"uiDrops": 0,"cpuMillis": 1302,"memMb": 271.2,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 5997546,"uiDrops": 0,"cpuMillis": 1292,"memMb": 272.91,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ]
+    },
+    {
+      "label": "tier-sweep-xl",
+      "startUTC": "2026-09-11T00:29:58Z",
+      "endUTC": "2026-09-11T00:39:59Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "50m",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metric coverage complete; worker placement not controlled as in later comparison.",
+      "provenance": {
+        "perfshark": {
+          "revision": "c9fe96c805a9c21a508d31aba90ec2e3f874ecdf",
+          "modified": true,
+          "buildTime": "2026-09-10T23:15:01Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": false
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": false
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "ff592cc62b4c60b5942b46d9a53e3f865765446db0dede254123908a6b763023"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 11746039,
+        "deliveredEntriesPerSecond": 19576.731666666667,
+        "measuredUIDrops": 236399
+      },
+      "summary": {
+        "avgCpuMillis": 2027,
+        "maxCpuMillis": 2059,
+        "avgMemoryMb": 426.03,
+        "maxMemoryMb": 475.9,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 4544,"uiDrops": 0,"cpuMillis": 2021,"memMb": 422.54,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 202143,"uiDrops": 0,"cpuMillis": 2036,"memMb": 420.15,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 403285,"uiDrops": 0,"cpuMillis": 2030,"memMb": 420.27,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 602822,"uiDrops": 0,"cpuMillis": 2041,"memMb": 410.68,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 805371,"uiDrops": 0,"cpuMillis": 2027,"memMb": 420.43,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 1002982,"uiDrops": 0,"cpuMillis": 2032,"memMb": 420.8,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1202135,"uiDrops": 0,"cpuMillis": 2055,"memMb": 419.12,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1402021,"uiDrops": 0,"cpuMillis": 2010,"memMb": 427.87,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1600949,"uiDrops": 0,"cpuMillis": 2035,"memMb": 422.55,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1801246,"uiDrops": 0,"cpuMillis": 2019,"memMb": 427.8,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 2002960,"uiDrops": 0,"cpuMillis": 2037,"memMb": 427.93,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2200861,"uiDrops": 0,"cpuMillis": 2041,"memMb": 424.33,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2401102,"uiDrops": 0,"cpuMillis": 2037,"memMb": 424.33,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2599287,"uiDrops": 0,"cpuMillis": 2042,"memMb": 414.63,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2774768,"uiDrops": 0,"cpuMillis": 2004,"memMb": 415,"bufUtil": 0.02197265625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 2899912,"uiDrops": 48279,"cpuMillis": 1934,"memMb": 460.25,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3095322,"uiDrops": 106102,"cpuMillis": 1984,"memMb": 474.13,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3293317,"uiDrops": 106102,"cpuMillis": 1980,"memMb": 432.29,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3492847,"uiDrops": 106102,"cpuMillis": 2038,"memMb": 414.78,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3692510,"uiDrops": 106102,"cpuMillis": 2028,"memMb": 422.78,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 3892504,"uiDrops": 106102,"cpuMillis": 2030,"memMb": 423.78,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4091694,"uiDrops": 106102,"cpuMillis": 2028,"memMb": 415.64,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4291722,"uiDrops": 106102,"cpuMillis": 2046,"memMb": 432.14,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4491644,"uiDrops": 106102,"cpuMillis": 2059,"memMb": 416.45,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4691938,"uiDrops": 106102,"cpuMillis": 2050,"memMb": 413.82,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 4891756,"uiDrops": 106102,"cpuMillis": 2021,"memMb": 416.95,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5091002,"uiDrops": 106102,"cpuMillis": 2028,"memMb": 416.95,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5288578,"uiDrops": 106102,"cpuMillis": 2028,"memMb": 418.2,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5490466,"uiDrops": 106102,"cpuMillis": 2030,"memMb": 423.07,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5690158,"uiDrops": 106102,"cpuMillis": 2016,"memMb": 420.6,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 5889910,"uiDrops": 106102,"cpuMillis": 2037,"memMb": 422.6,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6090463,"uiDrops": 106102,"cpuMillis": 2027,"memMb": 422.73,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6290821,"uiDrops": 106102,"cpuMillis": 2031,"memMb": 422.73,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6489323,"uiDrops": 106102,"cpuMillis": 2039,"memMb": 414.82,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6666926,"uiDrops": 106102,"cpuMillis": 2044,"memMb": 419.32,"bufUtil": 0.820068359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 6790962,"uiDrops": 161145,"cpuMillis": 1932,"memMb": 473.45,"bufUtil": 0.863037109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 6994343,"uiDrops": 200494,"cpuMillis": 2000,"memMb": 460.51,"bufUtil": 0.863037109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7193770,"uiDrops": 200494,"cpuMillis": 2054,"memMb": 417.39,"bufUtil": 0.863037109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7393700,"uiDrops": 200494,"cpuMillis": 2019,"memMb": 419.14,"bufUtil": 0.863037109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7577627,"uiDrops": 200494,"cpuMillis": 2024,"memMb": 412.71,"bufUtil": 0.863037109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 7769645,"uiDrops": 209886,"cpuMillis": 1894,"memMb": 449.07,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 7955632,"uiDrops": 220441,"cpuMillis": 2037,"memMb": 427.15,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8146605,"uiDrops": 236293,"cpuMillis": 2008,"memMb": 475.9,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8355993,"uiDrops": 236399,"cpuMillis": 2058,"memMb": 447.77,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8556069,"uiDrops": 236399,"cpuMillis": 2056,"memMb": 430.47,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 8755893,"uiDrops": 236399,"cpuMillis": 2049,"memMb": 429.22,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 8955603,"uiDrops": 236399,"cpuMillis": 2037,"memMb": 424.86,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9155381,"uiDrops": 236399,"cpuMillis": 2033,"memMb": 426.24,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9355355,"uiDrops": 236399,"cpuMillis": 2039,"memMb": 426.24,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9555078,"uiDrops": 236399,"cpuMillis": 2038,"memMb": 406.84,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 9754814,"uiDrops": 236399,"cpuMillis": 2030,"memMb": 417.21,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 9954765,"uiDrops": 236399,"cpuMillis": 2046,"memMb": 418.59,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10153710,"uiDrops": 236399,"cpuMillis": 2014,"memMb": 423.71,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10353748,"uiDrops": 236399,"cpuMillis": 2049,"memMb": 425.46,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10563783,"uiDrops": 236399,"cpuMillis": 2046,"memMb": 422.64,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 10753560,"uiDrops": 236399,"cpuMillis": 2049,"memMb": 422.77,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 10953275,"uiDrops": 236399,"cpuMillis": 2028,"memMb": 422.77,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11152935,"uiDrops": 236399,"cpuMillis": 2040,"memMb": 420.31,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11352566,"uiDrops": 236399,"cpuMillis": 2044,"memMb": 421.56,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11552461,"uiDrops": 236399,"cpuMillis": 2054,"memMb": 421.56,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 11750583,"uiDrops": 236399,"cpuMillis": 2049,"memMb": 421.56,"bufUtil": 0.981201171875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ]
+    },
+    {
+      "label": "controlled-xl-1",
+      "startUTC": "2026-09-11T14:19:16Z",
+      "endUTC": "2026-09-11T14:29:16Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "2",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metrics and CPU diagnostics complete; balanced 40 workers per node.",
+      "provenance": {
+        "perfshark": {
+          "revision": "704094cfd36393a3787ad7e994bb36cfb91e091f",
+          "modified": true,
+          "buildTime": "2026-09-11T13:45:05Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": true
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": true
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "ff592cc62b4c60b5942b46d9a53e3f865765446db0dede254123908a6b763023"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 11936293,
+        "deliveredEntriesPerSecond": 19893.821666666667,
+        "measuredUIDrops": 0
+      },
+      "summary": {
+        "avgCpuMillis": 2183,
+        "maxCpuMillis": 2231,
+        "avgMemoryMb": 400.46,
+        "maxMemoryMb": 410.33,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 3264,"uiDrops": 0,"cpuMillis": 2168,"memMb": 400.01,"bufUtil": 0.071533203125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 201557,"uiDrops": 0,"cpuMillis": 2196,"memMb": 401.01,"bufUtil": 0.071533203125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 399583,"uiDrops": 0,"cpuMillis": 2154,"memMb": 401.13,"bufUtil": 0.071533203125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 599267,"uiDrops": 0,"cpuMillis": 2189,"memMb": 403.38,"bufUtil": 0.071533203125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 797711,"uiDrops": 0,"cpuMillis": 2183,"memMb": 394.93,"bufUtil": 0.071533203125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 998623,"uiDrops": 0,"cpuMillis": 2183,"memMb": 399.3,"bufUtil": 0.1251220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1195631,"uiDrops": 0,"cpuMillis": 2194,"memMb": 402.55,"bufUtil": 0.1251220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1394096,"uiDrops": 0,"cpuMillis": 2181,"memMb": 399.73,"bufUtil": 0.1251220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1596451,"uiDrops": 0,"cpuMillis": 2180,"memMb": 399.73,"bufUtil": 0.1251220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1792482,"uiDrops": 0,"cpuMillis": 2174,"memMb": 399.73,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 1991660,"uiDrops": 0,"cpuMillis": 2186,"memMb": 393.82,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2190787,"uiDrops": 0,"cpuMillis": 2193,"memMb": 405.44,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2390771,"uiDrops": 0,"cpuMillis": 2173,"memMb": 401.71,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2588621,"uiDrops": 0,"cpuMillis": 2179,"memMb": 398.58,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2787649,"uiDrops": 0,"cpuMillis": 2170,"memMb": 402.95,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 2986716,"uiDrops": 0,"cpuMillis": 2177,"memMb": 402.95,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3185453,"uiDrops": 0,"cpuMillis": 2184,"memMb": 400.36,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3385495,"uiDrops": 0,"cpuMillis": 2187,"memMb": 400.61,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3583059,"uiDrops": 0,"cpuMillis": 2180,"memMb": 400.61,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3782385,"uiDrops": 0,"cpuMillis": 2200,"memMb": 402.48,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 3980935,"uiDrops": 0,"cpuMillis": 2191,"memMb": 402.61,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4179140,"uiDrops": 0,"cpuMillis": 2191,"memMb": 404.11,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4378649,"uiDrops": 0,"cpuMillis": 2190,"memMb": 402.01,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4579659,"uiDrops": 0,"cpuMillis": 2183,"memMb": 393.5,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4776757,"uiDrops": 0,"cpuMillis": 2169,"memMb": 394.73,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 4976035,"uiDrops": 0,"cpuMillis": 2197,"memMb": 394.02,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5177653,"uiDrops": 0,"cpuMillis": 2188,"memMb": 394.64,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5377969,"uiDrops": 0,"cpuMillis": 2182,"memMb": 397.27,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5572949,"uiDrops": 0,"cpuMillis": 2157,"memMb": 401.14,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5770692,"uiDrops": 0,"cpuMillis": 2207,"memMb": 385.59,"bufUtil": 0.2352294921875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 5970549,"uiDrops": 0,"cpuMillis": 2169,"memMb": 398.73,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6169525,"uiDrops": 0,"cpuMillis": 2205,"memMb": 397.39,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6368621,"uiDrops": 0,"cpuMillis": 2184,"memMb": 394.28,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6567707,"uiDrops": 0,"cpuMillis": 2170,"memMb": 400.41,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6766863,"uiDrops": 0,"cpuMillis": 2193,"memMb": 401.28,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 6970369,"uiDrops": 0,"cpuMillis": 2194,"memMb": 401.28,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 7164665,"uiDrops": 0,"cpuMillis": 2148,"memMb": 406.78,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7363199,"uiDrops": 0,"cpuMillis": 2169,"memMb": 397.06,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7563438,"uiDrops": 0,"cpuMillis": 2173,"memMb": 397.06,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7761832,"uiDrops": 0,"cpuMillis": 2182,"memMb": 398.05,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 7960415,"uiDrops": 0,"cpuMillis": 2171,"memMb": 399.43,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 8161224,"uiDrops": 0,"cpuMillis": 2194,"memMb": 399.8,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8358731,"uiDrops": 0,"cpuMillis": 2171,"memMb": 401.55,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8557692,"uiDrops": 0,"cpuMillis": 2200,"memMb": 401.93,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8757610,"uiDrops": 0,"cpuMillis": 2194,"memMb": 401.93,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 8955557,"uiDrops": 0,"cpuMillis": 2177,"memMb": 401.93,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 9154505,"uiDrops": 0,"cpuMillis": 2180,"memMb": 406.05,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9353119,"uiDrops": 0,"cpuMillis": 2231,"memMb": 391.75,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9552000,"uiDrops": 0,"cpuMillis": 2174,"memMb": 410.33,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9750985,"uiDrops": 0,"cpuMillis": 2191,"memMb": 396.65,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 9949591,"uiDrops": 0,"cpuMillis": 2202,"memMb": 402.77,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 10148419,"uiDrops": 0,"cpuMillis": 2179,"memMb": 400.65,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10347220,"uiDrops": 0,"cpuMillis": 2193,"memMb": 404.15,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10546235,"uiDrops": 0,"cpuMillis": 2187,"memMb": 404.15,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10745471,"uiDrops": 0,"cpuMillis": 2166,"memMb": 404.27,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 10956162,"uiDrops": 0,"cpuMillis": 2204,"memMb": 397.43,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 11143369,"uiDrops": 0,"cpuMillis": 2198,"memMb": 404.79,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11342549,"uiDrops": 0,"cpuMillis": 2184,"memMb": 404.91,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11541660,"uiDrops": 0,"cpuMillis": 2186,"memMb": 405.54,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11743555,"uiDrops": 0,"cpuMillis": 2196,"memMb": 407.41,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 11939557,"uiDrops": 0,"cpuMillis": 2171,"memMb": 407.41,"bufUtil": 0.239013671875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ],
+      "cpuDiagnostics": {
+        "cpuSeconds": 600.0,
+        "cpuSamples": 595,
+        "measuredCores": 2.1847348233333332,
+        "threadWait": 1.5833123382266665,
+        "pressureSome": 0.34098054166666664,
+        "pressureFull": 0.11542644,
+        "quotaThrottles": 0,
+        "cpuWeight": [
+          "174"
+        ],
+        "cpuMax": [
+          "max 100000"
+        ],
+        "threadWaitUnits": "aggregate thread seconds waiting per wall second",
+        "pressureUnits": "fraction of observed wall time"
+      }
+    },
+    {
+      "label": "controlled-xl-2",
+      "startUTC": "2026-09-11T14:32:54Z",
+      "endUTC": "2026-09-11T14:42:54Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "50m",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metrics and CPU diagnostics complete; balanced 40 workers per node.",
+      "provenance": {
+        "perfshark": {
+          "revision": "704094cfd36393a3787ad7e994bb36cfb91e091f",
+          "modified": true,
+          "buildTime": "2026-09-11T13:45:05Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": true
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": true
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "ff592cc62b4c60b5942b46d9a53e3f865765446db0dede254123908a6b763023"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 11978673,
+        "deliveredEntriesPerSecond": 19964.455,
+        "measuredUIDrops": 3092
+      },
+      "summary": {
+        "avgCpuMillis": 2088,
+        "maxCpuMillis": 2117,
+        "avgMemoryMb": 395.38,
+        "maxMemoryMb": 418.63,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 3648,"uiDrops": 0,"cpuMillis": 2090,"memMb": 395.61,"bufUtil": 0.400146484375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 199772,"uiDrops": 0,"cpuMillis": 2098,"memMb": 392.67,"bufUtil": 0.400146484375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 397537,"uiDrops": 0,"cpuMillis": 2107,"memMb": 409.05,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 600910,"uiDrops": 0,"cpuMillis": 2079,"memMb": 400.63,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 791699,"uiDrops": 0,"cpuMillis": 2080,"memMb": 400.75,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 997635,"uiDrops": 2826,"cpuMillis": 2039,"memMb": 403.33,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1198166,"uiDrops": 2826,"cpuMillis": 2099,"memMb": 402.95,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1396691,"uiDrops": 2826,"cpuMillis": 2092,"memMb": 401.02,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1597078,"uiDrops": 2826,"cpuMillis": 2100,"memMb": 398.93,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1796720,"uiDrops": 2826,"cpuMillis": 2093,"memMb": 398.93,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 1995075,"uiDrops": 2826,"cpuMillis": 2088,"memMb": 399.93,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2195836,"uiDrops": 2826,"cpuMillis": 2110,"memMb": 399.53,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2391456,"uiDrops": 2826,"cpuMillis": 2107,"memMb": 399.53,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2595280,"uiDrops": 2826,"cpuMillis": 2083,"memMb": 412.87,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2795004,"uiDrops": 2826,"cpuMillis": 2114,"memMb": 393.98,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 2992982,"uiDrops": 2826,"cpuMillis": 2102,"memMb": 395.48,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3191615,"uiDrops": 2826,"cpuMillis": 2087,"memMb": 418.63,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3394145,"uiDrops": 2826,"cpuMillis": 2082,"memMb": 394.45,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3593397,"uiDrops": 2826,"cpuMillis": 2086,"memMb": 397.08,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3792657,"uiDrops": 2826,"cpuMillis": 2091,"memMb": 394.16,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 3993669,"uiDrops": 2826,"cpuMillis": 2104,"memMb": 394.79,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4193343,"uiDrops": 2826,"cpuMillis": 2085,"memMb": 393.29,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4392903,"uiDrops": 2826,"cpuMillis": 2074,"memMb": 393.29,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4591722,"uiDrops": 2826,"cpuMillis": 2108,"memMb": 394.16,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4792556,"uiDrops": 2826,"cpuMillis": 2094,"memMb": 389.16,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 4992375,"uiDrops": 2826,"cpuMillis": 2077,"memMb": 389.91,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5191752,"uiDrops": 2826,"cpuMillis": 2103,"memMb": 391.03,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5391726,"uiDrops": 2826,"cpuMillis": 2107,"memMb": 392.03,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5591443,"uiDrops": 2826,"cpuMillis": 2084,"memMb": 396.66,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5791187,"uiDrops": 2826,"cpuMillis": 2096,"memMb": 391.77,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 5990817,"uiDrops": 2826,"cpuMillis": 2092,"memMb": 391.77,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6189608,"uiDrops": 2826,"cpuMillis": 2080,"memMb": 392.71,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6390270,"uiDrops": 2826,"cpuMillis": 2117,"memMb": 394.09,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6590074,"uiDrops": 2826,"cpuMillis": 2084,"memMb": 389.68,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6789378,"uiDrops": 2826,"cpuMillis": 2090,"memMb": 390.68,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 6989340,"uiDrops": 2826,"cpuMillis": 2100,"memMb": 391.81,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 7188222,"uiDrops": 2826,"cpuMillis": 2102,"memMb": 392.81,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7388844,"uiDrops": 2826,"cpuMillis": 2077,"memMb": 393.81,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7588615,"uiDrops": 2826,"cpuMillis": 2088,"memMb": 394.89,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7788322,"uiDrops": 2826,"cpuMillis": 2106,"memMb": 394.89,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 7988029,"uiDrops": 2826,"cpuMillis": 2090,"memMb": 396.14,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 8187821,"uiDrops": 2826,"cpuMillis": 2117,"memMb": 388.16,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8384465,"uiDrops": 2826,"cpuMillis": 2089,"memMb": 388.16,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8587281,"uiDrops": 2826,"cpuMillis": 2076,"memMb": 389.66,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8787088,"uiDrops": 2826,"cpuMillis": 2081,"memMb": 395.91,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 8985758,"uiDrops": 2826,"cpuMillis": 2092,"memMb": 395.91,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 9185905,"uiDrops": 3092,"cpuMillis": 2073,"memMb": 395.91,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9385845,"uiDrops": 3092,"cpuMillis": 2077,"memMb": 392.9,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9585604,"uiDrops": 3092,"cpuMillis": 2094,"memMb": 391.98,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9785195,"uiDrops": 3092,"cpuMillis": 2068,"memMb": 393.48,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 9984953,"uiDrops": 3092,"cpuMillis": 2096,"memMb": 387.95,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 10184715,"uiDrops": 3092,"cpuMillis": 2074,"memMb": 391.45,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10384170,"uiDrops": 3092,"cpuMillis": 2086,"memMb": 396.7,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10583589,"uiDrops": 3092,"cpuMillis": 2097,"memMb": 394.05,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10783814,"uiDrops": 3092,"cpuMillis": 2097,"memMb": 394.17,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 10983471,"uiDrops": 3092,"cpuMillis": 2090,"memMb": 395.05,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 11183294,"uiDrops": 3092,"cpuMillis": 2098,"memMb": 392.75,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11383073,"uiDrops": 3092,"cpuMillis": 2084,"memMb": 392.75,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11582634,"uiDrops": 3092,"cpuMillis": 2039,"memMb": 392.75,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11782291,"uiDrops": 3092,"cpuMillis": 2042,"memMb": 395.12,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 11982321,"uiDrops": 3092,"cpuMillis": 2058,"memMb": 394.66,"bufUtil": 0.7542724609375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ],
+      "cpuDiagnostics": {
+        "cpuSeconds": 600.0,
+        "cpuSamples": 588,
+        "measuredCores": 2.095390215,
+        "threadWait": 2.296492677736667,
+        "pressureSome": 0.44085782000000007,
+        "pressureFull": 0.36017715333333333,
+        "quotaThrottles": 0,
+        "cpuWeight": [
+          "11"
+        ],
+        "cpuMax": [
+          "max 100000"
+        ],
+        "threadWaitUnits": "aggregate thread seconds waiting per wall second",
+        "pressureUnits": "fraction of observed wall time"
+      }
+    },
+    {
+      "label": "controlled-xl-3",
+      "startUTC": "2026-09-11T14:46:24Z",
+      "endUTC": "2026-09-11T14:56:24Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "50m",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metrics and CPU diagnostics complete; balanced 40 workers per node.",
+      "provenance": {
+        "perfshark": {
+          "revision": "704094cfd36393a3787ad7e994bb36cfb91e091f",
+          "modified": true,
+          "buildTime": "2026-09-11T13:45:05Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": true
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": true
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "ff592cc62b4c60b5942b46d9a53e3f865765446db0dede254123908a6b763023"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 11977406,
+        "deliveredEntriesPerSecond": 19962.343333333334,
+        "measuredUIDrops": 7071
+      },
+      "summary": {
+        "avgCpuMillis": 2104,
+        "maxCpuMillis": 2134,
+        "avgMemoryMb": 437.51,
+        "maxMemoryMb": 468.51,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 5120,"uiDrops": 30361,"cpuMillis": 2088,"memMb": 443.15,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 206599,"uiDrops": 30361,"cpuMillis": 2103,"memMb": 441.88,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 401451,"uiDrops": 30361,"cpuMillis": 2110,"memMb": 440.32,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 603973,"uiDrops": 30361,"cpuMillis": 2107,"memMb": 450.45,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 805227,"uiDrops": 30361,"cpuMillis": 2099,"memMb": 443.92,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 1005779,"uiDrops": 30361,"cpuMillis": 2134,"memMb": 443.92,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1204929,"uiDrops": 30361,"cpuMillis": 2101,"memMb": 437.13,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1402612,"uiDrops": 30361,"cpuMillis": 2114,"memMb": 437.13,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1593790,"uiDrops": 35934,"cpuMillis": 2123,"memMb": 468.51,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1798413,"uiDrops": 35934,"cpuMillis": 2035,"memMb": 446.44,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 1998692,"uiDrops": 35934,"cpuMillis": 2119,"memMb": 451.56,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2196346,"uiDrops": 35934,"cpuMillis": 2112,"memMb": 435.33,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2394449,"uiDrops": 35934,"cpuMillis": 2110,"memMb": 432.34,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2597959,"uiDrops": 35934,"cpuMillis": 2117,"memMb": 435.97,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2797546,"uiDrops": 35934,"cpuMillis": 2110,"memMb": 437.22,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 2997115,"uiDrops": 35934,"cpuMillis": 2110,"memMb": 437.47,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3196982,"uiDrops": 35934,"cpuMillis": 2109,"memMb": 441,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3396328,"uiDrops": 35934,"cpuMillis": 2122,"memMb": 441,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3593599,"uiDrops": 35934,"cpuMillis": 2117,"memMb": 436.75,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3795460,"uiDrops": 35934,"cpuMillis": 2109,"memMb": 438.13,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 3994955,"uiDrops": 35934,"cpuMillis": 2125,"memMb": 438.75,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4195441,"uiDrops": 35934,"cpuMillis": 2100,"memMb": 435.34,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4394340,"uiDrops": 35934,"cpuMillis": 2107,"memMb": 436.47,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4594863,"uiDrops": 35934,"cpuMillis": 2109,"memMb": 437.34,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4794559,"uiDrops": 35934,"cpuMillis": 2100,"memMb": 437.59,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 4990042,"uiDrops": 37432,"cpuMillis": 2114,"memMb": 434.69,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5192521,"uiDrops": 37432,"cpuMillis": 2087,"memMb": 446.02,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5392303,"uiDrops": 37432,"cpuMillis": 2105,"memMb": 441.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5591970,"uiDrops": 37432,"cpuMillis": 2100,"memMb": 444.05,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5790511,"uiDrops": 37432,"cpuMillis": 2111,"memMb": 439.19,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 5990397,"uiDrops": 37432,"cpuMillis": 2103,"memMb": 432.86,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6191064,"uiDrops": 37432,"cpuMillis": 2107,"memMb": 435.36,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6390606,"uiDrops": 37432,"cpuMillis": 2109,"memMb": 435.36,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6590404,"uiDrops": 37432,"cpuMillis": 2118,"memMb": 438.61,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6790120,"uiDrops": 37432,"cpuMillis": 2101,"memMb": 433.1,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 6989565,"uiDrops": 37432,"cpuMillis": 2113,"memMb": 433.1,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 7189445,"uiDrops": 37432,"cpuMillis": 2103,"memMb": 433.1,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7386217,"uiDrops": 37432,"cpuMillis": 2092,"memMb": 433.6,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7588749,"uiDrops": 37432,"cpuMillis": 2107,"memMb": 435.23,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7785830,"uiDrops": 37432,"cpuMillis": 2097,"memMb": 429.52,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 7984633,"uiDrops": 37432,"cpuMillis": 2118,"memMb": 441.15,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 8187880,"uiDrops": 37432,"cpuMillis": 2132,"memMb": 437.63,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8387693,"uiDrops": 37432,"cpuMillis": 2085,"memMb": 431.1,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8587341,"uiDrops": 37432,"cpuMillis": 2096,"memMb": 431.16,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8787068,"uiDrops": 37432,"cpuMillis": 2106,"memMb": 433.41,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 8984768,"uiDrops": 37432,"cpuMillis": 2091,"memMb": 432.33,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 9186421,"uiDrops": 37432,"cpuMillis": 2105,"memMb": 435.58,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9386242,"uiDrops": 37432,"cpuMillis": 2109,"memMb": 430.55,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9585966,"uiDrops": 37432,"cpuMillis": 2106,"memMb": 433.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9784611,"uiDrops": 37432,"cpuMillis": 2110,"memMb": 433.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 9985299,"uiDrops": 37432,"cpuMillis": 2091,"memMb": 433.93,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 10181292,"uiDrops": 37432,"cpuMillis": 2100,"memMb": 434.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10384838,"uiDrops": 37432,"cpuMillis": 2100,"memMb": 434.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10582354,"uiDrops": 37432,"cpuMillis": 2096,"memMb": 434.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10782031,"uiDrops": 37432,"cpuMillis": 2091,"memMb": 434.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 10983666,"uiDrops": 37432,"cpuMillis": 2098,"memMb": 434.93,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 11183288,"uiDrops": 37432,"cpuMillis": 2082,"memMb": 436.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11383413,"uiDrops": 37432,"cpuMillis": 2099,"memMb": 432.82,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11583162,"uiDrops": 37432,"cpuMillis": 2093,"memMb": 437.82,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11783141,"uiDrops": 37432,"cpuMillis": 2105,"memMb": 429.68,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 11982526,"uiDrops": 37432,"cpuMillis": 2086,"memMb": 432.43,"bufUtil": 0.9859619140625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ],
+      "cpuDiagnostics": {
+        "cpuSeconds": 600.0,
+        "cpuSamples": 588,
+        "measuredCores": 2.11123694,
+        "threadWait": 2.2511083281933333,
+        "pressureSome": 0.43006532000000003,
+        "pressureFull": 0.3553259583333333,
+        "quotaThrottles": 0,
+        "cpuWeight": [
+          "11"
+        ],
+        "cpuMax": [
+          "max 100000"
+        ],
+        "threadWaitUnits": "aggregate thread seconds waiting per wall second",
+        "pressureUnits": "fraction of observed wall time"
+      }
+    },
+    {
+      "label": "controlled-xl-4",
+      "startUTC": "2026-09-11T15:00:06Z",
+      "endUTC": "2026-09-11T15:10:06Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "2",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metrics and CPU diagnostics complete; balanced 40 workers per node.",
+      "provenance": {
+        "perfshark": {
+          "revision": "704094cfd36393a3787ad7e994bb36cfb91e091f",
+          "modified": true,
+          "buildTime": "2026-09-11T13:45:05Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": true
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": true
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "ff592cc62b4c60b5942b46d9a53e3f865765446db0dede254123908a6b763023"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 11936704,
+        "deliveredEntriesPerSecond": 19894.506666666668,
+        "measuredUIDrops": 0
+      },
+      "summary": {
+        "avgCpuMillis": 2152,
+        "maxCpuMillis": 2186,
+        "avgMemoryMb": 406.94,
+        "maxMemoryMb": 410.41,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 4160,"uiDrops": 0,"cpuMillis": 2166,"memMb": 404.31,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 201238,"uiDrops": 0,"cpuMillis": 2159,"memMb": 405.19,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 400001,"uiDrops": 0,"cpuMillis": 2155,"memMb": 406.19,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 598651,"uiDrops": 0,"cpuMillis": 2170,"memMb": 406.69,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 797516,"uiDrops": 0,"cpuMillis": 2149,"memMb": 406.69,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 996195,"uiDrops": 0,"cpuMillis": 2183,"memMb": 405.04,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1195237,"uiDrops": 0,"cpuMillis": 2170,"memMb": 405.04,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1394041,"uiDrops": 0,"cpuMillis": 2155,"memMb": 406.04,"bufUtil": 0.00048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1592785,"uiDrops": 0,"cpuMillis": 2165,"memMb": 406.04,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1791880,"uiDrops": 0,"cpuMillis": 2151,"memMb": 406.41,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 1990301,"uiDrops": 0,"cpuMillis": 2155,"memMb": 406.54,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2189229,"uiDrops": 0,"cpuMillis": 2114,"memMb": 406.54,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2388325,"uiDrops": 0,"cpuMillis": 2147,"memMb": 401.47,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2586246,"uiDrops": 0,"cpuMillis": 2162,"memMb": 403.47,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2786198,"uiDrops": 0,"cpuMillis": 2161,"memMb": 404.42,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 2985162,"uiDrops": 0,"cpuMillis": 2149,"memMb": 405.42,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3184222,"uiDrops": 0,"cpuMillis": 2143,"memMb": 405.92,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3382856,"uiDrops": 0,"cpuMillis": 2171,"memMb": 406.04,"bufUtil": 0.003662109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3582186,"uiDrops": 0,"cpuMillis": 2159,"memMb": 408.04,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3781010,"uiDrops": 0,"cpuMillis": 2158,"memMb": 408.04,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 3980181,"uiDrops": 0,"cpuMillis": 2174,"memMb": 408.29,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4179262,"uiDrops": 0,"cpuMillis": 2147,"memMb": 408.29,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4378494,"uiDrops": 0,"cpuMillis": 2154,"memMb": 408.29,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4577406,"uiDrops": 0,"cpuMillis": 2150,"memMb": 408.29,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4776462,"uiDrops": 0,"cpuMillis": 2142,"memMb": 408.29,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 4975625,"uiDrops": 0,"cpuMillis": 2186,"memMb": 408.42,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5174596,"uiDrops": 0,"cpuMillis": 2135,"memMb": 408.42,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5373651,"uiDrops": 0,"cpuMillis": 2134,"memMb": 408.42,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5572677,"uiDrops": 0,"cpuMillis": 2155,"memMb": 403.66,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5771892,"uiDrops": 0,"cpuMillis": 2150,"memMb": 406.03,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 5970685,"uiDrops": 0,"cpuMillis": 2147,"memMb": 406.66,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6169570,"uiDrops": 0,"cpuMillis": 2155,"memMb": 407.41,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6368667,"uiDrops": 0,"cpuMillis": 2143,"memMb": 407.41,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6567321,"uiDrops": 0,"cpuMillis": 2149,"memMb": 407.41,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6766186,"uiDrops": 0,"cpuMillis": 2124,"memMb": 407.41,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 6965197,"uiDrops": 0,"cpuMillis": 2127,"memMb": 407.41,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 7164225,"uiDrops": 0,"cpuMillis": 2122,"memMb": 407.41,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7363469,"uiDrops": 0,"cpuMillis": 2139,"memMb": 407.41,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7562367,"uiDrops": 0,"cpuMillis": 2142,"memMb": 408.66,"bufUtil": 0.005859375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7761376,"uiDrops": 0,"cpuMillis": 2119,"memMb": 410.41,"bufUtil": 0.0096435546875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 7960391,"uiDrops": 0,"cpuMillis": 2147,"memMb": 410.41,"bufUtil": 0.0096435546875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 8159405,"uiDrops": 0,"cpuMillis": 2137,"memMb": 407.71,"bufUtil": 0.0096435546875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8358323,"uiDrops": 0,"cpuMillis": 2173,"memMb": 408.59,"bufUtil": 0.0096435546875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8557446,"uiDrops": 0,"cpuMillis": 2148,"memMb": 408.59,"bufUtil": 0.0096435546875,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8756473,"uiDrops": 0,"cpuMillis": 2155,"memMb": 404.34,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 8955391,"uiDrops": 0,"cpuMillis": 2148,"memMb": 406.34,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 9154538,"uiDrops": 0,"cpuMillis": 2170,"memMb": 407.46,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9353545,"uiDrops": 0,"cpuMillis": 2160,"memMb": 409.84,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9552607,"uiDrops": 0,"cpuMillis": 2166,"memMb": 409.84,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9751603,"uiDrops": 0,"cpuMillis": 2179,"memMb": 409.84,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 9950613,"uiDrops": 0,"cpuMillis": 2138,"memMb": 409.84,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 10149651,"uiDrops": 0,"cpuMillis": 2145,"memMb": 407.95,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10348446,"uiDrops": 0,"cpuMillis": 2152,"memMb": 403.55,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10547654,"uiDrops": 0,"cpuMillis": 2165,"memMb": 404.8,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10746805,"uiDrops": 0,"cpuMillis": 2124,"memMb": 406,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 10945815,"uiDrops": 0,"cpuMillis": 2157,"memMb": 406.25,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 11144745,"uiDrops": 0,"cpuMillis": 2155,"memMb": 406.5,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11343874,"uiDrops": 0,"cpuMillis": 2154,"memMb": 408.5,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11542771,"uiDrops": 0,"cpuMillis": 2159,"memMb": 406,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11741951,"uiDrops": 0,"cpuMillis": 2169,"memMb": 408.63,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 11940864,"uiDrops": 0,"cpuMillis": 2142,"memMb": 404.79,"bufUtil": 0.0804443359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ],
+      "cpuDiagnostics": {
+        "cpuSeconds": 600.0,
+        "cpuSamples": 593,
+        "measuredCores": 2.1570276550000003,
+        "threadWait": 1.6196123772283333,
+        "pressureSome": 0.34172047666666666,
+        "pressureFull": 0.11404019666666668,
+        "quotaThrottles": 0,
+        "cpuWeight": [
+          "174"
+        ],
+        "cpuMax": [
+          "max 100000"
+        ],
+        "threadWaitUnits": "aggregate thread seconds waiting per wall second",
+        "pressureUnits": "fraction of observed wall time"
+      }
+    },
+    {
+      "label": "controlled-xl-5",
+      "startUTC": "2026-09-11T15:13:47Z",
+      "endUTC": "2026-09-11T15:23:47Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "2",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metrics and CPU diagnostics complete; balanced 40 workers per node.",
+      "provenance": {
+        "perfshark": {
+          "revision": "704094cfd36393a3787ad7e994bb36cfb91e091f",
+          "modified": true,
+          "buildTime": "2026-09-11T13:45:05Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": true
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": true
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "ff592cc62b4c60b5942b46d9a53e3f865765446db0dede254123908a6b763023"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 11942370,
+        "deliveredEntriesPerSecond": 19903.95,
+        "measuredUIDrops": 0
+      },
+      "summary": {
+        "avgCpuMillis": 2139,
+        "maxCpuMillis": 2171,
+        "avgMemoryMb": 399.57,
+        "maxMemoryMb": 402.33,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 3968,"uiDrops": 0,"cpuMillis": 2149,"memMb": 399.82,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 200985,"uiDrops": 0,"cpuMillis": 2159,"memMb": 400.69,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 399897,"uiDrops": 0,"cpuMillis": 2143,"memMb": 401.44,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 598947,"uiDrops": 0,"cpuMillis": 2133,"memMb": 401.57,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 798200,"uiDrops": 0,"cpuMillis": 2137,"memMb": 400.28,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 997081,"uiDrops": 0,"cpuMillis": 2128,"memMb": 401.4,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1196326,"uiDrops": 0,"cpuMillis": 2134,"memMb": 391.26,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1395668,"uiDrops": 0,"cpuMillis": 2148,"memMb": 395.13,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1594186,"uiDrops": 0,"cpuMillis": 2163,"memMb": 397.51,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1793292,"uiDrops": 0,"cpuMillis": 2152,"memMb": 400.26,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 1992546,"uiDrops": 0,"cpuMillis": 2160,"memMb": 398.06,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2190989,"uiDrops": 0,"cpuMillis": 2171,"memMb": 400.06,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2389917,"uiDrops": 0,"cpuMillis": 2143,"memMb": 400.06,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2588856,"uiDrops": 0,"cpuMillis": 2121,"memMb": 400.42,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2787909,"uiDrops": 0,"cpuMillis": 2163,"memMb": 400.42,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 2986970,"uiDrops": 0,"cpuMillis": 2149,"memMb": 400.67,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3185929,"uiDrops": 0,"cpuMillis": 2151,"memMb": 400.67,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3385146,"uiDrops": 0,"cpuMillis": 2165,"memMb": 396.35,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3584371,"uiDrops": 0,"cpuMillis": 2137,"memMb": 398.6,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3783638,"uiDrops": 0,"cpuMillis": 2143,"memMb": 399.1,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 3982946,"uiDrops": 0,"cpuMillis": 2152,"memMb": 400.1,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4181926,"uiDrops": 0,"cpuMillis": 2154,"memMb": 400.19,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4381269,"uiDrops": 0,"cpuMillis": 2157,"memMb": 400.19,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4579866,"uiDrops": 0,"cpuMillis": 2155,"memMb": 400.19,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4778827,"uiDrops": 0,"cpuMillis": 2142,"memMb": 387.4,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 4977858,"uiDrops": 0,"cpuMillis": 2161,"memMb": 396.77,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5176970,"uiDrops": 0,"cpuMillis": 2150,"memMb": 399.15,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5376270,"uiDrops": 0,"cpuMillis": 2143,"memMb": 401.02,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5575270,"uiDrops": 0,"cpuMillis": 2150,"memMb": 401.27,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5774241,"uiDrops": 0,"cpuMillis": 2162,"memMb": 401.27,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 5973552,"uiDrops": 0,"cpuMillis": 2152,"memMb": 399.34,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6172448,"uiDrops": 0,"cpuMillis": 2171,"memMb": 399.34,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6371584,"uiDrops": 0,"cpuMillis": 2157,"memMb": 400.34,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6570537,"uiDrops": 0,"cpuMillis": 2161,"memMb": 400.71,"bufUtil": 0.0059814453125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6769706,"uiDrops": 0,"cpuMillis": 2151,"memMb": 400.84,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 6968805,"uiDrops": 0,"cpuMillis": 2141,"memMb": 400.84,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 7167821,"uiDrops": 0,"cpuMillis": 2157,"memMb": 397.46,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7366930,"uiDrops": 0,"cpuMillis": 2118,"memMb": 399.08,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7566077,"uiDrops": 0,"cpuMillis": 2136,"memMb": 399.08,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7765096,"uiDrops": 0,"cpuMillis": 2112,"memMb": 402.33,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 7964562,"uiDrops": 0,"cpuMillis": 2121,"memMb": 401.45,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 8163310,"uiDrops": 0,"cpuMillis": 2126,"memMb": 396.95,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8362658,"uiDrops": 0,"cpuMillis": 2107,"memMb": 398.82,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8561671,"uiDrops": 0,"cpuMillis": 2124,"memMb": 398.95,"bufUtil": 0.010009765625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8760859,"uiDrops": 0,"cpuMillis": 2124,"memMb": 399.7,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 8960236,"uiDrops": 0,"cpuMillis": 2112,"memMb": 400.2,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 9159018,"uiDrops": 0,"cpuMillis": 2110,"memMb": 400.2,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9357883,"uiDrops": 0,"cpuMillis": 2078,"memMb": 400.2,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9557139,"uiDrops": 0,"cpuMillis": 2066,"memMb": 401.2,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9756166,"uiDrops": 0,"cpuMillis": 2102,"memMb": 397.8,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 9955395,"uiDrops": 0,"cpuMillis": 2112,"memMb": 398.8,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 10154434,"uiDrops": 0,"cpuMillis": 2114,"memMb": 400.92,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10353630,"uiDrops": 0,"cpuMillis": 2107,"memMb": 400.36,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10552650,"uiDrops": 0,"cpuMillis": 2129,"memMb": 400.36,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10751700,"uiDrops": 0,"cpuMillis": 2130,"memMb": 400.61,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 10950674,"uiDrops": 0,"cpuMillis": 2128,"memMb": 400.61,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 11149930,"uiDrops": 0,"cpuMillis": 2150,"memMb": 400.61,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11349033,"uiDrops": 0,"cpuMillis": 2152,"memMb": 400.98,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11548147,"uiDrops": 0,"cpuMillis": 2146,"memMb": 401.23,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11747185,"uiDrops": 0,"cpuMillis": 2157,"memMb": 401.23,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 11946338,"uiDrops": 0,"cpuMillis": 2154,"memMb": 401.73,"bufUtil": 0.0316162109375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ],
+      "cpuDiagnostics": {
+        "cpuSeconds": 600.0,
+        "cpuSamples": 593,
+        "measuredCores": 2.1439318433333336,
+        "threadWait": 1.7091639993183332,
+        "pressureSome": 0.3463494716666667,
+        "pressureFull": 0.1048736,
+        "quotaThrottles": 0,
+        "cpuWeight": [
+          "174"
+        ],
+        "cpuMax": [
+          "max 100000"
+        ],
+        "threadWaitUnits": "aggregate thread seconds waiting per wall second",
+        "pressureUnits": "fraction of observed wall time"
+      }
+    },
+    {
+      "label": "controlled-xl-6",
+      "startUTC": "2026-09-11T15:27:30Z",
+      "endUTC": "2026-09-11T15:37:30Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 100,
+      "hubCPURequest": "50m",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metrics and CPU diagnostics complete; balanced 40 workers per node.",
+      "provenance": {
+        "perfshark": {
+          "revision": "704094cfd36393a3787ad7e994bb36cfb91e091f",
+          "modified": true,
+          "buildTime": "2026-09-11T13:45:05Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": true
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": true
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "ff592cc62b4c60b5942b46d9a53e3f865765446db0dede254123908a6b763023"
+        }
+      },
+      "derived": {
+        "durationSeconds": 600,
+        "deliveredEntries": 11976652,
+        "deliveredEntriesPerSecond": 19961.086666666666,
+        "measuredUIDrops": 3625
+      },
+      "summary": {
+        "avgCpuMillis": 2081,
+        "maxCpuMillis": 2110,
+        "avgMemoryMb": 407.83,
+        "maxMemoryMb": 414.68,
+        "totalSamples": 61,
+        "memorySamples": 61
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 4396,"uiDrops": 0,"cpuMillis": 2069,"memMb": 404.65,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 202461,"uiDrops": 0,"cpuMillis": 2075,"memMb": 406.52,"bufUtil": 0.1182861328125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 401994,"uiDrops": 0,"cpuMillis": 2078,"memMb": 406.52,"bufUtil": 0.1182861328125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 602778,"uiDrops": 0,"cpuMillis": 2084,"memMb": 404.12,"bufUtil": 0.1182861328125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 801654,"uiDrops": 0,"cpuMillis": 2008,"memMb": 404.37,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 999790,"uiDrops": 0,"cpuMillis": 2049,"memMb": 404.55,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1200916,"uiDrops": 0,"cpuMillis": 2064,"memMb": 409.05,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1399873,"uiDrops": 0,"cpuMillis": 2040,"memMb": 407.38,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1600418,"uiDrops": 0,"cpuMillis": 2054,"memMb": 412.51,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1797614,"uiDrops": 0,"cpuMillis": 2064,"memMb": 412.51,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 1998731,"uiDrops": 0,"cpuMillis": 2069,"memMb": 412.51,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2199521,"uiDrops": 0,"cpuMillis": 2094,"memMb": 407.9,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2399273,"uiDrops": 0,"cpuMillis": 2076,"memMb": 403.37,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2599093,"uiDrops": 0,"cpuMillis": 2075,"memMb": 405.5,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2798240,"uiDrops": 0,"cpuMillis": 2084,"memMb": 406.5,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 2994388,"uiDrops": 3625,"cpuMillis": 2107,"memMb": 414.68,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3194413,"uiDrops": 3625,"cpuMillis": 2032,"memMb": 401.2,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3393080,"uiDrops": 3625,"cpuMillis": 2105,"memMb": 409.2,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3592366,"uiDrops": 3625,"cpuMillis": 2110,"memMb": 410.57,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3791472,"uiDrops": 3625,"cpuMillis": 2089,"memMb": 410.82,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 3993410,"uiDrops": 3625,"cpuMillis": 2072,"memMb": 404.91,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4192832,"uiDrops": 3625,"cpuMillis": 2103,"memMb": 405.54,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4392783,"uiDrops": 3625,"cpuMillis": 2096,"memMb": 409.04,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4592031,"uiDrops": 3625,"cpuMillis": 2092,"memMb": 411.66,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4791194,"uiDrops": 3625,"cpuMillis": 2093,"memMb": 408.27,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 4991765,"uiDrops": 3625,"cpuMillis": 2081,"memMb": 408.27,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5191623,"uiDrops": 3625,"cpuMillis": 2094,"memMb": 408.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5391545,"uiDrops": 3625,"cpuMillis": 2094,"memMb": 404.93,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5591454,"uiDrops": 3625,"cpuMillis": 2090,"memMb": 409.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5791238,"uiDrops": 3625,"cpuMillis": 2087,"memMb": 409.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 5990621,"uiDrops": 3625,"cpuMillis": 2097,"memMb": 409.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6190338,"uiDrops": 3625,"cpuMillis": 2072,"memMb": 409.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6390100,"uiDrops": 3625,"cpuMillis": 2077,"memMb": 409.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6589776,"uiDrops": 3625,"cpuMillis": 2084,"memMb": 410.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6789536,"uiDrops": 3625,"cpuMillis": 2094,"memMb": 410.39,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 6989003,"uiDrops": 3625,"cpuMillis": 2090,"memMb": 413.14,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 7189002,"uiDrops": 3625,"cpuMillis": 2106,"memMb": 413.14,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7388756,"uiDrops": 3625,"cpuMillis": 2099,"memMb": 404.84,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7587795,"uiDrops": 3625,"cpuMillis": 2090,"memMb": 407.47,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7785440,"uiDrops": 3625,"cpuMillis": 2110,"memMb": 407.72,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 7985983,"uiDrops": 3625,"cpuMillis": 2080,"memMb": 407.72,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 8187514,"uiDrops": 3625,"cpuMillis": 2088,"memMb": 407.9,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8387400,"uiDrops": 3625,"cpuMillis": 2100,"memMb": 408.52,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8585977,"uiDrops": 3625,"cpuMillis": 2088,"memMb": 408.52,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8785967,"uiDrops": 3625,"cpuMillis": 2091,"memMb": 408.65,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 8985750,"uiDrops": 3625,"cpuMillis": 2091,"memMb": 408.65,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 9186020,"uiDrops": 3625,"cpuMillis": 2080,"memMb": 408.65,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9385469,"uiDrops": 3625,"cpuMillis": 2079,"memMb": 409.77,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9585446,"uiDrops": 3625,"cpuMillis": 2081,"memMb": 407.05,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9784963,"uiDrops": 3625,"cpuMillis": 2087,"memMb": 407.05,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 9985079,"uiDrops": 3625,"cpuMillis": 2077,"memMb": 404.34,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 10184874,"uiDrops": 3625,"cpuMillis": 2082,"memMb": 404.34,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10384602,"uiDrops": 3625,"cpuMillis": 2075,"memMb": 404.34,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10584386,"uiDrops": 3625,"cpuMillis": 2059,"memMb": 404.34,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10784179,"uiDrops": 3625,"cpuMillis": 2085,"memMb": 404.34,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 10983855,"uiDrops": 3625,"cpuMillis": 2070,"memMb": 405.34,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 11183453,"uiDrops": 3625,"cpuMillis": 2080,"memMb": 406.96,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11383402,"uiDrops": 3625,"cpuMillis": 2082,"memMb": 408.21,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11583039,"uiDrops": 3625,"cpuMillis": 2082,"memMb": 408.21,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11782819,"uiDrops": 3625,"cpuMillis": 2085,"memMb": 408.21,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 11981048,"uiDrops": 3625,"cpuMillis": 2085,"memMb": 406.82,"bufUtil": 0.3770751953125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ],
+      "cpuDiagnostics": {
+        "cpuSeconds": 600.0,
+        "cpuSamples": 588,
+        "measuredCores": 2.087654415,
+        "threadWait": 2.2030775452516664,
+        "pressureSome": 0.424950485,
+        "pressureFull": 0.34641849166666666,
+        "quotaThrottles": 0,
+        "cpuWeight": [
+          "11"
+        ],
+        "cpuMax": [
+          "max 100000"
+        ],
+        "threadWaitUnits": "aggregate thread seconds waiting per wall second",
+        "pressureUnits": "fraction of observed wall time"
+      }
+    },
+    {
+      "label": "xl-soak",
+      "startUTC": "2026-09-11T23:00:53Z",
+      "endUTC": "2026-09-11T23:30:53Z",
+      "workers": 200,
+      "representedPods": 2000,
+      "clients": 1,
+      "nominalEntriesPerWorkerPerSecond": 101,
+      "hubCPURequest": "2",
+      "hubCPULimit": null,
+      "hubMemoryRequest": "50Mi",
+      "hubMemoryLimit": "5Gi",
+      "diagnostics": "Benchmark metrics complete; CPU observer disconnected after 764 measured seconds; logs incomplete; CI failed before baseline comparison. Delivery verdict recomputed offline.",
+      "provenance": {
+        "perfshark": {
+          "revision": "5415c76547f4183364818d4c2acad0e5a6acc18b",
+          "modified": true,
+          "buildTime": "2026-09-11T22:27:27Z"
+        },
+        "chart": {
+          "name": "kubeshark",
+          "version": "53.4.0",
+          "appVersion": "53.4.0"
+        },
+        "images": [
+          {
+            "workload": "deployment/hub",
+            "digest": "sha256:3017c5a698b10f6cb3d33f303bb867177568d9a9d48b5805807e3eef34398cba",
+            "pinned": true
+          },
+          {
+            "workload": "statefulset/mock-worker",
+            "digest": "sha256:566bc72a86e6157fbf2b794defd7ccf0f596afd3c371600c25473bcbc7fa3add",
+            "pinned": true
+          },
+          {
+            "workload": "deployment/front",
+            "digest": "sha256:ff3c7b13f5bc1d29b31e656727d299d1bb4244ed472a4e5250c478fada8ae5b7",
+            "pinned": true
+          }
+        ],
+        "corpus": {
+          "sha256": "88aff653419f752db20ef3caa52a3b4659fa829492de4fe6868de3d4fe511611",
+          "entries": 2000,
+          "workers": 200,
+          "unanimous": true
+        },
+        "cluster": {
+          "nodes": 5,
+          "instanceTypes": [
+            "m6i.xlarge"
+          ],
+          "kubeVersion": "v1.35.7-eks-cb19647",
+          "kernelVersions": [
+            "6.12.103-127.188.amzn2023.x86_64"
+          ]
+        },
+        "scenario": {
+          "name": "tier-xl",
+          "sha256": "846afdbd6d5fe85da125baf988fc1a9469bdf2cda84cd436169e360a129356b3"
+        }
+      },
+      "derived": {
+        "durationSeconds": 1800,
+        "deliveredEntries": 36238608,
+        "deliveredEntriesPerSecond": 20132.56,
+        "measuredUIDrops": 0
+      },
+      "summary": {
+        "avgCpuMillis": 2162,
+        "maxCpuMillis": 2284,
+        "avgMemoryMb": 390.09,
+        "maxMemoryMb": 400.78,
+        "totalSamples": 181,
+        "memorySamples": 181
+      },
+      "samples": [
+        {"t": 0,"entriesRecv": 2048,"uiDrops": 0,"cpuMillis": 2247,"memMb": 347.06,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 10,"entriesRecv": 201538,"uiDrops": 0,"cpuMillis": 2263,"memMb": 354.3,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 20,"entriesRecv": 402630,"uiDrops": 0,"cpuMillis": 2269,"memMb": 371.27,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 30,"entriesRecv": 603110,"uiDrops": 0,"cpuMillis": 2284,"memMb": 378.39,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 40,"entriesRecv": 804193,"uiDrops": 0,"cpuMillis": 2202,"memMb": 394.39,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 50,"entriesRecv": 1005548,"uiDrops": 0,"cpuMillis": 2126,"memMb": 390.23,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 60,"entriesRecv": 1206985,"uiDrops": 0,"cpuMillis": 2163,"memMb": 390.23,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 70,"entriesRecv": 1408029,"uiDrops": 0,"cpuMillis": 2165,"memMb": 390.23,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 80,"entriesRecv": 1609223,"uiDrops": 0,"cpuMillis": 2154,"memMb": 390.23,"bufUtil": 0,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 90,"entriesRecv": 1810739,"uiDrops": 0,"cpuMillis": 2154,"memMb": 390.36,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 100,"entriesRecv": 2012718,"uiDrops": 0,"cpuMillis": 2152,"memMb": 390.36,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 110,"entriesRecv": 2213444,"uiDrops": 0,"cpuMillis": 2148,"memMb": 390.36,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 120,"entriesRecv": 2414638,"uiDrops": 0,"cpuMillis": 2177,"memMb": 390.36,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 130,"entriesRecv": 2615914,"uiDrops": 0,"cpuMillis": 2157,"memMb": 390.36,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 140,"entriesRecv": 2817449,"uiDrops": 0,"cpuMillis": 2155,"memMb": 388.37,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 150,"entriesRecv": 3019233,"uiDrops": 0,"cpuMillis": 2162,"memMb": 388.68,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 160,"entriesRecv": 3220181,"uiDrops": 0,"cpuMillis": 2184,"memMb": 388.8,"bufUtil": 0.0001220703125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 170,"entriesRecv": 3421646,"uiDrops": 0,"cpuMillis": 2152,"memMb": 388.8,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 180,"entriesRecv": 3623211,"uiDrops": 0,"cpuMillis": 2154,"memMb": 388.98,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 190,"entriesRecv": 3824361,"uiDrops": 0,"cpuMillis": 2163,"memMb": 389.86,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 200,"entriesRecv": 4025941,"uiDrops": 0,"cpuMillis": 2164,"memMb": 386.78,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 210,"entriesRecv": 4227299,"uiDrops": 0,"cpuMillis": 2163,"memMb": 386.78,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 220,"entriesRecv": 4428523,"uiDrops": 0,"cpuMillis": 2174,"memMb": 387.16,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 230,"entriesRecv": 4630089,"uiDrops": 0,"cpuMillis": 2165,"memMb": 380.84,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 240,"entriesRecv": 4831969,"uiDrops": 0,"cpuMillis": 2158,"memMb": 387.59,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 250,"entriesRecv": 5032688,"uiDrops": 0,"cpuMillis": 2171,"memMb": 389.34,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 260,"entriesRecv": 5233842,"uiDrops": 0,"cpuMillis": 2153,"memMb": 389.34,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 270,"entriesRecv": 5435418,"uiDrops": 0,"cpuMillis": 2171,"memMb": 387.8,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 280,"entriesRecv": 5636970,"uiDrops": 0,"cpuMillis": 2169,"memMb": 388.05,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 290,"entriesRecv": 5837904,"uiDrops": 0,"cpuMillis": 2174,"memMb": 388.18,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 300,"entriesRecv": 6039062,"uiDrops": 0,"cpuMillis": 2158,"memMb": 388.18,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 310,"entriesRecv": 6241082,"uiDrops": 0,"cpuMillis": 2174,"memMb": 388.55,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 320,"entriesRecv": 6441689,"uiDrops": 0,"cpuMillis": 2167,"memMb": 377.52,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 330,"entriesRecv": 6643053,"uiDrops": 0,"cpuMillis": 2177,"memMb": 391.01,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 340,"entriesRecv": 6844273,"uiDrops": 0,"cpuMillis": 2180,"memMb": 382.97,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 350,"entriesRecv": 7045500,"uiDrops": 0,"cpuMillis": 2163,"memMb": 390.6,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 360,"entriesRecv": 7247355,"uiDrops": 0,"cpuMillis": 2165,"memMb": 391.1,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 370,"entriesRecv": 7447910,"uiDrops": 0,"cpuMillis": 2167,"memMb": 391.1,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 380,"entriesRecv": 7649452,"uiDrops": 0,"cpuMillis": 2166,"memMb": 391.1,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 390,"entriesRecv": 7850855,"uiDrops": 0,"cpuMillis": 2168,"memMb": 391.1,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 400,"entriesRecv": 8051962,"uiDrops": 0,"cpuMillis": 2167,"memMb": 391.1,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 410,"entriesRecv": 8253043,"uiDrops": 0,"cpuMillis": 2166,"memMb": 391.1,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 420,"entriesRecv": 8454462,"uiDrops": 0,"cpuMillis": 2174,"memMb": 389.8,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 430,"entriesRecv": 8655637,"uiDrops": 0,"cpuMillis": 2153,"memMb": 389.8,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 440,"entriesRecv": 8856894,"uiDrops": 0,"cpuMillis": 2158,"memMb": 390.05,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 450,"entriesRecv": 9058200,"uiDrops": 0,"cpuMillis": 2152,"memMb": 390.05,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 460,"entriesRecv": 9259218,"uiDrops": 0,"cpuMillis": 2162,"memMb": 388.61,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 470,"entriesRecv": 9460772,"uiDrops": 0,"cpuMillis": 2160,"memMb": 388.61,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 480,"entriesRecv": 9661930,"uiDrops": 0,"cpuMillis": 2141,"memMb": 384.91,"bufUtil": 0.001708984375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 490,"entriesRecv": 9863205,"uiDrops": 0,"cpuMillis": 2162,"memMb": 386.54,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 500,"entriesRecv": 10064618,"uiDrops": 0,"cpuMillis": 2162,"memMb": 388.41,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 510,"entriesRecv": 10266088,"uiDrops": 0,"cpuMillis": 2166,"memMb": 396.16,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 520,"entriesRecv": 10467204,"uiDrops": 0,"cpuMillis": 2155,"memMb": 391.96,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 530,"entriesRecv": 10668496,"uiDrops": 0,"cpuMillis": 2157,"memMb": 391.82,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 540,"entriesRecv": 10869764,"uiDrops": 0,"cpuMillis": 2149,"memMb": 392.44,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 550,"entriesRecv": 11070871,"uiDrops": 0,"cpuMillis": 2187,"memMb": 392.44,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 560,"entriesRecv": 11272293,"uiDrops": 0,"cpuMillis": 2158,"memMb": 392.44,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 570,"entriesRecv": 11473506,"uiDrops": 0,"cpuMillis": 2149,"memMb": 392.44,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 580,"entriesRecv": 11674676,"uiDrops": 0,"cpuMillis": 2181,"memMb": 389.27,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 590,"entriesRecv": 11876423,"uiDrops": 0,"cpuMillis": 2164,"memMb": 389.27,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 600,"entriesRecv": 12077198,"uiDrops": 0,"cpuMillis": 2169,"memMb": 392.14,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 610,"entriesRecv": 12278487,"uiDrops": 0,"cpuMillis": 2139,"memMb": 390.32,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 620,"entriesRecv": 12479897,"uiDrops": 0,"cpuMillis": 2141,"memMb": 375.23,"bufUtil": 0.0050048828125,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 630,"entriesRecv": 12681301,"uiDrops": 0,"cpuMillis": 2158,"memMb": 390.11,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 640,"entriesRecv": 12882717,"uiDrops": 0,"cpuMillis": 2186,"memMb": 400.78,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 650,"entriesRecv": 13083646,"uiDrops": 0,"cpuMillis": 2142,"memMb": 398.97,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 660,"entriesRecv": 13301507,"uiDrops": 0,"cpuMillis": 2147,"memMb": 398.97,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 670,"entriesRecv": 13485646,"uiDrops": 0,"cpuMillis": 2169,"memMb": 389.34,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 680,"entriesRecv": 13687524,"uiDrops": 0,"cpuMillis": 2155,"memMb": 380.44,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 690,"entriesRecv": 13888887,"uiDrops": 0,"cpuMillis": 2176,"memMb": 391.32,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 700,"entriesRecv": 14090317,"uiDrops": 0,"cpuMillis": 2139,"memMb": 393.32,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 710,"entriesRecv": 14291000,"uiDrops": 0,"cpuMillis": 2165,"memMb": 390.94,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 720,"entriesRecv": 14492850,"uiDrops": 0,"cpuMillis": 2148,"memMb": 390.94,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 730,"entriesRecv": 14694096,"uiDrops": 0,"cpuMillis": 2171,"memMb": 390.31,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 740,"entriesRecv": 14895508,"uiDrops": 0,"cpuMillis": 2151,"memMb": 390.31,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 750,"entriesRecv": 15096872,"uiDrops": 0,"cpuMillis": 2148,"memMb": 390.73,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 760,"entriesRecv": 15298054,"uiDrops": 0,"cpuMillis": 2151,"memMb": 390.86,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 770,"entriesRecv": 15501226,"uiDrops": 0,"cpuMillis": 2122,"memMb": 390.86,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 780,"entriesRecv": 15700556,"uiDrops": 0,"cpuMillis": 2143,"memMb": 390.86,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 790,"entriesRecv": 15901777,"uiDrops": 0,"cpuMillis": 2171,"memMb": 396.86,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 800,"entriesRecv": 16103070,"uiDrops": 0,"cpuMillis": 2153,"memMb": 395.15,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 810,"entriesRecv": 16304371,"uiDrops": 0,"cpuMillis": 2177,"memMb": 395.15,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 820,"entriesRecv": 16505805,"uiDrops": 0,"cpuMillis": 2158,"memMb": 390.57,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 830,"entriesRecv": 16707136,"uiDrops": 0,"cpuMillis": 2163,"memMb": 391.45,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 840,"entriesRecv": 16908510,"uiDrops": 0,"cpuMillis": 2160,"memMb": 391.91,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 850,"entriesRecv": 17110009,"uiDrops": 0,"cpuMillis": 2176,"memMb": 393.61,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 860,"entriesRecv": 17311208,"uiDrops": 0,"cpuMillis": 2159,"memMb": 393.61,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 870,"entriesRecv": 17512485,"uiDrops": 0,"cpuMillis": 2169,"memMb": 393.73,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 880,"entriesRecv": 17713984,"uiDrops": 0,"cpuMillis": 2182,"memMb": 393.73,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 890,"entriesRecv": 17914987,"uiDrops": 0,"cpuMillis": 2154,"memMb": 393.73,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 900,"entriesRecv": 18116336,"uiDrops": 0,"cpuMillis": 2152,"memMb": 387.41,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 910,"entriesRecv": 18317688,"uiDrops": 0,"cpuMillis": 2146,"memMb": 388.16,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 920,"entriesRecv": 18519162,"uiDrops": 0,"cpuMillis": 2177,"memMb": 392.54,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 930,"entriesRecv": 18720641,"uiDrops": 0,"cpuMillis": 2143,"memMb": 394.54,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 940,"entriesRecv": 18921883,"uiDrops": 0,"cpuMillis": 2155,"memMb": 394.54,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 950,"entriesRecv": 19123235,"uiDrops": 0,"cpuMillis": 2170,"memMb": 390.23,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 960,"entriesRecv": 19324616,"uiDrops": 0,"cpuMillis": 2180,"memMb": 396.73,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 970,"entriesRecv": 19526039,"uiDrops": 0,"cpuMillis": 2170,"memMb": 396.73,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 980,"entriesRecv": 19727468,"uiDrops": 0,"cpuMillis": 2170,"memMb": 392.47,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 990,"entriesRecv": 19928914,"uiDrops": 0,"cpuMillis": 2153,"memMb": 392.47,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1000,"entriesRecv": 20130447,"uiDrops": 0,"cpuMillis": 2151,"memMb": 392.59,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1010,"entriesRecv": 20331857,"uiDrops": 0,"cpuMillis": 2176,"memMb": 389.33,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1020,"entriesRecv": 20533127,"uiDrops": 0,"cpuMillis": 2164,"memMb": 391.2,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1030,"entriesRecv": 20734530,"uiDrops": 0,"cpuMillis": 2180,"memMb": 380.29,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1040,"entriesRecv": 20935956,"uiDrops": 0,"cpuMillis": 2163,"memMb": 385.04,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1050,"entriesRecv": 21137248,"uiDrops": 0,"cpuMillis": 2150,"memMb": 388.29,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1060,"entriesRecv": 21338786,"uiDrops": 0,"cpuMillis": 2174,"memMb": 388.29,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1070,"entriesRecv": 21540012,"uiDrops": 0,"cpuMillis": 2159,"memMb": 380.63,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1080,"entriesRecv": 21741518,"uiDrops": 0,"cpuMillis": 2161,"memMb": 385.13,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1090,"entriesRecv": 21942805,"uiDrops": 0,"cpuMillis": 2155,"memMb": 388.38,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1100,"entriesRecv": 22144134,"uiDrops": 0,"cpuMillis": 2149,"memMb": 389.75,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1110,"entriesRecv": 22345681,"uiDrops": 0,"cpuMillis": 2155,"memMb": 389.75,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1120,"entriesRecv": 22547028,"uiDrops": 0,"cpuMillis": 2157,"memMb": 389.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1130,"entriesRecv": 22748397,"uiDrops": 0,"cpuMillis": 2163,"memMb": 390.25,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1140,"entriesRecv": 22949836,"uiDrops": 0,"cpuMillis": 2151,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1150,"entriesRecv": 23151254,"uiDrops": 0,"cpuMillis": 2126,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1160,"entriesRecv": 23352676,"uiDrops": 0,"cpuMillis": 2144,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1170,"entriesRecv": 23554050,"uiDrops": 0,"cpuMillis": 2130,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1180,"entriesRecv": 23755368,"uiDrops": 0,"cpuMillis": 2137,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1190,"entriesRecv": 23956698,"uiDrops": 0,"cpuMillis": 2143,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1200,"entriesRecv": 24158270,"uiDrops": 0,"cpuMillis": 2145,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1210,"entriesRecv": 24359373,"uiDrops": 0,"cpuMillis": 2159,"memMb": 393.88,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1220,"entriesRecv": 24560715,"uiDrops": 0,"cpuMillis": 2137,"memMb": 391.73,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1230,"entriesRecv": 24762267,"uiDrops": 0,"cpuMillis": 2165,"memMb": 388.95,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1240,"entriesRecv": 24963573,"uiDrops": 0,"cpuMillis": 2152,"memMb": 393.68,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1250,"entriesRecv": 25164961,"uiDrops": 0,"cpuMillis": 2169,"memMb": 388.99,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1260,"entriesRecv": 25366383,"uiDrops": 0,"cpuMillis": 2162,"memMb": 389.36,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1270,"entriesRecv": 25567700,"uiDrops": 0,"cpuMillis": 2171,"memMb": 389.49,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1280,"entriesRecv": 25768790,"uiDrops": 0,"cpuMillis": 2160,"memMb": 390.49,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1290,"entriesRecv": 25970313,"uiDrops": 0,"cpuMillis": 2168,"memMb": 386.05,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1300,"entriesRecv": 26171435,"uiDrops": 0,"cpuMillis": 2133,"memMb": 388.05,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1310,"entriesRecv": 26372814,"uiDrops": 0,"cpuMillis": 2153,"memMb": 389.06,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1320,"entriesRecv": 26574280,"uiDrops": 0,"cpuMillis": 2150,"memMb": 391.69,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1330,"entriesRecv": 26775614,"uiDrops": 0,"cpuMillis": 2149,"memMb": 391.69,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1340,"entriesRecv": 26977306,"uiDrops": 0,"cpuMillis": 2169,"memMb": 389.77,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1350,"entriesRecv": 27178442,"uiDrops": 0,"cpuMillis": 2164,"memMb": 389.77,"bufUtil": 0.087890625,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1360,"entriesRecv": 27379811,"uiDrops": 0,"cpuMillis": 2178,"memMb": 389.77,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1370,"entriesRecv": 27581284,"uiDrops": 0,"cpuMillis": 2165,"memMb": 389.9,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1380,"entriesRecv": 27782620,"uiDrops": 0,"cpuMillis": 2155,"memMb": 389.9,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1390,"entriesRecv": 27983867,"uiDrops": 0,"cpuMillis": 2168,"memMb": 377.69,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1400,"entriesRecv": 28185175,"uiDrops": 0,"cpuMillis": 2171,"memMb": 387.94,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1410,"entriesRecv": 28386513,"uiDrops": 0,"cpuMillis": 2166,"memMb": 390.06,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1420,"entriesRecv": 28588026,"uiDrops": 0,"cpuMillis": 2161,"memMb": 395.81,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1430,"entriesRecv": 28789454,"uiDrops": 0,"cpuMillis": 2185,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1440,"entriesRecv": 28991038,"uiDrops": 0,"cpuMillis": 2165,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1450,"entriesRecv": 29192315,"uiDrops": 0,"cpuMillis": 2162,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1460,"entriesRecv": 29393608,"uiDrops": 0,"cpuMillis": 2178,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1470,"entriesRecv": 29595090,"uiDrops": 0,"cpuMillis": 2146,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1480,"entriesRecv": 29796401,"uiDrops": 0,"cpuMillis": 2168,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1490,"entriesRecv": 29997759,"uiDrops": 0,"cpuMillis": 2155,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1500,"entriesRecv": 30199387,"uiDrops": 0,"cpuMillis": 2181,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1510,"entriesRecv": 30415836,"uiDrops": 0,"cpuMillis": 2157,"memMb": 392.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1520,"entriesRecv": 30601991,"uiDrops": 0,"cpuMillis": 2174,"memMb": 394.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1530,"entriesRecv": 30803390,"uiDrops": 0,"cpuMillis": 2139,"memMb": 394.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1540,"entriesRecv": 31004661,"uiDrops": 0,"cpuMillis": 2163,"memMb": 394.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1550,"entriesRecv": 31206027,"uiDrops": 0,"cpuMillis": 2151,"memMb": 394.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1560,"entriesRecv": 31407634,"uiDrops": 0,"cpuMillis": 2162,"memMb": 398.82,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1570,"entriesRecv": 31608873,"uiDrops": 0,"cpuMillis": 2168,"memMb": 395.89,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1580,"entriesRecv": 31810282,"uiDrops": 0,"cpuMillis": 2144,"memMb": 396.01,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1590,"entriesRecv": 32011501,"uiDrops": 0,"cpuMillis": 2167,"memMb": 393.2,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1600,"entriesRecv": 32213257,"uiDrops": 0,"cpuMillis": 2158,"memMb": 395.02,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1610,"entriesRecv": 32414654,"uiDrops": 0,"cpuMillis": 2158,"memMb": 389.06,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1620,"entriesRecv": 32616118,"uiDrops": 0,"cpuMillis": 2153,"memMb": 391.93,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1630,"entriesRecv": 32817560,"uiDrops": 0,"cpuMillis": 2155,"memMb": 391.93,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1640,"entriesRecv": 33018881,"uiDrops": 0,"cpuMillis": 2146,"memMb": 392.43,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1650,"entriesRecv": 33220219,"uiDrops": 0,"cpuMillis": 2171,"memMb": 392.43,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1660,"entriesRecv": 33421718,"uiDrops": 0,"cpuMillis": 2166,"memMb": 392.43,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1670,"entriesRecv": 33623234,"uiDrops": 0,"cpuMillis": 2159,"memMb": 385.45,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1680,"entriesRecv": 33824551,"uiDrops": 0,"cpuMillis": 2162,"memMb": 387.07,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1690,"entriesRecv": 34025836,"uiDrops": 0,"cpuMillis": 2181,"memMb": 387.45,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1700,"entriesRecv": 34227167,"uiDrops": 0,"cpuMillis": 2163,"memMb": 389.82,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1710,"entriesRecv": 34428587,"uiDrops": 0,"cpuMillis": 2170,"memMb": 391.7,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1720,"entriesRecv": 34629333,"uiDrops": 0,"cpuMillis": 2179,"memMb": 392.47,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1730,"entriesRecv": 34831328,"uiDrops": 0,"cpuMillis": 2153,"memMb": 392.47,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1740,"entriesRecv": 35032619,"uiDrops": 0,"cpuMillis": 2120,"memMb": 392.47,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1750,"entriesRecv": 35234016,"uiDrops": 0,"cpuMillis": 2147,"memMb": 392.47,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1760,"entriesRecv": 35435297,"uiDrops": 0,"cpuMillis": 2178,"memMb": 393.1,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1770,"entriesRecv": 35636799,"uiDrops": 0,"cpuMillis": 2147,"memMb": 393.1,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1780,"entriesRecv": 35838000,"uiDrops": 0,"cpuMillis": 2152,"memMb": 393.1,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1790,"entriesRecv": 36039237,"uiDrops": 0,"cpuMillis": 2158,"memMb": 393.1,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1},
+        {"t": 1800,"entriesRecv": 36240656,"uiDrops": 0,"cpuMillis": 2162,"memMb": 393.1,"bufUtil": 0.10693359375,"metricsScraped": true,"memoryAvailable": true,"metricsSegments": 1}
+      ]
+    }
+  ]
+}

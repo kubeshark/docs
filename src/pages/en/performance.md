@@ -31,34 +31,9 @@ While resource consumption can increase based on the amount of traffic targeted 
 
 ### Container Memory and CPU Limitations
 
-Container resources are limited by default. However, allocations can be adjusted in the configuration:
+Use [Workload Resources](/en/workload_resources) for current defaults and starting CPU/memory requests. Hub, sniffer, and tracer CPU limits are unset by default; memory limits still apply. Requests affect scheduling and resource sharing even without a CPU limit.
 
-```yaml
-tap:
-  resources:
-    hub:
-      limits:
-        cpu: 750m
-        memory: 1Gi
-      requests:
-        cpu: 50m
-        memory: 50Mi
-    sniffer:
-      limits:
-        cpu: 750m
-        memory: 1Gi
-      requests:
-        cpu: 50m
-        memory: 50Mi
-    tracer:
-      limits:
-        cpu: 750m
-        memory: 1Gi
-      requests:
-        cpu: 50m
-        memory: 50Mi
-```
-
+For measured Hub streaming results and their scope, see [Hub Streaming Benchmarks](/en/performance_benchmark). Worker packet capture and indexing require separate sizing.
 
 ### Worker Storage Limitation
 
