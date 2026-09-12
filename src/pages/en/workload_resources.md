@@ -1,6 +1,6 @@
 ---
 title: Workload Resources
-description: Configure CPU, memory, and storage limits for Kubeshark components.
+description: Size Kubeshark CPU and memory requests using measured Hub streaming results, and configure component limits and storage.
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -38,30 +38,47 @@ tap:
 |---------|---------|-------------|
 | `limits.cpu` | `""` (unlimited) | Maximum CPU |
 | `limits.memory` | `5Gi` | Maximum memory |
-| `requests.cpu` | `50m` | Guaranteed CPU |
-| `requests.memory` | `50Mi` | Guaranteed memory |
+| `requests.cpu` | `50m` | Scheduling reservation and relative CPU share under contention |
+| `requests.memory` | `50Mi` | Memory reservation used for scheduling |
 
 **Sizing considerations:**
+
 - Memory scales with number of concurrent connections and API call volume
 - Increase limits for high-traffic clusters
 - Snapshot storage is separate (see [Snapshots Configuration](/en/v2/raw_capture_config#snapshot-storage))
 
 ### Recommended Sizing by Cluster Size
 
-The chart defaults (`requests: cpu 50m, memory 50Mi`) are intentionally low so a first install fits anywhere — they are **not** appropriate for production.
+Choose a profile from both worker count and the aggregate entry rate delivered to the dashboard. The chart defaults (`50m` CPU and `50Mi` memory requests) are installation defaults, not measured production capacity recommendations.
 
-The profiles below are sized against load tests at the corresponding cluster sizes, assuming roughly ~100 captured entries per second per worker (e.g. ~1k entries/s aggregate for a 10-worker cluster, ~20k for a 200-worker cluster).
+These are **starting requests for a workload similar to the [Hub streaming benchmark](/en/performance_benchmark)**: roughly 100 entries/s per worker and one streaming client. CPU requests for Small through Large are planning values informed by observed usage; the XL `2` request was tested directly against `50m`. The proposed memory requests provide headroom above measured process RSS, but were not themselves tested under node memory pressure. Keep the existing memory limit until you have representative measurements of your own workload.
 
-| Cluster size | Workers (DaemonSet pods) | `requests.cpu` | `requests.memory` | `limits.memory` |
-|:---|---:|---:|---:|---:|
-| Small   | ≤10  | `250m`  | `4Gi` | `5Gi` |
-| Medium  | ≤50  | `1`     | `4Gi` | `5Gi` |
-| Large   | ≤100 | `1500m` | `4Gi` | `5Gi` |
-| X-Large | ≤200 | `2`     | `5Gi` | `6Gi` |
+| Profile | Workers | Nominal aggregate entries/s | `requests.cpu` | Starting `requests.memory` | `limits.memory` |
+|:---|---:|---:|---:|---:|---:|
+| Small | Up to 10 | ~1,000 | `250m` | `512Mi` | `5Gi` |
+| Medium | Up to 50 | ~5,000 | `1` | `512Mi` | `5Gi` |
+| Large | Up to 100 | ~10,000 | `1500m` | `1Gi` | `5Gi` |
+| X-Large | Up to 200 | ~20,000 | `2` | `1Gi` | `5Gi` |
 
-**`limits.cpu` is intentionally not set** — the chart's default leaves it unset too. The CFS bandwidth controller that enforces CPU limits can throttle bursty workloads (the Hub's pattern during traffic spikes and dashboard joins) even when the node has idle CPU available. Set `limits.cpu` only for specific reasons such as strict multi-tenant billing or hard latency SLOs.
+The measured Hub RSS averages were 165, 211, and 274 MiB for Small, Medium, and Large. An XL soak with a `2` CPU request delivered **20,132.56 entries/s for 30 minutes with zero measured Hub UI-stream drops**, using 390 MiB average and 401 MiB peak RSS. These are Hub-only measurements with synthetic workers, not memory requirements for packet capture, indexing, snapshots, or the browser. See the [results, methodology, and limitations](/en/performance_benchmark).
 
-If your per-worker entry rate is materially higher than ~100/s, or you have many concurrent dashboard clients, raise `requests.cpu` and both memory values proportionally and measure actual usage from the closest profile.
+### Why a CPU Request Matters Without a Limit
+
+A CPU request affects placement and the container's relative CPU share when other workloads compete on the same node. A container can use more CPU than its request when capacity is available. A CPU limit imposes a separate ceiling through throttling. See [Kubernetes resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
+
+Leave Hub `limits.cpu` unset (`""` in Kubeshark values) when cluster policy permits. In six controlled XL trials without a CPU limit, the three trials using a `2` request had zero drops; the three using `50m` lost 3,092, 7,071, and 3,625 entries. The Hub used more than two cores on average in the subsequent soak. Setting a two-core **limit** would impose a constraint that this test did not validate.
+
+A request is not exclusive ownership of two cores or a throughput guarantee. Ensure the node has spare CPU for bursts and for its other workloads. Raising the request can also change pod placement; check the resulting distribution.
+
+### Validate Against Your Workload
+
+1. Start with the closest profile and record the actual image version, entry rate, entry sizes, worker count, and number of concurrent clients.
+2. Measure delivered entries/s, Hub UI-stream drop-counter increases, CPU use, RSS, container memory usage, restarts, and metric coverage through a representative peak interval.
+3. Increase CPU requests if contention coincides with drops. Inspect CPU throttling separately when a limit is configured.
+4. Adjust memory reservations using observed peaks plus headroom for joins, queries, and snapshots. Process RSS is not the same as total memory charged to the container; do not set a memory limit equal to the benchmark RSS peak.
+5. Repeat after changing traffic shape or client concurrency. Neither CPU nor memory is established to scale linearly with entries/s or worker count.
+
+Older memory estimates based on the Go `Alloc/Sys` ratio multiplied by the pod limit are not RSS measurements and should not be used to justify multi-GiB Hub reservations. The benchmark uses `process_resident_memory_bytes` and reports Go heap allocation separately.
 
 ---
 
@@ -105,10 +122,11 @@ tap:
 |---------|---------|-------------|
 | `limits.cpu` | `""` (unlimited) | Maximum CPU |
 | `limits.memory` | `5Gi` | Maximum memory |
-| `requests.cpu` | `50m` | Guaranteed CPU |
-| `requests.memory` | `50Mi` | Guaranteed memory |
+| `requests.cpu` | `50m` | Scheduling reservation and relative CPU share under contention |
+| `requests.memory` | `50Mi` | Memory reservation used for scheduling |
 
 **Sizing considerations:**
+
 - CPU usage scales with traffic volume and indexing complexity
 - Memory scales with connection tracking and payload buffering
 - Use [Capture Filters](/en/pod_targeting) to reduce load
@@ -225,6 +243,7 @@ tap:
 If containers exceed memory limits, they are OOMKilled. If storage exceeds limits, pods are evicted.
 
 **To prevent this:**
+
 1. Increase resource limits
 2. Use [Capture Filters](/en/pod_targeting) to target fewer workloads
 3. Reduce `trafficSampleRate`
@@ -233,6 +252,8 @@ If containers exceed memory limits, they are OOMKilled. If storage exceeds limit
 ---
 
 ## Complete Example
+
+This example uses the XL Hub starting requests above. Worker and storage values are illustrative and require separate validation for your traffic.
 
 ```yaml
 tap:
@@ -252,11 +273,11 @@ tap:
   resources:
     hub:
       limits:
-        cpu: 2000m
-        memory: 8Gi
+        cpu: ""
+        memory: 5Gi
       requests:
-        cpu: 100m
-        memory: 256Mi
+        cpu: "2"
+        memory: 1Gi
 
     # Worker resources
     sniffer:
@@ -292,6 +313,6 @@ tap:
 
 ## What's Next
 
-- [Helm Configuration Reference](/en/helm_reference) — All configuration options
-- [Capture Filters](/en/pod_targeting) — Reduce workload targeting
-- [Performance](/en/v2/performance) — Performance tuning guide
+- [Helm Configuration Reference](/en/helm_reference) - All configuration options
+- [Capture Filters](/en/pod_targeting) - Reduce workload targeting
+- [Performance](/en/v2/performance) - Performance tuning guide

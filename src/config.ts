@@ -173,7 +173,7 @@ export const SIDEBAR: Sidebar = {
       { text: 'Openshift', link: 'en/openshift' },
       { text: 'Istio', link: 'en/service_mesh' },
       { text: 'Troubleshooting', link: 'en/troubleshooting' },
-      // { text: 'Performance Benchmark', link: 'en/performance_benchmark' },
+      { text: 'Hub Streaming Benchmarks', link: 'en/performance_benchmark' },
     ],
   },
 };
