@@ -34,7 +34,7 @@ Separate CPU scheduling diagnostics and logs can help explain a result. Their co
 
 The [measurement extract](/benchmarks/hub-stream-sizing.json) contains selected fields from the reports, not traffic payloads or the complete raw artifacts. Each record includes timestamps, input provenance, sampled counters, and a summary. Zero-valued metric fields omitted in the original reports are expanded to zero in the extract.
 
-Use the first and last samples after warmup:
+Use the first and last samples after warmup. Sample `t=0` marks the start of measurement, not process startup. Cumulative counters can already be nonzero because traffic is flowing during warmup; subtract the initial value and report any pre-measurement losses separately:
 
 ```text
 delivered entries/s = (last entriesRecv - first entriesRecv) / (last t - first t)

@@ -41,7 +41,7 @@ These observations inform the Small, Medium, and Large starting requests. They d
 
 ## Controlled XL CPU-Request Comparison
 
-A fresh cluster ran six 10-minute trials in the order below. The Hub was restarted before each trial and pinned to the same node. All trials used the same image digests, corpus, 200 workers at 100 nominal entries/s each, one client, and 40 ready workers per physical node. Front and mock-controller placement also remained constant. This reduces placement and ordering differences when comparing CPU requests.
+A fresh cluster ran six 10-minute trials in the order below. The Hub was restarted before each trial, then passed through setup and warmup before measurement began; it was pinned to the same node. All trials used the same image digests, corpus, 200 workers at 100 nominal entries/s each, one client, and 40 ready workers per physical node. Front and mock-controller placement also remained constant. This reduces placement and ordering differences when comparing CPU requests.
 
 | Trial order | Hub CPU request | Delivered entries/s | Measured UI drops | RSS average / peak (MiB) |
 | --- | ---: | ---: | ---: | ---: |
@@ -51,6 +51,8 @@ A fresh cluster ran six 10-minute trials in the order below. The Hub was restart
 | 4 | `2` | 19,894.51 | 0 | 406.94 / 410.41 |
 | 5 | `2` | 19,903.95 | 0 | 399.57 / 402.33 |
 | 6 | `50m` | 19,961.09 | 3,625 | 407.83 / 414.68 |
+
+The initial sample (`t=0`) is the start of measurement after warmup, not the time of the Hub restart. In trial 3, the replacement Hub was ready at 14:44:02 UTC, warmup began at 14:45:24, and measurement began at 14:46:24. Its initial `uiDrops` value was already 30,361, reflecting losses before measurement. The final value was 37,432, so the table reports **7,071 additional drops** during the measured interval. The initial losses remain visible in the data extract; they are excluded from the measured delta, not evidence that the previous trial's counter survived a restart.
 
 All trials had complete 61-sample metrics, one client connection, and no Hub replacement during measurement. No CPU quota throttling was observed. The higher request reduced average aggregate thread runqueue wait by about 27%, supporting CPU contention as a contributor to loss even without a CPU limit.
 
