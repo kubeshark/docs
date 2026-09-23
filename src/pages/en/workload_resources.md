@@ -27,7 +27,7 @@ tap:
   resources:
     hub:
       limits:
-        cpu: ""               # No limit (default)
+        cpu: 0                # Omit the CPU limit
         memory: 5Gi
       requests:
         cpu: 50m
@@ -36,7 +36,7 @@ tap:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `limits.cpu` | `""` (unlimited) | Maximum CPU |
+| `limits.cpu` | `0` (omitted) | Maximum CPU; zero tells the chart to omit the limit |
 | `limits.memory` | `5Gi` | Maximum memory |
 | `requests.cpu` | `50m` | Scheduling reservation and relative CPU share under contention |
 | `requests.memory` | `50Mi` | Memory reservation used for scheduling |
@@ -66,7 +66,7 @@ The measured Hub RSS averages were 165, 211, and 274 MiB for Small, Medium, and 
 
 A CPU request affects placement and the container's relative CPU share when other workloads compete on the same node. A container can use more CPU than its request when capacity is available. A CPU limit imposes a separate ceiling through throttling. See [Kubernetes resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 
-Leave Hub `limits.cpu` unset (`""` in Kubeshark values) when cluster policy permits. In six controlled XL trials without a CPU limit, the three trials using a `2` request had zero drops; the three using `50m` lost 3,092, 7,071, and 3,625 entries. The Hub used more than two cores on average in the subsequent soak. Setting a two-core **limit** would impose a constraint that this test did not validate.
+Use `limits.cpu: 0` in Kubeshark Helm values to omit the Hub CPU limit when cluster policy permits. The chart treats zero as an omission sentinel; do not pass an empty string, which can render a zero CPU limit and reject a nonzero request. In six controlled XL trials without a CPU limit, the three trials using a `2` request had zero drops; the three using `50m` lost 3,092, 7,071, and 3,625 entries. The Hub used more than two cores on average in the subsequent soak. Setting a two-core **limit** would impose a constraint that this test did not validate.
 
 A request is not exclusive ownership of two cores or a throughput guarantee. Ensure the node has spare CPU for bursts and for its other workloads. Raising the request can also change pod placement; check the resulting distribution.
 
@@ -95,7 +95,7 @@ tap:
   resources:
     sniffer:
       limits:
-        cpu: ""               # No limit (default)
+        cpu: 0                # Omit the CPU limit
         memory: 5Gi
       requests:
         cpu: 50m
@@ -111,7 +111,7 @@ tap:
   resources:
     tracer:
       limits:
-        cpu: ""               # No limit (default)
+        cpu: 0                # Omit the CPU limit
         memory: 5Gi
       requests:
         cpu: 50m
@@ -120,7 +120,7 @@ tap:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `limits.cpu` | `""` (unlimited) | Maximum CPU |
+| `limits.cpu` | `0` (omitted) | Maximum CPU; zero tells the chart to omit the limit |
 | `limits.memory` | `5Gi` | Maximum memory |
 | `requests.cpu` | `50m` | Scheduling reservation and relative CPU share under contention |
 | `requests.memory` | `50Mi` | Memory reservation used for scheduling |
@@ -273,7 +273,7 @@ tap:
   resources:
     hub:
       limits:
-        cpu: ""
+        cpu: 0
         memory: 5Gi
       requests:
         cpu: "2"
