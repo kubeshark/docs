@@ -74,7 +74,7 @@ With a dedicated storage class, snapshot storage can be far larger than node-loc
 
 #### Cloud Storage
 
-Snapshots can also be uploaded to cloud object storage (Amazon S3 or Azure Blob Storage) for cross-cluster sharing, backup/restore, and long-term retention.
+Snapshots can also be uploaded to cloud object storage (Amazon S3 and S3-compatible stores, Azure Blob Storage, or Google Cloud Storage) for cross-cluster sharing, backup/restore, and long-term retention.
 
 **Inline configuration (simplest approach):**
 
