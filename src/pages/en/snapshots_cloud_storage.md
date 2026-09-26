@@ -25,6 +25,8 @@ tap:
         secretKey: ""
         roleArn: ""
         externalId: ""
+        endpoint: ""          # custom endpoint for S3-compatible stores
+        forcePathStyle: false # path-style bucket addressing
       azblob:
         storageAccount: ""
         container: ""
@@ -53,6 +55,8 @@ Both approaches can be used together — inline values are additive to external 
 | `tap.snapshots.cloud.s3.region` | ConfigMap | `SNAPSHOT_AWS_REGION` |
 | `tap.snapshots.cloud.s3.roleArn` | ConfigMap | `SNAPSHOT_AWS_ROLE_ARN` |
 | `tap.snapshots.cloud.s3.externalId` | ConfigMap | `SNAPSHOT_AWS_EXTERNAL_ID` |
+| `tap.snapshots.cloud.s3.endpoint` | ConfigMap | `SNAPSHOT_AWS_ENDPOINT` |
+| `tap.snapshots.cloud.s3.forcePathStyle` | ConfigMap | `SNAPSHOT_AWS_FORCE_PATH_STYLE` |
 | `tap.snapshots.cloud.s3.accessKey` | Secret | `SNAPSHOT_AWS_ACCESS_KEY` |
 | `tap.snapshots.cloud.s3.secretKey` | Secret | `SNAPSHOT_AWS_SECRET_KEY` |
 | `tap.snapshots.cloud.azblob.storageAccount` | ConfigMap | `SNAPSHOT_AZBLOB_STORAGE_ACCOUNT` |
@@ -76,6 +80,8 @@ Both approaches can be used together — inline values are additive to external 
 | `SNAPSHOT_AWS_SECRET_KEY` | No | Static secret access key |
 | `SNAPSHOT_AWS_ROLE_ARN` | No | IAM role ARN to assume via STS (for cross-account access) |
 | `SNAPSHOT_AWS_EXTERNAL_ID` | No | External ID for the STS AssumeRole call |
+| `SNAPSHOT_AWS_ENDPOINT` | No | Base endpoint URL, for S3-compatible object stores (empty = AWS S3) |
+| `SNAPSHOT_AWS_FORCE_PATH_STYLE` | No | Use path-style bucket addressing (`endpoint/bucket/key`) instead of virtual-hosted style (`bucket.endpoint/key`) |
 | `SNAPSHOT_CLOUD_PREFIX` | No | Key prefix in the bucket (e.g. `snapshots/`) |
 
 ### Authentication Methods
@@ -165,6 +171,29 @@ tap:
         bucket: my-kubeshark-snapshots
         region: us-east-1
 ```
+
+#### S3-Compatible Object Stores
+
+The `s3` provider also works against S3-compatible object stores such as NetApp StorageGRID, Dell ECS and MinIO. Set `endpoint` to the store's base URL:
+
+```yaml
+tap:
+  snapshots:
+    cloud:
+      provider: "s3"
+      s3:
+        bucket: my-kubeshark-snapshots
+        endpoint: https://storage.internal.example.com
+        forcePathStyle: true
+        accessKey: ...
+        secretKey: ...
+```
+
+- `endpoint` points the SDK at the store instead of AWS S3.
+- `forcePathStyle` addresses buckets as `endpoint/bucket/key`. Most on-prem stores need this, because virtual-hosted style requires wildcard DNS for `bucket.endpoint`.
+- When `endpoint` is set and `region` is left empty, the region defaults to `us-east-1` so that SigV4 request signing works. That is the default region on StorageGRID, ECS and MinIO.
+
+Stores that present a certificate signed by a private CA are not supported yet — there is no way to supply a custom CA bundle to the hub, so startup validation fails against them.
 
 ### Examples Using External ConfigMaps/Secrets
 

@@ -92,7 +92,7 @@ Complete reference for Kubeshark Helm configuration values.
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `tap.snapshots.cloud.provider` | Cloud storage provider: `s3` or `azblob`. Empty string disables cloud storage. See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage). | `""` |
+| `tap.snapshots.cloud.provider` | Cloud storage provider: `s3`, `azblob` or `gcs`. Empty string disables cloud storage. See [Cloud Storage for Snapshots](/en/snapshots_cloud_storage). | `""` |
 | `tap.snapshots.cloud.prefix` | Key prefix in the bucket/container (e.g. `snapshots/`) | `""` |
 | `tap.snapshots.cloud.configMaps` | Names of pre-existing ConfigMaps with cloud storage env vars. Alternative to inline `s3`/`azblob` values below. | `[]` |
 | `tap.snapshots.cloud.secrets` | Names of pre-existing Secrets with cloud storage credentials. Alternative to inline `s3`/`azblob` values below. | `[]` |
@@ -102,9 +102,14 @@ Complete reference for Kubeshark Helm configuration values.
 | `tap.snapshots.cloud.s3.secretKey` | AWS secret access key. Auto-creates a Secret with `SNAPSHOT_AWS_SECRET_KEY`. | `""` |
 | `tap.snapshots.cloud.s3.roleArn` | IAM role ARN to assume via STS for cross-account S3 access | `""` |
 | `tap.snapshots.cloud.s3.externalId` | External ID for the STS AssumeRole call | `""` |
+| `tap.snapshots.cloud.s3.endpoint` | Base endpoint URL for S3-compatible object stores (StorageGRID, Dell ECS, MinIO). Auto-creates a ConfigMap with `SNAPSHOT_AWS_ENDPOINT`. Empty means AWS S3. | `""` |
+| `tap.snapshots.cloud.s3.forcePathStyle` | Use path-style bucket addressing (`endpoint/bucket/key`). Required by most on-prem S3-compatible stores. | `false` |
 | `tap.snapshots.cloud.azblob.storageAccount` | Azure storage account name. Auto-creates a ConfigMap with `SNAPSHOT_AZBLOB_STORAGE_ACCOUNT`. | `""` |
 | `tap.snapshots.cloud.azblob.container` | Azure blob container name | `""` |
 | `tap.snapshots.cloud.azblob.storageKey` | Azure storage account access key. Auto-creates a Secret with `SNAPSHOT_AZBLOB_STORAGE_KEY`. | `""` |
+| `tap.snapshots.cloud.gcs.bucket` | GCS bucket name. Auto-creates a ConfigMap with `SNAPSHOT_GCS_BUCKET`. | `""` |
+| `tap.snapshots.cloud.gcs.project` | GCP project ID | `""` |
+| `tap.snapshots.cloud.gcs.credentialsJson` | GCP service account JSON key. Auto-creates a Secret with `SNAPSHOT_GCS_CREDENTIALS_JSON`. | `""` |
 
 ---
 
@@ -484,7 +489,7 @@ tap:
 ## Related Documentation
 
 - [Raw Capture & Snapshots](/en/v2/raw_capture_config) — Detailed capture configuration
-- [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) — S3 and Azure Blob Storage setup
+- [Cloud Storage for Snapshots](/en/snapshots_cloud_storage) — S3, Azure Blob Storage and Google Cloud Storage setup
 - [Capture Filters](/en/pod_targeting) — Pod targeting details
 - [Ingress](/en/ingress) — Ingress setup guide
 - [SAML](/en/saml) — SAML authentication
