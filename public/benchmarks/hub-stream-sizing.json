@@ -1,7 +1,6 @@
 {
   "schemaVersion": 1,
   "description": "Selected metric fields extracted from perfshark reports; zero-valued fields omitted in original reports are expanded to zero. No traffic payloads. RSS units MiB; CPU units millicores; bufUtil fraction.",
-  "hubRevision": "aed2cbc9c6a0981c13caee1333ddd5cb9ebca518",
   "records": [
     {
       "label": "tier-sweep-small",

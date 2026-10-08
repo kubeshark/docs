@@ -14,9 +14,8 @@ Measurements were collected on September 10-11, 2026 (UTC). The [downloadable me
 
 | Parameter | Configuration |
 | --- | --- |
-| Hub revision | `aed2cbc9c6a0981c13caee1333ddd5cb9ebca518` |
 | Hub runtime and stream settings | Go 1.27.1; 8,192-entry client queue; batches up to 64 entries with a 3 ms wait; gzip BestSpeed |
-| Chart | 53.4.0 with the Hub image overridden to the revision above |
+| Version | The latest Kubeshark release |
 | Infrastructure | Five AWS `m6i.xlarge` nodes, four vCPUs each |
 | Kubernetes / kernel | EKS `v1.35.7-eks-cb19647` / `6.12.103-127.188.amzn2023.x86_64` |
 | Hub memory request / limit during tests | `50Mi` / `5Gi` |
@@ -24,7 +23,7 @@ Measurements were collected on September 10-11, 2026 (UTC). The [downloadable me
 | Warmup / measurement sampling | One minute / every 10 seconds, including interval endpoints |
 | Profiling | Disabled; stream diagnostics enabled |
 
-The Hub image override matters: chart version alone does not identify the tested code. All reported trials resolved to the same Hub, mock-worker, and front image digests, recorded in the extract. The mock-worker and front tags in the initial tier sweep were mutable; the controlled comparison and soak pinned those images by digest. Do not assume an older release or a floating `master` tag contains this Hub revision.
+These figures describe the latest Kubeshark release. Every release is re-measured before publication, and this page is updated whenever a release changes the numbers. All reported trials resolved to the same Hub, mock-worker, and front image digests, recorded in the extract. The mock-worker and front tags in the initial tier sweep were mutable; the controlled comparison and soak pinned those images by digest.
 
 ## Tier Sweep: Observed Usage
 
