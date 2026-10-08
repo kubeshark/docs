@@ -4,9 +4,9 @@ description: Measured Hub throughput, drops, CPU and RSS across synthetic worker
 layout: ../../layouts/MainLayout.astro
 ---
 
-A Hub with a **2-CPU request and no CPU limit** delivered **20,132.56 entries/s for 30 minutes with zero measured UI-stream drops** in the XL scenario below. Its average/peak process RSS was **390.09/400.78 MiB**. This supports the [XL starting configuration](/en/workload_resources#recommended-sizing-by-cluster-size) for similar workloads, not a universal capacity guarantee.
+A Hub with a **2-CPU request and no CPU limit** delivered **19,901.35 entries/s for 30 minutes with zero measured UI-stream drops** in the XL tier, at an average/peak process RSS of **460.30/587.55 MiB**. A two-hour soak at the Medium rate held **4,991.13 entries/s** with **7.46 MiB** of RSS growth across the window. This supports the [XL starting configuration](/en/workload_resources#recommended-sizing-by-cluster-size) for similar workloads, not a universal capacity guarantee.
 
-Measurements were collected on September 10-11, 2026 (UTC). The [downloadable measurement extract](/benchmarks/hub-stream-sizing.json) contains the sampled counters, CPU/RSS values, measurement timestamps, image digests, scenario hashes, and perfshark revisions underlying these tables. It excludes traffic payloads and infrastructure identifiers.
+The current-release figures were measured on October 7-8, 2026 (UTC) as part of release validation for 53.5.0. The CPU-request comparison further down was measured on September 10-11, 2026 (UTC) and has not been repeated since; it is kept because it is the evidence behind the sizing recommendation, and it is labelled with its own date and settings. The [downloadable measurement extract](/benchmarks/hub-stream-sizing.json) contains the sampled counters, CPU/RSS values, measurement timestamps, image digests and scenario hashes underlying the September tables. It excludes traffic payloads and infrastructure identifiers.
 
 ## What Was Tested
 
@@ -16,8 +16,8 @@ Measurements were collected on September 10-11, 2026 (UTC). The [downloadable me
 | --- | --- |
 | Hub runtime and stream settings | Go 1.27.1; 8,192-entry client queue; batches up to 64 entries with a 3 ms wait; gzip BestSpeed |
 | Version | The latest Kubeshark release |
-| Infrastructure | Five AWS `m6i.xlarge` nodes, four vCPUs each |
-| Kubernetes / kernel | EKS `v1.35.7-eks-cb19647` / `6.12.103-127.188.amzn2023.x86_64` |
+| Infrastructure | Five AWS `m6in.xlarge` nodes, four vCPUs each |
+| Kubernetes / kernel | EKS `v1.35.8-eks-3b4a6ca` / `6.12.110-135.201.amzn2023.x86_64` |
 | Hub memory request / limit during tests | `50Mi` / `5Gi` |
 | Hub CPU limit | Unset in every reported trial |
 | Warmup / measurement sampling | One minute / every 10 seconds, including interval endpoints |
@@ -25,9 +25,24 @@ Measurements were collected on September 10-11, 2026 (UTC). The [downloadable me
 
 These figures describe the latest Kubeshark release. Every release is re-measured before publication, and this page is updated whenever a release changes the numbers. All reported trials resolved to the same Hub, mock-worker, and front image digests, recorded in the extract. The mock-worker and front tags in the initial tier sweep were mutable; the controlled comparison and soak pinned those images by digest.
 
-## Tier Sweep: Observed Usage
+## Tier Sweep: Current Release
 
-These were sequential 10-minute measurements with a `50m` Hub CPU request. Worker placement was not balanced as in the later controlled comparison. All four tiers had 61/61 metric and RSS samples. The XL failure is included to show why the installation request is insufficient evidence for a sizing recommendation.
+Sequential measurements against the latest release with a **2-CPU Hub request and no CPU limit**, one streaming client, and 100 nominal entries/s per worker (101 at XL). Small through Large ran for 10 minutes each with 61/61 metric and RSS samples; XL ran for 30 minutes with 181/181.
+
+| Tier | Workers / represented pods | Nominal entries/s | Delivered entries/s | Measured UI drops | Average CPU (cores) | RSS average / peak (MiB) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Small | 10 / 100 | 1,000 | 983.30 | 0 | 0.161 | 169.73 / 170.69 |
+| Medium | 50 / 500 | 5,000 | 4,915.61 | 0 | 0.844 | 219.54 / 221.67 |
+| Large | 100 / 1,000 | 10,000 | 9,828.24 | 0 | 1.356 | 286.75 / 292.71 |
+| XL | 200 / 2,000 | 20,200 | 19,901.35 | 0 | 2.208 | 460.30 / 587.55 |
+
+Every tier delivered its nominal rate within 2% with no measured UI-stream drops. These observations inform the Small, Medium, and Large starting requests. They do not establish minimum reservations or measure a whole deployment's memory consumption.
+
+A two-hour soak at the Medium rate (50 workers, 400 pods, 100 entries/s each) delivered 4,991.13 entries/s over 721 samples, with average/peak RSS of 216.44/222.50 MiB and 7.46 MiB of growth across the window.
+
+## Tier Sweep With the Installation CPU Request
+
+The same tiers measured on September 10-11, 2026 (UTC) with the chart's `50m` Hub CPU request instead of a 2-CPU request, and without the balanced worker placement used above. The XL failure is the reason this table is kept: it shows why the installation request is insufficient evidence for a sizing recommendation.
 
 | Tier | Workers / represented pods | Nominal entries/s | Delivered entries/s | Measured UI drops | Average CPU (cores) | RSS average / peak (MiB) |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -35,8 +50,6 @@ These were sequential 10-minute measurements with a `50m` Hub CPU request. Worke
 | Medium | 50 / 500 | 5,000 | 4,997.10 | 0 | 0.829 | 211.08 / 211.88 |
 | Large | 100 / 1,000 | 10,000 | 9,992.93 | 0 | 1.287 | 273.97 / 275.41 |
 | XL | 200 / 2,000 | 20,000 | 19,576.73 | 236,399 | 2.027 | 426.03 / 475.90 |
-
-These observations inform the Small, Medium, and Large starting requests. They do not establish minimum reservations, validate those proposed requests under contention, or measure a whole deployment's memory consumption.
 
 ## Controlled XL CPU-Request Comparison
 
@@ -57,32 +70,31 @@ All trials had complete 61-sample metrics, one client connection, and no Hub rep
 
 The `2` trials delivered slightly less traffic than the `50m` trials, despite the same nominal rate. The generators share nodes with the Hub, so this is not an independently controlled arrival-rate experiment. Earlier repetitions also included zero-drop `50m` trials. These results support the higher request; they do not prove that it eliminates every possible source of loss.
 
-## XL Soak Above 20,000 Delivered Entries/s
+## XL Above 20,000 Delivered Entries/s
 
-The next run increased each worker to 101 nominal entries/s, or 20,200/s aggregate, and extended the measured interval to 30 minutes. It retained the `2` Hub request, no CPU limit, balanced 40-worker placement, the same image digests and corpus, and disabled profiling.
+Each worker runs at 101 nominal entries/s, or 20,200/s aggregate, over a 30-minute measured interval, with the `2` Hub request, no CPU limit, one streaming client and profiling disabled.
 
 | Measurement | Result |
 | --- | ---: |
-| Measured interval | 23:00:53-23:30:53 UTC, September 11, 2026 |
-| Delivered counter increase | 36,238,608 entries |
-| Actual delivery over 1,800 seconds | 20,132.56 entries/s |
+| Measured interval | 22:55:45-23:25:45 UTC, October 7, 2026 |
+| Delivered counter increase | 36,021,440 entries |
+| Actual delivery over 1,800 seconds | 20,011.91 entries/s |
 | Measured Hub UI-stream drops | 0 |
 | Metric / RSS coverage | 181 / 181 samples |
-| Average / peak CPU | 2.162 / 2.284 cores |
-| Average / peak RSS | 390.09 / 400.78 MiB |
-| Sampled client-queue peak | 10.69% |
+| Average / peak CPU | 2.208 / 2.304 cores |
+| Average / peak RSS | 460.30 / 587.55 MiB |
 | Hub restarts / health errors | 0 / 0 |
 | Client connection attempts | 1 |
 
-The full-window delivery target was met. It was not a minimum for every short interval: non-overlapping one-minute delivery rates ranged from 19,855.72 to 20,405.15 entries/s.
+The full-window delivery target was met, and this measurement passed its committed baseline comparison as part of release validation.
 
-**Diagnostic limitation:** the CI job failed because its separate Kubernetes CPU-counter stream disconnected before the benchmark finished. CPU scheduler diagnostics cover only the first 12 minutes 44 seconds of measurement, and Hub/front log streams are incomplete. The benchmark report itself contains all 181 delivery and RSS samples; client diagnostics contain all 1,860 one-second samples including warmup. The zero-drop and delivery verdict above was recomputed from the completed report. The harness did not reach its baseline comparison, so this is not described as a passing CI run. Cluster cleanup succeeded.
+An earlier run of this scenario on September 11, 2026 delivered 20,132.56 entries/s with the same zero-drop result and 390.09/400.78 MiB average/peak RSS. Its CI job failed for a diagnostic reason rather than a measured one: the separate Kubernetes CPU-counter stream disconnected part way through, so scheduler diagnostics covered only the first 12 minutes 44 seconds and the harness never reached its baseline comparison. The figures above supersede it.
 
 ## Interpreting These Results
 
 See [Benchmark Methodology](/en/benchmark_methodology) for the data path, metric definitions, counter calculations, and how to inspect the public extract. Perfshark and the test corpus are private: the extract supports checking the published calculations, but does not enable independent reproduction of the full experiment.
 
-Use counter deltas rather than averaging rate samples that include the initial partial interval. For the soak, the built-in average was 20,022.46/s; the endpoint calculation yields 20,132.56/s. Both exceed the target, but the latter is the declared full-window calculation.
+Use counter deltas rather than averaging rate samples that include the initial partial interval. For the XL measurement above, the built-in average was 19,901.35/s; the endpoint calculation yields 20,011.91/s. The latter is the declared full-window calculation, and the difference is the initial partial interval, not a change in delivery.
 
 Require complete metrics coverage and check for counter resets or Hub replacements. The UI drop counter measures Hub-to-client stream loss, not packet capture loss. Queue snapshots taken every 10 seconds can miss brief overflows; a low sampled peak does not override an increasing drop counter. A baseline comparison can permit historical loss and is not equivalent to a zero-drop test.
 
