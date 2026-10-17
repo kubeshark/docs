@@ -66,6 +66,32 @@ Snapshots include all raw TCP/UDP packets, **including decrypted TLS traffic**, 
 
 ---
 
+## Diagnosing an Empty Snapshot
+
+A snapshot that completes but holds no packets, or a PCAP export that reports *no PCAP files found in snapshot*, is explained in the Hub's log. Lines carry a `snap-diag` prefix:
+
+```bash
+kubectl logs deploy/kubeshark-hub | grep snap-diag
+```
+
+At the `warning` default the Hub warns on the outcomes that matter:
+
+- **Raw capture is inactive** at creation time, or **no workers are registered**. Either one guarantees an empty snapshot, and both are reported before the copy starts.
+- **A node returned zero PCAP files**, logged per worker alongside what was requested of it.
+- **The finished snapshot carries no PCAP at all**, logged with the per-node counts, the requested window against the window actually collected, the filter, and the node success and failure tallies.
+
+The last case is attributed to one of three causes rather than reported as a single generic failure:
+
+| Cause | Meaning |
+|-------|---------|
+| `worker-counts-zero` | The workers reported no files for the window. Usually the window predates the raw capture buffer, or the filter matched nothing |
+| `files-absent-on-disk` | Files were reported but are not readable — removed, truncated, or smaller than a PCAP header |
+| `validation-failed` | Files are present but did not pass validation |
+
+Raising `logLevel` to `trace` adds the pre-flight detail for each `CreateSnapshot`: the requested window, filter and nodes, whether raw capture is active and under which session, and how many workers are registered. See [Logging](/en/helm_reference#logging).
+
+---
+
 ## Delayed Indexing (Optional)
 
 To **query** the snapshot's traffic, visualize results in the dashboard, or process them with an AI agent, run [Delayed Indexing](/en/v2/l7_api_dissection#delayed-indexing).

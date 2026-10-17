@@ -372,8 +372,19 @@ The role configuration is shared by both SAML and OIDC backends — admins maint
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
+| `logLevel` | Log level applied to every container — Hub, sniffer and tracer. One of `trace`, `debug`, `info`, `warning`, `error` | `warning` |
 | `logs.file` | Log file path | `""` |
 | `dumpLogs` | Enable log dumping | `false` |
+
+`logLevel` is a single value shared by all containers; there is no per-component override. At the
+`warning` default, `kubectl logs` shows warnings and errors only — anything logged at `info` or
+below reaches neither the pod logs nor Sentry.
+
+`trace` is the most verbose level and sits below `debug`. It carries the Hub's per-request
+diagnostics for [authorization](/en/oidc#diagnosing-authorization-failures) and
+[snapshot creation](/en/dashboard_snapshots#diagnosing-an-empty-snapshot), which are deliberately
+kept off `debug` so they can be switched on without flooding a deployment. Delayed indexing jobs
+inherit the level the Hub is running at, so raising `logLevel` also raises theirs.
 
 ### Debug
 
