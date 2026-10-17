@@ -139,11 +139,14 @@ Existing metrics provide essential insights for monitoring [Kubeshark](https://k
 | kubeshark_reassembled_tcp_payloads_total  | Counter | Total number of reassembled TCP payloads     |
 | kubeshark_matched_pairs_total             | Counter | Total number of matched pairs                |
 | kubeshark_dropped_tcp_streams_total       | Counter | Total number of dropped TCP streams          |
+| kubeshark_dropped_base_entries_total      | Counter | Total number of base entries discarded before storage |
 | kubeshark_live_tcp_streams                | Gauge   | Number of live TCP streams                   |
 | kubeshark_item_count                      | Counter | Total number of items generated              |
 | kubeshark_ws_write_count                  | Counter | Total number of items written into WebSockets |
 
 There is no `kubeshark_dns_packets_total`. DNS traffic is counted as UDP or TCP packets like any other protocol; use a [custom metric](#creating-a-custom-metric-best-practice) if you need a per-protocol count.
+
+`kubeshark_dropped_base_entries_total` counts entries a dissector returned without an ID, which also means without a timestamp, protocol or tuple — nothing downstream could key, filter or display them, so they are discarded instead of stored or streamed. The drop itself is logged at `debug`; the counter is what makes it visible at the deployed log level. A rising value is silent data loss and worth a dashboard panel alongside `kubeshark_items_stored_in_realtime_db_total`.
 
 ### Capture database metrics (worker)
 

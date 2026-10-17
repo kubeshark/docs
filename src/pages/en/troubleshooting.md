@@ -98,6 +98,22 @@ tap:
     host: 127.0.0.1
 ```
 
+## Reading the Logs for a Capture Gap
+
+At the `warning` default (see [Logging](/en/helm_reference#logging)), the Hub and Worker logs surface the recoverable events that explain a gap in captured traffic. They are warnings rather than errors because each one self-corrects; the matching error line is reserved for the case that does not.
+
+| Condition | Level | What it means |
+|-----------|-------|---------------|
+| A stream between the Hub and a Worker ends or disconnects | Warn | Normal when a pod goes away or a stream is stopped. The stream reconnects with backoff |
+| A stream has not reconnected for longer than its retry budget | Error | The stream is genuinely down. Logged once per outage, not per attempt |
+| The sniffer's syscall event socket closed, reconnecting | Warn | The tracer restarted and the sniffer is redialling. Syscall-derived data is missing for the gap |
+| An attempt to start raw capture on a Worker failed | Warn | Retried with exponential backoff |
+| Raw capture retries exhausted for a Worker | Error | Logged once per host and target. Raw capture stays off for that node until the Worker reconnects |
+
+A flapping stream is therefore visible in `kubectl logs` without redeploying at a raised log level.
+
+If entries are being discarded rather than streams dropped, watch `kubeshark_dropped_base_entries_total` — see [Capture metrics](/en/metrics#existing-metrics).
+
 ## Port-Forward is Failing
 
 When deploying [Kubeshark](https://kubeshark.com) using the CLI, the port-forward can fail. Such failures should be apparent in the console logs:
