@@ -8,9 +8,9 @@ layout: ../../layouts/MainLayout.astro
 
 [Kubeshark](https://kubeshark.com) requires a valid ENTERPRISE license to operate in an air-gapped environment. Any environment that does not allow free communication to https://api.kubeshark.com/ is considered an air-gapped environment.
 
-[Contact us](https://kubeshark.com/contact-us) to get an ENTERPRISE license.
+[Request an Enterprise license](https://kubeshark.com/get-started). Offerings are compared on the [pricing page](https://kubeshark.com/pricing).
 
-> Community and Pro licenses require an active internet connection and cannot function properly in an air-gapped environment.
+> A Community license requires an active internet connection and cannot function properly in an air-gapped environment.
 
 ## Docker Registry
 

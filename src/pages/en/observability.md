@@ -18,4 +18,4 @@ Understand your cluster and service dependencies with **Kubeshark**'s Workload M
 
 **Kubeshark** enables you to send metrics and logs to your favorite telemetry or logs provider and enjoy dashboards and alerts.
 
-> Read more in the [InfluxDB & Grafana](/en/integrations_influxdb) and [Elasticsearch](/en/integrations_elastic) sections.
+> Read more in the [InfluxDB & Grafana](/en/integrations_influxdb) section.

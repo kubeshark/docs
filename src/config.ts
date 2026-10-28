@@ -140,7 +140,6 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Prometheus', link: 'en/metrics' },
       // { text: 'Necessary Credentials', link: 'en/integrations_credentials' },
       // { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
-      // { text: 'Elasticsearch', link: 'en/integrations_elastic' },
       // { text: 'AWS S3', link: 'en/integrations_aws_s3' },
       // { text: 'Google Cloud Storage', link: 'en/integrations_gcs' },
       // { text: 'Slack', link: 'en/integrations_slack' },
@@ -155,7 +154,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'Commercial': [
       { text: 'License Portal & License Key', link: 'en/license_portal' },
-      { text: 'Community vs Pro vs Enterprise', link: 'en/plans' },
+      { text: 'Community and Enterprise', link: 'en/plans' },
       { text: 'License', link: 'en/license' },
       { text: 'Security & Compliance', link: 'en/security' },
       { text: 'POC Checklist', link: 'en/poc' },

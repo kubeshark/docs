@@ -355,7 +355,7 @@ The role configuration is shared by both SAML and OIDC backends — admins maint
 
 | Parameter | Description | Default |
 |-----------|-------------|---------|
-| `license` | License key (Community, Pro, or Enterprise) | `""` |
+| `license` | License key (Community or Enterprise) | `""` |
 | `timezone` | IANA time zone | `""` (local) |
 | `headless` | Headless mode | `false` |
 | `internetConnectivity` | Allow internet requests | `true` |
