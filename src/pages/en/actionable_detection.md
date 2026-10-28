@@ -51,4 +51,4 @@ Forensics can be uploaded to an immutable datastore like AWS S3 or Google Cloud 
 
 [Kubeshark](https://kubeshark.com) enables you to send metrics and logs to your favorite telemetry or logs provider and enjoy dashboards and alerts.
 
-> Read more in the [InfluxDB & Grafana](/en/integrations_influxdb) and [Elasticsearch](/en/integrations_elastic) sections.
+> Read more in the [InfluxDB & Grafana](/en/integrations_influxdb) section.

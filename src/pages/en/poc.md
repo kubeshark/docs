@@ -4,7 +4,7 @@ description: This checklist provides a step-by-step guide for users running a PO
 layout: ../../layouts/MainLayout.astro
 ---
 
-> [Contact us](https://kubeshark.com/contact-us) to start your POC now.
+> [Get started](https://kubeshark.com/get-started) to request a POC or a license.
 
 [Kubeshark](https://kubeshark.com) is pleased to offer POC licenses to qualifying users.
 The goal of the POC is to validate that [Kubeshark](https://kubeshark.com) operates effectively within the user's environment, can process specific workloads, and provides a tangible, hands-on experience.
@@ -64,7 +64,7 @@ Preferably, these are in-house applications or workloads deployed specifically f
 ### 4. Preliminary Installation
 
 Follow the [installation instructions](/en/install#helm) to install [Kubeshark](https://kubeshark.com). No further installation is required.
-Running [Kubeshark](https://kubeshark.com) without a license enables processing of up to 10,000 API calls, allowing compatibility validation before applying the POC license.
+You can run [Kubeshark](https://kubeshark.com) without a license, up to 10,000 API calls, to confirm it is compatible with your environment before you [request a license](https://kubeshark.com/get-started). This pre-license check is separate from a Community license, which is limited to clusters of up to 3 nodes or 60 pods.
 
 To unlock full POC capabilities, apply the configuration in the next step.
 

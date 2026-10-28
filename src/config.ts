@@ -140,7 +140,6 @@ export const SIDEBAR: Sidebar = {
       // { text: 'Prometheus', link: 'en/metrics' },
       // { text: 'Necessary Credentials', link: 'en/integrations_credentials' },
       // { text: 'InfluxDB & Grafana', link: 'en/integrations_influxdb' },
-      // { text: 'Elasticsearch', link: 'en/integrations_elastic' },
       // { text: 'AWS S3', link: 'en/integrations_aws_s3' },
       // { text: 'Google Cloud Storage', link: 'en/integrations_gcs' },
       // { text: 'Slack', link: 'en/integrations_slack' },

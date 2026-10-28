@@ -78,8 +78,6 @@ Use the Slack helper to send Slack alerts.
 
 Use the Elasticsearch helper to send schema-free JSON documents to Elasticsearch.
 
-> Read more in the [Elastic integration](/en/integrations_elastic) section.
-
 ## Webhooks
 
 The Webhook helper enables you to send any payload anywhere that supports a webhooks.
