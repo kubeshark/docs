@@ -49,8 +49,8 @@ dst.pod.namespace == "production"
 # DNS queries for a domain
 dns && "example.com" in dns_questions
 
-# Filter by pod labels (safe access)
-map_get(local_labels, "app", "") == "payments"
+# Filter by pod labels on the client side of the connection
+local_labels["app"] == "payments"
 
 # Slow requests (over 5 seconds)
 http && elapsed_time > 5000000
