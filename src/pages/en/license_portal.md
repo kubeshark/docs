@@ -1,6 +1,6 @@
 ---
 title: License Portal & License Key
-description: Manage your Kubeshark license, subscription, and payment methods
+description: Manage your Kubeshark license and subscription
 layout: ../../layouts/MainLayout.astro
 ---
 
@@ -14,17 +14,17 @@ Visit [console.kubeshark.com](https://console.kubeshark.com) and log in with you
 
 ## License Types
 
-A license key belongs to a named user (the **Licensee**). The license key is an encrypted string that includes information related to the plan, such as node limit, pod limit, expiration date, and edition.
+There are two offerings: [Community and Enterprise](https://kubeshark.com/pricing). Community is free for development and testing, limited to clusters of up to 3 nodes or 60 pods, and requires internet connectivity. Production use means any license other than Community. Enterprise has no Community size limits. Its price does not depend on cluster size. It is based on the number of pods you target (pods of interest). Smaller packages cost less, so the budget stays predictable and you control the spend. **Predictable budget, with spend you control.** Request a quote at [get started](https://kubeshark.com/get-started).
+
+A license key belongs to a named user (the **Licensee**). The license key is an encrypted string that includes information related to the license, such as its limits, expiration date, and edition.
 
 ### Single-Cluster License
 
 A single-cluster license key can only be used on a single specific cluster identified by a unique ID. This license cannot be transferred to a different cluster without resetting it first.
 
-The license includes a node limit that should be higher than the maximum node count of the cluster (considering control plane, auto-scaling, spot instances, etc).
-
 ### Multi-Cluster License
 
-An unlimited-cluster license is a single license key that can be used on any cluster, as long as the number of nodes in the cluster doesn't surpass the license node limit.
+An unlimited-cluster license is a single license key that can be used on any cluster.
 
 ## License Tab
 
@@ -34,7 +34,7 @@ The License tab provides instructions for obtaining and using your license key.
 
 ### Downloading and Applying a License Key
 
-All users — Community, Pro, and Enterprise — can download their license key from the portal and configure it as a Helm value.
+Community and Enterprise users can download their license key from the portal and configure it as a Helm value.
 
 **With Helm:**
 
@@ -57,13 +57,13 @@ license: <your-license-key>
 
 You can also store the license key as a Kubernetes secret for secure deployment.
 
-> **Note:** Community and Pro licenses require an active internet connection — telemetry must succeed for the license to remain valid. Only Enterprise licenses can operate in air-gapped environments with no internet connectivity.
+> **Note:** A Community license requires an active internet connection — telemetry must succeed for the license to remain valid. Enterprise licenses can operate in air-gapped environments with no internet connectivity.
 
 ## Subscription Tab
 
 The Subscription tab displays your license attributes:
 
-- Edition (Community, Pro, Enterprise)
+- Edition (Community or Enterprise)
 - Subscription status
 - Node limit
 - Pod limit
@@ -74,9 +74,8 @@ The Subscription tab displays your license attributes:
 
 From this tab you can:
 
-- Upgrade to Pro
+- Request an [Enterprise quote](https://kubeshark.com/get-started)
 - Downgrade to Community
-- Manage your Stripe subscription (change payment methods, cancel, modify plan)
 
 ## Applying a License Key
 
@@ -99,7 +98,7 @@ Licensees can remove their license key from a cluster by:
 
 ### Cluster-Wide Dashboard Access
 
-When a license key is configured locally in the cluster, all users within your organization can access the Kubeshark dashboard without requiring individual authentication. This applies to all license editions (Community, Pro, and Enterprise).
+When a license key is configured locally in the cluster, all users within your organization can access the Kubeshark dashboard without requiring individual authentication. This applies to Community and Enterprise.
 
 ### Optional IDP Authentication
 
@@ -113,9 +112,14 @@ See [SAML](/en/saml) and [OIDC](/en/oidc) documentation for configuration detail
 
 ## Enterprise-Only Features
 
-### Air-Gapped Clusters
+Enterprise differs from Community in four ways. The comparison is on the [pricing page](https://kubeshark.com/pricing).
 
-Enterprise users can operate in air-gapped environments with no internet connectivity. Pro licenses require an active internet connection at all times.
+- **Size** — no Community limits (up to 3 nodes or 60 pods). Pricing does not depend on cluster size. It is based on the number of pods you target (pods of interest).
+- **Air-gapped support** — no internet connectivity required. Community requires an active internet connection.
+- **SSO, authorization, and sensitive data redaction**
+- **Support** — dedicated support. Community includes community support.
+
+**Predictable budget, with spend you control.** [Request a quote](https://kubeshark.com/get-started).
 
 ## Troubleshooting
 

@@ -6,9 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## Applying a License
 
-Subscribe to a plan at the [License Portal](https://console.kubeshark.com/), then download your license key from the portal. See [Getting-Started Packages](/en/plans) for what the packages cover.
-
-Apply the license key using one of the following methods:
+Request an Enterprise license at [get started](https://kubeshark.com/get-started). Offerings are compared on the [pricing page](https://kubeshark.com/pricing). Download your license key from the [License Portal](https://console.kubeshark.com/), then apply it using one of the following methods:
 
 **With Helm:**
 
@@ -31,16 +29,12 @@ license: <your-license-key>
 
 Once the license key is set, all users in the cluster can access Kubeshark without individual authentication.
 
-> **Note:** Community and paid licenses alike require an active internet connection. Telemetry must succeed for the license to remain valid. Enterprise licenses operate air-gapped.
+> **Note:** A Community license requires an active internet connection. Telemetry must succeed for the license to remain valid. Enterprise licenses operate air-gapped (no internet connectivity required).
 
 ## Downgrading
 
-A paid plan requires a valid license key in the Kubeshark configuration file, which usually resides at `~/.kubeshark/config.yaml`.
+An Enterprise license is a license key in the Kubeshark configuration file, which usually resides at `~/.kubeshark/config.yaml`.
 
-To downgrade, erase the license key and Kubeshark falls back to the Community edition — 3 nodes and 60 pods.
+To downgrade, erase the license key and Kubeshark falls back to the Community edition — up to 3 nodes or 60 pods.
 
 No need to save the license key. You can always download it again from the [License Portal](https://console.kubeshark.com).
-
-
-
-

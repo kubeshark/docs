@@ -4,7 +4,7 @@ description: Elasticsearch integration enables persistent storage and search in 
 layout: ../../layouts/MainLayout.astro
 ---
 
-> This integration is part of the [Pro edition](https://kubeshark.com/pricing).
+> This integration requires an [Enterprise license](https://kubeshark.com/pricing). Request a quote at [get started](https://kubeshark.com/get-started).
 
 This integration enables you to send schema-free JSON documents directly to any [Elasticsearch](https://en.wikipedia.org/wiki/Elasticsearch) local or cloud-hosted instance by using the [`vendor.elastic`](/en/automation_helpers#vendorelasticurl-string-index-string-data-object-username-string-password-string-cloudid-string-apikey-string-servicetoken-string-certificatefingerprint-string) helper.
 
@@ -59,11 +59,11 @@ The `vendor.elastic` helper is used to send the traffic logs to an Elasticsearch
 
 ## Prerequisites
 
-Using the Elasticsearch integration requires a paid plan and is currently supported only by the CLI. If you haven't done so:
+Using the Elasticsearch integration requires an Enterprise license and is currently supported only by the CLI. If you haven't done so:
 1. Install the CLI, by following [these instructions](/en/install#cli).
-2. Obtain a license from the [License Portal](https://console.kubeshark.com/) and add it to your configuration.
+2. Request a license at [get started](https://kubeshark.com/get-started), download it from the [License Portal](https://console.kubeshark.com/), and add it to your configuration.
 
-> `kubeshark license` prints the license the CLI currently has loaded. More information about plans is in the [Plans](/en/plans) section.
+> `kubeshark license` prints the license the CLI currently has loaded. Current offerings are described in [Community and Enterprise](/en/plans).
 
 Ensure your configuration file includes the following configuration at a minimum:
 ```shell

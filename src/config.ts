@@ -155,7 +155,7 @@ export const SIDEBAR: Sidebar = {
     ],
     'Commercial': [
       { text: 'License Portal & License Key', link: 'en/license_portal' },
-      { text: 'Community vs Pro vs Enterprise', link: 'en/plans' },
+      { text: 'Community and Enterprise', link: 'en/plans' },
       { text: 'License', link: 'en/license' },
       { text: 'Security & Compliance', link: 'en/security' },
       { text: 'POC Checklist', link: 'en/poc' },
