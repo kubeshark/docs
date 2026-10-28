@@ -10,7 +10,7 @@ layout: ../../layouts/MainLayout.astro
 
 **Licensed Work**: Kubeshark's Hub, Worker or Front, including the software components, or any portion of them, and any modification.
 
-**License**: License to use the Licensed Work. License can be obtained by browsing to https://kubeshark.com/pricing or by requesting an Enterprise license at https://kubeshark.com/get-started. License keys are managed in the [License Portal](https://console.kubeshark.com/).
+**License**: License to use the Licensed Work. A license can be obtained at https://kubeshark.com/pricing, https://kubeshark.com/get-started, or the [License Portal](https://console.kubeshark.com/).
 
 **Change Date**: December 31st, 2028
 
