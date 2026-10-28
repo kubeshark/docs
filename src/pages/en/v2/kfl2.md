@@ -117,6 +117,27 @@ timestamp > now() - duration("5m")
 
 Pod fields automatically fall back to service data when pod info is unavailable — `dst.pod.namespace` works even when only service-level resolution exists.
 
+#### Local and Remote Peers
+
+`src`/`dst` describe the direction of the traffic: `src` is the side that sent the request, `dst` the side that received it. They mean the same thing on every capture source.
+
+`local`/`remote` describe the two sides of the connection instead, and which side is which depends on how the traffic was captured:
+
+| Capture source | `local` peer | `remote` peer |
+|----------------|--------------|---------------|
+| `ebpf`, `ebpf_tls` | the side whose socket was traced | the side at the other end of it |
+| `af_packet` | the client | the server |
+
+Under eBPF both ends of an in-cluster connection are traced, so the same request produces two entries — one where `local` is the client, one where `local` is the server. Under `af_packet` the packets are read off the wire, with no socket to say which side is "here", so the client is always the local peer and a connection produces a single entry.
+
+A filter that reads labels on a specific side therefore needs to be written for the client side to match on both capture sources:
+
+```cel
+map_get(local_labels, "app", "") == "checkout"
+```
+
+The same filter written against the server side — `map_get(local_labels, "app", "") == "payments"` where `payments` is the server — matches under eBPF and matches nothing under `af_packet`. Use `src`/`dst` when the filter should not depend on the capture source.
+
 #### Labels and Annotations
 
 | Variable | Type | Description |
@@ -128,11 +149,12 @@ Pod fields automatically fall back to service data when pod info is unavailable 
 | `local_process_name` | string | Process name on the local peer |
 | `remote_process_name` | string | Process name on the remote peer |
 
-Always use `map_get()` for labels and annotations — direct access like `local_labels["app"]` errors if the key doesn't exist:
+A missing key reads as `""` rather than raising an error, so bracket and dot access are both safe. `map_get()` is still available when an explicit default other than `""` is wanted:
 
 ```cel
-map_get(local_labels, "app", "") == "checkout"
-map_get(remote_labels, "version", "") == "canary"
+local_labels["app"] == "checkout"
+remote_labels.version == "canary"
+map_get(local_labels, "app", "none") == "checkout"
 "tier" in local_labels
 ```
 
