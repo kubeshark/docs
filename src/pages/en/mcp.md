@@ -110,6 +110,15 @@ These metrics measure the time to complete the TCP 3-way handshake:
 
 ## Setting Up MCP
 
+### One-click install
+
+The [Kubeshark CLI](/en/install) must be installed first (for example `brew install kubeshark`). These buttons add an MCP server that runs `kubeshark mcp`.
+
+[![Add to Cursor](https://cursor.com/deeplink/mcp-install-dark.svg)](cursor://anysphere.cursor-deeplink/mcp/install?name=kubeshark&config=eyJjb21tYW5kIjoia3ViZXNoYXJrIiwiYXJncyI6WyJtY3AiXX0=)
+[![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Kubeshark_MCP-0098FF?logo=visualstudiocode&logoColor=white)](vscode:mcp/install?%7B%22name%22%3A%22kubeshark%22%2C%22command%22%3A%22kubeshark%22%2C%22args%22%3A%5B%22mcp%22%5D%7D)
+
+**Claude Desktop:** Download the `.mcpb` bundle for your OS from the [latest release](https://github.com/kubeshark/kubeshark/releases/latest) (files named `kubeshark-mcp_<os>_<arch>.mcpb`) and double-click it, or add it in Claude Desktop's extensions settings.
+
 ### Prerequisites
 
 - Kubeshark installed in your cluster
