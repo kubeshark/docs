@@ -8,7 +8,7 @@ mascot: Cute
 
 <div class="callout callout-tip">
 
-Looking for MCP installation? See the [MCP integration guide](/en/mcp) for connecting AI agents to Kubeshark.
+Looking for MCP installation? Use [MCP for AI assistants](#mcp-for-ai-assistants) below, or see the [MCP integration guide](/en/mcp).
 
 </div>
 
@@ -42,6 +42,10 @@ kubeshark tap
 # cleanup
 kubeshark clean
 ```
+
+## MCP for AI assistants
+
+<mcp-one-click-install></mcp-one-click-install>
 
 ## Kubernetes Manifest
 

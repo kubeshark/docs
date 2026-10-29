@@ -110,6 +110,10 @@ These metrics measure the time to complete the TCP 3-way handshake:
 
 ## Setting Up MCP
 
+### One-click install
+
+<mcp-one-click-install></mcp-one-click-install>
+
 ### Prerequisites
 
 - Kubeshark installed in your cluster
