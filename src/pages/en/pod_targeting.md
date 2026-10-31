@@ -72,6 +72,19 @@ Another way to target specific traffic is by using an explicit BPF expression wr
 > Setting an explicit BPF expression that overrides other rules is available only when AF_PACKET is used as a packet capture library. Read [here](/en/packet_capture#af_packet) to learn how to explicitly set AF_PACKET as the packet capture library.
 
 
+## Targeting Precision and the Packet Capture Option
+
+How precisely capture filters can separate workloads depends on the [packet capture option](/en/packet_capture) in use.
+
+With **eBPF**, targeting is resolved per container, so workloads are separated even when they share an address.
+
+With **AF_PACKET** and **LIBPCAP**, targeting is enforced by a kernel BPF filter built from the addresses of the targeted pods, so precision is address-level. Workloads that share an address cannot be separated. This includes pods running with `hostNetwork: true`, which share the address of the node they run on. Such pods can be targeted, and both their L7 API calls and their [L4 connections and flows](/en/v2/tcp_udp_connections) are captured.
+
+On these two capture options, **Kubeshark** keeps its own traffic out of the capture by excluding the ports it serves on — `tap.proxy.worker.srvPort` (`48999`) and `tap.metrics.port` (`49100`) — rather than by excluding the node address as a whole.
+
+> **Note:** Exclusion rules are address-based on these capture options as well. Excluding a pod that runs with `hostNetwork: true`, for example through an excluded namespace, therefore has no effect, because its address is the address of the node.
+
+
 ## Processing Traffic Consumes CPU and Memory
 
 **Kubeshark**'s resource consumption is directly related to the amount of traffic it processes. This becomes a significant issue in busy clusters. [Limiting CPU and memory consumption](/en/performance#container-memory-and-cpu-limitations) doesn't guarantee efficient operation if the allocated resources are insufficient for the traffic volume that **Kubeshark** needs to handle.
