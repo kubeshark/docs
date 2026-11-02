@@ -49,7 +49,7 @@ dst.pod.namespace == "production"
 # DNS queries for a domain
 dns && "example.com" in dns_questions
 
-# Filter by pod labels on the client side of the connection
+# Filter by local-peer pod labels (not necessarily the client)
 local_labels["app"] == "payments"
 
 # Slow requests (over 5 seconds)
@@ -58,6 +58,8 @@ http && elapsed_time > 5000000
 # Recent traffic
 timestamp > now() - duration("5m")
 ```
+
+`local_labels` reads the peer whose socket was traced under eBPF, which can be the client or server. Under `af_packet`, TCP streams and aggregated TCP/UDP flows put the inferred client in the local slot; other entry paths can differ. See [Local and Remote Peers](/en/v2/kfl2#local-and-remote-peers) for the entry-specific rules.
 
 ## Full Reference
 
