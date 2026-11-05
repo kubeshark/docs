@@ -50,8 +50,12 @@ Query L7 API transactions with filtering and formatting options.
 | `start` | int64 | - | Start timestamp (Unix ms) |
 | `end` | int64 | - | End timestamp (Unix ms) |
 | `db` | string | (real-time) | Query dissection DB: `<snapshot>/<dissection>` |
+| `snapshot_id` | string | (real-time) | Snapshot to query. Must be paired with `dissection_id` |
+| `dissection_id` | string | (real-time) | Dissection within that snapshot. Must be paired with `snapshot_id` |
 
-The `db` parameter allows querying [delayed dissection](/en/mcp/delayed_dissection) databases instead of real-time data.
+The `db` parameter allows querying [delayed dissection](/en/mcp/delayed_dissection) databases instead of real-time data. `snapshot_id` and `dissection_id` address the same database as the two identifiers that make up `db`.
+
+Both must be supplied together. Either one on its own returns `400` rather than falling back to real-time data, so a query aimed at a snapshot cannot quietly return current traffic instead.
 
 ### Response Formats
 
@@ -109,6 +113,9 @@ GET /mcp/calls?kfl=src.ns == "frontend" and dst.ns == "backend"&format=full
 
 GET /mcp/calls?start=1706745000000&end=1706748600000
 → "Show all API calls in this time window"
+
+GET /mcp/calls?snapshot_id=incident-2024-02-01&dissection_id=full-dissection&kfl=http
+→ "Show the HTTP calls held in this snapshot's dissection"
 ```
 
 ---

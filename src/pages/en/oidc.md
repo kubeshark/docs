@@ -135,3 +135,42 @@ See [Roles & Permissions](/en/roles) for the full algorithm, capability vocabula
 `GET /whoami` returns the authenticated user's identity, resolved `role`, effective `capabilities`, and any `authzFilters` derived from the role's namespace scope. Useful for diagnosing access issues — the response shows exactly which role was resolved and which capabilities are active.
 
 The same data is surfaced in the dashboard as the **Identity & Access** modal — click your name in the top-right to open it. The modal shows the authenticated identity, the resolved role, the capability list, and the namespace scope, so users can self-diagnose access without curl-ing `/whoami` directly.
+
+## Diagnosing Authorization Failures
+
+When a user is denied — a `403` from a REST route, a `PermissionDenied` from a Connect-RPC procedure such as `SnapshotManagement/*`, or a dashboard panel that refuses to load — the hub logs the denial. One line at **warn** level names what was denied, the capability it required, the role the caller resolved to, and that role's effective capability set. This is visible at the `warning` default, so no redeploy is needed to see it:
+
+```bash
+kubectl logs deploy/kubeshark-hub | grep oidc-diag
+```
+
+For the reasoning behind a denial — which claim was read, which `groupMapping` entry matched, how the role was chosen — raise the level to `trace`:
+
+```yaml
+logLevel: trace
+```
+
+At `trace` the hub narrates the whole pipeline, each line carrying a `step` field:
+
+| Stage | What is logged |
+|-------|----------------|
+| Init & discovery | Issuer, client ID, whether the client secret is set, `bypassSslCaCheck`, the discovered endpoints, issuer match, redirect URI, scopes, expected `id_token` audience |
+| Login round trip | Callback parameters, the IdP's own `error` / `error_description`, state validation, code exchange, `id_token` verification, cookie lifetimes |
+| Per request | Cookie presence and access token verification. On failure, a decoded-but-unverified summary of `iss`, `aud`, `sub`, `exp` and `kid`, so an audience or issuer mismatch is visible without access to the IdP |
+| Role resolution | The configured claim name, the claim names actually present, the claim value and its type, each `groupMapping` hit or miss, the candidate roles, the winner, and any fall back to `defaultRole` |
+| Capability resolution | The role's preset, the license ceiling, the effective set, and which capabilities the ceiling removed |
+| Admitting branch | Which path admitted the request: anonymous, internal bearer token, CLI service account, `License-Key` header, or the configured SSO backend |
+
+Levels are assigned so that a healthy deployment is quiet:
+
+| Level | What lands there |
+|-------|------------------|
+| Error | Infrastructure failures — discovery, JWKS fetch, an unreachable or non-`200` token endpoint. A non-`200` discovery response logs its body, not just the status code |
+| Warn | Authorization denials, including the namespace-scope checks on `CreateSnapshot`, `GetPCAP`, `GetPCAPInfo` and `GET /snapshots/download/:id` |
+| Trace | The per-request narrative above |
+
+> **Notes**
+> - Grep for the `oidc-diag` prefix rather than for a field. Hub log output is colourised, so a colour reset sits between a key and its value and `grep 'diag=authz'` will not match.
+> - `trace` emits the full `id_token` and `access_token` claim payloads, which contain identity claims. Treat those logs accordingly and return to `warning` when you are done.
+
+Snapshot creation and PCAP export carry equivalent diagnostics under a `snap-diag` prefix — see [Diagnosing an Empty Snapshot](/en/dashboard_snapshots#diagnosing-an-empty-snapshot).

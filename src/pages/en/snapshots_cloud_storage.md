@@ -76,6 +76,7 @@ Both approaches can be used together — inline values are additive to external 
 | `SNAPSHOT_AWS_SECRET_KEY` | No | Static secret access key |
 | `SNAPSHOT_AWS_ROLE_ARN` | No | IAM role ARN to assume via STS (for cross-account access) |
 | `SNAPSHOT_AWS_EXTERNAL_ID` | No | External ID for the STS AssumeRole call |
+| `SNAPSHOT_AWS_INSECURE_SKIP_VERIFY` | No | `true` disables TLS certificate verification for the S3 endpoint. Default `false`. Any value other than `true`/`false` is rejected at startup |
 | `SNAPSHOT_CLOUD_PREFIX` | No | Key prefix in the bucket (e.g. `snapshots/`) |
 
 ### Authentication Methods
@@ -91,6 +92,14 @@ Credentials are resolved in this order:
    - Shared credentials file (`~/.aws/credentials`)
 
 The provider validates bucket access on startup via `HeadBucket`. If the bucket is inaccessible, the hub will fail to start.
+
+### S3-Compatible Endpoints Behind a Private CA
+
+The hub image trusts only the public CA bundle. If the endpoint is an S3-compatible service presenting a certificate signed by a private CA, the startup `HeadBucket` fails on certificate verification and the provider never comes up.
+
+`SNAPSHOT_AWS_INSECURE_SKIP_VERIFY=true` makes the S3 client skip certificate verification. The override is scoped to the S3 client only — the STS AssumeRole call keeps full verification. The effective value is logged at provider startup alongside the other S3 settings. See [Skipping Certificate Verification](#skipping-certificate-verification) for an example.
+
+> Skipping verification removes the protection against an impersonated endpoint. Where mounting the private CA into the hub is possible, prefer that and treat this as the fallback.
 
 ### Examples Using Inline Values
 
@@ -254,6 +263,23 @@ data:
 ```
 
 The hub will first authenticate using its own credentials (IRSA, static, or default chain), then assume the specified role to access the bucket.
+
+#### Skipping Certificate Verification
+
+Add the flag to your ConfigMap:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kubeshark-s3-config
+data:
+  SNAPSHOT_AWS_BUCKET: my-kubeshark-snapshots
+  SNAPSHOT_AWS_REGION: us-east-1
+  SNAPSHOT_AWS_INSECURE_SKIP_VERIFY: "true"
+```
+
+Only the S3 client stops verifying certificates. If `SNAPSHOT_AWS_ROLE_ARN` is also set, the AssumeRole call still requires a trusted certificate chain.
 
 ---
 
