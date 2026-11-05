@@ -71,8 +71,8 @@ timestamp > now() - duration("5m")
 |----------|-------------|
 | `size(collection)` | List/map/string length |
 | `key in map` | Key existence check |
-| `map[key]` | Value access (errors if key missing) |
-| `map_get(map, key, default)` | Safe access with default value |
+| `map[key]` | Value access; missing keys return `""` in KFL string-map variables, but can error in other maps |
+| `map_get(map, key, default)` | Lookup with a default on ordinary maps; missing keys in KFL string-map variables still return `""` |
 | `value in list` | List membership |
 
 ## Time Functions
@@ -117,23 +117,61 @@ timestamp > now() - duration("5m")
 
 Pod fields automatically fall back to service data when pod info is unavailable — `dst.pod.namespace` works even when only service-level resolution exists.
 
+#### Local and Remote Peers
+
+`src`/`dst` are derived from the entry's underlying `SrcIsLocal` flag: when it is true, `src` is the local peer; otherwise, `src` is the remote peer. `dst` is the other peer. For request/response TCP entries, these normally identify the request sender and receiver, independently of which socket was traced.
+
+**Known exception:** for wire-captured TCP streams first observed from the server (SYN-ACK-first or server-first mid-stream), the local peer is the inferred client but `SrcIsLocal` remains false. The derived `src`/`dst` can therefore be reversed. Do not assume request-direction invariance for those entries.
+
+`local`/`remote` describe the two peer slots instead. Their orientation depends on both the capture source and the entry path:
+
+| Capture source and entry path | `local` peer | `remote` peer |
+|-------------------------------|--------------|---------------|
+| `ebpf`, `ebpf_tls` socket captures | the side whose socket was traced | the side at the other end of it |
+| `af_packet` TCP streams and aggregated `TCP_FLOW`/`UDP_FLOW` entries | the inferred client | the inferred server |
+| `af_packet` SCTP streams | the first DATA packet's source | the other peer |
+| `af_packet` per-packet UDP/DNS entries and separate `UDP_CONN` tracking | the packet source when the entry or tracker is created; not necessarily the client | the other peer |
+
+TCP client/server inference uses the handshake when available and port heuristics for mid-stream pickup. Aggregated UDP flows use a port heuristic, which can misidentify roles for custom protocols. SCTP does not infer the association initiator. The per-packet UDP/DNS and separate UDP connection paths do not share the aggregate flow's client-local policy.
+
+For an L7 TCP request captured at both endpoint sockets under eBPF, there are two entries: one where `local` is the client and one where `local` is the server. An `af_packet` TCP stream produces one L7 entry per request, not one per connection; a persistent connection can carry multiple requests.
+
+For TCP streams and aggregated flows, a filter using `local_labels` must target the inferred client to match both eBPF and `af_packet`. For example, when `checkout` is the client and `payments` is the server:
+
+```cel
+# Matches the client-local eBPF entry and the client-local af_packet entry
+local_labels["app"] == "checkout"
+
+# Matches the server on client-local entries under either capture source
+remote_labels["app"] == "payments"
+```
+
+By contrast, `local_labels["app"] == "payments"` matches the server-local eBPF entry but not the client-local `af_packet` entry. These filters do not match both eBPF orientations. For request-direction IP, pod, service, or namespace filters, use `src`/`dst`, subject to the server-first TCP exception above.
+
 #### Labels and Annotations
 
 | Variable | Type | Description |
 |----------|------|-------------|
-| `local_labels` | map | K8s labels of the local peer |
-| `local_annotations` | map | K8s annotations of the local peer |
-| `remote_labels` | map | K8s labels of the remote peer |
-| `remote_annotations` | map | K8s annotations of the remote peer |
+| `local_labels` | `map<string,string>` | K8s labels of the local peer |
+| `local_annotations` | `map<string,string>` | K8s annotations of the local peer |
+| `remote_labels` | `map<string,string>` | K8s labels of the remote peer |
+| `remote_annotations` | `map<string,string>` | K8s annotations of the remote peer |
 | `local_process_name` | string | Process name on the local peer |
 | `remote_process_name` | string | Process name on the remote peer |
 
-Always use `map_get()` for labels and annotations — direct access like `local_labels["app"]` errors if the key doesn't exist:
+In these label and annotation maps, a missing key reads as `""` rather than raising an error, so bracket and dot access are both safe:
 
 ```cel
-map_get(local_labels, "app", "") == "checkout"
-map_get(remote_labels, "version", "") == "canary"
+local_labels["app"] == "checkout"
+remote_labels.version == "canary"
 "tier" in local_labels
+```
+
+`map_get()` also returns `""` for a missing key in these wrapped string maps, even when a different default is supplied. To distinguish an absent key from a present key whose value is empty, use membership and a ternary expression:
+
+```cel
+# Select entries with no app label, or with app explicitly set to "none"
+("app" in local_labels ? local_labels["app"] : "none") == "none"
 ```
 
 #### DNS Resolution
@@ -446,8 +484,8 @@ src.service.name == "api-gateway" && dst.service.name == "user-service"
 # Traffic involving production namespace
 "production" in namespaces
 
-# Filter by pod labels (safe access)
-map_get(local_labels, "app", "") == "payments"
+# Filter by local-peer pod labels (orientation depends on capture source and entry path)
+local_labels["app"] == "payments"
 
 # Filter by process name
 local_process_name == "nginx"
@@ -645,7 +683,7 @@ KFL is statically typed. Common gotchas:
 - `status_code` is `int`, not string — use `status_code == 200`, not `"200"`
 - `elapsed_time` is in **microseconds** — 5 seconds = `5000000`
 - `timestamp` requires the `timestamp()` function — not a raw string
-- Map access on missing keys errors — use `key in map` or `map_get()` first
+- KFL string-map variables, including labels and annotations, return `""` for missing keys. For other maps, guard potentially missing keys with `key in map` before accessing them.
 - List membership uses `value in list` — not `list.contains(value)`
 
 ## Default Values
@@ -666,9 +704,8 @@ When a variable is not present in an entry, KFL uses these defaults:
 1. **Protocol flags first** — `http && ...` is faster than `... && http`
 2. **`startsWith`/`endsWith` over `contains`** — prefix/suffix checks are faster
 3. **Specific ports before string ops** — `dst.port == 80` is cheaper than `url.contains(...)`
-4. **Use `map_get` for labels** — avoids errors on missing keys
-5. **Keep filters simple** — CEL short-circuits on `&&`, so put cheap checks first
-6. **Empty filters match all** — an empty filter string matches all traffic
+4. **Keep filters simple** — CEL short-circuits on `&&`, so put cheap checks first
+5. **Empty filters match all** — an empty filter string matches all traffic
 
 ## KFL vs Capture Filters
 
