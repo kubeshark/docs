@@ -52,6 +52,16 @@ A role with a [namespace scope](/en/roles#namespace-scope) also sees the Downloa
 
 ---
 
+## Downloading Snapshots
+
+Select a snapshot and click **Download** to retrieve its archive from the Hub.
+
+Raw capture is paused on every worker for the duration of the download, so the download's own traffic through the ingress doesn't end up in the capture. Capture resumes when the download finishes, and the Hub logs how long it was paused. Real-time indexing is unaffected.
+
+A download that stops making progress — a laptop that went to sleep, a dropped port-forward, a stalled proxy — is terminated after a minute without a successful write, so capture resumes on its own instead of staying off until the connection dies. A slow download that keeps making progress is never cut off, but note that it keeps capture paused for as long as it runs.
+
+---
+
 ## PCAP Export
 
 Export snapshots as PCAP files for analysis in [Wireshark](https://www.wireshark.org/) — no indexing required. An alternative to deploying `tcpdump`, copying files from nodes, and manually aggregating them.
