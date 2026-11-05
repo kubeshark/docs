@@ -13,6 +13,10 @@ brew install kubeshark
 
 Or download from [GitHub Releases](https://github.com/kubeshark/kubeshark/releases/latest).
 
+## One-click install
+
+<mcp-one-click-install></mcp-one-click-install>
+
 ---
 
 ## Connect an AI Agent

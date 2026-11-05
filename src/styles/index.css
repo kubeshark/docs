@@ -614,3 +614,92 @@ td, th {
 	justify-content: space-between;
 	align-items: center;
 }
+
+/* One-click MCP install */
+.mcp-install-slot {
+	display: contents;
+}
+
+.mcp-install__note {
+	margin: 0 0 1rem;
+}
+
+.mcp-install__buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	margin: 0 0 1rem;
+}
+
+.mcp-install__btn {
+	flex: 1 1 18rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 0.7rem;
+	height: 46px;
+	min-height: 46px;
+	padding: 0 1rem;
+	border: 1px solid var(--theme-divider);
+	border-radius: 12px;
+	background: var(--theme-bg-offset);
+	box-shadow: var(--theme-shadow-sm);
+	color: var(--theme-text);
+	font-size: 0.95rem;
+	font-weight: 600;
+	line-height: 1;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.mcp-install__btn:hover,
+.mcp-install__btn:focus {
+	color: var(--theme-text);
+	text-decoration: none;
+	border-color: var(--theme-accent);
+	background: var(--theme-bg-accent);
+}
+
+.mcp-install__btn:focus-visible {
+	outline: 2px solid var(--theme-accent);
+	outline-offset: 2px;
+}
+
+.mcp-install__icon {
+	width: 22px;
+	height: 22px;
+	flex: 0 0 22px;
+}
+
+.mcp-install__label,
+.mcp-install__client {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.55rem;
+	margin: 1.25rem 0 0.5rem;
+	font-weight: 600;
+	color: var(--theme-text);
+}
+
+.mcp-install__client {
+	margin-top: 1rem;
+}
+
+.mcp-install pre {
+	margin-top: 0;
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.mcp-install pre code {
+	background: transparent;
+	color: inherit;
+	padding: 0;
+}
+
+@media (max-width: 40em) {
+	.mcp-install__btn {
+		flex-basis: 100%;
+	}
+}
