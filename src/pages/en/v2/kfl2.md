@@ -121,16 +121,16 @@ Pod fields automatically fall back to service data when pod info is unavailable 
 
 `src`/`dst` are derived from the entry's underlying `SrcIsLocal` flag: when it is true, `src` is the local peer; otherwise, `src` is the remote peer. `dst` is the other peer. For request/response TCP entries, these normally identify the request sender and receiver, independently of which socket was traced.
 
-**Known exception:** for wire-captured TCP streams first observed from the server (SYN-ACK-first or server-first mid-stream), the local peer is the inferred client but `SrcIsLocal` remains false. The derived `src`/`dst` can therefore be reversed. Do not assume request-direction invariance for those entries.
+For wire-captured TCP streams this holds in both directions of first observation: a stream first seen from the server (SYN-ACK-first or server-first mid-stream) reports `SrcIsLocal` in line with the client-local orientation, so its `src`/`dst` are not reversed. Server-first reassembly is a separate, open limitation, so such a stream can still produce no L7 entries at all.
 
 `local`/`remote` describe the two peer slots instead. Their orientation depends on both the capture source and the entry path:
 
 | Capture source and entry path | `local` peer | `remote` peer |
 |-------------------------------|--------------|---------------|
 | `ebpf`, `ebpf_tls` socket captures | the side whose socket was traced | the side at the other end of it |
-| `af_packet` TCP streams and aggregated `TCP_FLOW`/`UDP_FLOW` entries | the inferred client | the inferred server |
-| `af_packet` SCTP streams | the first DATA packet's source | the other peer |
-| `af_packet` per-packet UDP/DNS entries and separate `UDP_CONN` tracking | the packet source when the entry or tracker is created; not necessarily the client | the other peer |
+| Wire captures (`af_packet`, libpcap, PF_RING) — TCP streams and aggregated `TCP_FLOW`/`UDP_FLOW` entries | the inferred client | the inferred server |
+| Wire captures — SCTP streams | the first DATA packet's source | the other peer |
+| Wire captures — per-packet UDP/DNS entries and separate `UDP_CONN` tracking | the packet source when the entry or tracker is created; not necessarily the client | the other peer |
 
 TCP client/server inference uses the handshake when available and port heuristics for mid-stream pickup. Aggregated UDP flows use a port heuristic, which can misidentify roles for custom protocols. SCTP does not infer the association initiator. The per-packet UDP/DNS and separate UDP connection paths do not share the aggregate flow's client-local policy.
 
@@ -146,7 +146,7 @@ local_labels["app"] == "checkout"
 remote_labels["app"] == "payments"
 ```
 
-By contrast, `local_labels["app"] == "payments"` matches the server-local eBPF entry but not the client-local `af_packet` entry. These filters do not match both eBPF orientations. For request-direction IP, pod, service, or namespace filters, use `src`/`dst`, subject to the server-first TCP exception above.
+By contrast, `local_labels["app"] == "payments"` matches the server-local eBPF entry but not the client-local `af_packet` entry. These filters do not match both eBPF orientations. For request-direction IP, pod, service, or namespace filters, use `src`/`dst`.
 
 #### Labels and Annotations
 
@@ -607,6 +607,9 @@ ldap && ldap_type == "bind"
 
 # RADIUS auth
 radius && radius_code_name == "Access-Request"
+
+# RADIUS accounting
+radius && radius_code_name == "Accounting-Request"
 ```
 
 ### Transport and Connection Filtering
