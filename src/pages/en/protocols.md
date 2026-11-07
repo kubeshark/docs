@@ -48,7 +48,7 @@ Kubeshark supports a comprehensive range of network protocols across multiple la
 | Protocol | RFC | Description |
 |----------|-----|-------------|
 | [LDAP](https://datatracker.ietf.org/doc/html/rfc4511) | RFC 4511 | Lightweight Directory Access Protocol |
-| [RADIUS](https://datatracker.ietf.org/doc/html/rfc2865) | RFC 2865 | Remote Authentication Dial-In User Service |
+| [RADIUS](https://datatracker.ietf.org/doc/html/rfc2865) | RFC 2865, [RFC 2866](https://datatracker.ietf.org/doc/html/rfc2866) | Remote Authentication Dial-In User Service, including accounting traffic on port 1813 |
 | [DIAMETER](https://datatracker.ietf.org/doc/html/rfc6733) | RFC 6733 | Authentication, Authorization, and Accounting |
 
 ### Network & Transport Layer

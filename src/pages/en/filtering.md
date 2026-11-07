@@ -59,7 +59,7 @@ http && elapsed_time > 5000000
 timestamp > now() - duration("5m")
 ```
 
-`local_labels` reads the peer whose socket was traced under eBPF, which can be the client or server. Under `af_packet`, TCP streams and aggregated TCP/UDP flows put the inferred client in the local slot; other entry paths can differ. See [Local and Remote Peers](/en/v2/kfl2#local-and-remote-peers) for the entry-specific rules.
+`local_labels` reads the peer whose socket was traced under eBPF, which can be the client or server. Under a wire capture (`af_packet`, libpcap or PF_RING), TCP streams and aggregated TCP/UDP flows put the inferred client in the local slot; other entry paths can differ. See [Local and Remote Peers](/en/v2/kfl2#local-and-remote-peers) for the entry-specific rules.
 
 ## Full Reference
 
