@@ -356,6 +356,8 @@ gRPC traffic is detected as a sub-protocol of HTTP/2. When `grpc` is true, all H
 | `kafka_request_size` | int | Request size in bytes |
 | `kafka_response_size` | int | Response size in bytes |
 
+Kafka exchanges that could not be dissected (for example, an unsupported API key or version) are still reported, with header fields only. Their `kafka_request_summary` starts with `undissected: ` followed by the cause.
+
 ### AMQP Variables
 
 | Variable | Type | Description |
@@ -598,6 +600,9 @@ kafka && kafka_request_summary.contains("orders")
 
 # Large Kafka messages
 kafka && kafka_size > 10000
+
+# Kafka exchanges that could not be dissected
+kafka && kafka_request_summary.startsWith("undissected: ")
 
 # AMQP publish
 amqp && amqp_method == "basic.publish"
