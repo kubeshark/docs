@@ -142,6 +142,11 @@ Existing metrics provide essential insights for monitoring [Kubeshark](https://k
 | kubeshark_live_tcp_streams                | Gauge   | Number of live TCP streams                   |
 | kubeshark_item_count                      | Counter | Total number of items generated              |
 | kubeshark_ws_write_count                  | Counter | Total number of items written into WebSockets |
+| kubeshark_undissected_messages_total      | Counter | Total number of messages that could not be dissected |
+
+`kubeshark_undissected_messages_total` is labelled by `protocol`, `direction` and `reason`. Reasons are
+`unsupported_api_key`, `unsupported_version`, `not_implemented`, `malformed`, `unmatched` and
+`skipped_request`. Currently reported for Kafka.
 
 There is no `kubeshark_dns_packets_total`. DNS traffic is counted as UDP or TCP packets like any other protocol; use a [custom metric](#creating-a-custom-metric-best-practice) if you need a per-protocol count.
 
