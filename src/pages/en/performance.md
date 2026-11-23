@@ -64,14 +64,15 @@ Utilizing Pod Targeting can significantly optimize resource consumption:
 
 ### Traffic Sampling
 
-`TrafficSampleRate` is a number representing a percentage between 0 and 100. This number causes [Kubeshark](https://kubeshark.com) to randomly select L4 streams, not exceeding the set percentage.
+`tap.misc.trafficSampleRate` is a percentage between 0 and 100 used to randomly sample L4 streams. It does not specify a percentage of traffic bytes or a proportional resource reduction.
 
-For example, this configuration will cause [Kubeshark](https://kubeshark.com) to process only 20% of traffic, discarding the rest:
+For example, this configuration samples L4 streams at 20%:
 
 
 ```yaml
 tap:
-  trafficSampleRate: 20
+  misc:
+    trafficSampleRate: 20
 ```
 
 ## The Browser

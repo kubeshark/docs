@@ -60,13 +60,13 @@ These are **starting requests for a workload similar to the [Hub streaming bench
 | Large | Up to 100 | ~10,000 | `1500m` | `1Gi` | `5Gi` |
 | X-Large | Up to 200 | ~20,000 | `2` | `1Gi` | `5Gi` |
 
-The measured Hub RSS averages were 165, 211, and 274 MiB for Small, Medium, and Large. An XL soak with a `2` CPU request delivered **20,132.56 entries/s for 30 minutes with zero measured Hub UI-stream drops**, using 390 MiB average and 401 MiB peak RSS. These are Hub-only measurements with synthetic workers, not memory requirements for packet capture, indexing, snapshots, or the browser. See the [benchmark results](/en/performance_benchmark) and [methodology and scope](/en/benchmark_methodology).
+In published 53.6.0 validation, average Hub RSS was 171, 219 and 284 MiB for Small, Medium and Large. The XL measurement delivered **20,102.07 entries/s for 30 minutes with zero measured Hub UI-stream drops**, using 449/515 MiB average/peak RSS. These are Hub-only synthetic measurements, not memory requirements for real capture, indexing, snapshots or the browser. The release report does not attest CPU reservation/limit or exact producer placement; the request recommendation also draws on the separately dated controlled experiment. See the [benchmark results](/en/performance_benchmark) and [methodology](/en/benchmark_methodology).
 
 ### Why a CPU Request Matters Without a Limit
 
 A CPU request affects placement and the container's relative CPU share when other workloads compete on the same node. A container can use more CPU than its request when capacity is available. A CPU limit imposes a separate ceiling through throttling. See [Kubernetes resource management](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 
-Use `limits.cpu: 0` in Kubeshark Helm values to omit the Hub CPU limit when cluster policy permits. The chart treats zero as an omission sentinel; do not pass an empty string, which can render a zero CPU limit and reject a nonzero request. In six controlled XL trials without a CPU limit, the three trials using a `2` request had zero drops; the three using `50m` lost 3,092, 7,071, and 3,625 entries. The Hub used more than two cores on average in the subsequent soak. Setting a two-core **limit** would impose a constraint that this test did not validate.
+Use `limits.cpu: 0` in Kubeshark Helm values to omit the Hub CPU limit when cluster policy permits. The chart treats zero as an omission sentinel; do not pass an empty string, which can render a zero CPU limit and reject a nonzero request. In the historical September controlled comparison without a CPU limit, three trials using a `2` request had zero drops; three using `50m` lost 3,092, 7,071 and 3,625 entries. This request comparison did not validate a two-core CPU limit.
 
 A request is not exclusive ownership of two cores or a throughput guarantee. Ensure the node has spare CPU for bursts and for its other workloads. Raising the request can also change pod placement; check the resulting distribution.
 
@@ -161,7 +161,7 @@ Each worker stores captured traffic temporarily:
 
 ```yaml
 tap:
-  storageLimit: 5Gi           # Max storage per worker
+  storageLimit: 10Gi          # Default storage limit per worker
 ```
 
 When storage exceeds this limit, the pod is evicted and restarted.
@@ -201,10 +201,11 @@ Reduce resource usage by processing only a percentage of traffic:
 
 ```yaml
 tap:
-  trafficSampleRate: 100      # 0-100, default is 100 (all traffic)
+  misc:
+    trafficSampleRate: 100    # 0-100, default is 100 (all traffic)
 ```
 
-Setting `trafficSampleRate: 20` processes only 20% of L4 streams.
+Setting `tap.misc.trafficSampleRate: 20` samples L4 streams at 20%. This is stream sampling, not a guarantee of a 20% reduction in traffic bytes, CPU, or memory.
 
 ---
 
@@ -306,7 +307,8 @@ tap:
         memory: 64Mi
 
   # Reduce load
-  trafficSampleRate: 50
+  misc:
+    trafficSampleRate: 50
 ```
 
 ---

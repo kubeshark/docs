@@ -4,9 +4,9 @@ description: How Kubeshark uses perfshark to measure Hub streaming, what the mea
 layout: ../../layouts/MainLayout.astro
 ---
 
-Perfshark is Kubeshark's internal testing tool for generating controlled workloads and measuring their behavior. Its source repository and the corpus used for the published Hub tests are private. You do not need access to them to read the [benchmark results](/en/performance_benchmark) or inspect the [published measurement extract](/benchmarks/hub-stream-sizing.json).
+Perfshark is Kubeshark's internal testing tool for generating controlled workloads and measuring their behavior. Its source repository and the corpus used for the published Hub tests are private. You do not need access to them to read the [benchmark results](/en/performance_benchmark) or inspect the [53.6.0 measurement extract](/benchmarks/hub-stream-sizing-53.6.0.json) and [historical measurement extract](/benchmarks/hub-stream-sizing.json).
 
-This page describes the **synthetic Hub streaming scenario** behind those results. It does not describe every test perfshark can run.
+This page describes the **synthetic Hub streaming scenario** behind those results and the scope of current performance testing. Historical measurements retain their original inputs and limitations; changes to the test method do not remeasure a released version.
 
 ## How the Test Works
 
@@ -16,6 +16,16 @@ This page describes the **synthetic Hub streaming scenario** behind those result
 4. After warmup, the runner samples client counters and Hub metrics over a defined interval. It records image digests, scenario and corpus hashes, and environment details alongside the measurements.
 
 The data path is **synthetic workers → Hub → streaming test client**. Worker count times configured entries/s is nominal load. Generator scheduling and backpressure can affect actual delivery, so results report the received counter increase over elapsed measurement time.
+
+## Current Test Scope and Environment
+
+The performance suite measures Hub streaming, worker-count changes, flow queries, and snapshot operations using synthetic workers. Snapshot tests use a prepared packet-capture seed, not live worker capture. Functional tests separately exercise real capture and dissection against controlled application traffic; passing them does not establish packet-capture throughput.
+
+The standard performance environment uses five workload nodes: one reserved for the Hub and Front, and four for synthetic producers. The streaming receiver runs on a separate Amazon EC2 instance. Receiver location, network path, and workload placement are part of the measurement environment, not interchangeable implementation details. Older published trials can have different placement, as identified on the results page.
+
+The versioned demo-apps workload artifact owns the application fixtures, corpus-generation configuration and coverage expectations, and synthetic snapshot seed. Perfshark consumes and verifies those assets. Reports identify the workload artifact, replay corpus, seed when used, scenario, and resolved images so that a comparison can establish which inputs actually ran. Generating a corpus from captured application traffic does not turn replaying prepared entries into a capture or dissection benchmark.
+
+The standard suite and the separate two-hour soak are different test selections. A passing standard suite does not imply that the soak ran or that a complete release validation passed.
 
 ## What the Measurements Mean
 
@@ -28,11 +38,11 @@ The data path is **synthetic workers → Hub → streaming test client**. Worker
 | Queue utilization | Sampled Hub client-queue occupancy; short spikes can occur between samples |
 | Coverage and continuity | Whether expected metrics were available, with checks for gaps, counter resets, restarts, and Hub replacement |
 
-Separate CPU scheduling diagnostics and logs can help explain a result. Their collection can fail while the main benchmark continues. Each result must identify incomplete evidence and distinguish the measured outcome from the CI job status.
+Separate CPU scheduling diagnostics and logs can help explain a result. Historical measurements may have incomplete diagnostics, which must remain visible as a limitation. Current acceptance requires verified input provenance, a compatible baseline, required measurement and restart evidence, and verified cleanup. When log collection is enabled, incomplete collection also prevents acceptance. A report containing measurements is not by itself a passing result, and missing restart evidence must not be interpreted as zero restarts. An integrity or cleanup failure blocks subsequent measurements until the underlying problem is resolved.
 
 ## Checking the Published Results
 
-The [measurement extract](/benchmarks/hub-stream-sizing.json) contains selected fields from the reports, not traffic payloads or the complete raw artifacts. Each record includes timestamps, input provenance, sampled counters, and a summary. Zero-valued metric fields omitted in the original reports are expanded to zero in the extract.
+The [53.6.0 extract](/benchmarks/hub-stream-sizing-53.6.0.json) contains selected metrics from the published release-validation archive. The [historical extract](/benchmarks/hub-stream-sizing.json) retains the September experiments. Each record includes timestamps, input provenance, sampled counters and a summary, not traffic payloads or complete raw artifacts. Zero-valued metric fields omitted in the original reports are expanded to zero alongside the retained collection-availability fields. Missing CPU resource settings or newer restart-availability attestations are not synthesized.
 
 Use the first and last samples after warmup. Sample `t=0` marks the start of measurement, not process startup. Cumulative counters can already be nonzero because traffic is flowing during warmup; subtract the initial value and report any pre-measurement losses separately:
 
