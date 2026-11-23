@@ -6,7 +6,7 @@ layout: ../../layouts/MainLayout.astro
 
 ## Release Target
 
-Published benchmarks target the **latest published Kubeshark release**, with its matching chart and component images. Refresh the reference results from that release's validation evidence rather than substituting development results. The exact tested version, measurement dates, scenario hashes and image digests belong in the [measurement extract](/benchmarks/hub-stream-sizing.json) and release report, not in version-specific testing instructions.
+Published benchmarks target the **latest published Kubeshark release**, with its matching chart and component images. Refresh the reference results from that release's validation evidence rather than substituting development results. The exact tested version, measurement dates, scenario hashes and image digests belong in the [measurement extract](/benchmarks/hub-stream-sizing.json) and matching [release reports](https://github.com/kubeshark/kubeshark/releases), not in version-specific testing instructions.
 
 Master and branch runs are development validation. A passing development run does not automatically certify a published release or replace its benchmark evidence.
 

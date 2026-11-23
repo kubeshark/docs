@@ -1,6 +1,7 @@
 {
   "schemaVersion": 1,
   "releaseVersion": "53.6.0",
+  "releaseURL": "https://github.com/kubeshark/kubeshark/releases/tag/v53.6.0",
   "sourceArchiveSHA256": "edf1b011bb1e054e8dcd30e4b053ec014a1166dd6bab062fc4979c20e8db592d",
   "description": "Selected metric fields from the published Kubeshark 53.6.0 validation archive. Original omitted zero-valued UI counters are expanded to zero only alongside retained metrics availability. No traffic payloads, infrastructure identities, private image references or collector revision IDs. RSS units MiB; CPU units millicores; bufUtil fraction. The original reports mark the harness modified and do not retain CPU resource settings, exact producer placement or current restart-availability attestations. Historical measurements are not retroactive acceptance under current tooling.",
   "records": [

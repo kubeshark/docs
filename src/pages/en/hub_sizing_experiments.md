@@ -12,14 +12,14 @@ A Hub with a **2-CPU request and no CPU limit** reported a summary average of **
 
 The earlier release figures were measured on October 7-8, 2026 (UTC) as part of release validation for 53.5.0. The CPU-request comparison further down was measured on September 10-11, 2026 (UTC) and has not been repeated since; it is kept because it is the evidence behind the sizing recommendation, and it is labelled with its own date and settings. The [downloadable measurement extract](/benchmarks/hub-stream-sizing-historical.json) contains the sampled counters, CPU/RSS values, measurement timestamps, image digests and scenario hashes underlying the September tables. It excludes traffic payloads and infrastructure identifiers.
 
-## What Was Tested
+## October Release Validation Setup
 
 [Perfshark](/en/benchmark_methodology) used synthetic workers to stream entries from a fixed 2,000-entry corpus through one Hub to one streaming client. Each worker represented 10 pods. This tests Hub aggregation and delivery of prepared entries; it does **not** measure real worker packet capture, TLS decryption, L7 dissection, snapshot processing, browser rendering, or multiple simultaneous clients.
 
 | Parameter | Configuration |
 | --- | --- |
 | Hub runtime and stream settings | Go 1.27.1; 8,192-entry client queue; batches up to 64 entries with a 3 ms wait; gzip BestSpeed |
-| Version | Kubeshark 53.5.0 |
+| Version | Kubeshark 53.5.0, October 7-8 release validation only |
 | Infrastructure | Five AWS `m6in.xlarge` nodes, four vCPUs each |
 | Kubernetes / kernel | EKS `v1.35.8-eks-3b4a6ca` / `6.12.110-135.201.amzn2023.x86_64` |
 | Hub memory request / limit during tests | `50Mi` / `5Gi` |
@@ -27,20 +27,20 @@ The earlier release figures were measured on October 7-8, 2026 (UTC) as part of 
 | Warmup / measurement sampling | One minute / every 10 seconds, including interval endpoints |
 | Profiling | Disabled; stream diagnostics enabled |
 
-These figures describe the dated historical release and experiments below, not the latest release. All reported trials resolved to the same Hub, mock-worker, and front image digests, recorded in the extract. The mock-worker and front tags in the initial tier sweep were mutable; the controlled comparison and soak pinned those images by digest.
+This setup table describes the October release validation, not the latest release or the September experiments. The September extract records chart/app version 53.4.0, five `m6i.xlarge` nodes, EKS `v1.35.7-eks-cb19647` and kernel `6.12.103-127.188.amzn2023.x86_64`. Its 11 records resolved to the same Hub, mock-worker and front image digests. The mock-worker and front tags in that initial tier sweep were mutable; the controlled comparison and soak pinned those images by digest.
 
 ## Earlier Tier Sweep
 
 Sequential measurements against the recorded earlier release with a **2-CPU Hub request and no CPU limit**, one streaming client, and 100 nominal entries/s per worker (101 at XL). Small through Large ran for 10 minutes each with 61/61 metric and RSS samples; XL ran for 30 minutes with 181/181.
 
-| Tier | Workers / represented pods | Nominal entries/s | Delivered entries/s | Measured UI drops | Average CPU (cores) | RSS average / peak (MiB) |
+| Tier | Workers / represented pods | Nominal entries/s | Summary entries/s | Measured UI drops | Average CPU (cores) | RSS average / peak (MiB) |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
 | Small | 10 / 100 | 1,000 | 983.30 | 0 | 0.161 | 169.73 / 170.69 |
 | Medium | 50 / 500 | 5,000 | 4,915.61 | 0 | 0.844 | 219.54 / 221.67 |
 | Large | 100 / 1,000 | 10,000 | 9,828.24 | 0 | 1.356 | 286.75 / 292.71 |
 | XL | 200 / 2,000 | 20,200 | 19,901.35 | 0 | 2.208 | 460.30 / 587.55 |
 
-Every tier delivered its nominal rate within 2% with no measured UI-stream drops. These observations inform the Small, Medium, and Large starting requests. They do not establish minimum reservations or measure a whole deployment's memory consumption.
+Each tier's reported summary average was within 2% of its nominal rate, with no measured UI-stream drops. These observations inform the Small, Medium, and Large starting requests. They do not establish minimum reservations or measure a whole deployment's memory consumption.
 
 A two-hour soak at the Medium rate (50 workers, 400 pods, 100 entries/s each) delivered 4,991.13 entries/s over 721 samples, with average/peak RSS of 216.44/222.50 MiB and 7.46 MiB of growth across the window.
 
