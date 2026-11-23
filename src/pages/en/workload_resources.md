@@ -60,7 +60,7 @@ These are **starting requests for a workload similar to the [Hub streaming bench
 | Large | Up to 100 | ~10,000 | `1500m` | `1Gi` | `5Gi` |
 | X-Large | Up to 200 | ~20,000 | `2` | `1Gi` | `5Gi` |
 
-In published 53.6.0 validation, average Hub RSS was 171, 219 and 284 MiB for Small, Medium and Large. The XL measurement delivered **20,102.07 entries/s for 30 minutes with zero measured Hub UI-stream drops**, using 449/515 MiB average/peak RSS. These are Hub-only synthetic measurements, not memory requirements for real capture, indexing, snapshots or the browser. The release report does not attest CPU reservation/limit or exact producer placement; the request recommendation also draws on the separately dated controlled experiment. See the [benchmark results](/en/performance_benchmark) and [methodology](/en/benchmark_methodology).
+The latest published-release reference measurements recorded average Hub RSS of 171, 219 and 284 MiB for Small, Medium and Large. XL delivered **20,102.07 entries/s for 30 minutes with zero measured Hub UI-stream drops**, using 449/515 MiB average/peak RSS. These are synthetic Hub measurements, not resource requirements for real capture, indexing, snapshots or the browser. Exact tested versions belong in the evidence; the request recommendation also draws on a separately dated controlled experiment. See the [benchmark results](/en/performance_benchmark) and [methodology](/en/benchmark_methodology).
 
 ### Why a CPU Request Matters Without a Limit
 

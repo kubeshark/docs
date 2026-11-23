@@ -20,7 +20,7 @@ Real-time traffic indexing accounts for most of Kubeshark's resource usage. Traf
 
 Worker indexing and Hub streaming are separate resource budgets. The Hub aggregates worker results and delivers them to clients; it can lose UI-stream entries under CPU contention even when the workers are keeping up.
 
-In published 53.6.0 validation, a synthetic test with 200 workers and one client delivered **20,102.07 entries/s over 30 minutes with zero measured UI-stream drops**. Average/peak process RSS was **449/515 MiB**. This measures delivery of prepared entries, not packet capture, L7 dissection, snapshot queries or browser rendering. The report does not retain CPU reservation/limit or exact producer placement; the separately dated CPU-request comparison is described on the benchmark page.
+The latest published-release reference test used 200 synthetic workers and one client, delivering **20,102.07 entries/s over 30 minutes with zero measured UI-stream drops**. Average/peak process RSS was **449/515 MiB**. This measures prepared-entry delivery, not packet capture, L7 dissection, snapshot queries or browser rendering. Exact versions and inputs are retained in the linked benchmark evidence; unrecorded CPU reservation/limit or producer placement must not be inferred.
 
 Use [Workload Resources](/en/workload_resources#recommended-sizing-by-cluster-size) for starting requests and [Hub Streaming Benchmarks](/en/performance_benchmark) for the measured tiers, controlled CPU-request comparison, and diagnostic limitations. The [methodology page](/en/benchmark_methodology) explains the private perfshark harness and what readers can verify from the public data. Validate real traffic and concurrent clients before treating these numbers as deployment capacity.
 
