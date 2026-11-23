@@ -4,7 +4,7 @@ description: How Kubeshark uses perfshark to measure Hub streaming, what the mea
 layout: ../../layouts/MainLayout.astro
 ---
 
-Perfshark is Kubeshark's internal testing tool for generating controlled workloads and measuring their behavior. Its source repository and the corpus used for the published Hub tests are private. You do not need access to them to read the [benchmark results](/en/performance_benchmark) or inspect the [current release measurement extract](/benchmarks/hub-stream-sizing.json) and [historical measurement extract](/benchmarks/hub-stream-sizing-historical.json).
+Perfshark is Kubeshark's internal testing tool for generating controlled workloads and measuring their behavior. Its source repository and the corpus used for the published Hub tests are private. You do not need access to them to read the [benchmark results](/en/performance_benchmark) or inspect the [current release measurement extract](/benchmarks/hub-stream-sizing-current.json) and [historical measurement extract](/benchmarks/hub-stream-sizing.json).
 
 This page describes the **synthetic Hub streaming scenario** behind those results and the scope of current performance testing. Historical measurements retain their original inputs and limitations; changes to the test method do not remeasure a released version.
 
@@ -49,7 +49,7 @@ Separate CPU scheduling diagnostics and logs can help explain a result. Historic
 
 ## Checking the Published Results
 
-The [current release extract](/benchmarks/hub-stream-sizing.json) contains selected metrics from the published release-validation archive. The [historical extract](/benchmarks/hub-stream-sizing-historical.json) retains the earlier experiments. Each record includes timestamps, input provenance, sampled counters and a summary, not traffic payloads or complete raw artifacts. Zero-valued metric fields omitted in the original reports are expanded to zero alongside the retained collection-availability fields. Missing CPU resource settings or newer restart-availability attestations are not synthesized.
+The [current release extract](/benchmarks/hub-stream-sizing-current.json) contains selected metrics from the published release-validation archive. The [historical extract](/benchmarks/hub-stream-sizing.json) retains the earlier experiments at its original published URL. Each record includes timestamps, input provenance, sampled counters and a summary, not traffic payloads or complete raw artifacts. Zero-valued metric fields omitted in the original reports are expanded to zero alongside the retained collection-availability fields. Missing CPU resource settings or newer restart-availability attestations are not synthesized.
 
 Use the first and last samples after warmup. Sample `t=0` marks the start of measurement, not process startup. Cumulative counters can already be nonzero because traffic is flowing during warmup; subtract the initial value and report any pre-measurement losses separately:
 
