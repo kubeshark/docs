@@ -20,9 +20,9 @@ Real-time traffic indexing accounts for most of Kubeshark's resource usage. Traf
 
 Worker indexing and Hub streaming are separate resource budgets. The Hub aggregates worker results and delivers them to clients; it can lose UI-stream entries under CPU contention even when the workers are keeping up.
 
-In a synthetic Hub streaming test with 200 workers and one client, a Hub with a `2` CPU request and no CPU limit delivered **20,132.56 entries/s over 30 minutes with zero measured UI-stream drops**. Average/peak process RSS was **390/401 MiB**. This measures delivery of already prepared entries, not packet capture, L7 dissection, snapshot queries, or browser rendering.
+The latest published-release reference test used 200 synthetic workers and one client, delivering **20,102.07 entries/s over 30 minutes with zero measured UI-stream drops**. Average/peak process RSS was **449/515 MiB**. This measures prepared-entry delivery, not packet capture, L7 dissection, snapshot queries or browser rendering. Exact versions and inputs are retained in the linked benchmark evidence; unrecorded CPU reservation/limit or producer placement must not be inferred.
 
-Use [Workload Resources](/en/workload_resources#recommended-sizing-by-cluster-size) for starting requests and [Hub Streaming Benchmarks](/en/performance_benchmark) for the measured tiers, controlled CPU-request comparison, and diagnostic limitations. The [methodology page](/en/benchmark_methodology) explains the private perfshark harness and what readers can verify from the public data. Validate real traffic and concurrent clients before treating these numbers as deployment capacity.
+Use [Workload Resources](/en/workload_resources#recommended-sizing-by-cluster-size) for starting requests, [Hub Streaming Benchmarks](/en/performance_benchmark) for the measured tiers and their limitations, and the [historical controlled CPU-request comparison](/en/hub_sizing_experiments#controlled-xl-cpu-request-comparison) for the request-sizing evidence. The [methodology page](/en/benchmark_methodology) explains the private perfshark harness and what readers can verify from the public data. Validate real traffic and concurrent clients before treating these numbers as deployment capacity.
 
 ## Raw Capture vs Real-Time Indexing
 
@@ -83,5 +83,5 @@ tap:
       enabled: true         # Raw capture active
 ```
 
-This provides complete traffic history with minimal overhead, enabling indexing only when investigation is needed.
+This retains traffic within the configured raw-capture buffer for later investigation. Available history depends on buffer size and traffic volume; it is not an unlimited or lossless traffic archive.
 
