@@ -15,7 +15,7 @@ const { editHref } = Astro.props as Props;
 	{editHref && (
 		<li class={`heading-link depth-2`}>
 			<a class="edit-on-github" href={editHref} target="_blank">
-				<Icon name="tabler:pencil" class="w-5 h-5" height="1.5em" width="1.5em" />
+				<Icon name="tabler-pencil" class="w-5 h-5" height="1.5em" width="1.5em" />
 				<span>Edit this page</span>
 			</a>
 		</li>
@@ -23,7 +23,7 @@ const { editHref } = Astro.props as Props;
 	{CONFIG.DISCORD_SERVER_INVITE && (
 		<li class={`heading-link depth-2`}>
 			<a href={CONFIG.DISCORD_SERVER_INVITE} target="_blank">
-				<Icon name="tabler:brand-discord" class="w-5 h-5" height="1.5em" width="1.5em" />
+				<Icon name="tabler-brand-discord" class="w-5 h-5" height="1.5em" width="1.5em" />
 				<span>Join our Discord</span>
 			</a>
 		</li>
@@ -31,7 +31,7 @@ const { editHref } = Astro.props as Props;
     {CONFIG.SLACK_WORKSPACE_INVITE && (
 		<li class={`heading-link depth-2`}>
 			<a href={CONFIG.SLACK_WORKSPACE_INVITE} target="_blank">
-				<Icon name="tabler:brand-slack" class="w-5 h-5" height="1.5em" width="1.5em" />
+				<Icon name="tabler-brand-slack" class="w-5 h-5" height="1.5em" width="1.5em" />
 				<span>Join our Slack</span>
 			</a>
 		</li>
