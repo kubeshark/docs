@@ -142,6 +142,7 @@ Existing metrics provide essential insights for monitoring [Kubeshark](https://k
 | kubeshark_live_tcp_streams                | Gauge   | Number of live TCP streams                   |
 | kubeshark_item_count                      | Counter | Total number of items generated              |
 | kubeshark_ws_write_count                  | Counter | Total number of items written into WebSockets |
+| kubeshark_redaction_entries_total         | Counter | Dissected entries processed by [sensitive data redaction](/en/redaction), labelled by `outcome` |
 
 There is no `kubeshark_dns_packets_total`. DNS traffic is counted as UDP or TCP packets like any other protocol; use a [custom metric](#creating-a-custom-metric-best-practice) if you need a per-protocol count.
 
